@@ -58,6 +58,7 @@ void main() {
 
   testWidgets('HauntagotchiApp applies the dark Coffin theme', (tester) async {
     await tester.pumpWidget(const HauntagotchiApp());
+    await tester.pumpAndSettle();
 
     final app = tester.widget<MaterialApp>(find.byType(MaterialApp));
     final expected = CoffinTheme.dark();

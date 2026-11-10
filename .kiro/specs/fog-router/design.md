@@ -187,7 +187,7 @@ final class FogMath {
   static const double defaultMaxBlur = 8;   // blur sigma, logical px
   static const Duration minDuration = Duration(milliseconds: 300);
   static const Duration maxDuration = Duration(milliseconds: 600);
-  static const Duration defaultDuration = Duration(milliseconds: 450);
+  static const Duration defaultDuration = Duration(milliseconds: 600);
 
   final double maxDrift;
   final double maxBlur;
@@ -238,6 +238,8 @@ Duration rules (`resolveDuration`):
 | Reduced motion | `reducedDuration` clamped into 0 to `defaultDuration`; default is `Duration.zero` (an instant change) |
 
 If an app wants a plain opacity fade under reduced motion instead of an instant change, it passes a `reducedDuration` such as 150 ms. The opacity then runs with no drift or blur, as Req 3.3 allows. The default is instant because it is the most conservative choice for people who disable animations. Negative requested durations count as the lower bound of their mode (300 ms normal, zero reduced).
+
+The default is 600 ms, the top of the allowed range. It was 450 ms at first and was raised after a browser check showed it felt too fast. Because the reduced-motion cap is `defaultDuration`, a `reducedDuration` can now be up to 600 ms, which still satisfies Req 3.5 (no longer than the standard duration).
 
 ### FogTransition (widget)
 
@@ -485,7 +487,7 @@ Unit tests cover what generators do not: the exact boundary values 0.0, 0.5, 1.0
 Tests mirror `lib/` under `packages/coffin_core/test/router/`. glados tests hide the clashing `expect`, `group` and `test` names from the glados import, as the existing theme property tests do.
 
 - **`fog_math_property_test.dart`**: Properties 1 to 7 with `Glados`/`Glados2`, using `any.doubleInRange(-5, 5)` for progress and a duration generator built from milliseconds.
-- **`fog_math_test.dart`**: boundary unit tests, assertions, defaults (16 px, sigma 8, 450 ms).
+- **`fog_math_test.dart`**: boundary unit tests, assertions, defaults (16 px, sigma 8, 600 ms).
 - **`fog_frame_test.dart`**: equality and `hashCode`.
 - **`fog_transition_test.dart`** (widget): drives an `AnimationController` through `FogTransition` under a `MediaQuery` wrapper. At progress 0, find a `FadeTransition` whose animation value is 0 and with `alwaysIncludeSemantics` true, and a non-zero translation. Assert the `FadeTransition` is the outermost fog widget and that no `Opacity` widget is used. Under `disableAnimations: true`, assert zero translation at every sampled step and no `ImageFiltered`. When settled, assert no `ImageFiltered` and no translation. Assert `Semantics` is still reachable at progress 0.
 - **`fog_transition_page_test.dart`**: duration is clamped to 300 to 600 ms normally, zero under reduced motion, `reverseTransitionDuration` matches, the page is a `CustomTransitionPage`.

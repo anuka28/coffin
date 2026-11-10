@@ -30,7 +30,7 @@ final class FogMath {
   static const Duration maxDuration = Duration(milliseconds: 600);
 
   /// Default transition duration.
-  static const Duration defaultDuration = Duration(milliseconds: 450);
+  static const Duration defaultDuration = Duration(milliseconds: 600);
 
   /// Vertical drift, in logical pixels, at progress 0.0.
   final double maxDrift;

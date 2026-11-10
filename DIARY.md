@@ -57,4 +57,7 @@ A few lines per day: what I asked Kiro, what worked, what didn't, what I learned
   - Kiro wrote a scratch file to `/tmp`, noticed that broke the "stay inside the repo" rule, deleted it and redid the step inside the repo, and told me. Good self-correction, and I verified it was gone.
   - Turned Autopilot on for task execution after approving the spec, since I verify at each checkpoint anyway.
   - Task 7 checkpoint, verified myself: format clean, analyze no issues, **197 tests pass** in coffin_core (7 new glados properties at 200 runs each). ~14 credits, 33 minutes.
+  - Tasks 8–10: both apps now run through `MaterialApp.router` with the fog router. Built for web and served with a plain static server: `localhost:8080/#/nowhere` shows "THIS PAGE HAS PASSED ON…" with a tombstone glow, and the button fades home. No server rewrites needed. The server log showed the fonts loading from my bundled files, never from Google.
+  - The 404 button has **dark text on purple**: that's the contrast catch from the theme spec, visible in the real app.
+  - **Taste call:** in the browser the 450 ms fog felt a bit fast. No test could tell me that. I had Kiro raise the default to 600 ms (the top of my design rules), updating code, tests and design.md together. Much better.
 - **Kiro CLI:** installed `kiro-cli` 3.1.0 with one curl command and logged in with the same Google account, so it shares my Kiroween credits. It has `chat`, `agent`, `mcp`, `powers` and even a `crew` command. Will try it on a real task later.

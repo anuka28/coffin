@@ -9,7 +9,7 @@ void main() {
     test('constants match the design', () {
       expect(FogMath.defaultMaxDrift, 16);
       expect(FogMath.defaultMaxBlur, 8);
-      expect(FogMath.defaultDuration, const Duration(milliseconds: 450));
+      expect(FogMath.defaultDuration, const Duration(milliseconds: 600));
       expect(FogMath.minDuration, const Duration(milliseconds: 300));
       expect(FogMath.maxDuration, const Duration(milliseconds: 600));
       expect(math.maxDrift, 16);

@@ -34,7 +34,7 @@ Notes that apply to all tasks:
 
   - [x] 2.2 Implement `FogMath`
     - Create `packages/coffin_core/lib/src/router/fog_math.dart` with a `final class FogMath` as in the design.
-    - `const` constructor with `maxDrift` (default 16) and `maxBlur` (default 8), asserting both are `>= 0`. Constants `defaultMaxDrift`, `defaultMaxBlur`, `minDuration` (300 ms), `maxDuration` (600 ms), `defaultDuration` (450 ms).
+    - `const` constructor with `maxDrift` (default 16) and `maxBlur` (default 8), asserting both are `>= 0`. Constants `defaultMaxDrift`, `defaultMaxBlur`, `minDuration` (300 ms), `maxDuration` (600 ms), `defaultDuration` (600 ms).
     - `progress(t)` clamps to 0..1 and maps NaN to 0.
     - `opacity` is `p`. `dx` is always `0.0`. `dy` is `maxDrift * (1 - p)`. `blur` is `maxBlur * (1 - p)`. When `reducedMotion` is true, `dy` and `blur` return the literal `0.0`. `opacity` is unchanged under reduced motion.
     - `frame(t, {reducedMotion})` returns a `FogFrame`.
@@ -44,7 +44,7 @@ Notes that apply to all tasks:
 
   - [x] 2.3 Write unit tests for `FogFrame` and `FogMath`
     - Create `packages/coffin_core/test/router/fog_frame_test.dart` (equality, `hashCode`, inequality when any field differs) and `packages/coffin_core/test/router/fog_math_test.dart`.
-    - `fog_math_test.dart`: defaults (16, 8, 450 ms, 300 ms, 600 ms); boundary values at progress 0.0, 0.5 and 1.0; clamped inputs -1.0 and 2.0; NaN treated as 0.0; opacity 0 at start and 1 at end; offset and blur zero at 1.0; reduced motion gives zero `dx`, `dy` and `blur` at 0.0, 0.5 and 1.0 while opacity stays in range; custom `maxDrift` and `maxBlur` scale the result; a negative `maxDrift` or `maxBlur` trips the assertion; `resolveDuration` clamps 100 ms to 300 ms and 900 ms to 600 ms, leaves 450 ms alone, returns zero under reduced motion by default, honors a 150 ms `reducedDuration`, and clamps a 2 s `reducedDuration` to 450 ms.
+    - `fog_math_test.dart`: defaults (16, 8, 600 ms, 300 ms, 600 ms); boundary values at progress 0.0, 0.5 and 1.0; clamped inputs -1.0 and 2.0; NaN treated as 0.0; opacity 0 at start and 1 at end; offset and blur zero at 1.0; reduced motion gives zero `dx`, `dy` and `blur` at 0.0, 0.5 and 1.0 while opacity stays in range; custom `maxDrift` and `maxBlur` scale the result; a negative `maxDrift` or `maxBlur` trips the assertion; `resolveDuration` clamps 100 ms to 300 ms and 900 ms to 600 ms, leaves 450 ms alone, returns zero under reduced motion by default, honors a 150 ms `reducedDuration`, and clamps a 2 s `reducedDuration` to `defaultDuration` (600 ms).
     - _Requirements: 2.4, 2.8, 3.5, 4.3, 4.4, 4.5, 4.6, 4.8, 4.9, 4.10, 4.11, 5.6, 10.3_
 
   - [x] 2.4 Write property tests for output ranges and settled state
@@ -105,7 +105,7 @@ Notes that apply to all tasks:
 
   - [x] 4.4 Write unit tests for `FogTransitionPage`
     - Create `packages/coffin_core/test/router/fog_transition_page_test.dart`.
-    - Default duration is 450 ms forward and reverse. A 100 ms request clamps to 300 ms and a 900 ms request clamps to 600 ms. With `reducedMotion: true` the duration is zero and a 100 ms request is not raised to 300 ms. The page is a `CustomTransitionPage`. `key`, `name` and `child` are passed through. The `transitionsBuilder` returns a `FogTransition`.
+    - Default duration is 600 ms forward and reverse. A 100 ms request clamps to 300 ms and a 900 ms request clamps to 600 ms. With `reducedMotion: true` the duration is zero and a 100 ms request is not raised to 300 ms. The page is a `CustomTransitionPage`. `key`, `name` and `child` are passed through. The `transitionsBuilder` returns a `FogTransition`.
     - _Requirements: 2.4, 2.5, 2.8, 3.5, 10.3_
 
 - [x] 5. Routes, not-found page and router helper
@@ -178,8 +178,8 @@ Notes that apply to all tasks:
   - Ensure all tests pass, ask the user if questions arise.
   - _Requirements: 10.1, 10.2, 10.3, 10.4, 10.5, 10.6_
 
-- [ ] 8. App wiring
-  - [ ] 8.1 Wire Hauntagotchi to the fog router
+- [x] 8. App wiring
+  - [x] 8.1 Wire Hauntagotchi to the fog router
     - Read `apps/hauntagotchi/lib/main.dart`, `lib/src/ui/placeholder_screen.dart` and `test/ui/placeholder_screen_test.dart` first.
     - Create `apps/hauntagotchi/lib/src/ui/app_routes.dart` with a top-level `final List<AppRoute> appRoutes` holding one route: path `/`, name `home`, builder returning `const PlaceholderScreen()`.
     - Change `HauntagotchiApp` in `main.dart` to a `StatefulWidget`. Build the router once in state with `late final GoRouter _router = FogRouter.create(routes: appRoutes);`, dispose it in `dispose`, and return `MaterialApp.router(title: 'Hauntagotchi', theme: CoffinTheme.dark(), routerConfig: _router)`. `main()` stays `runApp(const HauntagotchiApp())`, with no URL-strategy call.
@@ -187,33 +187,33 @@ Notes that apply to all tasks:
     - Run `flutter analyze` in the app.
     - _Requirements: 7.1, 7.4, 8.1, 8.3, 8.5, 8.6, 8.7, 8.10_
 
-  - [ ] 8.2 Update and extend the Hauntagotchi tests
+  - [x] 8.2 Update and extend the Hauntagotchi tests
     - Edit `apps/hauntagotchi/test/ui/placeholder_screen_test.dart`: in the test that pumps `HauntagotchiApp`, add `await tester.pumpAndSettle();` after `pumpWidget` before finding `PlaceholderScreen`. Keep the theme assertions (`find.byType(MaterialApp)` still finds the `MaterialApp.router`; `app.theme` comparisons stay). Leave the other tests unchanged.
     - Create `apps/hauntagotchi/test/ui/app_routes_test.dart`: the app starts on the Home route and shows `PlaceholderScreen`; an unknown location shows `NotFoundPage` and its button returns to `PlaceholderScreen`. To reach an unknown location, pump `MaterialApp.router` with `FogRouter.create(routes: appRoutes, initialLocation: '/nowhere')`. Also assert `CoffinTheme.dark()` is still applied on the real `HauntagotchiApp`.
     - Run `flutter test` in the app.
     - _Requirements: 8.5, 8.11, 8.12, 10.3_
 
-  - [ ] 8.3 Wire Graveyard to the fog router
+  - [x] 8.3 Wire Graveyard to the fog router
     - Same as 8.1 for `apps/graveyard`, with `GraveyardApp` and title `Graveyard`. Read the existing files first. Do not import anything from Hauntagotchi.
     - _Requirements: 7.2, 7.4, 8.2, 8.4, 8.5, 8.6, 8.7, 8.10_
 
-  - [ ] 8.4 Update and extend the Graveyard tests
+  - [x] 8.4 Update and extend the Graveyard tests
     - Same as 8.2 for `apps/graveyard`: add `pumpAndSettle` to the existing app-root test, and create `apps/graveyard/test/ui/app_routes_test.dart` with the same checks.
     - Run `flutter test` in the app.
     - _Requirements: 8.5, 8.11, 8.12, 10.3_
 
-- [ ] 9. Final verification
-  - [ ] 9.1 Build both apps for web
+- [x] 9. Final verification
+  - [x] 9.1 Build both apps for web
     - Run `flutter build web` in `apps/hauntagotchi` and in `apps/graveyard`. Report success or the exact failure. Do not edit the design to work around a failure.
     - Confirm the generated `build/web/index.html` of each app has no `404.html` or rewrite-rule dependency, and that no `_redirects` or `.htaccess` file was added to the repo. `build/` is gitignored.
     - _Requirements: 7.6_
 
-  - [ ] 9.2 Tell the user how to check hash URLs by hand
+  - [x] 9.2 Tell the user how to check hash URLs by hand
     - Do not start a server (long-running). In the final message, give the exact commands to serve `apps/hauntagotchi/build/web` with a plain static server, and list the two URLs to open: the bare site URL (expect the home screen) and `/#/nowhere` (expect the not-found page with a working button).
     - State plainly that real address-bar behavior and the blur cost on CanvasKit were not verified by automated tests.
     - _Requirements: 7.4, 7.5, 7.6_
 
-- [ ] 10. Final checkpoint - Full workspace verification
+- [x] 10. Final checkpoint - Full workspace verification
   - Run `dart format --set-exit-if-changed .`, `flutter analyze` and `flutter test` in `packages/coffin_core`, `apps/hauntagotchi` and `apps/graveyard`. All must be clean and passing.
   - Run `flutter pub get` at the workspace root and confirm `go_router` 17.5.0 is the only new package in the lockfile resolution.
   - Confirm no secrets were added and no file outside the repository was created or edited.

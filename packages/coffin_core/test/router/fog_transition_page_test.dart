@@ -8,10 +8,10 @@ import 'package:go_router/go_router.dart';
 void main() {
   const child = SizedBox();
 
-  test('defaults to 450 ms forward and reverse', () {
+  test('defaults to 600 ms forward and reverse', () {
     final page = FogTransitionPage<void>(child: child);
-    expect(page.transitionDuration, const Duration(milliseconds: 450));
-    expect(page.reverseTransitionDuration, const Duration(milliseconds: 450));
+    expect(page.transitionDuration, const Duration(milliseconds: 600));
+    expect(page.reverseTransitionDuration, const Duration(milliseconds: 600));
   });
 
   test('is a CustomTransitionPage', () {

@@ -55,10 +55,12 @@ void main() {
 
   testWidgets('GraveyardApp applies CoffinTheme.dark()', (tester) async {
     await tester.pumpWidget(const GraveyardApp());
+    await tester.pumpAndSettle();
 
     final MaterialApp app = tester.widget(find.byType(MaterialApp));
     final ThemeData expected = CoffinTheme.dark();
     expect(app.theme?.colorScheme, expected.colorScheme);
     expect(app.theme?.textTheme, expected.textTheme);
+    expect(find.byType(PlaceholderScreen), findsOneWidget);
   });
 }
