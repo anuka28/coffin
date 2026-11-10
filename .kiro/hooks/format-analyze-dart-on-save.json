@@ -1,0 +1,16 @@
+{
+  "version": "v1",
+  "hooks": [
+    {
+      "name": "Format + analyze Dart on save",
+      "trigger": "PostFileSave",
+      "action": {
+        "type": "command",
+        "command": "dart format packages apps && flutter analyze"
+      },
+      "description": "When a Dart file is saved, run dart format on that file and then flutter analyze, and report any issues.",
+      "matcher": "\\.dart$",
+      "enabled": true
+    }
+  ]
+}

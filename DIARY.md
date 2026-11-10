@@ -38,3 +38,7 @@ A few lines per day: what I asked Kiro, what worked, what didn't, what I learned
 - **Kiro made good judgement calls:** it left an unused import out of `main.dart` (the design listed it, but it would have caused a lint warning), and it reported what it had and hadn't verified instead of claiming everything was done.
 - **Result:** workspace-setup spec 100% complete. `flutter analyze`: no issues. `dart format`: clean. 3/3 widget tests pass (one per member). Both apps have a web shell.
 - Cost of running all tasks: roughly 6 credits (plus the ~28 lost to the stuck session).
+- Ran both apps in Chrome: Hauntagotchi and Graveyard both show the shared `CoffinMark` from `coffin_core`. First light!
+- **Hook #1** ("Format + analyze Dart on save"): built with the hook form as a **Run Command** hook (trigger File Saved, matcher `\.dart$`, command `dart format packages apps && flutter analyze`), so it costs no credits per save.
+  - It didn't fire. First cause: Kiro only loads new hooks at session start, so I had to reload the window (the log went from `registered: 0` to `registered: 1`).
+  - It still didn't fire after reloading. Kiro suggested a debug hook that just appends the date and stdin to a log file; after another reload both hooks were registered, but a manual Cmd+S never created the log. So in this Kiro version, PostFileSave command hooks don't seem to run on manual editor saves. Reported it to the Kiro team; will try other trigger types next.
