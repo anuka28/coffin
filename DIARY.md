@@ -60,4 +60,8 @@ A few lines per day: what I asked Kiro, what worked, what didn't, what I learned
   - Tasks 8–10: both apps now run through `MaterialApp.router` with the fog router. Built for web and served with a plain static server: `localhost:8080/#/nowhere` shows "THIS PAGE HAS PASSED ON…" with a tombstone glow, and the button fades home. No server rewrites needed. The server log showed the fonts loading from my bundled files, never from Google.
   - The 404 button has **dark text on purple**: that's the contrast catch from the theme spec, visible in the real app.
   - **Taste call:** in the browser the 450 ms fog felt a bit fast. No test could tell me that. I had Kiro raise the default to 600 ms (the top of my design rules), updating code, tests and design.md together. Much better.
-- **Kiro CLI:** installed `kiro-cli` 3.1.0 with one curl command and logged in with the same Google account, so it shares my Kiroween credits. It has `chat`, `agent`, `mcp`, `powers` and even a `crew` command. Will try it on a real task later.
+- **Kiro CLI:** installed `kiro-cli` 3.1.0 with one curl command and logged in with the same Google account, so it shares my Kiroween credits. It has `chat`, `agent`, `mcp`, `powers` and even a `crew` command.
+  - First real task: had the CLI rewrite `README.md` from the repo root. It asked to trust the workspace (like the IDE did), picked up my steering docs, checked its claims against the actual files, and honestly said storage and AI aren't built yet. 36 seconds, 0.91 credits.
+  - Review caught a copy-paste bug: the test commands used chained `cd`s that break when pasted in sequence. Asked the CLI to fix it (now each line is a `(cd … && …)` subshell) and to say "my" not "our" (solo entry). I ran the README's test commands exactly as written: 197 + 9 + 8 pass.
+  - IDE vs CLI, my take: 
+
