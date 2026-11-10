@@ -26,7 +26,7 @@ I separate what I **ran** from what I only **read** or **inferred**.
 | `hive_ce_flutter` versions | 2.3.4 (2026-01-09): Flutter `>=3.27.0`, depends on `hive_ce ^2.16.0`, `path_provider ^2.0.10`, `path ^1.8.2`. 2.4.0 and 2.5.0 (latest): Flutter `>=3.44.0` and additionally depend on `material_ui ^1.0.0`. | Ran `curl` on the pub.dev API. | pub.dev API |
 | What `material_ui` adds | `material_ui` 1.11.0 depends on `cupertino_ui`, `flutter_localizations`, `intl`, `material_color_utilities`, `vector_math`, `collection`. | Ran `curl` on the pub.dev API. | pub.dev API |
 | Already in the workspace lock | `crypto 3.0.8`, `meta 1.19.0`, `path 1.9.1`, `web 1.1.2`, `ffi 2.2.0`, `collection 1.19.1`, `glados 1.1.7`, `flutter_web_plugins` (SDK). Not in the lock: `isolate_channel`, `json_annotation`, `path_provider*`, `plugin_platform_interface`, `platform`, `xdg_directories`, `jni`. | Read `pubspec.lock`. | repo |
-| `path_provider` chain | `path_provider 2.1.6` depends on `path_provider_android 2.3.1` (which lists `jni`, `jni_flutter`), `path_provider_foundation 2.6.0` (`ffi`, `objective_c`), `path_provider_linux 2.2.2` (`ffi`, `path`, `xdg_directories`), `path_provider_windows 2.3.0` (`ffi`, `path`), `path_provider_platform_interface 2.1.3` (`platform`, `plugin_platform_interface`). These are the latest of each; pub may resolve older ones. | Read from the pub.dev API. **I did not run pub resolution** (not allowed), so the exact set is unconfirmed. | pub.dev API |
+| `path_provider` chain | `path_provider 2.1.6` depends on `path_provider_android 2.3.1` (which lists `jni`, `jni_flutter`), `path_provider_foundation 2.6.0` (`ffi`, `objective_c`), `path_provider_linux 2.2.2` (`ffi`, `path`, `xdg_directories`), `path_provider_windows 2.3.0` (`ffi`, `path`), `path_provider_platform_interface 2.1.3` (`platform`, `plugin_platform_interface`). These are the latest of each. The task 1 dry-run **confirmed** the set and showed four more packages one level deeper: `jni_util` (via `jni`), `hooks` and `code_assets` (via `objective_c`), and `record_use` (via `hooks`). The user approved all four (see "Dependency decision"). | Read from the pub.dev API, then **confirmed by running** `flutter pub add hive_ce:2.23.3 hive_ce_flutter:2.3.4 --dry-run` ("Would change 20 dependencies"). | pub.dev API, local |
 | Key rule: type and length | `Frame.assertKey` accepts an `int` in `0..0xFFFFFFFF` or a `String` with `key.length <= 0xFF` and otherwise throws `HiveError`. It is called only inside `assert(...)` in the three `Frame` constructors. | Read. `hive_ce-2.23.3/lib/src/binary/frame.dart` lines 27, 36, 44, 48-62 (the length check is lines 53-56). | pub archive |
 | Key rule: encoding | String keys are written as `FrameKeyType.utf8StringT`, then `writeByte(bytes.length)` where `bytes` is the UTF-8 encoding, then the bytes. Reading mirrors it with `readByte()` for the byte count. | Read. `lib/src/binary/binary_writer_impl.dart` lines 217-229, `lib/src/binary/binary_reader_impl.dart` lines 224-234. | pub archive |
 | Consequence for non-ASCII keys | Hive's check counts UTF-16 code units, but the file format stores a UTF-8 byte count in one byte. 255 `é` characters pass the check and are 510 bytes. I expect the one-byte count to wrap and corrupt the frame. **I did not run this** (it needs the package). | Inferred from the two reads above. | pub archive |
@@ -87,9 +87,21 @@ I deleted the file and the empty `test/storage` directory afterwards. `git statu
 11. `platform`
 12. `xdg_directories`
 13. `objective_c`
-14. possibly `jni` and `jni_flutter` (both or neither; I could not confirm whether pub picks the `jni` family)
+14. `jni` and `jni_flutter` (confirmed by the dry-run)
+15. `jni_util`
+16. `hooks`
+17. `code_assets`
+18. `record_use`
+
+Items 15 to 18 were not in the first version of this list. They come from path_provider's native platform packages: `path_provider_android` -> `jni` -> `jni_util`, and `path_provider_foundation` -> `objective_c` -> `hooks` and `code_assets`, with `hooks` -> `record_use`. The user approved all four after the first gate run.
 
 `isolate_channel` needs only `meta`, and `json_annotation` is small pure Dart. The rest are native plugin packages. Packages already in the lock (`crypto`, `meta`, `path`, `web`, `ffi`, `collection`) are not additions.
+
+Their other dependencies (`yaml` 3.1.4, `logging` 1.3.0, `pub_semver` 2.2.1, `args` 2.7.0, `package_config` 2.2.0, `collection`, `crypto`, `meta`, `path`, `ffi`) were confirmed already present in `pubspec.lock`, so they are not additions.
+
+**Dry-run result (task 1).** `flutter pub add hive_ce:2.23.3 hive_ce_flutter:2.3.4 --dry-run` in `packages/coffin_core` reported "Would change 20 dependencies". The 20 added packages are: `code_assets` 2.2.0, `hive_ce` 2.23.3, `hive_ce_flutter` 2.3.4, `hooks` 2.2.0, `isolate_channel` 0.6.2, `jni` 1.1.2, `jni_flutter` 1.0.4+1, `jni_util` 1.0.0, `json_annotation` 4.12.0, `objective_c` 9.6.3, `path_provider` 2.1.6, `path_provider_android` 2.3.1, `path_provider_foundation` 2.6.0, `path_provider_linux` 2.2.2, `path_provider_platform_interface` 2.1.3, `path_provider_windows` 2.3.0, `platform` 3.2.0, `plugin_platform_interface` 2.1.8, `record_use` 1.1.1, `xdg_directories` 1.1.0. Sixteen matched the original list; the four extra ones are items 15 to 18.
+
+**Why the list missed four.** The original list followed path_provider's dependencies only one level deep, so it missed the packages that `jni` and `objective_c` pull in.
 
 **First implementation task (hard gate).** Before anything is written to a `pubspec.yaml`, run `flutter pub add hive_ce:2.23.3 hive_ce_flutter:2.3.4 --dry-run` in `packages/coffin_core`. Compare the packages it would add with the expected list above:
 
@@ -849,7 +861,7 @@ The task that adds this step does the following:
 
 ## Decisions confirmed by the user
 
-1. **Pins and extra packages.** `hive_ce: 2.23.3` and `hive_ce_flutter: 2.3.4`, exact. The first implementation task is `flutter pub add --dry-run` for both. If it would add any package beyond the expected list in "Dependency decision", work stops and the full list is shown to the user before anything is added.
+1. **Pins and extra packages.** `hive_ce: 2.23.3` and `hive_ce_flutter: 2.3.4`, exact. The first implementation task is `flutter pub add --dry-run` for both. If it would add any package beyond the expected list in "Dependency decision", work stops and the full list is shown to the user before anything is added. The gate ran and stopped on four packages beyond the original list (`code_assets` 2.2.0, `hooks` 2.2.0, `record_use` 1.1.1, `jni_util` 1.0.0). The user approved all four after the first gate run, and kept both pins.
 2. **Stricter keys than Hive.** The `KeyValidator` stays a strict subset of what Hive accepts (non-empty, at most 255 code units, each at most `U+007F`). Requirement 3.8 has been reworded in `requirements.md`: every key the validator accepts works in a real box, every key the real box rejects is rejected by the validator, and the validator may reject keys Hive accepts. "Key rules (verified from source)" cites this wording.
 3. **Adapters.** Acceptable. `hiveFlutterInitializer` stays built on `Hive.initFlutter`. Its doc comment states that `hive_ce_flutter` registers the Color and TimeOfDay adapters (type ids 200 and 201), that coffin registers none of its own, and that coffin boxes hold only JSON strings.
 4. **Run counts.** Property 6 uses 100 runs with at most 30 operations per sequence. All other glados properties use 200 runs. If the storage tests take more than about 60 seconds in total, the timing is reported to the user before any count is lowered. Counts are never lowered silently.
@@ -865,4 +877,4 @@ The task that adds this step does the following:
 
 ### Decisions affect on requirements
 
-Requirement 16.6 ("add `hive_ce` and `hive_ce_flutter` with exact pinned versions and no other new package") still holds. `meta` is an existing package already resolved in `pubspec.lock`, so declaring it directly adds no new package. The transitive packages arrive only through the two approved packages, and they are gated by the first-task dry-run comparison against the expected list: anything beyond that list stops work until the user decides. Requirement 3.8 has already been reworded in `requirements.md` to the strict-subset form used here. No other requirement text changes.
+Requirement 16.6 ("add `hive_ce` and `hive_ce_flutter` with exact pinned versions and no other new package") still holds. `meta` is an existing package already resolved in `pubspec.lock`, so declaring it directly adds no new package. The transitive packages arrive only through the two approved packages, and the full set (the 20 packages from the task 1 dry-run, including `code_assets`, `hooks`, `record_use` and `jni_util`) was approved by the user. Requirement 3.8 has already been reworded in `requirements.md` to the strict-subset form used here. No other requirement text changes.

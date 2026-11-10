@@ -25,8 +25,8 @@ Notes that apply to all tasks:
 
 ## Tasks
 
-- [ ] 1. Dependency gate
-  - [ ] 1.1 Dry-run, then add the storage packages to `coffin_core`
+- [x] 1. Dependency gate
+  - [x] 1.1 Dry-run, then add the storage packages to `coffin_core`
     - Read `packages/coffin_core/pubspec.yaml` and the numbered "Expected package list" in design.md's "Dependency decision" first.
     - In `packages/coffin_core`, run `flutter pub add hive_ce:2.23.3 hive_ce_flutter:2.3.4 --dry-run`. Compare every package it would add against the expected list. `meta`, `crypto`, `path`, `web`, `ffi` and `collection` are already in the lock and do not count as additions.
     - If it would add ANY package not on the list, STOP. Show the user the full dry-run output, add nothing, and wait for their decision. Do not continue to later tasks.
@@ -34,75 +34,75 @@ Notes that apply to all tasks:
     - Run `flutter pub get` at the workspace root and confirm in `pubspec.lock` that only listed packages were added.
     - _Requirements: 16.6, 16.7, 16.8, 15.7, 15.10_
 
-- [ ] 2. Contracts and value types
-  - [ ] 2.1 Implement `JsonMap`, `RecordCodec` and `RecordRepository`
+- [x] 2. Contracts and value types
+  - [x] 2.1 Implement `JsonMap`, `RecordCodec` and `RecordRepository`
     - Create `json_map.dart` (`typedef JsonMap = Map<String, Object?>`), `record_codec.dart` (`abstract interface class RecordCodec<T>` with `encode` and `decode`) and `record_repository.dart` (`abstract interface class RecordRepository<T>` with `get`, `getAll`, `put`, `delete`, `clear`, `watch`, `close`) in `packages/coffin_core/lib/src/storage/`.
     - Full doc comments on every member, stating semantics (missing key gives null, order, overwrite, closed behavior, unencrypted storage). No Hive type in any signature. No Flutter import.
     - Add `test/storage/storage_contracts_test.dart` with a tiny in-test fake implementing the interfaces, checking they compile and have the expected shape.
     - _Requirements: 1.1, 1.2, 1.3, 1.4, 1.5, 6.1, 6.2, 15.1, 15.4, 15.5_
 
-  - [ ] 2.2 Implement events, issues, reporter and migration hook
+  - [x] 2.2 Implement events, issues, reporter and migration hook
     - Create `storage_event_kind.dart`, `storage_event.dart` (immutable, value equality, `put`/`delete`/`clear` constructors, readable `toString`), `storage_issue_kind.dart`, `storage_issue.dart` (immutable, value equality), `issue_reporter.dart` (`IssueReporter` typedef, `discardIssues`, `reportSafely` that swallows reporter exceptions) and `migration_hook.dart`.
     - Import `@immutable` from `package:meta/meta.dart`, never from Flutter.
     - Add `storage_event_test.dart`, `storage_issue_test.dart` and `issue_reporter_test.dart`: equality and `hashCode` per field, `clear` has a null key, the default reporter discards, a throwing reporter is swallowed and later calls still work.
     - _Requirements: 4.8, 10.4, 10.8, 10.9, 9.2, 15.4, 15.5_
 
-- [ ] 3. Key validator
-  - [ ] 3.1 Implement `KeyValidator`
+- [x] 3. Key validator
+  - [x] 3.1 Implement `KeyValidator`
     - Create `key_validator.dart` with `maxLength` 255, `maxCodeUnit` 0x7F, `violation`, `isValid` and `check` (throws `ArgumentError`). Messages state a length or index, never the key text.
     - Add `key_validator_test.dart`: every row of the boundary key table B1 to B11 with the expected coffin verdict (B1, B4, B7, B8, B9, B10 reject; B2, B3, B5, B6, B11 accept), the error message does not contain the key, and `check` does not throw for valid keys.
     - _Requirements: 3.1, 3.5, 3.6, 3.7, 3.9, 15.4_
 
-  - [ ] 3.2 Write property test for the key validator
+  - [x] 3.2 Write property test for the key validator
     - Create `key_validator_property_test.dart`, hiding the glados name clashes. `numRuns: 200`.
     - **Property 3: Key validator matches its rule.** For any string (generator mixes ASCII, accented letters, emoji, lone surrogates, lengths around 255, and the boundary keys), `isValid` is true exactly when non-empty, at most 255 code units, every unit at most 0x7F. When false, `check` throws `ArgumentError` and the message does not contain the input. When true, `check` does not throw.
     - **Validates: Requirements 3.1, 3.5, 3.6**
 
-- [ ] 4. JSON safety and envelope
-  - [ ] 4.1 Implement `JsonSafety`
+- [x] 4. JSON safety and envelope
+  - [x] 4.1 Implement `JsonSafety`
     - Create `json_safety.dart` with `maxSafeInt` (2^53 - 1), `maxDepth` (64), `isSafe`, `check` (throws `ArgumentError` naming the path, never the value) and `deepCopy` (fresh `Map<String, Object?>` and `List<Object?>`). Detect NaN, infinity, big ints, non-String map keys, other object types and cyclic or too deep values.
     - Add `json_safety_test.dart` with examples for each unsafe class, the exact limits (2^53 - 1 safe, 2^53 unsafe, depth 64 safe, depth 65 unsafe), and a copy that shares no instance with the original.
     - _Requirements: 6.2, 6.6, 9.11, 15.4_
 
-  - [ ] 4.2 Write property test for JSON safety
+  - [x] 4.2 Write property test for JSON safety
     - Create `json_safety_property_test.dart`. `numRuns: 200`.
     - **Property 4: JSON safety detects every unsafe value.** For any generated safe map, `check` passes and `deepCopy` equals the original and shares no `Map` or `List` instance. With one unsafe value injected at a random position (NaN, infinity, integer beyond +/-(2^53 - 1), non-String map key, `DateTime`, depth beyond 64), `check` throws `ArgumentError`. Build doubles with `any.doubleInRange`, never `any.double`.
     - **Validates: Requirements 6.2, 6.6, 9.11**
 
-  - [ ] 4.3 Implement `Envelope`, `EnvelopeFormatException` and `EnvelopeCodec`
+  - [x] 4.3 Implement `Envelope`, `EnvelopeFormatException` and `EnvelopeCodec`
     - Create `envelope.dart`, `envelope_format_exception.dart` (fixed reason string, never part of the input) and `envelope_codec.dart` (`maxVersion` 2^31 - 1, `encode(version, data)` giving `{"v":..,"data":{..}}`, `parse(raw)` implementing decode table steps 1 to 3: not JSON or not an object, bad `v`, bad `data`). A `v` such as `2.0` is accepted as 2; `1.5`, negatives, strings, null and values above `maxVersion` are rejected. Extra envelope properties are ignored.
     - Add `envelope_codec_test.dart`: the exact encoded text for a sample, each rejection case, `2.0` accepted, `maxVersion` accepted and `maxVersion + 1` rejected, extra properties ignored, messages never contain input text.
     - _Requirements: 6.3, 6.7, 9.7, 15.4_
 
-  - [ ] 4.4 Write property test for the envelope round trip
+  - [x] 4.4 Write property test for the envelope round trip
     - Create `envelope_codec_property_test.dart`. `numRuns: 200`.
     - **Property 2: Envelope round trip.** For any safe map (depth at most 3, at most 4 entries per map or list, nulls, bools, finite doubles in `[-1e9, 1e9]`, ints within +/-(2^53 - 1), strings from a mixed alphabet including unicode, an emoji, a lone surrogate, quotes, backslashes and control characters, keys from the same alphabet) and any version in `0..maxVersion`, `parse(encode(v, m))` returns version `v` and a deeply equal map.
     - **Validates: Requirements 6.3, 6.5, 12.2**
 
-- [ ] 5. Queue and raw stores
-  - [ ] 5.1 Implement `OperationQueue`
+- [x] 5. Queue and raw stores
+  - [x] 5.1 Implement `OperationQueue`
     - Create `operation_queue.dart` with `run<R>` that chains each operation after the previous one, swallowing the previous failure so one failed operation never blocks later ones.
     - Add `operation_queue_test.dart`: operations run in submission order even when earlier ones take longer, a failing operation completes its own future with the error and later operations still run, results are returned to the right caller.
     - _Requirements: 2.8, 2.9, 15.4_
 
-  - [ ] 5.2 Implement `RawStore` and `MemoryRawStore`
+  - [x] 5.2 Implement `RawStore` and `MemoryRawStore`
     - Create `raw_store.dart` (the interface from the design) and `memory_raw_store.dart` (Map-backed, no shared state between instances, `close` drops entries, seed keys validated with `KeyValidator` and a bad seed key throws `ArgumentError`).
     - Add `memory_raw_store_test.dart`: read, keys, write, remove (reports whether the key existed), removeAll, close, two instances share nothing, a bad seed key throws.
     - _Requirements: 8.2, 8.4, 8.5, 5.4, 3.1, 15.4_
 
-- [ ] 6. Pure test support
-  - [ ] 6.1 Create pure test support files
+- [x] 6. Pure test support
+  - [x] 6.1 Create pure test support files
     - Create under `test/storage/support/` (pure, no `dart:io`, no `hive_ce`): `test_note.dart` (`TestNote` with `title`, `count`, `weight`, `tags`, `extra`, value equality and readable `toString`, plus `TestNoteCodec`), `storage_generators.dart` (key generator weighted toward six ordinary keys `a` to `f` plus the boundary keys B1 to B11; `TestNote` generator; safe JSON map generator; stored-entry generators for every decode table class; `Op` sealed class with `PutOp`, `DeleteOp`, `ClearOp` and readable `toString` such as `put("a", TestNote(...))`; a deep-equals helper) and `repository_contract.dart` (a shared example body that takes a repository factory and a way to read raw contents).
     - Add a small sanity test for the generators and `TestNote` equality.
     - _Requirements: 12.1, 12.5, 12.10, 12.11, 14.1_
 
-  - [ ] 6.2 Write property test for the codec round trip
+  - [x] 6.2 Write property test for the codec round trip
     - Create `record_codec_property_test.dart`. `numRuns: 200`.
     - **Property 1: Codec round trip.** For any generated `TestNote` `x`, `codec.decode(codec.encode(x))` equals `x` and `JsonSafety.isSafe(codec.encode(x))` is true.
     - **Validates: Requirements 6.2, 6.4, 12.1**
 
-- [ ] 7. Shared engine and memory repository
-  - [ ] 7.1 Implement `EnvelopeRepository` and `MemoryRecordRepository`
+- [x] 7. Shared engine and memory repository
+  - [x] 7.1 Implement `EnvelopeRepository` and `MemoryRecordRepository`
     - Create `envelope_repository.dart` and `memory_record_repository.dart`, implementing the design's put flow, queue rules, decode table, event rules and close rules.
     - Checks at call time before enqueueing, in this order: closed (`StateError`), key (`ArgumentError`), encode and `JsonSafety.check` (`ArgumentError`). `encode` exceptions propagate unchanged.
     - `getAll` ignores non-valid or non-String keys silently, sorts with `String.compareTo`, decodes each value by the table (current version without hook; lower with hook once, with a copy; lower without hook and higher are `unknownVersion`; throwing hook is `migrationFailed`; the rest `corruptRecord`), skips bad entries and reports one `StorageIssue` per skipped entry per read with fixed messages that never include payload text or the exception message.
@@ -110,7 +110,7 @@ Notes that apply to all tasks:
     - Reads never write. `currentVersion` outside `0..maxVersion` fails an assert.
     - _Requirements: 2.1, 2.2, 2.3, 2.4, 2.5, 2.6, 2.7, 2.8, 2.9, 2.10, 3.2, 3.4, 4.1, 4.2, 4.3, 4.4, 4.5, 4.6, 4.7, 5.1, 5.2, 5.3, 5.4, 6.6, 8.1, 8.2, 8.3, 8.4, 8.5, 9.1, 9.2, 9.3, 9.4, 9.5, 9.6, 9.7, 9.8, 9.9, 9.10, 9.11, 10.1, 10.2, 10.3, 10.4, 10.5, 10.6, 10.7, 10.8, 10.10, 15.4, 15.5_
 
-  - [ ] 7.2 Write example tests for the memory repository
+  - [x] 7.2 Write example tests for the memory repository
     - Create `memory_record_repository_test.dart`, running the shared `repository_contract` body plus memory-only cases.
     - Semantics: get missing key is null; overwrite; delete missing emits nothing; `clear` on an empty repository emits one `clear`; ordering by code unit; boundary keys at and past the limit (valid keys round trip, invalid keys throw `ArgumentError` from `get`, `put` and `delete`, with no event); `clear` takes no key.
     - Watch: broadcast with two listeners; no replay for a late listener; events in order; stream completes on close; no stream error for corrupt entries.
@@ -121,27 +121,27 @@ Notes that apply to all tasks:
     - Concurrency: calls made without awaiting apply in call order.
     - _Requirements: 2.1, 2.2, 2.3, 2.4, 2.5, 2.6, 2.7, 2.9, 3.2, 3.5, 3.6, 4.1, 4.2, 4.3, 4.4, 4.5, 4.6, 4.7, 5.1, 5.2, 5.3, 5.4, 6.6, 8.1, 8.4, 9.2, 9.3, 9.4, 9.5, 9.6, 9.7, 9.8, 9.9, 9.10, 10.1, 10.2, 10.3, 10.4, 10.5, 10.6, 10.7, 10.8, 10.10, 14.1, 14.2, 14.3, 14.6_
 
-  - [ ] 7.3 Write property test for rejected puts
+  - [x] 7.3 Write property test for rejected puts
     - Create `envelope_repository_property_test.dart` (pure, memory store, Chrome-run). `numRuns: 200`.
     - **Property 5: A rejected put changes nothing.** For any record whose codec returns an unsafe map, `put` fails with `ArgumentError`, `getAll` is unchanged, the raw store contents are unchanged and no event is emitted. (The Hive-backed variant of this check is an example test in task 10.2.)
     - **Validates: Requirements 6.6, 14.6**
 
-  - [ ] 7.4 Write property test for the decode table
+  - [x] 7.4 Write property test for the decode table
     - In `envelope_repository_property_test.dart`. `numRuns: 200`. Each run owns its repository and store.
     - **Property 7: Stored entries are decoded by the table, and only that.** For any seeded set of entries from the generator classes and any current version, with a counting migration hook: each entry reads as the decode table says; `get` returns null for skipped entries; `getAll` returns exactly the decodable records in key order; the reporter gets exactly one issue per skipped entry per read with the right kind and key; the hook is called exactly once with the stored version and a payload copy for lower versions; no issue message contains the unique payload marker string carried by each entry.
     - **Validates: Requirements 2.6, 9.2, 9.3, 9.4, 9.5, 9.6, 9.7, 9.8, 10.1, 10.2, 10.3, 10.10**
 
-  - [ ] 7.5 Write property test that reads change nothing
+  - [x] 7.5 Write property test that reads change nothing
     - In `envelope_repository_property_test.dart`. `numRuns: 200`.
     - **Property 8: Reads change nothing.** For any seeded set of entries and any sequence of `get` and `getAll` calls, the raw store contents (every key and string) are identical before and after, for valid, outdated, newer and corrupt entries.
     - **Validates: Requirements 9.6, 9.9, 10.5**
 
-  - [ ] 7.6 Write property test that put stores the current version
+  - [x] 7.6 Write property test that put stores the current version
     - In `envelope_repository_property_test.dart`. `numRuns: 200`.
     - **Property 9: Put stores the current version.** For any record and current version, after `put` the raw envelope for the key has version equal to the current version and `get` returns an equal record, including when the key previously held an older or corrupt entry that was read first.
     - **Validates: Requirements 9.1, 9.10, 10.6**
 
-- [ ] 8. Checkpoint - Pure layer verification
+- [x] 8. Checkpoint - Pure layer verification
   - Run `dart format --set-exit-if-changed .`, `flutter analyze` and `flutter test` in `packages/coffin_core`. Fix anything that fails.
   - Ensure all tests pass, ask the user if questions arise.
   - _Requirements: 16.1, 16.2, 16.5_

@@ -1,0 +1,304 @@
+{
+  "pbtResults": {},
+  "executionHistory": {
+    "1.1 Dry-run, then add the storage packages to `coffin_core`": [
+      {
+        "executionId": "6b8c1bde-985f-40ae-9c4b-158ec4aab79e",
+        "chatSessionId": "sess_8c75afc9-f8e7-4add-97a9-13fb781fd74a",
+        "timestamp": 1794295052211
+      },
+      {
+        "executionId": "6b8c1bde-985f-40ae-9c4b-158ec4aab79e",
+        "chatSessionId": "sess_8c75afc9-f8e7-4add-97a9-13fb781fd74a",
+        "timestamp": 1794295117933
+      },
+      {
+        "executionId": "b9c9b38a-8ad0-4def-8fe1-efd8b24f8bd2",
+        "chatSessionId": "sess_8c75afc9-f8e7-4add-97a9-13fb781fd74a",
+        "timestamp": 1794295413699
+      },
+      {
+        "executionId": "b9c9b38a-8ad0-4def-8fe1-efd8b24f8bd2",
+        "chatSessionId": "sess_8c75afc9-f8e7-4add-97a9-13fb781fd74a",
+        "timestamp": 1794295521799
+      }
+    ],
+    "1. Dependency gate": [
+      {
+        "executionId": "b9c9b38a-8ad0-4def-8fe1-efd8b24f8bd2",
+        "chatSessionId": "sess_8c75afc9-f8e7-4add-97a9-13fb781fd74a",
+        "timestamp": 1794295521830
+      }
+    ],
+    "2.1 Implement `JsonMap`, `RecordCodec` and `RecordRepository`": [
+      {
+        "executionId": "b9c9b38a-8ad0-4def-8fe1-efd8b24f8bd2",
+        "chatSessionId": "sess_8c75afc9-f8e7-4add-97a9-13fb781fd74a",
+        "timestamp": 1794295530119
+      },
+      {
+        "executionId": "b9c9b38a-8ad0-4def-8fe1-efd8b24f8bd2",
+        "chatSessionId": "sess_8c75afc9-f8e7-4add-97a9-13fb781fd74a",
+        "timestamp": 1794295629984
+      }
+    ],
+    "2.2 Implement events, issues, reporter and migration hook": [
+      {
+        "executionId": "b9c9b38a-8ad0-4def-8fe1-efd8b24f8bd2",
+        "chatSessionId": "sess_8c75afc9-f8e7-4add-97a9-13fb781fd74a",
+        "timestamp": 1794295640813
+      },
+      {
+        "executionId": "b9c9b38a-8ad0-4def-8fe1-efd8b24f8bd2",
+        "chatSessionId": "sess_8c75afc9-f8e7-4add-97a9-13fb781fd74a",
+        "timestamp": 1794295783890
+      }
+    ],
+    "3.1 Implement `KeyValidator`": [
+      {
+        "executionId": "b9c9b38a-8ad0-4def-8fe1-efd8b24f8bd2",
+        "chatSessionId": "sess_8c75afc9-f8e7-4add-97a9-13fb781fd74a",
+        "timestamp": 1794295640854
+      },
+      {
+        "executionId": "b9c9b38a-8ad0-4def-8fe1-efd8b24f8bd2",
+        "chatSessionId": "sess_8c75afc9-f8e7-4add-97a9-13fb781fd74a",
+        "timestamp": 1794295783971
+      }
+    ],
+    "4.1 Implement `JsonSafety`": [
+      {
+        "executionId": "b9c9b38a-8ad0-4def-8fe1-efd8b24f8bd2",
+        "chatSessionId": "sess_8c75afc9-f8e7-4add-97a9-13fb781fd74a",
+        "timestamp": 1794295640883
+      },
+      {
+        "executionId": "b9c9b38a-8ad0-4def-8fe1-efd8b24f8bd2",
+        "chatSessionId": "sess_8c75afc9-f8e7-4add-97a9-13fb781fd74a",
+        "timestamp": 1794295784036
+      }
+    ],
+    "4.3 Implement `Envelope`, `EnvelopeFormatException` and `EnvelopeCodec`": [
+      {
+        "executionId": "b9c9b38a-8ad0-4def-8fe1-efd8b24f8bd2",
+        "chatSessionId": "sess_8c75afc9-f8e7-4add-97a9-13fb781fd74a",
+        "timestamp": 1794295640929
+      },
+      {
+        "executionId": "b9c9b38a-8ad0-4def-8fe1-efd8b24f8bd2",
+        "chatSessionId": "sess_8c75afc9-f8e7-4add-97a9-13fb781fd74a",
+        "timestamp": 1794295784720
+      }
+    ],
+    "5.1 Implement `OperationQueue`": [
+      {
+        "executionId": "b9c9b38a-8ad0-4def-8fe1-efd8b24f8bd2",
+        "chatSessionId": "sess_8c75afc9-f8e7-4add-97a9-13fb781fd74a",
+        "timestamp": 1794295641307
+      },
+      {
+        "executionId": "b9c9b38a-8ad0-4def-8fe1-efd8b24f8bd2",
+        "chatSessionId": "sess_8c75afc9-f8e7-4add-97a9-13fb781fd74a",
+        "timestamp": 1794295785596
+      }
+    ],
+    "2. Contracts and value types": [
+      {
+        "executionId": "b9c9b38a-8ad0-4def-8fe1-efd8b24f8bd2",
+        "chatSessionId": "sess_8c75afc9-f8e7-4add-97a9-13fb781fd74a",
+        "timestamp": 1794295783914
+      }
+    ],
+    "3.2 Write property test for the key validator": [
+      {
+        "executionId": "b9c9b38a-8ad0-4def-8fe1-efd8b24f8bd2",
+        "chatSessionId": "sess_8c75afc9-f8e7-4add-97a9-13fb781fd74a",
+        "timestamp": 1794295792860
+      },
+      {
+        "executionId": "b9c9b38a-8ad0-4def-8fe1-efd8b24f8bd2",
+        "chatSessionId": "sess_8c75afc9-f8e7-4add-97a9-13fb781fd74a",
+        "timestamp": 1794296556846
+      }
+    ],
+    "4.2 Write property test for JSON safety": [
+      {
+        "executionId": "b9c9b38a-8ad0-4def-8fe1-efd8b24f8bd2",
+        "chatSessionId": "sess_8c75afc9-f8e7-4add-97a9-13fb781fd74a",
+        "timestamp": 1794295793581
+      },
+      {
+        "executionId": "b9c9b38a-8ad0-4def-8fe1-efd8b24f8bd2",
+        "chatSessionId": "sess_8c75afc9-f8e7-4add-97a9-13fb781fd74a",
+        "timestamp": 1794296556919
+      }
+    ],
+    "4.4 Write property test for the envelope round trip": [
+      {
+        "executionId": "b9c9b38a-8ad0-4def-8fe1-efd8b24f8bd2",
+        "chatSessionId": "sess_8c75afc9-f8e7-4add-97a9-13fb781fd74a",
+        "timestamp": 1794295794796
+      },
+      {
+        "executionId": "b9c9b38a-8ad0-4def-8fe1-efd8b24f8bd2",
+        "chatSessionId": "sess_8c75afc9-f8e7-4add-97a9-13fb781fd74a",
+        "timestamp": 1794296556965
+      }
+    ],
+    "5.2 Implement `RawStore` and `MemoryRawStore`": [
+      {
+        "executionId": "b9c9b38a-8ad0-4def-8fe1-efd8b24f8bd2",
+        "chatSessionId": "sess_8c75afc9-f8e7-4add-97a9-13fb781fd74a",
+        "timestamp": 1794295795956
+      },
+      {
+        "executionId": "b9c9b38a-8ad0-4def-8fe1-efd8b24f8bd2",
+        "chatSessionId": "sess_8c75afc9-f8e7-4add-97a9-13fb781fd74a",
+        "timestamp": 1794296557015
+      }
+    ],
+    "6.1 Create pure test support files": [
+      {
+        "executionId": "b9c9b38a-8ad0-4def-8fe1-efd8b24f8bd2",
+        "chatSessionId": "sess_8c75afc9-f8e7-4add-97a9-13fb781fd74a",
+        "timestamp": 1794295796554
+      },
+      {
+        "executionId": "b9c9b38a-8ad0-4def-8fe1-efd8b24f8bd2",
+        "chatSessionId": "sess_8c75afc9-f8e7-4add-97a9-13fb781fd74a",
+        "timestamp": 1794296557161
+      }
+    ],
+    "3. Key validator": [
+      {
+        "executionId": "b9c9b38a-8ad0-4def-8fe1-efd8b24f8bd2",
+        "chatSessionId": "sess_8c75afc9-f8e7-4add-97a9-13fb781fd74a",
+        "timestamp": 1794296556868
+      }
+    ],
+    "4. JSON safety and envelope": [
+      {
+        "executionId": "b9c9b38a-8ad0-4def-8fe1-efd8b24f8bd2",
+        "chatSessionId": "sess_8c75afc9-f8e7-4add-97a9-13fb781fd74a",
+        "timestamp": 1794296556982
+      }
+    ],
+    "5. Queue and raw stores": [
+      {
+        "executionId": "b9c9b38a-8ad0-4def-8fe1-efd8b24f8bd2",
+        "chatSessionId": "sess_8c75afc9-f8e7-4add-97a9-13fb781fd74a",
+        "timestamp": 1794296557041
+      }
+    ],
+    "6.2 Write property test for the codec round trip": [
+      {
+        "executionId": "b9c9b38a-8ad0-4def-8fe1-efd8b24f8bd2",
+        "chatSessionId": "sess_8c75afc9-f8e7-4add-97a9-13fb781fd74a",
+        "timestamp": 1794296564591
+      },
+      {
+        "executionId": "b9c9b38a-8ad0-4def-8fe1-efd8b24f8bd2",
+        "chatSessionId": "sess_8c75afc9-f8e7-4add-97a9-13fb781fd74a",
+        "timestamp": 1794296596141
+      }
+    ],
+    "7.1 Implement `EnvelopeRepository` and `MemoryRecordRepository`": [
+      {
+        "executionId": "b9c9b38a-8ad0-4def-8fe1-efd8b24f8bd2",
+        "chatSessionId": "sess_8c75afc9-f8e7-4add-97a9-13fb781fd74a",
+        "timestamp": 1794296565766
+      },
+      {
+        "executionId": "b9c9b38a-8ad0-4def-8fe1-efd8b24f8bd2",
+        "chatSessionId": "sess_8c75afc9-f8e7-4add-97a9-13fb781fd74a",
+        "timestamp": 1794296597169
+      }
+    ],
+    "6. Pure test support": [
+      {
+        "executionId": "b9c9b38a-8ad0-4def-8fe1-efd8b24f8bd2",
+        "chatSessionId": "sess_8c75afc9-f8e7-4add-97a9-13fb781fd74a",
+        "timestamp": 1794296596157
+      }
+    ],
+    "7.2 Write example tests for the memory repository": [
+      {
+        "executionId": "b9c9b38a-8ad0-4def-8fe1-efd8b24f8bd2",
+        "chatSessionId": "sess_8c75afc9-f8e7-4add-97a9-13fb781fd74a",
+        "timestamp": 1794296854126
+      },
+      {
+        "executionId": "b9c9b38a-8ad0-4def-8fe1-efd8b24f8bd2",
+        "chatSessionId": "sess_8c75afc9-f8e7-4add-97a9-13fb781fd74a",
+        "timestamp": 1794297852020
+      }
+    ],
+    "7.3 Write property test for rejected puts": [
+      {
+        "executionId": "b9c9b38a-8ad0-4def-8fe1-efd8b24f8bd2",
+        "chatSessionId": "sess_8c75afc9-f8e7-4add-97a9-13fb781fd74a",
+        "timestamp": 1794296854259
+      },
+      {
+        "executionId": "b9c9b38a-8ad0-4def-8fe1-efd8b24f8bd2",
+        "chatSessionId": "sess_8c75afc9-f8e7-4add-97a9-13fb781fd74a",
+        "timestamp": 1794297852070
+      }
+    ],
+    "7.4 Write property test for the decode table": [
+      {
+        "executionId": "b9c9b38a-8ad0-4def-8fe1-efd8b24f8bd2",
+        "chatSessionId": "sess_8c75afc9-f8e7-4add-97a9-13fb781fd74a",
+        "timestamp": 1794297857754
+      },
+      {
+        "executionId": "b9c9b38a-8ad0-4def-8fe1-efd8b24f8bd2",
+        "chatSessionId": "sess_8c75afc9-f8e7-4add-97a9-13fb781fd74a",
+        "timestamp": 1794297968003
+      }
+    ],
+    "7.5 Write property test that reads change nothing": [
+      {
+        "executionId": "b9c9b38a-8ad0-4def-8fe1-efd8b24f8bd2",
+        "chatSessionId": "sess_8c75afc9-f8e7-4add-97a9-13fb781fd74a",
+        "timestamp": 1794297973530
+      },
+      {
+        "executionId": "b9c9b38a-8ad0-4def-8fe1-efd8b24f8bd2",
+        "chatSessionId": "sess_8c75afc9-f8e7-4add-97a9-13fb781fd74a",
+        "timestamp": 1794298064566
+      }
+    ],
+    "7.6 Write property test that put stores the current version": [
+      {
+        "executionId": "b9c9b38a-8ad0-4def-8fe1-efd8b24f8bd2",
+        "chatSessionId": "sess_8c75afc9-f8e7-4add-97a9-13fb781fd74a",
+        "timestamp": 1794298070614
+      },
+      {
+        "executionId": "b9c9b38a-8ad0-4def-8fe1-efd8b24f8bd2",
+        "chatSessionId": "sess_8c75afc9-f8e7-4add-97a9-13fb781fd74a",
+        "timestamp": 1794298171940
+      }
+    ],
+    "7. Shared engine and memory repository": [
+      {
+        "executionId": "b9c9b38a-8ad0-4def-8fe1-efd8b24f8bd2",
+        "chatSessionId": "sess_8c75afc9-f8e7-4add-97a9-13fb781fd74a",
+        "timestamp": 1794298171973
+      }
+    ],
+    "8. Checkpoint - Pure layer verification": [
+      {
+        "executionId": "b9c9b38a-8ad0-4def-8fe1-efd8b24f8bd2",
+        "chatSessionId": "sess_8c75afc9-f8e7-4add-97a9-13fb781fd74a",
+        "timestamp": 1794298190502
+      },
+      {
+        "executionId": "b9c9b38a-8ad0-4def-8fe1-efd8b24f8bd2",
+        "chatSessionId": "sess_8c75afc9-f8e7-4add-97a9-13fb781fd74a",
+        "timestamp": 1794298301862
+      }
+    ]
+  }
+}
