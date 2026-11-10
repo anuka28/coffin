@@ -1,0 +1,13 @@
+# Shared analysis configuration for every member of the Coffin workspace.
+# Each member's analysis_options.yaml includes this file via a relative
+# `include:` so one ruleset governs the whole monorepo.
+include: package:flutter_lints/flutter.yaml
+
+analyzer:
+  language:
+    strict-casts: true
+    strict-raw-types: true
+
+linter:
+  rules:
+    prefer_single_quotes: true

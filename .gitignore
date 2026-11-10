@@ -1,0 +1,23 @@
+# Flutter / Dart build artifacts
+.dart_tool/
+.flutter-plugins
+.flutter-plugins-dependencies
+build/
+.pub-cache/
+.pub/
+
+# Coverage
+coverage/
+
+# Platform build outputs
+**/android/.gradle/
+**/ios/Pods/
+**/ios/Flutter/
+
+# OS / editor cruft
+.DS_Store
+.idea/
+*.iml
+
+# NOTE: .kiro/ is intentionally tracked — specs, hooks, and steering live
+# there and must be versioned with the code. Do not ignore it.
