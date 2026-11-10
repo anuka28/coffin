@@ -4,6 +4,16 @@
 /// import files under `src/`.
 library;
 
+export 'package:go_router/go_router.dart'
+    show GoRouter, GoRouterHelper, GoRouterState;
+
+export 'src/router/app_route.dart' show AppRoute;
+export 'src/router/fog_frame.dart' show FogFrame;
+export 'src/router/fog_math.dart' show FogMath;
+export 'src/router/fog_router.dart' show FogRouter;
+export 'src/router/fog_transition.dart' show FogTransition;
+export 'src/router/fog_transition_page.dart' show FogTransitionPage;
+export 'src/router/not_found_page.dart' show NotFoundPage;
 export 'src/theme/coffin_color_tokens.dart' show CoffinColorTokens;
 export 'src/theme/coffin_glow.dart' show CoffinGlow;
 export 'src/theme/coffin_metrics.dart' show CoffinMetrics;

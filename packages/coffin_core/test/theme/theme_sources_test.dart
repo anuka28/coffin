@@ -46,13 +46,17 @@ void main() {
     });
 
     test('every export uses a show clause', () {
+      // Split into whole statements so a wrapped `export ... show ...;` still
+      // counts as one.
       final exports = _read('$root/lib/coffin_core.dart')
-          .split('\n')
-          .where((l) => l.trimLeft().startsWith('export '))
+          .split(';')
+          .map((s) => s.trim().split('\n').where((l) => !l.startsWith('///')))
+          .map((lines) => lines.join(' ').trim())
+          .where((s) => s.startsWith('export '))
           .toList();
       expect(exports, isNotEmpty);
-      for (final line in exports) {
-        expect(line, contains(' show '), reason: line);
+      for (final statement in exports) {
+        expect(statement, contains(' show '), reason: statement);
       }
     });
   });

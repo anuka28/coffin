@@ -19,20 +19,20 @@ Notes that apply to all tasks:
 
 ## Tasks
 
-- [ ] 1. Dependency
-  - [ ] 1.1 Add `go_router` 17.5.0 to `coffin_core`
+- [x] 1. Dependency
+  - [x] 1.1 Add `go_router` 17.5.0 to `coffin_core`
     - Read `packages/coffin_core/pubspec.yaml` first.
     - Add `go_router: 17.5.0` (exact pin, no caret) under `dependencies`. Do not add it to either app pubspec.
     - Run `flutter pub get` at the workspace root and confirm it resolves. Check the resolution added only `go_router` (and the SDK package `flutter_web_plugins`, plus `logging` and `meta` if not already present). If anything else such as `material_ui` appears, stop and report it.
     - _Requirements: 8.8, 10.7_
 
-- [ ] 2. Pure transition math
-  - [ ] 2.1 Implement `FogFrame`
+- [x] 2. Pure transition math
+  - [x] 2.1 Implement `FogFrame`
     - Create `packages/coffin_core/lib/src/router/fog_frame.dart` with a `final class FogFrame`, a `const` constructor and `final` fields `opacity`, `dx`, `dy`, `blur`, plus `==`, `hashCode` and `toString` over all four fields.
     - Import nothing from Flutter. Doc-comment every public member.
     - _Requirements: 4.1, 4.9, 4.12, 9.1, 9.3, 9.5_
 
-  - [ ] 2.2 Implement `FogMath`
+  - [x] 2.2 Implement `FogMath`
     - Create `packages/coffin_core/lib/src/router/fog_math.dart` with a `final class FogMath` as in the design.
     - `const` constructor with `maxDrift` (default 16) and `maxBlur` (default 8), asserting both are `>= 0`. Constants `defaultMaxDrift`, `defaultMaxBlur`, `minDuration` (300 ms), `maxDuration` (600 ms), `defaultDuration` (450 ms).
     - `progress(t)` clamps to 0..1 and maps NaN to 0.
@@ -42,26 +42,26 @@ Notes that apply to all tasks:
     - Import nothing from Flutter (`dart:core` only). Doc-comment every public member.
     - _Requirements: 2.2, 2.3, 2.4, 2.8, 3.1, 3.2, 3.5, 4.1, 4.2, 4.3, 4.4, 4.5, 4.6, 4.7, 4.8, 4.9, 4.10, 4.11, 4.12, 9.1, 9.3, 9.5_
 
-  - [ ] 2.3 Write unit tests for `FogFrame` and `FogMath`
+  - [x] 2.3 Write unit tests for `FogFrame` and `FogMath`
     - Create `packages/coffin_core/test/router/fog_frame_test.dart` (equality, `hashCode`, inequality when any field differs) and `packages/coffin_core/test/router/fog_math_test.dart`.
     - `fog_math_test.dart`: defaults (16, 8, 450 ms, 300 ms, 600 ms); boundary values at progress 0.0, 0.5 and 1.0; clamped inputs -1.0 and 2.0; NaN treated as 0.0; opacity 0 at start and 1 at end; offset and blur zero at 1.0; reduced motion gives zero `dx`, `dy` and `blur` at 0.0, 0.5 and 1.0 while opacity stays in range; custom `maxDrift` and `maxBlur` scale the result; a negative `maxDrift` or `maxBlur` trips the assertion; `resolveDuration` clamps 100 ms to 300 ms and 900 ms to 600 ms, leaves 450 ms alone, returns zero under reduced motion by default, honors a 150 ms `reducedDuration`, and clamps a 2 s `reducedDuration` to 450 ms.
     - _Requirements: 2.4, 2.8, 3.5, 4.3, 4.4, 4.5, 4.6, 4.8, 4.9, 4.10, 4.11, 5.6, 10.3_
 
-  - [ ] 2.4 Write property tests for output ranges and settled state
+  - [x] 2.4 Write property tests for output ranges and settled state
     - Create `packages/coffin_core/test/router/fog_math_property_test.dart`, hiding the glados name clashes.
     - **Property 1: Output ranges.** `Glados2` over progress from `any.doubleInRange(-5, 5)` and a `bool` reduced flag. Assert opacity in `[0, 1]`, `dx == 0`, `dy` in `[0, maxDrift]`, `blur` in `[0, maxBlur]`. Use a reason string that includes the input value.
     - **Property 5: Settled end state.** For any `t` in `[1, 5]`, the frame is opacity 1, `dx`, `dy` and `blur` zero. For any `t` in `[-5, 0]`, opacity is 0.
     - Tag each with `// Feature: fog-router, Property N`. At least 100 runs each.
     - **Validates: Requirements 2.9, 4.3, 4.4, 4.5, 4.6, 5.1, 5.7**
 
-  - [ ] 2.5 Write property tests for monotonicity
+  - [x] 2.5 Write property tests for monotonicity
     - In `fog_math_property_test.dart`.
     - **Property 2: Opacity is monotonic.** `Glados2` over two progress values from `any.doubleInRange(-5, 5)`, ordered so `a <= b`. Assert `opacity(a) <= opacity(b)` for both reduced flag values.
     - **Property 4: Drift and blur settle.** Same ordered pair, normal motion only. Assert `dy(a) >= dy(b)` and `blur(a) >= blur(b)`.
     - Tag with `// Feature: fog-router, Property 2` and `Property 4`. At least 100 runs each. Reasons include both input values.
     - **Validates: Requirements 2.2, 2.3, 4.3, 5.2, 5.5, 5.7**
 
-  - [ ] 2.6 Write property tests for reduced motion, durations and determinism
+  - [x] 2.6 Write property tests for reduced motion, durations and determinism
     - In `fog_math_property_test.dart`.
     - **Property 3: Reduced motion has no movement.** For any progress, `frame(t, reducedMotion: true)` has `dx == 0`, `dy == 0` and `blur == 0` (exactly, not approximately), with opacity in `[0, 1]`.
     - **Property 6: Duration rules.** Requested duration from `any.intInRange(-1000, 5000).map((ms) => Duration(milliseconds: ms))`. Normal motion result is within 300 to 600 ms. Reduced motion result is zero by default and always within zero to `defaultDuration` for any `reducedDuration`.
@@ -69,13 +69,13 @@ Notes that apply to all tasks:
     - Tag with `// Feature: fog-router, Property 3`, `Property 6` and `Property 7`. At least 100 runs each.
     - **Validates: Requirements 2.4, 2.8, 3.1, 3.2, 3.5, 4.7, 4.8, 5.3, 5.4, 5.7**
 
-- [ ] 3. Checkpoint - Pure math verification
+- [x] 3. Checkpoint - Pure math verification
   - Run `dart format --set-exit-if-changed .`, `flutter analyze` and `flutter test` in `packages/coffin_core`. Fix anything that fails.
   - Ensure all tests pass, ask the user if questions arise.
   - _Requirements: 10.1, 10.2, 10.6_
 
-- [ ] 4. Transition widget and page
-  - [ ] 4.1 Implement `FogTransition`
+- [x] 4. Transition widget and page
+  - [x] 4.1 Implement `FogTransition`
     - Create `packages/coffin_core/lib/src/router/fog_transition.dart` with a `StatelessWidget` taking `animation`, `child` and `math` (default `const FogMath()`).
     - In `build`, read `reduced = MediaQuery.maybeDisableAnimationsOf(context) ?? false`.
     - Derive `curved = animation.drive(CurveTween(curve: Curves.easeInOut))`.
@@ -85,7 +85,7 @@ Notes that apply to all tasks:
     - Ignore any secondary animation (the outgoing page is not animated). Doc-comment the class and its members.
     - _Requirements: 2.1, 2.2, 2.3, 2.5, 2.6, 2.7, 2.9, 2.10, 3.1, 3.2, 3.3, 3.4, 3.6, 9.1, 9.5_
 
-  - [ ] 4.2 Write widget tests for `FogTransition`
+  - [x] 4.2 Write widget tests for `FogTransition`
     - Create `packages/coffin_core/test/router/fog_transition_test.dart`.
     - Drive an `AnimationController` (with `TestVSync`) wrapped in `MediaQuery` and `Directionality`. Sample at 0.0, 0.5 and 1.0.
     - Normal motion: at 0.0 the `FadeTransition` opacity is 0, `alwaysIncludeSemantics` is true, the child is translated down and an `ImageFiltered` is present; at 0.5 opacity and drift are between the extremes; at 1.0 opacity is 1, there is no non-zero `Transform` and no `ImageFiltered`.
@@ -96,34 +96,34 @@ Notes that apply to all tasks:
     - Changing `disableAnimations` between two pumps changes the behavior of the next build.
     - _Requirements: 2.1, 2.2, 2.3, 2.5, 2.6, 2.9, 2.10, 3.1, 3.2, 3.3, 3.6, 10.3, 10.4_
 
-  - [ ] 4.3 Implement `FogTransitionPage`
+  - [x] 4.3 Implement `FogTransitionPage`
     - Create `packages/coffin_core/lib/src/router/fog_transition_page.dart` with `class FogTransitionPage<T> extends CustomTransitionPage<T>`.
     - Constructor: `required super.child`, `super.key`, `super.name`, `super.arguments`, `super.restorationId`, `Duration duration = FogMath.defaultDuration`, `bool reducedMotion = false`, `FogMath math = const FogMath()`.
     - Pass `transitionsBuilder` returning `FogTransition(animation: animation, math: math, child: child)`. Pass `transitionDuration` and `reverseTransitionDuration` both as `math.resolveDuration(duration, reducedMotion: reducedMotion)`, computed through a private static helper because an initializer list cannot call instance methods.
     - Doc-comment the class and its constructor.
     - _Requirements: 2.4, 2.5, 2.8, 3.4, 3.5, 9.1, 9.5_
 
-  - [ ] 4.4 Write unit tests for `FogTransitionPage`
+  - [x] 4.4 Write unit tests for `FogTransitionPage`
     - Create `packages/coffin_core/test/router/fog_transition_page_test.dart`.
     - Default duration is 450 ms forward and reverse. A 100 ms request clamps to 300 ms and a 900 ms request clamps to 600 ms. With `reducedMotion: true` the duration is zero and a 100 ms request is not raised to 300 ms. The page is a `CustomTransitionPage`. `key`, `name` and `child` are passed through. The `transitionsBuilder` returns a `FogTransition`.
     - _Requirements: 2.4, 2.5, 2.8, 3.5, 10.3_
 
-- [ ] 5. Routes, not-found page and router helper
-  - [ ] 5.1 Implement `AppRoute`
+- [x] 5. Routes, not-found page and router helper
+  - [x] 5.1 Implement `AppRoute`
     - Create `packages/coffin_core/lib/src/router/app_route.dart` with an `@immutable class AppRoute`.
     - Fields: `path`, `builder` (`Widget Function(BuildContext, GoRouterState)`), optional `name`, `routes` (default `const <AppRoute>[]`), `duration` (default `FogMath.defaultDuration`).
     - `GoRoute toGoRoute()` returns a `GoRoute` with the same path and name, a `pageBuilder` producing `FogTransitionPage<void>(key: state.pageKey, name: state.name, child: builder(context, state), duration: duration, reducedMotion: MediaQuery.maybeDisableAnimationsOf(context) ?? false)`, and `routes: [for (final r in routes) r.toGoRoute()]`.
     - Document go_router's path rules on `path`: top-level paths start with `/`, child paths do not.
     - _Requirements: 1.3, 1.6, 1.8, 3.4, 9.1, 9.5_
 
-  - [ ] 5.2 Write unit and widget tests for `AppRoute`
+  - [x] 5.2 Write unit and widget tests for `AppRoute`
     - Create `packages/coffin_core/test/router/app_route_test.dart`.
     - `toGoRoute` keeps path and name; children become nested `GoRoute`s with the same paths, recursively two levels deep; `routes` defaults to empty.
     - Widget test using a `GoRouter` built directly from `toGoRoute()` results: navigating to a parent and to a child both build a `FogTransitionPage` (inspect via the router's current match or the `Navigator` pages).
     - Under reduced motion (set with `tester.platformDispatcher.accessibilityFeaturesTestValue`, and reset with `addTearDown`), the built page has a zero duration; under normal motion it has the requested clamped duration.
     - _Requirements: 1.3, 1.6, 3.4, 3.6, 10.3_
 
-  - [ ] 5.3 Implement `NotFoundPage`
+  - [x] 5.3 Implement `NotFoundPage`
     - Create `packages/coffin_core/lib/src/router/not_found_page.dart` with a `StatelessWidget` taking `homeLocation = '/'` and optional `message`.
     - `Scaffold` > `SafeArea` > `Center` > `SingleChildScrollView` > `ConstrainedBox(maxWidth: 480)` with padding 24, then a column (centered, `MainAxisSize.min`):
       1. `ExcludeSemantics` around a `DecoratedBox` with `CoffinGlow.decoration(color: scheme.primary, intensity: 0.6, fill: scheme.surface, borderRadius: BorderRadius.vertical(top: Radius.circular(48), bottom: Radius.circular(CoffinMetrics.cornerRadius)))` holding an `Icon(Icons.nightlight_round, size: 64)` with padding. Static, no animation.
@@ -134,7 +134,7 @@ Notes that apply to all tasks:
     - Doc-comment the class and members.
     - _Requirements: 6.1, 6.2, 6.3, 6.4, 6.5, 6.6, 6.7, 6.8, 6.9, 6.10, 6.11, 9.1, 9.5_
 
-  - [ ] 5.4 Write widget tests for `NotFoundPage`
+  - [x] 5.4 Write widget tests for `NotFoundPage`
     - Create `packages/coffin_core/test/router/not_found_page_test.dart`.
     - Heading text "This page has passed on…" is shown with the display style (`displaySmall`, whose family is the Creepster family name) and the body with the body family name. A `message` override replaces the default body.
     - Pump under both `CoffinTheme.dark()` and `CoffinTheme.light()` and assert the scaffold background equals the matching tokens' background.
@@ -145,13 +145,13 @@ Notes that apply to all tasks:
     - Same results with `disableAnimations` true.
     - _Requirements: 6.1, 6.2, 6.3, 6.4, 6.5, 6.6, 6.7, 6.8, 6.9, 6.10, 10.3_
 
-  - [ ] 5.5 Implement `FogRouter`
+  - [x] 5.5 Implement `FogRouter`
     - Create `packages/coffin_core/lib/src/router/fog_router.dart` with `abstract final class FogRouter` and `static GoRouter create({required List<AppRoute> routes, String initialLocation = '/', Widget Function(BuildContext, GoRouterState)? notFoundBuilder, List<NavigatorObserver>? observers, bool debugLogDiagnostics = false})`.
     - Return `GoRouter(routes: [for (final r in routes) r.toGoRoute()], initialLocation: initialLocation, observers: observers, debugLogDiagnostics: debugLogDiagnostics, errorPageBuilder: ...)`. Use only `errorPageBuilder` (go_router asserts at most one of `onException`, `errorPageBuilder`, `errorBuilder`). The error page builder returns a `FogTransitionPage<void>` around `notFoundBuilder?.call(context, state) ?? const NotFoundPage()`, with `key: state.pageKey` and the same live reduced-motion read as `AppRoute`.
     - Set no URL strategy. Ship no routes of its own.
     - _Requirements: 1.1, 1.2, 1.3, 1.4, 1.5, 1.8, 1.9, 1.10, 7.3, 9.1, 9.5_
 
-  - [ ] 5.6 Write widget tests for `FogRouter`
+  - [x] 5.6 Write widget tests for `FogRouter`
     - Create `packages/coffin_core/test/router/fog_router_test.dart`, pumping `MaterialApp.router(theme: CoffinTheme.dark(), routerConfig: router)`.
     - Starts at `/` by default and at a custom `initialLocation`; navigation between two routes with `context.go` and `context.push` and `pop`; a nested child route resolves; an unknown location shows `NotFoundPage`; a custom `notFoundBuilder` replaces it; an **empty route list** still builds and shows the not-found page for `/` (this confirms Req 1.10, which the design could not verify by reading source; if it fails, report it and stop instead of changing the requirement).
     - The not-found page's button returns to `/`.
@@ -159,13 +159,13 @@ Notes that apply to all tasks:
     - Confirms `MediaQuery` is available to `pageBuilder` (the design flagged this as unverified at runtime).
     - _Requirements: 1.1, 1.2, 1.3, 1.4, 1.10, 3.4, 3.6, 7.4, 7.5, 10.3, 10.4_
 
-- [ ] 6. Barrel and boundary checks
-  - [ ] 6.1 Export the router API from the barrel
+- [x] 6. Barrel and boundary checks
+  - [x] 6.1 Export the router API from the barrel
     - Edit `packages/coffin_core/lib/coffin_core.dart`, keeping every existing export.
     - Add `export 'package:go_router/go_router.dart' show GoRouter, GoRouterState, GoRouterHelper;` and `show` exports for `AppRoute`, `FogFrame`, `FogMath`, `FogRouter`, `FogTransition`, `FogTransitionPage`, `NotFoundPage` from `src/router/`.
     - _Requirements: 1.7, 8.9, 9.4_
 
-  - [ ] 6.2 Write barrel export and source-scan tests
+  - [x] 6.2 Write barrel export and source-scan tests
     - Create `packages/coffin_core/test/router/router_sources_test.dart`.
     - Barrel: importing only `package:coffin_core/coffin_core.dart` gives access to all eight new names plus `GoRouter`, `GoRouterState` and the `context.go` extension; the barrel text uses `show` clauses for every export.
     - Source scan: `fog_math.dart` and `fog_frame.dart` contain no `package:flutter/` import; no file under `packages/coffin_core/lib` contains `usePathUrlStrategy`, `setUrlStrategy` or `url_strategy`; no file under `apps/hauntagotchi/lib` or `apps/graveyard/lib` contains them either; nothing under `packages/coffin_core/lib` imports `apps/`, `package:hauntagotchi` or `package:graveyard`; `apps/*/lib` files do not import each other's packages.
@@ -173,7 +173,7 @@ Notes that apply to all tasks:
     - Resolve repo paths relative to the test file location so the tests work from any working directory.
     - _Requirements: 1.7, 1.9, 4.1, 7.1, 7.2, 7.3, 7.6, 8.6, 8.7, 8.8, 9.3, 9.4, 9.6, 9.7, 10.7_
 
-- [ ] 7. Checkpoint - Core package verification
+- [x] 7. Checkpoint - Core package verification
   - Run `dart format --set-exit-if-changed .`, `flutter analyze` and `flutter test` in `packages/coffin_core`. Fix anything that fails.
   - Ensure all tests pass, ask the user if questions arise.
   - _Requirements: 10.1, 10.2, 10.3, 10.4, 10.5, 10.6_
