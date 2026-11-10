@@ -1,0 +1,381 @@
+{
+  "pbtResults": {
+    "2.3 Write property test for contrast symmetry and bounds": {
+      "status": "passed",
+      "lastRunTimestamp": 1794285212635
+    },
+    "7.3 Write property test for glow shape": {
+      "status": "passed",
+      "lastRunTimestamp": 1794285273870
+    },
+    "7.5 Write property test for glow blur monotonicity": {
+      "status": "passed",
+      "lastRunTimestamp": 1794285519339
+    }
+  },
+  "executionHistory": {
+    "1.1 Download and add the font files and OFL texts": [
+      {
+        "executionId": "c3045952-23fd-4bfa-b800-140a981dd6c9",
+        "chatSessionId": "sess_76d0f0b6-13cf-4372-9313-453096ebfb9b",
+        "timestamp": 1794284701955
+      },
+      {
+        "executionId": "c3045952-23fd-4bfa-b800-140a981dd6c9",
+        "chatSessionId": "sess_76d0f0b6-13cf-4372-9313-453096ebfb9b",
+        "timestamp": 1794284930693
+      }
+    ],
+    "2.1 Implement `WcagContrast`": [
+      {
+        "executionId": "c3045952-23fd-4bfa-b800-140a981dd6c9",
+        "chatSessionId": "sess_76d0f0b6-13cf-4372-9313-453096ebfb9b",
+        "timestamp": 1794284702014
+      },
+      {
+        "executionId": "c3045952-23fd-4bfa-b800-140a981dd6c9",
+        "chatSessionId": "sess_76d0f0b6-13cf-4372-9313-453096ebfb9b",
+        "timestamp": 1794284930742
+      }
+    ],
+    "5.1 Implement `CoffinMetrics`": [
+      {
+        "executionId": "c3045952-23fd-4bfa-b800-140a981dd6c9",
+        "chatSessionId": "sess_76d0f0b6-13cf-4372-9313-453096ebfb9b",
+        "timestamp": 1794284702040
+      },
+      {
+        "executionId": "c3045952-23fd-4bfa-b800-140a981dd6c9",
+        "chatSessionId": "sess_76d0f0b6-13cf-4372-9313-453096ebfb9b",
+        "timestamp": 1794284930777
+      }
+    ],
+    "5. Metrics": [
+      {
+        "executionId": "c3045952-23fd-4bfa-b800-140a981dd6c9",
+        "chatSessionId": "sess_76d0f0b6-13cf-4372-9313-453096ebfb9b",
+        "timestamp": 1794284930805
+      }
+    ],
+    "1.3 Create `CREDITS.md` at the repo root": [
+      {
+        "executionId": "c3045952-23fd-4bfa-b800-140a981dd6c9",
+        "chatSessionId": "sess_76d0f0b6-13cf-4372-9313-453096ebfb9b",
+        "timestamp": 1794284941213
+      },
+      {
+        "executionId": "c3045952-23fd-4bfa-b800-140a981dd6c9",
+        "chatSessionId": "sess_76d0f0b6-13cf-4372-9313-453096ebfb9b",
+        "timestamp": 1794285035416
+      }
+    ],
+    "1.4 Enable `public_member_api_docs` for `coffin_core`": [
+      {
+        "executionId": "c3045952-23fd-4bfa-b800-140a981dd6c9",
+        "chatSessionId": "sess_76d0f0b6-13cf-4372-9313-453096ebfb9b",
+        "timestamp": 1794284941303
+      },
+      {
+        "executionId": "c3045952-23fd-4bfa-b800-140a981dd6c9",
+        "chatSessionId": "sess_76d0f0b6-13cf-4372-9313-453096ebfb9b",
+        "timestamp": 1794285036147
+      }
+    ],
+    "1.2 Add `glados` and declare fonts in the `coffin_core` pubspec": [
+      {
+        "executionId": "c3045952-23fd-4bfa-b800-140a981dd6c9",
+        "chatSessionId": "sess_76d0f0b6-13cf-4372-9313-453096ebfb9b",
+        "timestamp": 1794285047524
+      },
+      {
+        "executionId": "c3045952-23fd-4bfa-b800-140a981dd6c9",
+        "chatSessionId": "sess_76d0f0b6-13cf-4372-9313-453096ebfb9b",
+        "timestamp": 1794285157699
+      }
+    ],
+    "3.1 Implement `ContrastPair`": [
+      {
+        "executionId": "c3045952-23fd-4bfa-b800-140a981dd6c9",
+        "chatSessionId": "sess_76d0f0b6-13cf-4372-9313-453096ebfb9b",
+        "timestamp": 1794285047565
+      },
+      {
+        "executionId": "c3045952-23fd-4bfa-b800-140a981dd6c9",
+        "chatSessionId": "sess_76d0f0b6-13cf-4372-9313-453096ebfb9b",
+        "timestamp": 1794285157780
+      }
+    ],
+    "1. Assets, dependencies and configuration": [
+      {
+        "executionId": "c3045952-23fd-4bfa-b800-140a981dd6c9",
+        "chatSessionId": "sess_76d0f0b6-13cf-4372-9313-453096ebfb9b",
+        "timestamp": 1794285157749
+      }
+    ],
+    "3. Contrast pair type": [
+      {
+        "executionId": "c3045952-23fd-4bfa-b800-140a981dd6c9",
+        "chatSessionId": "sess_76d0f0b6-13cf-4372-9313-453096ebfb9b",
+        "timestamp": 1794285157812
+      }
+    ],
+    "2.2 Write unit tests for `WcagContrast`": [
+      {
+        "executionId": "c3045952-23fd-4bfa-b800-140a981dd6c9",
+        "chatSessionId": "sess_76d0f0b6-13cf-4372-9313-453096ebfb9b",
+        "timestamp": 1794285158278
+      },
+      {
+        "executionId": "c3045952-23fd-4bfa-b800-140a981dd6c9",
+        "chatSessionId": "sess_76d0f0b6-13cf-4372-9313-453096ebfb9b",
+        "timestamp": 1794285226673
+      }
+    ],
+    "2.3 Write property test for contrast symmetry and bounds": [
+      {
+        "executionId": "c3045952-23fd-4bfa-b800-140a981dd6c9",
+        "chatSessionId": "sess_76d0f0b6-13cf-4372-9313-453096ebfb9b",
+        "timestamp": 1794285159089
+      },
+      {
+        "executionId": "c3045952-23fd-4bfa-b800-140a981dd6c9",
+        "chatSessionId": "sess_76d0f0b6-13cf-4372-9313-453096ebfb9b",
+        "timestamp": 1794285226727
+      }
+    ],
+    "4.1 Implement `CoffinColorTokens` with `night` and `daylight`": [
+      {
+        "executionId": "c3045952-23fd-4bfa-b800-140a981dd6c9",
+        "chatSessionId": "sess_76d0f0b6-13cf-4372-9313-453096ebfb9b",
+        "timestamp": 1794285160132
+      },
+      {
+        "executionId": "c3045952-23fd-4bfa-b800-140a981dd6c9",
+        "chatSessionId": "sess_76d0f0b6-13cf-4372-9313-453096ebfb9b",
+        "timestamp": 1794285227386
+      }
+    ],
+    "7.1 Implement `CoffinGlow`": [
+      {
+        "executionId": "c3045952-23fd-4bfa-b800-140a981dd6c9",
+        "chatSessionId": "sess_76d0f0b6-13cf-4372-9313-453096ebfb9b",
+        "timestamp": 1794285160750
+      },
+      {
+        "executionId": "c3045952-23fd-4bfa-b800-140a981dd6c9",
+        "chatSessionId": "sess_76d0f0b6-13cf-4372-9313-453096ebfb9b",
+        "timestamp": 1794285227868
+      }
+    ],
+    "2. Contrast math": [
+      {
+        "executionId": "c3045952-23fd-4bfa-b800-140a981dd6c9",
+        "chatSessionId": "sess_76d0f0b6-13cf-4372-9313-453096ebfb9b",
+        "timestamp": 1794285226757
+      }
+    ],
+    "4.2 Write unit tests for `CoffinColorTokens`": [
+      {
+        "executionId": "c3045952-23fd-4bfa-b800-140a981dd6c9",
+        "chatSessionId": "sess_76d0f0b6-13cf-4372-9313-453096ebfb9b",
+        "timestamp": 1794285231449
+      },
+      {
+        "executionId": "c3045952-23fd-4bfa-b800-140a981dd6c9",
+        "chatSessionId": "sess_76d0f0b6-13cf-4372-9313-453096ebfb9b",
+        "timestamp": 1794285403334
+      }
+    ],
+    "4.3 Write property test for token contrast": [
+      {
+        "executionId": "c3045952-23fd-4bfa-b800-140a981dd6c9",
+        "chatSessionId": "sess_76d0f0b6-13cf-4372-9313-453096ebfb9b",
+        "timestamp": 1794285232298
+      },
+      {
+        "executionId": "c3045952-23fd-4bfa-b800-140a981dd6c9",
+        "chatSessionId": "sess_76d0f0b6-13cf-4372-9313-453096ebfb9b",
+        "timestamp": 1794285403377
+      }
+    ],
+    "6.1 Implement `CoffinTypography`": [
+      {
+        "executionId": "c3045952-23fd-4bfa-b800-140a981dd6c9",
+        "chatSessionId": "sess_76d0f0b6-13cf-4372-9313-453096ebfb9b",
+        "timestamp": 1794285233048
+      },
+      {
+        "executionId": "c3045952-23fd-4bfa-b800-140a981dd6c9",
+        "chatSessionId": "sess_76d0f0b6-13cf-4372-9313-453096ebfb9b",
+        "timestamp": 1794285405183
+      }
+    ],
+    "7.2 Write unit tests for `CoffinGlow`": [
+      {
+        "executionId": "c3045952-23fd-4bfa-b800-140a981dd6c9",
+        "chatSessionId": "sess_76d0f0b6-13cf-4372-9313-453096ebfb9b",
+        "timestamp": 1794285233851
+      },
+      {
+        "executionId": "c3045952-23fd-4bfa-b800-140a981dd6c9",
+        "chatSessionId": "sess_76d0f0b6-13cf-4372-9313-453096ebfb9b",
+        "timestamp": 1794285403521
+      }
+    ],
+    "7.3 Write property test for glow shape": [
+      {
+        "executionId": "c3045952-23fd-4bfa-b800-140a981dd6c9",
+        "chatSessionId": "sess_76d0f0b6-13cf-4372-9313-453096ebfb9b",
+        "timestamp": 1794285234583
+      },
+      {
+        "executionId": "c3045952-23fd-4bfa-b800-140a981dd6c9",
+        "chatSessionId": "sess_76d0f0b6-13cf-4372-9313-453096ebfb9b",
+        "timestamp": 1794285404077
+      }
+    ],
+    "4. Color tokens": [
+      {
+        "executionId": "c3045952-23fd-4bfa-b800-140a981dd6c9",
+        "chatSessionId": "sess_76d0f0b6-13cf-4372-9313-453096ebfb9b",
+        "timestamp": 1794285403399
+      }
+    ],
+    "6.2 Write unit tests for `CoffinTypography`": [
+      {
+        "executionId": "c3045952-23fd-4bfa-b800-140a981dd6c9",
+        "chatSessionId": "sess_76d0f0b6-13cf-4372-9313-453096ebfb9b",
+        "timestamp": 1794285408874
+      },
+      {
+        "executionId": "c3045952-23fd-4bfa-b800-140a981dd6c9",
+        "chatSessionId": "sess_76d0f0b6-13cf-4372-9313-453096ebfb9b",
+        "timestamp": 1794285488550
+      }
+    ],
+    "7.4 Write property test for intensity clamping": [
+      {
+        "executionId": "c3045952-23fd-4bfa-b800-140a981dd6c9",
+        "chatSessionId": "sess_76d0f0b6-13cf-4372-9313-453096ebfb9b",
+        "timestamp": 1794285409732
+      },
+      {
+        "executionId": "c3045952-23fd-4bfa-b800-140a981dd6c9",
+        "chatSessionId": "sess_76d0f0b6-13cf-4372-9313-453096ebfb9b",
+        "timestamp": 1794285488611
+      }
+    ],
+    "8.1 Implement `CoffinTheme.dark()` and `CoffinTheme.light()`": [
+      {
+        "executionId": "c3045952-23fd-4bfa-b800-140a981dd6c9",
+        "chatSessionId": "sess_76d0f0b6-13cf-4372-9313-453096ebfb9b",
+        "timestamp": 1794285410448
+      },
+      {
+        "executionId": "c3045952-23fd-4bfa-b800-140a981dd6c9",
+        "chatSessionId": "sess_76d0f0b6-13cf-4372-9313-453096ebfb9b",
+        "timestamp": 1794285488984
+      }
+    ],
+    "6. Typography": [
+      {
+        "executionId": "c3045952-23fd-4bfa-b800-140a981dd6c9",
+        "chatSessionId": "sess_76d0f0b6-13cf-4372-9313-453096ebfb9b",
+        "timestamp": 1794285488570
+      }
+    ],
+    "7.5 Write property test for glow blur monotonicity": [
+      {
+        "executionId": "c3045952-23fd-4bfa-b800-140a981dd6c9",
+        "chatSessionId": "sess_76d0f0b6-13cf-4372-9313-453096ebfb9b",
+        "timestamp": 1794285492644
+      },
+      {
+        "executionId": "c3045952-23fd-4bfa-b800-140a981dd6c9",
+        "chatSessionId": "sess_76d0f0b6-13cf-4372-9313-453096ebfb9b",
+        "timestamp": 1794285569115
+      }
+    ],
+    "8.2 Write unit and widget tests for `CoffinTheme`": [
+      {
+        "executionId": "c3045952-23fd-4bfa-b800-140a981dd6c9",
+        "chatSessionId": "sess_76d0f0b6-13cf-4372-9313-453096ebfb9b",
+        "timestamp": 1794285493253
+      },
+      {
+        "executionId": "c3045952-23fd-4bfa-b800-140a981dd6c9",
+        "chatSessionId": "sess_76d0f0b6-13cf-4372-9313-453096ebfb9b",
+        "timestamp": 1794285569150
+      }
+    ],
+    "8. Theme factories": [
+      {
+        "executionId": "c3045952-23fd-4bfa-b800-140a981dd6c9",
+        "chatSessionId": "sess_76d0f0b6-13cf-4372-9313-453096ebfb9b",
+        "timestamp": 1794285569169
+      }
+    ],
+    "7.6 Write property test for glow determinism": [
+      {
+        "executionId": "c3045952-23fd-4bfa-b800-140a981dd6c9",
+        "chatSessionId": "sess_76d0f0b6-13cf-4372-9313-453096ebfb9b",
+        "timestamp": 1794285572701
+      },
+      {
+        "executionId": "c3045952-23fd-4bfa-b800-140a981dd6c9",
+        "chatSessionId": "sess_76d0f0b6-13cf-4372-9313-453096ebfb9b",
+        "timestamp": 1794285641317
+      }
+    ],
+    "9.1 Export the theme API from the barrel": [
+      {
+        "executionId": "c3045952-23fd-4bfa-b800-140a981dd6c9",
+        "chatSessionId": "sess_76d0f0b6-13cf-4372-9313-453096ebfb9b",
+        "timestamp": 1794285573237
+      },
+      {
+        "executionId": "c3045952-23fd-4bfa-b800-140a981dd6c9",
+        "chatSessionId": "sess_76d0f0b6-13cf-4372-9313-453096ebfb9b",
+        "timestamp": 1794285641381
+      }
+    ],
+    "7. Glow decoration": [
+      {
+        "executionId": "c3045952-23fd-4bfa-b800-140a981dd6c9",
+        "chatSessionId": "sess_76d0f0b6-13cf-4372-9313-453096ebfb9b",
+        "timestamp": 1794285641347
+      }
+    ],
+    "9.2 Write barrel export and source-scan tests": [
+      {
+        "executionId": "c3045952-23fd-4bfa-b800-140a981dd6c9",
+        "chatSessionId": "sess_76d0f0b6-13cf-4372-9313-453096ebfb9b",
+        "timestamp": 1794285644976
+      },
+      {
+        "executionId": "c3045952-23fd-4bfa-b800-140a981dd6c9",
+        "chatSessionId": "sess_76d0f0b6-13cf-4372-9313-453096ebfb9b",
+        "timestamp": 1794285721840
+      }
+    ],
+    "9. Barrel and boundary checks": [
+      {
+        "executionId": "c3045952-23fd-4bfa-b800-140a981dd6c9",
+        "chatSessionId": "sess_76d0f0b6-13cf-4372-9313-453096ebfb9b",
+        "timestamp": 1794285721876
+      }
+    ],
+    "10. Checkpoint - Core package verification": [
+      {
+        "executionId": "c3045952-23fd-4bfa-b800-140a981dd6c9",
+        "chatSessionId": "sess_76d0f0b6-13cf-4372-9313-453096ebfb9b",
+        "timestamp": 1794285725363
+      },
+      {
+        "executionId": "c3045952-23fd-4bfa-b800-140a981dd6c9",
+        "chatSessionId": "sess_76d0f0b6-13cf-4372-9313-453096ebfb9b",
+        "timestamp": 1794285771042
+      }
+    ]
+  }
+}

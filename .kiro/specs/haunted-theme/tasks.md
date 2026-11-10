@@ -15,8 +15,8 @@ Notes that apply to all tasks:
 
 ## Tasks
 
-- [ ] 1. Assets, dependencies and configuration
-  - [ ] 1.1 Download and add the font files and OFL texts
+- [x] 1. Assets, dependencies and configuration
+  - [x] 1.1 Download and add the font files and OFL texts
     - Download from official sources into `packages/coffin_core/assets/fonts/` and verify each file is a non-empty TTF or text file:
       - `Creepster-Regular.ttf` from `https://raw.githubusercontent.com/google/fonts/main/ofl/creepster/Creepster-Regular.ttf`
       - `OFL-Creepster.txt` from `https://raw.githubusercontent.com/google/fonts/main/ofl/creepster/OFL.txt`
@@ -27,48 +27,48 @@ Notes that apply to all tasks:
     - Tell the user in the final message which URLs the files came from.
     - _Requirements: 5.3, 5.10_
 
-  - [ ] 1.2 Add `glados` and declare fonts in the `coffin_core` pubspec
+  - [x] 1.2 Add `glados` and declare fonts in the `coffin_core` pubspec
     - Read `packages/coffin_core/pubspec.yaml` first.
     - Add `glados: 1.1.7` (pinned) under `dev_dependencies`. Add no font-fetching dependency (no `google_fonts`, no `http`).
     - Under `flutter:`, keep `uses-material-design: true` and add the `fonts:` block for `Creepster` and `Outfit` (weights 400, 500, 600) exactly as in the design.
     - Run `flutter pub get` at the workspace root and confirm it resolves.
     - _Requirements: 5.3, 5.4, 10.6_
 
-  - [ ] 1.3 Create `CREDITS.md` at the repo root
+  - [x] 1.3 Create `CREDITS.md` at the repo root
     - The file does not exist, so create it.
     - One entry per font: name, author (Creepster by Font Diner, Inc.; Outfit by The Outfit Project Authors), the exact source URLs used in task 1.1, license "SIL Open Font License 1.1", and a relative link to the matching `OFL-*.txt` file.
     - _Requirements: 5.8, 5.9_
 
-  - [ ] 1.4 Enable `public_member_api_docs` for `coffin_core`
+  - [x] 1.4 Enable `public_member_api_docs` for `coffin_core`
     - Read `packages/coffin_core/analysis_options.yaml` first, then add a `linter: rules: public_member_api_docs: true` section while keeping the existing `include` and `analyzer.exclude`.
     - Run `flutter analyze` in `packages/coffin_core` and fix any new warning in existing code (for example a missing doc comment).
     - _Requirements: 1.5, 8.7, 10.2_
 
-- [ ] 2. Contrast math
-  - [ ] 2.1 Implement `WcagContrast`
+- [x] 2. Contrast math
+  - [x] 2.1 Implement `WcagContrast`
     - Create `packages/coffin_core/lib/src/theme/wcag_contrast.dart` with `aaNormalText`, `relativeLuminance(int argb)` and `ratio(int a, int b)` as in the design.
     - Import nothing from Flutter or `dart:ui`. Ignore the alpha byte. Doc-comment every public member.
     - Remove `.gitkeep` from `src/theme/` once real files exist.
     - _Requirements: 3.7, 8.3, 8.6, 8.7_
 
-  - [ ] 2.2 Write unit tests for `WcagContrast`
+  - [x] 2.2 Write unit tests for `WcagContrast`
     - Create `packages/coffin_core/test/theme/wcag_contrast_test.dart`.
     - Black on white is 21, identical colors give 1, alpha byte is ignored, luminance of black is 0 and of white is 1.
     - _Requirements: 3.7, 10.3_
 
-  - [ ] 2.3 Write property test for contrast symmetry and bounds
+  - [x] 2.3 Write property test for contrast symmetry and bounds
     - Create `packages/coffin_core/test/theme/wcag_contrast_property_test.dart` (a small addition to the design's file list, so it does not share a file with the unit tests).
     - **Property 2: Contrast ratio is symmetric, bounded and reflexive**
     - Use glados `Glados2` with opaque colors from `any.intInRange(0, 0x1000000).map((rgb) => 0xFF000000 | rgb)`, at least 100 runs. Tag with `// Feature: haunted-theme, Property 2`.
     - **Validates: Requirements 3.6, 3.7**
 
-- [ ] 3. Contrast pair type
-  - [ ] 3.1 Implement `ContrastPair`
+- [x] 3. Contrast pair type
+  - [x] 3.1 Implement `ContrastPair`
     - Create `packages/coffin_core/lib/src/theme/contrast_pair.dart` with the const constructor, `ratio` and `label` as in the design. It uses `Color.toARGB32()` and `WcagContrast.ratio`.
     - _Requirements: 3.4, 8.3, 8.7_
 
-- [ ] 4. Color tokens
-  - [ ] 4.1 Implement `CoffinColorTokens` with `night` and `daylight`
+- [x] 4. Color tokens
+  - [x] 4.1 Implement `CoffinColorTokens` with `night` and `daylight`
     - Create `packages/coffin_core/lib/src/theme/coffin_color_tokens.dart`. Import only `dart:ui` plus `contrast_pair.dart`.
     - Immutable `final` fields, const constructor, `name`, `brightness`, 13 color roles, `night`, `daylight`, `variants`.
     - Use the exact hex values from the design for both variants (night on-colors `#0E0B16`, daylight on-colors `#FFFFFF`).
@@ -76,72 +76,72 @@ Notes that apply to all tasks:
     - Doc-comment every public member.
     - _Requirements: 1.1, 1.2, 1.3, 1.4, 1.5, 2.1, 2.2, 2.3, 2.4, 2.5, 3.3, 3.4, 3.9, 8.3, 8.6, 8.7_
 
-  - [ ] 4.2 Write unit tests for `CoffinColorTokens`
+  - [x] 4.2 Write unit tests for `CoffinColorTokens`
     - Create `packages/coffin_core/test/theme/coffin_color_tokens_test.dart`.
     - Exact night hex values, daylight backgrounds light and text dark, both variants have the same type, `variants` holds both, `contrastPairs` has 22 entries including the 4 on-color pairs, night on-colors are dark (darker than their fills), glow colors absent.
     - _Requirements: 1.1, 1.2, 2.1, 2.2, 2.4, 2.5, 3.3, 3.4, 3.9, 10.3_
 
-  - [ ] 4.3 Write property test for token contrast
+  - [x] 4.3 Write property test for token contrast
     - Create `packages/coffin_core/test/theme/contrast_pairs_property_test.dart`.
     - **Property 1: Every guaranteed token pair meets WCAG AA**
     - Generate with `any.choose(allPairs)` where `allPairs` flattens every variant's `contrastPairs` with the variant name. Assert `ratio >= 4.5` with a `reason` naming the variant, `label` and measured ratio. Add a companion plain test that iterates all pairs exhaustively, and a symmetry check on swapped foreground and background. At least 100 runs. Tag with `// Feature: haunted-theme, Property 1`.
     - **Validates: Requirements 1.2, 2.4, 3.1, 3.2, 3.5, 3.6, 3.8**
 
-- [ ] 5. Metrics
-  - [ ] 5.1 Implement `CoffinMetrics`
+- [x] 5. Metrics
+  - [x] 5.1 Implement `CoffinMetrics`
     - Create `packages/coffin_core/lib/src/theme/coffin_metrics.dart` with `cornerRadius = 16`, `minTapTarget = 48`, `focusRingWidth = 2`. Doc-comment each.
     - _Requirements: 4.4, 4.5, 6.3, 8.3, 8.7_
 
-- [ ] 6. Typography
-  - [ ] 6.1 Implement `CoffinTypography`
+- [x] 6. Typography
+  - [x] 6.1 Implement `CoffinTypography`
     - Create `packages/coffin_core/lib/src/theme/coffin_typography.dart` with `package`, `displayFamily`, `bodyFamily`, `displayFamilyName`, `bodyFamilyName` and `textTheme(CoffinColorTokens)`.
     - Use `TextStyle(fontFamily: ..., package: package, ...)`. Creepster for display and headline slots (w400), Outfit for title, body and label slots with the sizes and weights from the design. `bodySmall` uses `muted`, all others `text`. Leave `fontFamilyFallback` unset.
     - _Requirements: 5.1, 5.2, 5.3, 5.4, 5.5, 5.6, 5.7, 8.3, 8.7_
 
-  - [ ] 6.2 Write unit tests for `CoffinTypography`
+  - [x] 6.2 Write unit tests for `CoffinTypography`
     - Create `packages/coffin_core/test/theme/coffin_typography_test.dart`.
     - Display and headline slots resolve `fontFamily` to `packages/coffin_core/Creepster`; every other slot to `packages/coffin_core/Outfit`; all three body sizes are at least 14; every slot has `fontFamilyFallback == null`; `bodySmall` uses muted and others use text, for both token sets.
     - Widget test: pumping `Text` with a nonexistent package family throws no exception.
     - Assert on style strings only, since tests render with Ahem.
     - _Requirements: 5.1, 5.2, 5.3, 5.5, 5.6, 5.7, 10.3_
 
-- [ ] 7. Glow decoration
-  - [ ] 7.1 Implement `CoffinGlow`
+- [x] 7. Glow decoration
+  - [x] 7.1 Implement `CoffinGlow`
     - Create `packages/coffin_core/lib/src/theme/coffin_glow.dart` with `decoration({color, intensity = 0.5, fill, borderRadius})`.
     - Clamp intensity to 0..1 and treat NaN as 0. At 0 return a const empty `boxShadow`. Otherwise two layers with zero offset, zero spread, blur `8 + 16i` and `24 + 40i`, alpha multipliers `0.25 + 0.35i` and `0.10 + 0.20i` applied to `color.a`. Default radius `CoffinMetrics.cornerRadius`.
     - _Requirements: 6.1, 6.2, 6.3, 6.4, 6.5, 6.6, 6.7, 7.2, 8.3, 8.7_
 
-  - [ ] 7.2 Write unit tests for `CoffinGlow`
+  - [x] 7.2 Write unit tests for `CoffinGlow`
     - Create `packages/coffin_core/test/theme/coffin_glow_test.dart`.
     - Fill and radius overrides, default radius 16, NaN and 0 give no shadows, intensity 1 gives two shadows, and a semantics test confirms a glow-decorated container adds no semantics nodes.
     - _Requirements: 6.3, 6.4, 6.6, 7.2, 10.3_
 
-  - [ ] 7.3 Write property test for glow shape
+  - [x] 7.3 Write property test for glow shape
     - Create `packages/coffin_core/test/theme/coffin_glow_property_test.dart`.
     - **Property 3: Glow shape**
     - Colors from `any.intInRange(0, 0x100000000).map(Color.new)`, intensity from `any.doubleInRange(0.0001, 1)`, radius options null or fixed values. Assert non-empty shadows, zero offset, blur above 0, RGB equal to input, default radius 16. Tag with `// Feature: haunted-theme, Property 3`.
     - **Validates: Requirements 6.1, 6.2, 6.3**
 
-  - [ ] 7.4 Write property test for intensity clamping
+  - [x] 7.4 Write property test for intensity clamping
     - In `coffin_glow_property_test.dart`.
     - **Property 4: Intensity is clamped**
     - Intensity from `any.doubleInRange(-5, 5)`. Assert the decoration equals the one for the clamped value, and has no shadows when the clamped value is 0. Tag with `// Feature: haunted-theme, Property 4`.
     - **Validates: Requirements 6.5, 6.6**
 
-  - [ ] 7.5 Write property test for glow blur monotonicity
+  - [x] 7.5 Write property test for glow blur monotonicity
     - In `coffin_glow_property_test.dart`.
     - **Property 5: Glow blur is monotonic**
     - For `a <= b` in `[0, 1]` (use `Glados2` and order the pair), total blur of `a` is at most that of `b`. Tag with `// Feature: haunted-theme, Property 5`.
     - **Validates: Requirements 6.8**
 
-  - [ ] 7.6 Write property test for glow determinism
+  - [x] 7.6 Write property test for glow determinism
     - In `coffin_glow_property_test.dart`.
     - **Property 6: Glow is deterministic**
     - Two calls with equal color, intensity, optional fill and optional radius return equal `BoxDecoration` values. Tag with `// Feature: haunted-theme, Property 6`.
     - **Validates: Requirements 6.7**
 
-- [ ] 8. Theme factories
-  - [ ] 8.1 Implement `CoffinTheme.dark()` and `CoffinTheme.light()`
+- [x] 8. Theme factories
+  - [x] 8.1 Implement `CoffinTheme.dark()` and `CoffinTheme.light()`
     - Create `packages/coffin_core/lib/src/theme/coffin_theme.dart` with a private `_build(CoffinColorTokens)`.
     - `useMaterial3: true`, `ColorScheme` per the design mapping table (including transparent `surfaceTint`), `scaffoldBackgroundColor` = background, `textTheme` from `CoffinTypography`, `MaterialTapTargetSize.padded`, hover, focus and highlight colors.
     - Component themes: Card, Dialog, Filled, Elevated, Outlined and Text buttons (min size 48x48, 16 px shape, state overlays 8% hover, 12% focus, 16% pressed), IconButton (at least 48x48), InputDecoration (filled with raised, 16 px outline, 2 px primary focus border, error borders), AppBar.
@@ -149,7 +149,7 @@ Notes that apply to all tasks:
     - Focused buttons get a 2 px `text` colored side as the focus ring.
     - _Requirements: 4.1, 4.2, 4.3, 4.4, 4.5, 4.6, 4.7, 7.1, 8.3, 8.7_
 
-  - [ ] 8.2 Write unit and widget tests for `CoffinTheme`
+  - [x] 8.2 Write unit and widget tests for `CoffinTheme`
     - Create `packages/coffin_core/test/theme/coffin_theme_test.dart`, covering both variants.
     - `useMaterial3`, brightness, every ColorScheme role in the mapping table, scaffold background.
     - 16 px radius on card, dialog, buttons and input border; `minimumSize` 48x48 on buttons and icon button; widget test measuring pumped `FilledButton` and `IconButton` sizes at least 48x48.
@@ -158,20 +158,20 @@ Notes that apply to all tasks:
     - Two factory calls give equal `colorScheme` and `textTheme`.
     - _Requirements: 4.1, 4.2, 4.3, 4.4, 4.5, 4.6, 4.7, 7.1, 10.3_
 
-- [ ] 9. Barrel and boundary checks
-  - [ ] 9.1 Export the theme API from the barrel
+- [x] 9. Barrel and boundary checks
+  - [x] 9.1 Export the theme API from the barrel
     - Edit `packages/coffin_core/lib/coffin_core.dart`, keeping the existing `CoffinMark` export.
     - Add `show` exports for `CoffinColorTokens`, `CoffinGlow`, `CoffinMetrics`, `CoffinTheme`, `CoffinTypography`, `ContrastPair`, `WcagContrast`.
     - _Requirements: 8.1, 8.2_
 
-  - [ ] 9.2 Write barrel export and source-scan tests
+  - [x] 9.2 Write barrel export and source-scan tests
     - Create `packages/coffin_core/test/theme/theme_sources_test.dart`.
     - Barrel: importing only `package:coffin_core/coffin_core.dart` gives access to all eight public names, including `ContrastPair` and `WcagContrast`; the barrel text uses `show` clauses.
     - Source scan: `wcag_contrast.dart`, `contrast_pair.dart` and `coffin_color_tokens.dart` contain no `package:flutter/` import (the tokens file may import `dart:ui` only); nothing under `packages/coffin_core/lib/` imports `apps/` or `package:hauntagotchi` / `package:graveyard`.
     - Config: `pubspec.yaml` declares both families, every declared font file exists, no `google_fonts` or `http` dependency, `glados` pinned; both OFL files exist; `CREDITS.md` at the repo root mentions both fonts and the OFL 1.1 (skip that check if the file is not reachable from the working directory).
     - _Requirements: 1.4, 5.3, 5.4, 5.8, 5.10, 8.1, 8.2, 8.4, 8.5, 8.6, 10.6_
 
-- [ ] 10. Checkpoint - Core package verification
+- [x] 10. Checkpoint - Core package verification
   - Run `dart format --set-exit-if-changed .` , `flutter analyze` and `flutter test` in `packages/coffin_core`. Fix anything that fails.
   - Ensure all tests pass, ask the user if questions arise.
   - _Requirements: 10.1, 10.2, 10.5_

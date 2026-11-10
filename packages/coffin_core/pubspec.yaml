@@ -16,6 +16,18 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
   flutter_lints: ^6.0.0
+  glados: 1.1.7
 
 flutter:
   uses-material-design: true
+  fonts:
+    - family: Creepster
+      fonts:
+        - asset: assets/fonts/Creepster-Regular.ttf
+    - family: Outfit
+      fonts:
+        - asset: assets/fonts/Outfit-Regular.ttf
+        - asset: assets/fonts/Outfit-Medium.ttf
+          weight: 500
+        - asset: assets/fonts/Outfit-SemiBold.ttf
+          weight: 600
