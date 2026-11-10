@@ -176,12 +176,12 @@ Notes that apply to all tasks:
   - Ensure all tests pass, ask the user if questions arise.
   - _Requirements: 10.1, 10.2, 10.5_
 
-- [ ] 11. App adoption
-  - [ ] 11.1 Update the `CoffinMark` doc comment
+- [x] 11. App adoption
+  - [x] 11.1 Update the `CoffinMark` doc comment
     - Edit `packages/coffin_core/lib/src/widgets/coffin_mark.dart`: replace the stale "tokens arrive in a later spec" wording with a note that it inherits colors from the ambient theme. Do not change behavior.
     - _Requirements: 8.7_
 
-  - [ ] 11.2 Adopt the dark theme in Hauntagotchi
+  - [x] 11.2 Adopt the dark theme in Hauntagotchi
     - Read `apps/hauntagotchi/lib/main.dart`, the `ui/placeholder_screen.dart` file and the existing placeholder test first.
     - `main.dart`: `MaterialApp(title: ..., theme: CoffinTheme.dark(), home: const PlaceholderScreen())`, no longer const.
     - `PlaceholderScreen`: centered, scrollable column with `CoffinMark` inside a `DecoratedBox` using `CoffinGlow.decoration(color: scheme.primary, intensity: 0.6, fill: scheme.surface)`, a `Hauntagotchi` title with `displayMedium`, and the body line "Your ghost is getting hungry…" with `bodyLarge` in `onSurfaceVariant`. Read colors and styles from `Theme.of(context)` only. Import only `package:coffin_core/coffin_core.dart`.
@@ -189,13 +189,13 @@ Notes that apply to all tasks:
     - Run `flutter test` and `flutter analyze` in the app.
     - _Requirements: 9.1, 9.3, 9.4, 9.5, 9.6, 9.7, 9.8_
 
-  - [ ] 11.3 Adopt the dark theme in Graveyard
+  - [x] 11.3 Adopt the dark theme in Graveyard
     - Same as 11.2 for `apps/graveyard`, with title `Graveyard` and body line "This project has been dead for 214 days". Do not import anything from Hauntagotchi.
     - Run `flutter test` and `flutter analyze` in the app.
     - _Requirements: 9.2, 9.3, 9.4, 9.5, 9.6, 9.7, 9.8_
 
-- [ ] 12. Final verification
-  - [ ] 12.1 Verify fonts reach the web build
+- [x] 12. Final verification
+  - [x] 12.1 Verify fonts reach the web build
     - Run `flutter build web` in `apps/hauntagotchi`, then confirm `build/web/assets/FontManifest.json` lists `packages/coffin_core/Creepster` and `packages/coffin_core/Outfit`. Report the result. If it fails, report the cause rather than editing the design.
     - Delete nothing under `build/` that was tracked by git (it is ignored).
     - _Requirements: 5.3, 5.4_
@@ -204,7 +204,7 @@ Notes that apply to all tasks:
     - Append a short entry to `DIARY.md` summarizing the haunted-theme build: bundled fonts instead of `google_fonts`, contrast-tested palette, glow helper.
     - _Requirements: none (project log)_
 
-- [ ] 13. Final checkpoint - Full workspace verification
+- [x] 13. Final checkpoint - Full workspace verification
   - Run `dart format --set-exit-if-changed .`, `flutter analyze` and `flutter test` in `packages/coffin_core`, `apps/hauntagotchi` and `apps/graveyard`. All must be clean and passing.
   - Confirm no secrets were added and `CREDITS.md` lists exact font source URLs.
   - Ensure all tests pass, ask the user if questions arise.

@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 
 /// A small spooky brand-mark shown by apps in their placeholder screens.
 ///
-/// This is a temporary scaffold widget. It intentionally uses default
-/// Material styling rather than the Coffin design tokens, which arrive
-/// in a later spec. It exists so apps can prove they consume the
-/// `coffin_core` public API before any real UI is built.
+/// This is a simple scaffold widget. It sets no colors of its own and
+/// inherits them from the ambient [Theme], so it picks up the Coffin
+/// haunted or daylight theme whenever one is applied. It exists so apps
+/// can prove they consume the `coffin_core` public API.
 class CoffinMark extends StatelessWidget {
   /// Creates a [CoffinMark].
   const CoffinMark({super.key});

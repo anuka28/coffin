@@ -8,6 +8,42 @@ class PlaceholderScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(body: Center(child: CoffinMark()));
+    final ThemeData theme = Theme.of(context);
+    final ColorScheme scheme = theme.colorScheme;
+    final TextTheme textTheme = theme.textTheme;
+
+    return Scaffold(
+      body: Center(
+        child: SingleChildScrollView(
+          padding: const EdgeInsets.all(24),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              DecoratedBox(
+                decoration: CoffinGlow.decoration(
+                  color: scheme.primary,
+                  intensity: 0.6,
+                  fill: scheme.surface,
+                ),
+                child: const Padding(
+                  padding: EdgeInsets.all(24),
+                  child: CoffinMark(),
+                ),
+              ),
+              const SizedBox(height: 32),
+              Text('Graveyard', style: textTheme.displayMedium),
+              const SizedBox(height: 12),
+              Text(
+                'This project has been dead for 214 days',
+                textAlign: TextAlign.center,
+                style: textTheme.bodyLarge?.copyWith(
+                  color: scheme.onSurfaceVariant,
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
   }
 }

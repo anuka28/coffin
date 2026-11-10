@@ -376,6 +376,80 @@
         "chatSessionId": "sess_76d0f0b6-13cf-4372-9313-453096ebfb9b",
         "timestamp": 1794285771042
       }
+    ],
+    "11.1 Update the `CoffinMark` doc comment": [
+      {
+        "executionId": "a657bd7c-7e2c-4d15-a072-febcb62c5238",
+        "chatSessionId": "sess_76d0f0b6-13cf-4372-9313-453096ebfb9b",
+        "timestamp": 1794285959876
+      },
+      {
+        "executionId": "a657bd7c-7e2c-4d15-a072-febcb62c5238",
+        "chatSessionId": "sess_76d0f0b6-13cf-4372-9313-453096ebfb9b",
+        "timestamp": 1794286027753
+      }
+    ],
+    "11.2 Adopt the dark theme in Hauntagotchi": [
+      {
+        "executionId": "a657bd7c-7e2c-4d15-a072-febcb62c5238",
+        "chatSessionId": "sess_76d0f0b6-13cf-4372-9313-453096ebfb9b",
+        "timestamp": 1794285960071
+      },
+      {
+        "executionId": "a657bd7c-7e2c-4d15-a072-febcb62c5238",
+        "chatSessionId": "sess_76d0f0b6-13cf-4372-9313-453096ebfb9b",
+        "timestamp": 1794286027781
+      }
+    ],
+    "11.3 Adopt the dark theme in Graveyard": [
+      {
+        "executionId": "a657bd7c-7e2c-4d15-a072-febcb62c5238",
+        "chatSessionId": "sess_76d0f0b6-13cf-4372-9313-453096ebfb9b",
+        "timestamp": 1794285960100
+      },
+      {
+        "executionId": "a657bd7c-7e2c-4d15-a072-febcb62c5238",
+        "chatSessionId": "sess_76d0f0b6-13cf-4372-9313-453096ebfb9b",
+        "timestamp": 1794286027959
+      }
+    ],
+    "11. App adoption": [
+      {
+        "executionId": "a657bd7c-7e2c-4d15-a072-febcb62c5238",
+        "chatSessionId": "sess_76d0f0b6-13cf-4372-9313-453096ebfb9b",
+        "timestamp": 1794286027980
+      }
+    ],
+    "12.1 Verify fonts reach the web build": [
+      {
+        "executionId": "a657bd7c-7e2c-4d15-a072-febcb62c5238",
+        "chatSessionId": "sess_76d0f0b6-13cf-4372-9313-453096ebfb9b",
+        "timestamp": 1794286031216
+      },
+      {
+        "executionId": "a657bd7c-7e2c-4d15-a072-febcb62c5238",
+        "chatSessionId": "sess_76d0f0b6-13cf-4372-9313-453096ebfb9b",
+        "timestamp": 1794286098868
+      }
+    ],
+    "12. Final verification": [
+      {
+        "executionId": "a657bd7c-7e2c-4d15-a072-febcb62c5238",
+        "chatSessionId": "sess_76d0f0b6-13cf-4372-9313-453096ebfb9b",
+        "timestamp": 1794286098904
+      }
+    ],
+    "13. Final checkpoint - Full workspace verification": [
+      {
+        "executionId": "a657bd7c-7e2c-4d15-a072-febcb62c5238",
+        "chatSessionId": "sess_76d0f0b6-13cf-4372-9313-453096ebfb9b",
+        "timestamp": 1794286103505
+      },
+      {
+        "executionId": "a657bd7c-7e2c-4d15-a072-febcb62c5238",
+        "chatSessionId": "sess_76d0f0b6-13cf-4372-9313-453096ebfb9b",
+        "timestamp": 1794286394964
+      }
     ]
   }
 }

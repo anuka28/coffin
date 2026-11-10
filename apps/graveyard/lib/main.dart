@@ -1,3 +1,4 @@
+import 'package:coffin_core/coffin_core.dart';
 import 'package:flutter/material.dart';
 
 import 'src/ui/placeholder_screen.dart';
@@ -13,6 +14,10 @@ class GraveyardApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(title: 'Graveyard', home: PlaceholderScreen());
+    return MaterialApp(
+      title: 'Graveyard',
+      theme: CoffinTheme.dark(),
+      home: const PlaceholderScreen(),
+    );
   }
 }
