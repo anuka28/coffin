@@ -204,13 +204,13 @@ Notes that apply to all tasks:
     - Wrap the body in `try`/`catch` and rethrow `TestFailure('... after op N of [put("a", ...), delete("b"), ...]: <original>')` so the operation sequence is in the failure output.
     - **Validates: Requirements 2.1, 2.2, 2.3, 2.4, 2.5, 2.7, 2.8, 2.9, 2.10, 3.2, 3.3, 3.4, 4.2, 4.3, 4.4, 7.7, 8.1, 12.3, 12.4, 12.5, 12.6, 12.7, 12.8, 12.9, 12.10, 12.11, 13.1, 13.2, 13.3**
 
-- [ ] 13. Barrel and source scans
-  - [ ] 13.1 Export the storage API from the barrel
+- [x] 13. Barrel and source scans
+  - [x] 13.1 Export the storage API from the barrel
     - Edit `packages/coffin_core/lib/coffin_core.dart`, keeping every existing export. Add `show` exports for exactly the names the design lists: `hiveFlutterInitializer`, `IssueReporter`, `discardIssues`, `JsonMap`, `KeyValidator`, `MemoryRecordRepository`, `MigrationHook`, `OpenedRepository`, `RecordCodec`, `RecordRepository`, `StorageEvent`, `StorageEventKind`, `StorageIssue`, `StorageIssueKind`, `StorageInitializer`, `StorageOpener`.
     - Do not export `RawStore`, `RawStoreOpener`, `MemoryRawStore`, `HiveRawStore`, `EnvelopeRepository`, `HiveRecordRepository`, `OperationQueue`, `Envelope`, `EnvelopeCodec`, `JsonSafety` or `reportSafely`. No Hive type or Hive-aware class is exported except the initializer.
     - _Requirements: 15.3, 1.4, 7.9_
 
-  - [ ] 13.2 Write barrel and source-scan tests
+  - [x] 13.2 Write barrel and source-scan tests
     - Create `storage_sources_test.dart` (`@TestOn('vm')`, resolves repo paths relative to the test file location so it works from any working directory).
     - Barrel: importing only `package:coffin_core/coffin_core.dart` gives access to every exported storage name; the barrel uses `show` for every storage export; none of the non-exported names listed in 13.1 are exported.
     - Imports: the pure storage files import no `package:flutter/` and no `package:hive_ce`; only `hive_raw_store.dart` imports `hive_ce`; only `hive_flutter_initializer.dart` imports `hive_ce_flutter`; nothing under `lib/src/storage` imports `apps/`, `package:hauntagotchi` or `package:graveyard`.
@@ -219,42 +219,42 @@ Notes that apply to all tasks:
     - Packages: `coffin_core/pubspec.yaml` pins `hive_ce: 2.23.3`, `hive_ce_flutter: 2.3.4` and `meta: 1.19.0` exactly (no caret); no pubspec in the repo lists `hive_ce_generator` or `build_runner`; neither app pubspec lists `hive_ce`, `hive_ce_flutter`; no `*.g.dart` file exists under `packages/` or `apps/` (ignoring `.dart_tool` and `build`); no file under `apps/*/lib` or `apps/*/test` references the storage API names (`StorageOpener`, `RecordRepository`, `hiveFlutterInitializer`, `MemoryRecordRepository`).
     - _Requirements: 1.4, 6.8, 7.3, 7.9, 12.10, 15.1, 15.2, 15.3, 15.4, 15.5, 15.6, 15.7, 15.8, 15.10, 16.3, 16.6, 16.7_
 
-- [ ] 14. Checkpoint - Storage layer verification
+- [x] 14. Checkpoint - Storage layer verification
   - Run `dart format --set-exit-if-changed .`, `flutter analyze` and `flutter test` in `packages/coffin_core`. Fix anything that fails.
   - Ensure all tests pass, ask the user if questions arise.
   - _Requirements: 16.1, 16.2, 16.4, 16.5_
 
-- [ ] 15. Timing report
-  - [ ] 15.1 Measure the storage test run time
+- [x] 15. Timing report
+  - [x] 15.1 Measure the storage test run time
     - In `packages/coffin_core`, run `flutter test test/storage` and measure total wall-clock time (for example with the shell `time` builtin, with an explicit timeout of 1800000 ms). Also note the slowest files (run `--reporter expanded` or time the heavy files separately: `repository_model_property_test.dart`, `envelope_repository_property_test.dart`, `key_validator_hive_agreement_test.dart`).
     - Report the total and the slowest files to the user in the task summary.
     - If the total exceeds about 60 seconds, STOP and tell the user the timing BEFORE lowering any run count or sequence length. Wait for their decision. Never lower counts silently.
     - _Requirements: 12.4, 16.4, 16.5_
 
-- [ ] 16. Chrome run of the pure storage tests
-  - [ ] 16.1 Run the pure storage tests on the web runner
+- [x] 16. Chrome run of the pure storage tests
+  - [x] 16.1 Run the pure storage tests on the web runner
     - First check that Chrome is available (`flutter devices` lists Chrome, or `flutter doctor`). If it is not, REPORT that the Chrome step could not run and why. Do not skip silently and do not mark the step as passed.
     - In `packages/coffin_core`, run `flutter test --platform chrome` with exactly this file list from the design: `test/storage/key_validator_test.dart`, `test/storage/key_validator_property_test.dart`, `test/storage/json_safety_test.dart`, `test/storage/json_safety_property_test.dart`, `test/storage/envelope_codec_test.dart`, `test/storage/envelope_codec_property_test.dart`, `test/storage/record_codec_property_test.dart`, `test/storage/storage_event_test.dart`, `test/storage/storage_issue_test.dart`, `test/storage/issue_reporter_test.dart`, `test/storage/operation_queue_test.dart`, `test/storage/memory_raw_store_test.dart`, `test/storage/memory_record_repository_test.dart`, `test/storage/envelope_repository_property_test.dart`.
     - If glados or any file fails to compile or run on the web runner, report the exact failure to the user. Do not drop the file, do not weaken tests, and do not lower run counts. If the run is slow, the timing rule from task 15 applies.
     - Report what the Chrome run does and does not cover: it checks the VM/web number differences (integral versions, the 2^53 limit) but not IndexedDB itself.
     - _Requirements: 6.5, 9.7, 12.2, 16.4, 16.5_
 
-- [ ] 17. Final verification
-  - [ ] 17.1 Format, analyze and test everything
+- [x] 17. Final verification
+  - [x] 17.1 Format, analyze and test everything
     - Run `dart format --set-exit-if-changed .`, `flutter analyze` (zero warnings) and `flutter test` in `packages/coffin_core`, `apps/hauntagotchi` and `apps/graveyard`. All must be clean and passing.
     - _Requirements: 16.1, 16.2, 16.3, 16.4, 16.5_
 
-  - [ ] 17.2 Build both apps for the web
+  - [x] 17.2 Build both apps for the web
     - Run `flutter build web` in `apps/hauntagotchi` and in `apps/graveyard`, even though neither imports storage, because the barrel now brings `hive_ce` and `hive_ce_flutter` into the compile graph. Report success or the exact failure. Do not edit the design to work around a failure.
     - _Requirements: 16.9, 15.7_
 
-  - [ ] 17.3 Confirm cleanliness and scope
+  - [x] 17.3 Confirm cleanliness and scope
     - List `crypt_storage_*` under `Directory.systemTemp` (read-only check) and confirm no directories created by the tests remain. If any remain, report them and find which test leaked; do not delete anything outside the repo without telling the user.
     - Run `git status --short` and confirm only expected files changed: `.kiro/specs/crypt-storage/`, `packages/coffin_core/pubspec.yaml`, `pubspec.lock`, `packages/coffin_core/lib/coffin_core.dart`, `packages/coffin_core/lib/src/storage/` and `packages/coffin_core/test/storage/`. Confirm no app files, `DIARY.md`, secrets or `*.g.dart` files changed or were added, and that nothing outside the repository was created or edited.
     - In the final message, state plainly what was not verified: real IndexedDB behavior in a browser, private-browsing failures, quota errors, and the manual web check that a later app spec should add.
     - _Requirements: 12.9, 15.6, 15.7, 15.9, 16.8_
 
-- [ ] 18. Final checkpoint - Full workspace verification
+- [x] 18. Final checkpoint - Full workspace verification
   - Confirm `hive_ce` 2.23.3, `hive_ce_flutter` 2.3.4 and `meta` 1.19.0 are the only dependency changes and that the lockfile gained only packages from the design's expected list.
   - Ensure all tests pass, ask the user if questions arise.
   - _Requirements: 16.1, 16.2, 16.5, 16.6, 16.9_

@@ -5,20 +5,22 @@ import 'package:coffin_core/src/storage/json_safety.dart';
 import 'package:flutter_test/flutter_test.dart' show expect, group, test;
 import 'package:glados/glados.dart' hide expect, group, test;
 
+import 'support/storage_generators.dart' show anyIntBetween, anyListBetween;
+
 const int _numRuns = 200;
 
 /// The first integer that is not exact on every platform: 2^53.
 const int _beyondSafeInt = 9007199254740992;
 
 /// Seeds that drive the shape of a generated safe map.
-Generator<int> get _anySeed => any.intInRange(0, 1 << 30);
+Generator<int> get _anySeed => anyIntBetween(0, 1 << 30);
 
 /// Doubles used as leaves. Always finite, built with `doubleInRange`.
 Generator<List<double>> get _anyDoubles =>
-    any.listWithLengthInRange(1, 6, any.doubleInRange(-1e6, 1e6));
+    anyListBetween(1, 6, any.doubleInRange(-1e6, 1e6));
 
 /// One number that encodes the kind of unsafe value and where it goes.
-Generator<int> get _anySelector => any.intInRange(0, 1 << 24);
+Generator<int> get _anySelector => anyIntBetween(0, 1 << 24);
 
 int _safeRuns = 0;
 int _unsafeRuns = 0;

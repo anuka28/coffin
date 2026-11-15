@@ -5,6 +5,8 @@ import 'package:flutter_test/flutter_test.dart'
     show expect, group, isTrue, test;
 import 'package:glados/glados.dart' hide expect, group, test;
 
+import 'support/storage_generators.dart' show anyIntBetween, anyListBetween;
+
 // This file runs on the VM and on Chrome: no dart:io, no hive_ce, no
 // @TestOn('vm').
 
@@ -40,9 +42,8 @@ const List<String> _pieces = <String>[
 ];
 
 /// Strings of up to 6 pieces, including the empty string.
-Generator<String> get _string => any
-    .listWithLengthInRange(0, 7, any.choose(_pieces))
-    .map((parts) => parts.join());
+Generator<String> get _string =>
+    anyListBetween(0, 7, any.choose(_pieces)).map((parts) => parts.join());
 
 /// Finite doubles in `[-1e9, 1e9]`, plus a few awkward ones: an integral
 /// double (3.0), negative zero and a tiny fraction.
@@ -57,12 +58,12 @@ Generator<double> get _double => any.oneOf<double>(<Generator<double>>[
 /// range wider than 2^18 (kept web-safe); `a * 2^36 + b * 2^18 + c` stays
 /// below 2^53.
 Generator<int> get _int => any.oneOf<int>(<Generator<int>>[
-  any.intInRange(-1000, 1000),
+  anyIntBetween(-1000, 1000),
   any.choose(<int>[_maxSafeInt, -_maxSafeInt, _maxSafeInt - 1, 0]),
   any.combine4(
-    any.intInRange(0, 1 << 17),
-    any.intInRange(0, 1 << 18),
-    any.intInRange(0, 1 << 18),
+    anyIntBetween(0, 1 << 17),
+    anyIntBetween(0, 1 << 18),
+    anyIntBetween(0, 1 << 18),
     any.bool,
     (a, b, c, negative) {
       final int magnitude = a * 68719476736 + b * 262144 + c;
@@ -85,17 +86,15 @@ Generator<Object?> _value(int levels) {
   return any.oneOf<Object?>(<Generator<Object?>>[
     _scalar,
     _scalar,
-    any
-        .listWithLengthInRange(0, 5, _value(levels - 1))
-        .map<Object?>((items) => items),
+    anyListBetween(0, 5, _value(levels - 1)).map<Object?>((items) => items),
     _map(levels).map<Object?>((m) => m),
   ]);
 }
 
 /// A map with 0..4 entries whose values nest at most [levels] - 1 deeper. With
 /// `levels` 3 the deepest structure is map -> list or map -> map or list.
-Generator<JsonMap> _map(int levels) => any
-    .listWithLengthInRange(
+Generator<JsonMap> _map(int levels) =>
+    anyListBetween(
       0,
       5,
       any.combine2(
@@ -103,8 +102,7 @@ Generator<JsonMap> _map(int levels) => any
         _value(levels - 1),
         (String k, Object? v) => MapEntry<String, Object?>(k, v),
       ),
-    )
-    .map(
+    ).map(
       (entries) => <String, Object?>{
         for (final MapEntry<String, Object?> e in entries) e.key: e.value,
       },
@@ -115,7 +113,7 @@ Generator<JsonMap> get _anySafeMap => _map(3);
 
 /// Any version in `0..maxVersion`, with the edges overrepresented.
 Generator<int> get _anyVersion => any.oneOf<int>(<Generator<int>>[
-  any.intInRange(0, EnvelopeCodec.maxVersion + 1),
+  anyIntBetween(0, EnvelopeCodec.maxVersion + 1),
   any.choose(<int>[0, 1, 2, EnvelopeCodec.maxVersion]),
 ]);
 

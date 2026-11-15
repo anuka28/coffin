@@ -78,3 +78,7 @@ A few lines per day: what I asked Kiro, what worked, what didn't, what I learned
   - The model test can't pass vacuously: a follow-up test asserts the body ran exactly 100 times and saw more than 0 operations.
   - Box isolation holds: 200 box opens, 0 temp directories left behind, and the leakage test passes.
   - Verified afterwards: format clean, analyze no issues, **476 tests pass** in about 8 seconds. ~7.5 credits.
+- Tasks 13–18 finished the storage spec: barrel exports (no Hive type leaks into the public API), source-scan tests that also assert they found files (so a wrong path can't make them pass by finding nothing), a secrets scan (clean), and a timing check.
+  - The three older property files used glados generators that break on web (`1 << 32` is 0 in JavaScript). Kiro made them web-safe instead of dropping them. I ran the 14 pure storage test files in a real Chrome myself: **138 pass**, including all property tests at 200 runs.
+  - **crypt-storage complete.** Verified: format clean, analyze no issues, coffin_core **499** + Hauntagotchi 9 + Graveyard 8 tests pass. ~33 credits for tasks 13–18.
+  - Still to check by hand once an app uses storage: save a record in Chrome and reload (real IndexedDB), then repeat in a private window (memory fallback + reported issue).

@@ -2,6 +2,8 @@ import 'package:coffin_core/src/storage/key_validator.dart';
 import 'package:flutter_test/flutter_test.dart' show expect, group, test;
 import 'package:glados/glados.dart' hide expect, group, test;
 
+import 'support/storage_generators.dart' show anyIntBetween, anyListBetween;
+
 const int _numRuns = 200;
 
 /// Boundary keys B1 to B11 from the design's boundary key table.
@@ -44,9 +46,9 @@ String _ascii(int length, List<int> seeds) {
 /// Mixes ASCII, accented letters, emoji, lone surrogates, lengths around 255
 /// and the boundary keys.
 Generator<String> get _anyKey => any.combine3(
-  any.intInRange(0, 5),
-  any.intInRange(0, 300),
-  any.listWithLengthInRange(0, 24, any.intInRange(0, 0x10000)),
+  anyIntBetween(0, 5),
+  anyIntBetween(0, 300),
+  anyListBetween(0, 24, anyIntBetween(0, 0x10000)),
   (int mode, int n, List<int> seeds) {
     switch (mode) {
       case 0: // a boundary key

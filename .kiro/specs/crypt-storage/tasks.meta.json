@@ -433,6 +433,142 @@
         "chatSessionId": "sess_8c75afc9-f8e7-4add-97a9-13fb781fd74a",
         "timestamp": 1794719299381
       }
+    ],
+    "13.1 Export the storage API from the barrel": [
+      {
+        "executionId": "a877d14f-6f48-4bda-8bfd-5ab72c2b13ed",
+        "chatSessionId": "sess_8c75afc9-f8e7-4add-97a9-13fb781fd74a",
+        "timestamp": 1794719753979
+      },
+      {
+        "executionId": "a877d14f-6f48-4bda-8bfd-5ab72c2b13ed",
+        "chatSessionId": "sess_8c75afc9-f8e7-4add-97a9-13fb781fd74a",
+        "timestamp": 1794719829497
+      }
+    ],
+    "13.2 Write barrel and source-scan tests": [
+      {
+        "executionId": "a877d14f-6f48-4bda-8bfd-5ab72c2b13ed",
+        "chatSessionId": "sess_8c75afc9-f8e7-4add-97a9-13fb781fd74a",
+        "timestamp": 1794719830258
+      },
+      {
+        "executionId": "a877d14f-6f48-4bda-8bfd-5ab72c2b13ed",
+        "chatSessionId": "sess_8c75afc9-f8e7-4add-97a9-13fb781fd74a",
+        "timestamp": 1794720160621
+      }
+    ],
+    "13. Barrel and source scans": [
+      {
+        "executionId": "a877d14f-6f48-4bda-8bfd-5ab72c2b13ed",
+        "chatSessionId": "sess_8c75afc9-f8e7-4add-97a9-13fb781fd74a",
+        "timestamp": 1794720160653
+      }
+    ],
+    "14. Checkpoint - Storage layer verification": [
+      {
+        "executionId": "a877d14f-6f48-4bda-8bfd-5ab72c2b13ed",
+        "chatSessionId": "sess_8c75afc9-f8e7-4add-97a9-13fb781fd74a",
+        "timestamp": 1794720160676
+      },
+      {
+        "executionId": "a877d14f-6f48-4bda-8bfd-5ab72c2b13ed",
+        "chatSessionId": "sess_8c75afc9-f8e7-4add-97a9-13fb781fd74a",
+        "timestamp": 1794720170098
+      }
+    ],
+    "15.1 Measure the storage test run time": [
+      {
+        "executionId": "a877d14f-6f48-4bda-8bfd-5ab72c2b13ed",
+        "chatSessionId": "sess_8c75afc9-f8e7-4add-97a9-13fb781fd74a",
+        "timestamp": 1794720170883
+      },
+      {
+        "executionId": "a877d14f-6f48-4bda-8bfd-5ab72c2b13ed",
+        "chatSessionId": "sess_8c75afc9-f8e7-4add-97a9-13fb781fd74a",
+        "timestamp": 1794720197529
+      }
+    ],
+    "15. Timing report": [
+      {
+        "executionId": "a877d14f-6f48-4bda-8bfd-5ab72c2b13ed",
+        "chatSessionId": "sess_8c75afc9-f8e7-4add-97a9-13fb781fd74a",
+        "timestamp": 1794720197556
+      }
+    ],
+    "16.1 Run the pure storage tests on the web runner": [
+      {
+        "executionId": "a877d14f-6f48-4bda-8bfd-5ab72c2b13ed",
+        "chatSessionId": "sess_8c75afc9-f8e7-4add-97a9-13fb781fd74a",
+        "timestamp": 1794720198266
+      },
+      {
+        "executionId": "a877d14f-6f48-4bda-8bfd-5ab72c2b13ed",
+        "chatSessionId": "sess_8c75afc9-f8e7-4add-97a9-13fb781fd74a",
+        "timestamp": 1794720396922
+      }
+    ],
+    "16. Chrome run of the pure storage tests": [
+      {
+        "executionId": "a877d14f-6f48-4bda-8bfd-5ab72c2b13ed",
+        "chatSessionId": "sess_8c75afc9-f8e7-4add-97a9-13fb781fd74a",
+        "timestamp": 1794720396953
+      }
+    ],
+    "17.1 Format, analyze and test everything": [
+      {
+        "executionId": "a877d14f-6f48-4bda-8bfd-5ab72c2b13ed",
+        "chatSessionId": "sess_8c75afc9-f8e7-4add-97a9-13fb781fd74a",
+        "timestamp": 1794720396980
+      },
+      {
+        "executionId": "a877d14f-6f48-4bda-8bfd-5ab72c2b13ed",
+        "chatSessionId": "sess_8c75afc9-f8e7-4add-97a9-13fb781fd74a",
+        "timestamp": 1794720406923
+      }
+    ],
+    "17.2 Build both apps for the web": [
+      {
+        "executionId": "a877d14f-6f48-4bda-8bfd-5ab72c2b13ed",
+        "chatSessionId": "sess_8c75afc9-f8e7-4add-97a9-13fb781fd74a",
+        "timestamp": 1794720407497
+      },
+      {
+        "executionId": "a877d14f-6f48-4bda-8bfd-5ab72c2b13ed",
+        "chatSessionId": "sess_8c75afc9-f8e7-4add-97a9-13fb781fd74a",
+        "timestamp": 1794720458882
+      }
+    ],
+    "17.3 Confirm cleanliness and scope": [
+      {
+        "executionId": "a877d14f-6f48-4bda-8bfd-5ab72c2b13ed",
+        "chatSessionId": "sess_8c75afc9-f8e7-4add-97a9-13fb781fd74a",
+        "timestamp": 1794720459683
+      },
+      {
+        "executionId": "a877d14f-6f48-4bda-8bfd-5ab72c2b13ed",
+        "chatSessionId": "sess_8c75afc9-f8e7-4add-97a9-13fb781fd74a",
+        "timestamp": 1794720553082
+      }
+    ],
+    "17. Final verification": [
+      {
+        "executionId": "a877d14f-6f48-4bda-8bfd-5ab72c2b13ed",
+        "chatSessionId": "sess_8c75afc9-f8e7-4add-97a9-13fb781fd74a",
+        "timestamp": 1794720553109
+      }
+    ],
+    "18. Final checkpoint - Full workspace verification": [
+      {
+        "executionId": "a877d14f-6f48-4bda-8bfd-5ab72c2b13ed",
+        "chatSessionId": "sess_8c75afc9-f8e7-4add-97a9-13fb781fd74a",
+        "timestamp": 1794720553141
+      },
+      {
+        "executionId": "a877d14f-6f48-4bda-8bfd-5ab72c2b13ed",
+        "chatSessionId": "sess_8c75afc9-f8e7-4add-97a9-13fb781fd74a",
+        "timestamp": 1794720567397
+      }
     ]
   }
 }
