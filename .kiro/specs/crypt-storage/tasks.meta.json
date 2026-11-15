@@ -299,6 +299,140 @@
         "chatSessionId": "sess_8c75afc9-f8e7-4add-97a9-13fb781fd74a",
         "timestamp": 1794298301862
       }
+    ],
+    "9.1 Create the shared Hive test helper": [
+      {
+        "executionId": "8fba574e-e19b-4aae-bc10-847a55d8fa7a",
+        "chatSessionId": "sess_8c75afc9-f8e7-4add-97a9-13fb781fd74a",
+        "timestamp": 1794581452236
+      },
+      {
+        "executionId": "8fba574e-e19b-4aae-bc10-847a55d8fa7a",
+        "chatSessionId": "sess_8c75afc9-f8e7-4add-97a9-13fb781fd74a",
+        "timestamp": 1794581643828
+      }
+    ],
+    "9.2 Write the box leakage test": [
+      {
+        "executionId": "800735d3-f329-4bd7-a597-388fe3275c05",
+        "chatSessionId": "sess_8c75afc9-f8e7-4add-97a9-13fb781fd74a",
+        "timestamp": 1794582026095
+      },
+      {
+        "executionId": "800735d3-f329-4bd7-a597-388fe3275c05",
+        "chatSessionId": "sess_8c75afc9-f8e7-4add-97a9-13fb781fd74a",
+        "timestamp": 1794582328516
+      }
+    ],
+    "10.1 Implement `HiveRawStore`": [
+      {
+        "executionId": "800735d3-f329-4bd7-a597-388fe3275c05",
+        "chatSessionId": "sess_8c75afc9-f8e7-4add-97a9-13fb781fd74a",
+        "timestamp": 1794582026698
+      },
+      {
+        "executionId": "800735d3-f329-4bd7-a597-388fe3275c05",
+        "chatSessionId": "sess_8c75afc9-f8e7-4add-97a9-13fb781fd74a",
+        "timestamp": 1794582329180
+      }
+    ],
+    "9. Real-box test helper": [
+      {
+        "executionId": "800735d3-f329-4bd7-a597-388fe3275c05",
+        "chatSessionId": "sess_8c75afc9-f8e7-4add-97a9-13fb781fd74a",
+        "timestamp": 1794582328556
+      }
+    ],
+    "10.2 Implement `HiveRecordRepository` and test it": [
+      {
+        "executionId": "32dffee1-97fa-4e27-b8b6-5cd2399bdb46",
+        "chatSessionId": "sess_8c75afc9-f8e7-4add-97a9-13fb781fd74a",
+        "timestamp": 1794586989747
+      },
+      {
+        "executionId": "32dffee1-97fa-4e27-b8b6-5cd2399bdb46",
+        "chatSessionId": "sess_8c75afc9-f8e7-4add-97a9-13fb781fd74a",
+        "timestamp": 1794718507108
+      }
+    ],
+    "10.3 Write the validator-vs-real-box agreement test": [
+      {
+        "executionId": "32dffee1-97fa-4e27-b8b6-5cd2399bdb46",
+        "chatSessionId": "sess_8c75afc9-f8e7-4add-97a9-13fb781fd74a",
+        "timestamp": 1794586989791
+      },
+      {
+        "executionId": "32dffee1-97fa-4e27-b8b6-5cd2399bdb46",
+        "chatSessionId": "sess_8c75afc9-f8e7-4add-97a9-13fb781fd74a",
+        "timestamp": 1794718507872
+      }
+    ],
+    "10. Hive implementation": [
+      {
+        "executionId": "32dffee1-97fa-4e27-b8b6-5cd2399bdb46",
+        "chatSessionId": "sess_8c75afc9-f8e7-4add-97a9-13fb781fd74a",
+        "timestamp": 1794718507901
+      }
+    ],
+    "11.1 Implement `OpenedRepository` and `StorageOpener`": [
+      {
+        "executionId": "32dffee1-97fa-4e27-b8b6-5cd2399bdb46",
+        "chatSessionId": "sess_8c75afc9-f8e7-4add-97a9-13fb781fd74a",
+        "timestamp": 1794718513172
+      },
+      {
+        "executionId": "32dffee1-97fa-4e27-b8b6-5cd2399bdb46",
+        "chatSessionId": "sess_8c75afc9-f8e7-4add-97a9-13fb781fd74a",
+        "timestamp": 1794718714457
+      }
+    ],
+    "11.2 Implement `hiveFlutterInitializer`": [
+      {
+        "executionId": "32dffee1-97fa-4e27-b8b6-5cd2399bdb46",
+        "chatSessionId": "sess_8c75afc9-f8e7-4add-97a9-13fb781fd74a",
+        "timestamp": 1794718513940
+      },
+      {
+        "executionId": "32dffee1-97fa-4e27-b8b6-5cd2399bdb46",
+        "chatSessionId": "sess_8c75afc9-f8e7-4add-97a9-13fb781fd74a",
+        "timestamp": 1794718714493
+      },
+      {
+        "executionId": "0bf5ffbd-794c-4815-b83d-dbcfb662b5e5",
+        "chatSessionId": "sess_8c75afc9-f8e7-4add-97a9-13fb781fd74a",
+        "timestamp": 1794718828261
+      },
+      {
+        "executionId": "0bf5ffbd-794c-4815-b83d-dbcfb662b5e5",
+        "chatSessionId": "sess_8c75afc9-f8e7-4add-97a9-13fb781fd74a",
+        "timestamp": 1794718877395
+      }
+    ],
+    "11. Opener and initializer": [
+      {
+        "executionId": "32dffee1-97fa-4e27-b8b6-5cd2399bdb46",
+        "chatSessionId": "sess_8c75afc9-f8e7-4add-97a9-13fb781fd74a",
+        "timestamp": 1794718714513
+      }
+    ],
+    "12.1 Write Property 6 (memory vs Hive vs plain Map)": [
+      {
+        "executionId": "2d0b961b-e580-4ca5-9b47-cfbb348a8623",
+        "chatSessionId": "sess_8c75afc9-f8e7-4add-97a9-13fb781fd74a",
+        "timestamp": 1794718979125
+      },
+      {
+        "executionId": "2d0b961b-e580-4ca5-9b47-cfbb348a8623",
+        "chatSessionId": "sess_8c75afc9-f8e7-4add-97a9-13fb781fd74a",
+        "timestamp": 1794719299350
+      }
+    ],
+    "12. Model-based property test": [
+      {
+        "executionId": "2d0b961b-e580-4ca5-9b47-cfbb348a8623",
+        "chatSessionId": "sess_8c75afc9-f8e7-4add-97a9-13fb781fd74a",
+        "timestamp": 1794719299381
+      }
     ]
   }
 }

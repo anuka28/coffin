@@ -146,8 +146,8 @@ Notes that apply to all tasks:
   - Ensure all tests pass, ask the user if questions arise.
   - _Requirements: 16.1, 16.2, 16.5_
 
-- [ ] 9. Real-box test helper
-  - [ ] 9.1 Create the shared Hive test helper
+- [x] 9. Real-box test helper
+  - [x] 9.1 Create the shared Hive test helper
     - Create `test/storage/support/hive_test_box.dart` (VM only, imports `dart:io` and `hive_ce`) FIRST among the Hive tests. Expose `Future<HiveTestBox> openHiveTestBox()` returning the box, its unique name, its directory and a `dispose()`.
     - Names are unique, lowercase, ASCII and at most 255 characters: fixed prefix, monotonically increasing counter and a random lowercase hex suffix.
     - The directory comes from `Directory.systemTemp.createTemp('crypt_storage_')`. The box opens with `Hive.openBox<dynamic>(name, path: dir.path)`. Call no global `Hive.init`.
@@ -155,48 +155,48 @@ Notes that apply to all tasks:
     - Add `hive_test_box_test.dart` (`@TestOn('vm')`): names are unique and valid, dispose closes then removes the directory, a second dispose is safe, dispose still removes the directory when the test body failed (use `addTearDown`).
     - _Requirements: 12.9, 7.6, 15.9_
 
-  - [ ] 9.2 Write the box leakage test
+  - [x] 9.2 Write the box leakage test
     - Create `hive_box_isolation_test.dart` (`@TestOn('vm')`). Open two boxes with different unique names through the helper, put the same key with different values in each, and assert each returns only its own value, both before and after closing and reopening one of them (the reopen closes first).
     - If this test ever fails, STOP and tell the user before changing the helper.
     - _Requirements: 12.9, 7.1_
 
-- [ ] 10. Hive implementation
-  - [ ] 10.1 Implement `HiveRawStore`
+- [x] 10. Hive implementation
+  - [x] 10.1 Implement `HiveRawStore`
     - Create `hive_raw_store.dart` (imports `hive_ce` only) with `HiveRawStore(Box<dynamic>)` and `static Future<HiveRawStore> open(String boxName, String? location)` that calls `Hive.openBox<dynamic>(name, path: location)`.
     - `read` returns the string, `''` for any other non-null value, null when absent. `keys()` returns `box.keys.whereType<String>()`. `remove` checks `containsKey` then `delete`. `removeAll` calls `box.clear()`. `close` closes the box and keeps the data. Register no adapters. Call no global initializer.
     - Add `hive_raw_store_test.dart` (`@TestOn('vm')`, uses the helper): read/write/remove/keys/removeAll, foreign non-String value reads as `''`, non-String keys not reported, close keeps data on disk.
     - _Requirements: 7.1, 7.2, 7.3, 7.5, 5.5, 15.9_
 
-  - [ ] 10.2 Implement `HiveRecordRepository` and test it
+  - [x] 10.2 Implement `HiveRecordRepository` and test it
     - Create `hive_record_repository.dart`, a `final class` extending `EnvelopeRepository<T>` that takes a `RawStore`. Its doc comment states that data is stored unencrypted and persists in the Hive box (IndexedDB on web).
     - Add `hive_record_repository_test.dart` (`@TestOn('vm')`, uses the helper): run the shared `repository_contract` body against a repository over a real box; Hive-backed variant of the rejected-put check (unsafe encode leaves raw box contents unchanged and emits nothing); migration and corrupt-entry cases through seeded raw box values; closed behavior (box closed, data kept).
     - Persistence test: put a record, close the repository, reopen at the SAME box name and directory, and `get` returns an equal record. This is the only same-name reuse. The box is closed before reopening and before the directory is deleted.
     - A store whose write throws: the exception propagates, nothing is emitted, later calls still work.
     - _Requirements: 7.1, 7.2, 7.4, 7.7, 7.8, 5.5, 3.3, 3.4, 14.1, 14.5, 14.6, 15.11_
 
-  - [ ] 10.3 Write the validator-vs-real-box agreement test
+  - [x] 10.3 Write the validator-vs-real-box agreement test
     - Create `key_validator_hive_agreement_test.dart` (`@TestOn('vm')`, uses the helper, runs with the debug assert on).
     - Per row of the boundary table, assert the expected coffin verdict and the expected real-box outcome separately. For rows the validator accepts (B2, B3, B5, B6, B11): `put`, `get` and `box.keys` return the same key and record. For B4: `expectLater(() => box.put(...), throwsA(isA<HiveError>()))` (it throws synchronously). Rows B8, B9 and B10 are validator-only and are never written to a real box.
     - Add clearly named characterization tests for B1 (empty key) and B7 (`'x\u0080'`) showing Hive accepts them, so a future `hive_ce` change shows up as a failure.
     - Assert both directions of the reworded Req 3.8: every key the validator accepts works in a real box, and every key the real box rejects is also rejected by the validator.
     - _Requirements: 3.7, 3.8, 3.5, 3.6_
 
-- [ ] 11. Opener and initializer
-  - [ ] 11.1 Implement `OpenedRepository` and `StorageOpener`
+- [x] 11. Opener and initializer
+  - [x] 11.1 Implement `OpenedRepository` and `StorageOpener`
     - Create `opened_repository.dart` and `storage_opener.dart` with `StorageInitializer`, `RawStoreOpener`, and `StorageOpener.open<T>` as in the design (`boxName`, `codec`, `currentVersion`, optional `location`, `migrate`, `repositoryIssues`).
     - The whole body sits in one `try`/`catch (Object)`. A bad box name (not lowercase-able ASCII or over 255) is checked first and takes the fallback path. On any failure return a `MemoryRecordRepository` with `isPersistent: false` and report exactly one `fallbackToMemory` issue whose message names the exception type but not its text. Success reports no issue. `open` never throws. `repositoryIssues` defaults to `reportIssue`.
     - Doc comment on `StorageOpener` states that data is stored unencrypted and must not hold secrets. Note that Hive lowercases box names.
     - Add `storage_opener_test.dart` (`@TestOn('vm')`): success with injected fakes, initializer failure, box-open failure, bad box name, exactly one `fallbackToMemory` report, no report on success, `isPersistent` values, the fallback repository works, a throwing reporter does not make `open` throw, and one real-store case using `HiveRawStore.open` with a unique name and a temp directory as `location` through the hygiene rules (no global `Hive.init`).
     - _Requirements: 11.1, 11.2, 11.3, 11.4, 11.5, 11.6, 11.7, 14.4, 15.11, 7.6_
 
-  - [ ] 11.2 Implement `hiveFlutterInitializer`
+  - [x] 11.2 Implement `hiveFlutterInitializer`
     - Create `hive_flutter_initializer.dart`, the ONLY file that imports `hive_ce_flutter`. Signature `Future<void> hiveFlutterInitializer([String? subDir])`, calling `Hive.initFlutter(subDir)`.
     - The doc comment states that `hive_ce_flutter` registers the Flutter Color and TimeOfDay adapters (type ids 200 and 201), that coffin registers none of its own, that coffin boxes hold only JSON strings so those adapters are never used, that data is stored unencrypted, and recommends prefixed box names such as `hauntagotchi_ghosts`.
     - Add `hive_flutter_initializer_test.dart` checking the function has the `StorageInitializer` shape (a compile-time assignment). Do not call it in a unit test unless it runs cleanly on the test VM.
     - _Requirements: 7.4, 7.6, 7.9, 15.4, 15.11_
 
-- [ ] 12. Model-based property test
-  - [ ] 12.1 Write Property 6 (memory vs Hive vs plain Map)
+- [x] 12. Model-based property test
+  - [x] 12.1 Write Property 6 (memory vs Hive vs plain Map)
     - Create `repository_model_property_test.dart` (`@TestOn('vm')`). Use an async glados body (design "Async smoke test result": glados 1.1.7 awaits async bodies).
     - **Property 6: Memory, Hive and a plain Map agree.** `ExploreConfig(numRuns: 100)`, sequences of at most 30 `Op`s, keys from the generator including B1 to B11. Apply each sequence to a `MemoryRecordRepository`, a `HiveRecordRepository` over a real box, and a `Map<String, TestNote>` reference model written independently of the engine (it validates keys with `KeyValidator`). After every op, assert that `get` for every touched key and `getAll` agree across the three in `String.compareTo` order, and that the events seen by `watch` on both repositories equal the model's expected events (`put` always, `delete` only if present, `clear` always, none for a rejected op). An invalid key makes all three throw `ArgumentError`, leaves state unchanged and emits nothing. Run each sequence in both modes: awaiting each call, and firing all calls first then awaiting them together; both give the same final state and events.
     - Each run owns its repositories, unique box name, box and temp directory (via `openHiveTestBox`), disposed in `finally` with the box closed before the directory is deleted. Share nothing between runs, because glados re-runs a failed body once without awaiting it.

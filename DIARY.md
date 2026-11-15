@@ -67,8 +67,14 @@ A few lines per day: what I asked Kiro, what worked, what didn't, what I learned
   - I spotted that Hive caches open boxes globally by name, so property-test runs could silently share a box. Every run now uses a unique box name, and Kiro added a leakage test to prove boxes stay independent.
   - **The dependency gate worked:** task 1 was a `pub add --dry-run` that had to match an expected package list. It found 4 extras (`jni`, `jni_flutter`, `objective_c`, `hooks`, all from path_provider's native Android/iOS code) and **stopped instead of adding them**. Kiro admitted it had only followed dependencies one level deep. I approved them, since any Flutter app saving data on mobile uses path_provider, and they're unused on web.
   - Task 8 checkpoint, verified myself: format clean, analyze no issues, **397 tests pass** in coffin_core. Pure layer done (no Hive imports yet). ~84 credits, 52 min, the most expensive run so far.
+
 - **Kiro CLI:** installed `kiro-cli` 3.1.0 with one curl command and logged in with the same Google account, so it shares my Kiroween credits. It has `chat`, `agent`, `mcp`, `powers` and even a `crew` command.
   - First real task: had the CLI rewrite `README.md` from the repo root. It asked to trust the workspace (like the IDE did), picked up my steering docs, checked its claims against the actual files, and honestly said storage and AI aren't built yet. 36 seconds, 0.91 credits.
   - Review caught a copy-paste bug: the test commands used chained `cd`s that break when pasted in sequence. Asked the CLI to fix it (now each line is a `(cd … && …)` subshell) and to say "my" not "our" (solo entry). I ran the README's test commands exactly as written: 197 + 9 + 8 pass.
   - IDE vs CLI, my take: 
 
+## Day 5 · Nov 13–15, 2026
+- Ran crypt-storage tasks 9–12 on my own: the real-box test helper, `HiveRawStore`/`HiveRecordRepository`, the `StorageOpener` with in-memory fallback, and the **model-based property test** (100 random runs of put/delete/clear against memory, a real Hive box and a plain Dart `Map`, in both sequential and concurrent modes).
+  - The model test can't pass vacuously: a follow-up test asserts the body ran exactly 100 times and saw more than 0 operations.
+  - Box isolation holds: 200 box opens, 0 temp directories left behind, and the leakage test passes.
+  - Verified afterwards: format clean, analyze no issues, **476 tests pass** in about 8 seconds. ~7.5 credits.
