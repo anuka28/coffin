@@ -320,6 +320,140 @@
         "chatSessionId": "sess_8c75afc9-f8e7-4add-97a9-13fb781fd74a",
         "timestamp": 1794823519658
       }
+    ],
+    "4.1 Create the widget test helper": [
+      {
+        "executionId": "996970e0-d640-4f1e-9cd2-0ef8d70c7576",
+        "chatSessionId": "sess_8c75afc9-f8e7-4add-97a9-13fb781fd74a",
+        "timestamp": 1794823897946
+      },
+      {
+        "executionId": "996970e0-d640-4f1e-9cd2-0ef8d70c7576",
+        "chatSessionId": "sess_8c75afc9-f8e7-4add-97a9-13fb781fd74a",
+        "timestamp": 1794823966938
+      }
+    ],
+    "4.2 Implement `SpookyTokens` and `MotionLoop` with tests": [
+      {
+        "executionId": "996970e0-d640-4f1e-9cd2-0ef8d70c7576",
+        "chatSessionId": "sess_8c75afc9-f8e7-4add-97a9-13fb781fd74a",
+        "timestamp": 1794823972558
+      },
+      {
+        "executionId": "68be2747-f45c-4ffd-9e5f-372b65c29842",
+        "chatSessionId": "sess_8c75afc9-f8e7-4add-97a9-13fb781fd74a",
+        "timestamp": 1794824355754
+      }
+    ],
+    "4.3 Implement `GhostPainter` with tests": [
+      {
+        "executionId": "68be2747-f45c-4ffd-9e5f-372b65c29842",
+        "chatSessionId": "sess_8c75afc9-f8e7-4add-97a9-13fb781fd74a",
+        "timestamp": 1794824361593
+      },
+      {
+        "executionId": "68be2747-f45c-4ffd-9e5f-372b65c29842",
+        "chatSessionId": "sess_8c75afc9-f8e7-4add-97a9-13fb781fd74a",
+        "timestamp": 1794824444540
+      }
+    ],
+    "4.5 Implement `TombstoneBorder` with unit tests": [
+      {
+        "executionId": "68be2747-f45c-4ffd-9e5f-372b65c29842",
+        "chatSessionId": "sess_8c75afc9-f8e7-4add-97a9-13fb781fd74a",
+        "timestamp": 1794824452517
+      },
+      {
+        "executionId": "68be2747-f45c-4ffd-9e5f-372b65c29842",
+        "chatSessionId": "sess_8c75afc9-f8e7-4add-97a9-13fb781fd74a",
+        "timestamp": 1794824519548
+      }
+    ],
+    "4.4 Implement `GhostLoader` with widget tests": [
+      {
+        "executionId": "68be2747-f45c-4ffd-9e5f-372b65c29842",
+        "chatSessionId": "sess_8c75afc9-f8e7-4add-97a9-13fb781fd74a",
+        "timestamp": 1794824524440
+      },
+      {
+        "executionId": "68be2747-f45c-4ffd-9e5f-372b65c29842",
+        "chatSessionId": "sess_8c75afc9-f8e7-4add-97a9-13fb781fd74a",
+        "timestamp": 1794824663141
+      }
+    ],
+    "4.6 Implement `TombstoneCard` with widget tests": [
+      {
+        "executionId": "68be2747-f45c-4ffd-9e5f-372b65c29842",
+        "chatSessionId": "sess_8c75afc9-f8e7-4add-97a9-13fb781fd74a",
+        "timestamp": 1794824667971
+      },
+      {
+        "executionId": "68be2747-f45c-4ffd-9e5f-372b65c29842",
+        "chatSessionId": "sess_8c75afc9-f8e7-4add-97a9-13fb781fd74a",
+        "timestamp": 1794825086393
+      }
+    ],
+    "4.7 Implement `FlickerText` with widget tests": [
+      {
+        "executionId": "68be2747-f45c-4ffd-9e5f-372b65c29842",
+        "chatSessionId": "sess_8c75afc9-f8e7-4add-97a9-13fb781fd74a",
+        "timestamp": 1794825093326
+      },
+      {
+        "executionId": "68be2747-f45c-4ffd-9e5f-372b65c29842",
+        "chatSessionId": "sess_8c75afc9-f8e7-4add-97a9-13fb781fd74a",
+        "timestamp": 1794825174043
+      }
+    ],
+    "4.8 Implement `FogBackground` with widget tests": [
+      {
+        "executionId": "68be2747-f45c-4ffd-9e5f-372b65c29842",
+        "chatSessionId": "sess_8c75afc9-f8e7-4add-97a9-13fb781fd74a",
+        "timestamp": 1794825183543
+      },
+      {
+        "executionId": "68be2747-f45c-4ffd-9e5f-372b65c29842",
+        "chatSessionId": "sess_8c75afc9-f8e7-4add-97a9-13fb781fd74a",
+        "timestamp": 1794825310043
+      }
+    ],
+    "4.9 Write the VM-only widget source scan": [
+      {
+        "executionId": "68be2747-f45c-4ffd-9e5f-372b65c29842",
+        "chatSessionId": "sess_8c75afc9-f8e7-4add-97a9-13fb781fd74a",
+        "timestamp": 1794825314954
+      },
+      {
+        "executionId": "68be2747-f45c-4ffd-9e5f-372b65c29842",
+        "chatSessionId": "sess_8c75afc9-f8e7-4add-97a9-13fb781fd74a",
+        "timestamp": 1794825441203
+      }
+    ],
+    "4. Widgets and their widget tests": [
+      {
+        "executionId": "68be2747-f45c-4ffd-9e5f-372b65c29842",
+        "chatSessionId": "sess_8c75afc9-f8e7-4add-97a9-13fb781fd74a",
+        "timestamp": 1794825441229
+      }
+    ],
+    "5.1 Format, analyze and run all `coffin_core` tests": [
+      {
+        "executionId": "68be2747-f45c-4ffd-9e5f-372b65c29842",
+        "chatSessionId": "sess_8c75afc9-f8e7-4add-97a9-13fb781fd74a",
+        "timestamp": 1794825446029
+      },
+      {
+        "executionId": "68be2747-f45c-4ffd-9e5f-372b65c29842",
+        "chatSessionId": "sess_8c75afc9-f8e7-4add-97a9-13fb781fd74a",
+        "timestamp": 1794825530495
+      }
+    ],
+    "5. Checkpoint B - Widgets verified": [
+      {
+        "executionId": "68be2747-f45c-4ffd-9e5f-372b65c29842",
+        "chatSessionId": "sess_8c75afc9-f8e7-4add-97a9-13fb781fd74a",
+        "timestamp": 1794825530525
+      }
     ]
   }
 }

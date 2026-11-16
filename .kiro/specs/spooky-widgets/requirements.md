@@ -437,12 +437,13 @@ The user answered the open questions. Each answer is recorded below, with the re
 
 ### Design-phase adjustments
 
-The design phase found four places where a first-draft number or wording could not be met, and corrected them as Requirements 6.10 and 7.5 allow.
+The design phase found five places where a first-draft number or wording could not be met, and corrected them as Requirements 6.10 and 7.5 allow.
 
 - **D1 (Requirement 7.5).** The first-draft bound `2 * amplitude * 16 / period * 2` equals 1.0 times the average speed of the ping-pong. An eased motion must be faster than its average in the middle, so no smoothstep motion can meet it. The peak speed of a smoothstep ping-pong is exactly 1.5 times the average speed `4 * amplitude / period`, so the bound is now `6 * amplitude * 16 / period` plus a floating-point margin of 1e-9.
 - **D2 (Requirements 8.2 and 8.6).** "Each level held" and "last level equal to the first level" would give a flat 400 ms hold at the end of each loop. The schedule now eases from the last level back to the first, which also gives `opacityAt(t) == opacityAt(t + 6400)` with no jump.
 - **D3 (Requirement 10.4).** "At most one final division" cannot hold for position math that scales by an amplitude. The rule is now: exact integer numerators, only `+ - * /` and comparisons, no transcendental function, integer intermediates below 2^53.
 - **D4 (Requirements 11.2 to 11.4).** "Run no `AnimationController`" is read as "keep the controller stopped, so no ticker is active", which is what the tests (`transientCallbackCount` equal to 0) check.
+- **D5 (Requirement 13.3).** The Token_Set is picked with an exhaustive switch on the ambient brightness (dark → night, light → daylight) instead of matching against `CoffinColorTokens.variants` with a night fallback. The fallback could never run because brightness has only two values and both are covered, so its test was removed (found in task 4.2; user decision).
 
 ## Accepted assumptions
 

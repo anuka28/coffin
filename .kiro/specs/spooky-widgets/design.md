@@ -457,7 +457,7 @@ abstract final class SpookyTokens {
 }
 ```
 
-It returns the entry of `CoffinColorTokens.variants` whose `brightness` equals `Theme.of(context).brightness`, and `CoffinColorTokens.night` if none matches. This is the answer to Requirement 13.3 (see "Decisions and rejected alternatives"). `ghostBody` returns `tokens.text` when `tokens.brightness == Brightness.dark` and `tokens.primary` otherwise (decision N3).
+It uses an exhaustive switch on `Theme.of(context).brightness` (dark returns `CoffinColorTokens.night`, light returns `CoffinColorTokens.daylight`). This is the answer to Requirement 13.3 (see "Decisions and rejected alternatives"). `ghostBody` returns `tokens.text` when `tokens.brightness == Brightness.dark` and `tokens.primary` otherwise (decision N3).
 
 ### MotionLoop (internal mixin)
 
@@ -1114,7 +1114,7 @@ Further widget tests: the interactive card in the gallery shows a snack bar and 
 
 **Decided in this design:**
 
-- **Token_Set source (Requirement 13.3).** Match `ThemeData.brightness` against `CoffinColorTokens.variants`. Rejected: reading the `ColorScheme` that `CoffinTheme` builds, because it maps only some tokens back (`background` and `raised` appear as Material container slots), and a custom `ColorScheme` would silently give non-Coffin colors that break the guaranteed contrast pairs. The cost is that a non-Coffin theme gets the night or daylight tokens by brightness, which is documented on each widget.
+- **Token_Set source (Requirement 13.3).** An exhaustive switch on `ThemeData.brightness`: `Brightness.dark` gives `CoffinColorTokens.night`, `Brightness.light` gives `CoffinColorTokens.daylight` (D5). Rejected: reading the `ColorScheme` that `CoffinTheme` builds, because it maps only some tokens back (`background` and `raised` appear as Material container slots), and a custom `ColorScheme` would silently give non-Coffin colors that break the guaranteed contrast pairs. The cost is that a non-Coffin theme gets the night or daylight tokens by brightness, which is documented on each widget.
 - **Timing source.** `lastElapsedDuration` of one repeating controller, with the wrapping done by the pure classes. Rejected: using `controller.value` with one controller per period (fog particles have 61 different periods, so no controller length makes every loop seamless), and rejected: a `Ticker` or `Timer` of our own (Requirement 12.7 and `TickerMode` support).
 - **Easing math.** An integer-scaled smoothstep ping-pong. Rejected: `sin` and `cos` (not guaranteed identical between the VM and JavaScript, and Requirement 7.6 forbids them); a linear triangle wave (visible turn-around jerk); a cosine lookup table (more code, no gain).
 - **Flicker interpolation.** Smoothstep between levels, not linear. A linear ramp gives a sharp corner at every level time; the eased step reads as mist and still has extrema only at level times. Rejected: holding each level flat (Requirement 8.2's first wording), which looks like a stuttering blink.
