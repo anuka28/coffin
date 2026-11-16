@@ -29,122 +29,122 @@ Notes that apply to all tasks:
 
 ## Tasks
 
-- [ ] 1. Baseline and dependency guard
-  - [ ] 1.1 Record the pubspec baseline
+- [x] 1. Baseline and dependency guard
+  - [x] 1.1 Record the pubspec baseline
     - Read `packages/coffin_core/pubspec.yaml`, `apps/hauntagotchi/pubspec.yaml`, `apps/graveyard/pubspec.yaml` and `pubspec.lock`. Run `git status --short` and `git diff --stat HEAD -- packages/coffin_core/pubspec.yaml apps/hauntagotchi/pubspec.yaml apps/graveyard/pubspec.yaml pubspec.lock`.
     - Record the baseline in the task summary: for each of the four files, whether it equals HEAD now, and a content hash from `git hash-object <file>`. If crypt-storage work already left one of them different from HEAD, say so. That difference is not caused by this feature, and the final check (task 15.3) compares against both HEAD and this recorded hash.
     - Confirm `glados`, `flutter_test` and `meta` are already declared in `packages/coffin_core/pubspec.yaml`. Add and change nothing.
     - Create no files in this task.
     - _Requirements: 16.9, 17.7, 12.7_
 
-- [ ] 2. Value types
-  - [ ] 2.1 Implement `IdentifierRules`, `AiPurpose` and `ReplySource`
+- [x] 2. Value types
+  - [x] 2.1 Implement `IdentifierRules`, `AiPurpose` and `ReplySource`
     - Create `identifier_rules.dart` (internal), `ai_purpose.dart` and `reply_source.dart` in `packages/coffin_core/lib/src/ai/`, as in design.md.
     - Identifier rules: 1 to 64 code units for `AiPurpose` (32 for `ReplySource`), first character `a` to `z`, the rest `a` to `z`, `0` to `9` or `_`. The factory throws `ArgumentError` for a bad identifier, and the message gives a length or an index and never repeats the string. The two known constants use the private `const` constructor: `AiPurpose.ghostMoodLine` (`ghost_mood_line`), `AiPurpose.seanceVerdict` (`seance_verdict`) and `ReplySource.offline` (`offline`). `AiPurpose.maxIdLength` is 64 and `AiPurpose.violation(String)` is public. Equality and hash are on the identifier only, so `AiPurpose('ghost_mood_line') == AiPurpose.ghostMoodLine`. `toString` prints `AiPurpose(id)` and `ReplySource(name)`.
     - Add `identifier_rules_test.dart`, `ai_purpose_test.dart` and `reply_source_test.dart`: valid and invalid identifiers (empty, 64 and 65 units, leading digit, uppercase, space, `-`, accents, the display text "séance verdict"), the error message does not contain the rejected string, the constants are `const`, a custom purpose reusing a known identifier equals the constant and has the same hash, `ReplySource` cap of 32 and 33, `ReplySource('remote')` is accepted and not equal to `offline`, the name is stable and readable.
     - _Requirements: 2.3, 2.12, 2.13, 2.14, 2.15, 2.16, 3.4, 3.5, 12.1, 15.1, 16.1, 16.5, 17.3_
 
-  - [ ] 2.2 Implement `TextRules` with the verbatim word lists
+  - [x] 2.2 Implement `TextRules` with the verbatim word lists
     - Create `text_rules.dart` (internal) with `bannedWords` (the 20 words, verbatim from design.md: `gore`, `blood`, `kill`, `murder`, `slaughter`, `mutilat`, `dismember`, `decapitat`, `behead`, `entrails`, `viscera`, `massacre`, `torture`, `stabbing`, `stabbed`, `severed`, `bludgeon`, `strangle`, `disembowel`, `maim`), `insultWords` (the 13 words, verbatim: `stupid`, `idiot`, `lazy`, `loser`, `useless`, `worthless`, `pathetic`, `dumb`, `failure`, `hopeless`, `incompetent`, `pitiful`, `ugly`), `maxNameLength` 24, `ellipsis` `\u2026`, `isWhitespaceUnit` (the Dart trim set listed in design.md), `isBlank` (empty is blank), `asciiLower` (A to Z only), `containsBanned`, `cleanName` and `truncate` exactly as specified in design.md (cleaning steps 1 to 5, truncation steps 1 to 5).
     - Add `text_rules_test.dart`: both word lists have the exact words and sizes (20 and 13), `asciiLower` leaves the Kelvin sign and accents alone, every whitespace unit of the set is blank, `containsBanned` is a substring match on the folded text (`BLOODhound` and `skillful` hit, `category`, `stable`, `august`, `gorgeous`, `claim` do not), `cleanName` examples (`'a\u0000  b\n'` gives `a b`, 14 ghost emoji gives 12, a lone surrogate is dropped, only whitespace gives empty, a cut at a high surrogate backs off one unit), `truncate` examples from design.md (`maxLength` 16 on a 48-unit text, two emoji at the cut give 15 units, text that already fits is unchanged).
     - _Requirements: 6.5, 6.10, 7.4, 7.5, 8.2, 8.3, 8.4, 8.5, 5.4, 15.2, 17.3_
 
-  - [ ] 2.3 Implement `AiRequest` and `AiFactKeys`
+  - [x] 2.3 Implement `AiRequest` and `AiFactKeys`
     - Create `ai_request.dart` and `ai_fact_keys.dart`. `AiRequest` has `purpose`, `facts` (unmodifiable copy), `maxLength`, `seed` (default 0), `minimumMaxLength` 16 and `maxSeed` written as the literal `4294967295`. The constructor throws `ArgumentError` naming the minimum when `maxLength < 16`, and naming the allowed range when the seed is below 0 or above 4294967295. Odd facts (empty key, list, map, NaN, infinity, objects) are accepted. Equality compares the four fields with facts order independent, a pair is equal when `==` is true or both are NaN. The hash is the XOR of per-entry hashes combined with the other fields. `toString` prints the purpose id, the number of facts, `maxLength` and the seed, and no fact value. `AiFactKeys` is `abstract final class` with the four constants `streakCount`, `daysSinceLastCommit`, `ghostName`, `projectName`.
     - Add `ai_request_test.dart` and `ai_fact_keys_test.dart`: `maxLength` 15 throws, 16 and 17 are accepted, seed -1 and 4294967296 throw, seed 0 and 4294967295 are accepted, the default seed is 0, facts default to empty, mutating the caller's map after construction does not change the request, the facts map is unmodifiable, equality and hash with a different insertion order, NaN fact equals itself, `5` equals `5.0`, each of the four fields changes equality, odd facts are accepted, `toString` shows no fact value, the four key strings are exact.
     - _Requirements: 2.1, 2.2, 2.4, 2.5, 2.6, 2.7, 2.8, 2.9, 2.10, 2.11, 15.3, 15.4, 15.11, 15.12, 16.5, 17.3_
 
-  - [ ] 2.4 Implement `AiReply`
+  - [x] 2.4 Implement `AiReply`
     - Create `ai_reply.dart`: `const AiReply({required text, required source})`, value equality and hash over both fields, `isUsableFor(AiRequest)` (not blank by `TextRules.isBlank` and `text.length <= request.maxLength`) and a `toString` that prints the source and the length and never the text. Construction accepts any string.
     - Add `ai_reply_test.dart`: construction with empty, whitespace-only and very long text does not throw, equality and hash per field, `isUsableFor` for empty, whitespace-only (including U+00A0 and U+3000), exactly `maxLength`, `maxLength + 1`, `toString` has no text.
     - _Requirements: 3.1, 3.2, 3.3, 3.6, 3.7, 15.11, 17.3_
 
-  - [ ] 2.5 Implement the issue types, the reporter, `AiFallbackError` and `AiTimerFactory`
+  - [x] 2.5 Implement the issue types, the reporter, `AiFallbackError` and `AiTimerFactory`
     - Create `ai_issue_kind.dart` (`threw`, `timedOut`, `emptyReply`, `invalidReply`), `ai_issue.dart` (immutable, value equality, `AiIssue.forKind` with the four fixed messages from design.md, verbatim), `ai_issue_reporter.dart` (`AiIssueReporter` typedef, `discardAiIssues`, and the internal `reportAiIssueSafely` that swallows anything the reporter throws), `ai_fallback_error.dart` (`AiFallbackError implements Exception` with `primaryFailure` and `secondaryFailure` and a fixed `toString` with the two kind names) and `ai_timer_factory.dart` (`typedef AiTimerFactory = Timer Function(Duration duration, void Function() callback)`). Import `@immutable` from `package:meta/meta.dart`. No import of `src/storage`.
     - Add `ai_issue_test.dart`, `ai_issue_reporter_test.dart` and `ai_fallback_error_test.dart`: equality and hash per field, each fixed message text, the default reporter discards, a throwing reporter is swallowed and later calls still work, the error carries the two kinds, `toString` contains only fixed text and kind names.
     - _Requirements: 10.4, 10.5, 10.6, 11.1, 11.2, 11.3, 11.4, 11.5, 11.6, 10.3, 15.6, 15.11, 16.5, 17.3_
 
-- [ ] 3. The interface
-  - [ ] 3.1 Implement `CoffinAI`
+- [x] 3. The interface
+  - [x] 3.1 Implement `CoffinAI`
     - Create `coffin_ai.dart`: `abstract interface class CoffinAI` with exactly one member, `Future<AiReply> ask(AiRequest request)`, and a doc comment stating the contract (a reply or an error, never a synchronous throw, no cancellation).
     - Add `coffin_ai_test.dart` with a small fake class in the test that implements `CoffinAI` and returns a reply, and a check that the interface has exactly the one expected member shape (the fake compiles with only `ask`).
     - _Requirements: 1.1, 1.2, 1.3, 1.5, 1.6, 17.3_
 
-- [ ] 4. Pure test support
-  - [ ] 4.1 Create the test-side texts and the web-safe generators
+- [x] 4. Pure test support
+  - [x] 4.1 Create the test-side texts and the web-safe generators
     - Create `test/ai/support/test_texts.dart`: the test-declared banned list (its own copy of the 20 words, not read from `TextRules`), the test-declared whitespace set, an ASCII fold, a lone-surrogate check, an edge-whitespace check, and an emoji counter.
     - Create `test/ai/support/ai_generators.dart`: independent web-safe copies of `anyIntBetween` and `anyListBetween` (the span may reach 4294967296, written as a literal), `anyAiPurpose` (known constants, custom valid identifiers, identifiers that reuse a known id, and custom ids with the `zzmark_` marker), `anyFacts` (known keys about 80% of the time, extra keys, an empty key, `int`, whole and fractional `double`, negative, 2^53 - 1, `NaN`, infinity, lists, maps, strings from a piece list with emoji, accents, CJK, control characters, lone surrogates, banned words and 40-unit text), `anySeed` (20% from the edge list 0, 1, 2147483647, 2147483648, 4294967294, 4294967295, otherwise `anyIntBetween(0, 4294967296)`), `anyMaxLength` (edges 16, 17, 80, 5000, otherwise 16 to 200), `anyAiRequest`, a `describeRequest` helper that prints the purpose id, every fact with escaping, the limit and the seed, and a `RunCounter`. Build strings from the piece list, never from glados string generators.
     - Add `test/ai/support/ai_generators_test.dart`: generated values stay in range (seed, `maxLength`, identifiers valid), the edge seeds appear, every generated purpose constructs, `describeRequest` is readable, and the test texts helpers behave on known strings.
     - _Requirements: 13.1, 13.7, 13.8, 13.9, 13.11, 14.10, 8.9, 16.2_
 
-  - [ ] 4.2 Create `FakeClock` and `ScriptedCoffinAI`
+  - [x] 4.2 Create `FakeClock` and `ScriptedCoffinAI`
     - Create `test/ai/support/fake_clock.dart`: `FakeClock` with a `create` method that is an `AiTimerFactory`, `advance(Duration)` that fires every due timer in due-time order synchronously with no microtask, `pendingTimers`, `now` (a plain `Duration`, no wall clock), and timers whose `cancel` and `isActive` behave like a real `Timer`.
     - Create `test/ai/support/scripted_ai.dart`: `ScriptedCoffinAI`, a primary driven by an outcome list. Outcomes: usable reply with a given source, synchronous throw, asynchronous error, never-completing future, reply completing later (controlled by a `Completer` the test completes), error completing later, empty or whitespace-only reply, overlong reply. It counts calls and records the request objects. Also a small `ScriptedSecondary` (throws, empty, overlong) for Property 21.
     - Add `fake_clock_test.dart` and `scripted_ai_test.dart` under `test/ai/support/`: timers fire in due order, `advance` is synchronous, a cancelled timer never fires, `pendingTimers` counts active timers only, each scripted outcome behaves as described, call counting.
     - _Requirements: 10.3, 14.1, 14.7, 12.2, 16.2_
 
-- [ ] 5. Property tests for value types and text rules
-  - [ ] 5.1 Write property test for purpose identifiers
+- [x] 5. Property tests for value types and text rules
+  - [x] 5.1 Write property test for purpose identifiers
     - Create `ai_purpose_property_test.dart`. `numRuns: 300`.
     - **Property 15: Purpose identifier rules and equality.** For any string (generator mixes valid identifiers, uppercase, digits first, spaces, accents, emoji, lone surrogates and lengths around 64), `AiPurpose(s)` is accepted exactly when the rules hold, and a rejected string raises `ArgumentError`. For any two accepted strings the purposes are equal exactly when the strings are equal, and equal purposes have equal hashes.
     - **Validates: Requirements 2.12, 2.13, 2.15, 2.16**
 
-  - [ ] 5.2 Write property test for request equality and hash
+  - [x] 5.2 Write property test for request equality and hash
     - Create `ai_request_property_test.dart`. `numRuns: 300`.
     - **Property 13: Request equality and hash.** For any request `r`, a request with the same purpose, a copy of the facts inserted in shuffled order, the same `maxLength` and the same seed is equal to `r` and has the same hash. Changing any one of the four fields gives a request that is not equal. Mutating the source map afterwards does not change the request.
     - **Validates: Requirements 2.1, 2.8, 2.9**
 
-  - [ ] 5.3 Write property test for request validation
+  - [x] 5.3 Write property test for request validation
     - In `ai_request_property_test.dart`. `numRuns: 300`.
     - **Property 14: Request validation boundaries.** For any integers `maxLength` and `seed` (generated around 16 and around 0 and 4294967295, all below 2^53), the constructor throws `ArgumentError` exactly when `maxLength < 16`, or `seed < 0`, or `seed > 4294967295`, and otherwise returns a request that holds those values.
     - **Validates: Requirements 2.5, 2.6**
 
-  - [ ] 5.4 Write property test for reply equality and the usable check
+  - [x] 5.4 Write property test for reply equality and the usable check
     - Create `ai_reply_property_test.dart`. `numRuns: 300`.
     - **Property 16: Reply equality and the usable check.** For any two texts and two sources, replies are equal exactly when both fields are equal and equal replies have equal hashes. For any text and request, `isUsableFor` equals a test-side oracle (not blank by the test's own whitespace set, and length at most `maxLength`). Construction never throws for any string.
     - **Validates: Requirements 3.1, 3.2, 3.3**
 
-  - [ ] 5.5 Write property test for name cleaning
+  - [x] 5.5 Write property test for name cleaning
     - Create `text_rules_property_test.dart`. `numRuns: 300`.
     - **Property 10: Name cleaning.** For any string (generator with emoji, lone surrogates, control characters, runs of whitespace and long text), `TextRules.cleanName(s)` has at most 24 code units, no control character, no unpaired surrogate, no leading or trailing whitespace, no two adjacent whitespace units, and `cleanName(cleanName(s)) == cleanName(s)`.
     - **Validates: Requirements 6.5, 6.10**
 
-  - [ ] 5.6 Write property test for truncation
+  - [x] 5.6 Write property test for truncation
     - In `text_rules_property_test.dart`. `numRuns: 300`.
     - **Property 11: Truncation keeps its promises.** For any string `s` that starts with a non-whitespace unit and has no unpaired surrogate, and any limit `m >= 16`, `TextRules.truncate(s, m)` has length at most `m`, is non-empty, has no unpaired surrogate and no trailing whitespace, equals `s` when `s.length <= m`, and otherwise ends with `…`.
     - **Validates: Requirements 7.4, 7.5**
 
-- [ ] 6. Offline internals
-  - [ ] 6.1 Implement `SeededRandom` with the exact reference table
+- [x] 6. Offline internals
+  - [x] 6.1 Implement `SeededRandom` with the exact reference table
     - Create `seeded_random.dart` (internal) with Mulberry32 exactly as in design.md: `_imul`, `nextUint32` and `nextInt(n)` for `1 <= n <= 65536` (assert `n >= 1`, never a limit near 2^32, no `1 << 32`, no `dart:math`).
     - Add `seeded_random_test.dart` with an exact-value unit test that asserts the first three `nextUint32()` values of design.md's table for every seed: seed 0 gives 1144304738, 1416247, 958946056; seed 1 gives 2693262067, 11749833, 2265367787; seed 42 gives 2581720956, 1925393290, 3661312704; seed 4294967295 gives 3850105811, 813802916, 3073704848. The test runs on the VM and on Chrome.
     - If the implementation does not reproduce these values, STOP and report to the user. Do not change the expected values.
     - Also test: `nextInt(1)` is always 0, `nextInt(65536)` stays in range, two instances with one seed give equal sequences, `nextInt(0)` fails the assert.
     - _Requirements: 5.3, 5.4, 4.5, 17.3_
 
-  - [ ] 6.2 Write property test for the PRNG against an independent reference
+  - [x] 6.2 Write property test for the PRNG against an independent reference
     - Create `seeded_random_property_test.dart`. `numRuns: 300`.
     - **Property 17: The PRNG matches an independent reference.** For any seed in 0 to 4294967295 (edges plus `anyIntBetween(0, 4294967296)`), the first 20 values of `SeededRandom(seed).nextUint32()` equal a `BigInt` implementation of Mulberry32 written in the test file, and `nextInt(n)` for `1 <= n <= 65536` is always in `0 .. n - 1`.
     - **Validates: Requirements 5.4**
 
-  - [ ] 6.3 Implement `CleanFacts`
+  - [x] 6.3 Implement `CleanFacts`
     - Create `clean_facts.dart` (internal) with `CleanFacts.from(Map<String, Object?>)`. Count rule: a `num`, finite, from 0 to 1000000, equal to its own `truncateToDouble()`, then `toInt()`; everything else is missing (bool, String, null, list, fractional, non-finite, negative, above 1000000). Name rule: a `String` cleaned with `TextRules.cleanName`, missing when empty or when it contains a banned word. Read only the four `AiFactKeys` keys, ignore every other key.
     - Add `clean_facts_test.dart`: the counts in design.md's list (`0`, `-0.0`, `5.0`, `1000000`, `1000000.0`, `1000001`, `-1`, `0.5`, `NaN`, `Infinity`, `'5'`, `true`, `null`, `4294967295`) give the same results on the VM and on Chrome, `5.0` and `5` both give 5, names with emoji, accents, control characters and more than 24 units are cleaned, a name of `Murderous` and a blank name are missing, extra keys and an empty key are ignored, a wrong-type fact is missing.
     - _Requirements: 2.7, 5.5, 5.6, 6.3, 6.4, 6.5, 6.6, 6.7, 6.10, 15.2, 17.3_
 
-  - [ ] 6.4 Implement `Template`
+  - [x] 6.4 Implement `Template`
     - Create `template.dart` (internal) with the grammar of design.md: count slots `{key:singular/plural}` for `streakCount` and `daysSinceLastCommit`, name slots `{key|fallback}` for `ghostName` and `projectName`. The constructor parses once and throws `StateError` for an unknown key, a missing noun or fallback, a count slot with `|`, a name slot with `:` or a stray brace. Provide `isEligible`, `usedFacts`, `usesRealName` and `render(facts, {useNames = true})`. A count renders `<number> <noun>` (singular only for 1), with no separator and no locale.
     - Add `template_test.dart`: the plural rule for 0, 1, 2 and 1000000, a name slot with and without a name, `useNames: false` uses the fallback, eligibility and `usedFacts`, each parse error, a pattern with no slot.
     - _Requirements: 6.2, 6.3, 6.5, 6.7, 8.11, 17.3_
 
-  - [ ] 6.5 Implement `TemplateSet` and the verbatim `TemplateCatalog`
+  - [x] 6.5 Implement `TemplateSet` and the verbatim `TemplateCatalog`
     - Create `template_set.dart` and `template_catalog.dart` (internal). `TemplateSet(patterns, {required safeLine})`. `TemplateCatalog` has `ghostMoodLine`, `seanceVerdict` and `generic`, `forPurpose(AiPurpose)` (known id gives its set, else generic) and `static final standard`.
     - Use exactly the 24 template lines of design.md "Initial template copy", in that order and verbatim, including the fallback phrases inside the name slots and the ghost and pumpkin emoji. Ghost mood line G1 to G8: `Floating along.`, `Your ghost is getting hungry…`, `Mist, moonlight and good company.`, `{ghostName|Your ghost} drifts by to say boo. 👻`, `Streak: {streakCount:day/days}. The mist is on your side.`, `{ghostName|Your ghost} has counted {streakCount:day/days} and is still floating.`, `{streakCount:day/days} so far. {ghostName|Your ghost} is humming.`, `{ghostName|Your ghost} waits by the window, glowing softly.` Séance verdict V1 to V8: `The spirits are still listening.`, `Not gone, just napping.`, `Not quite gone.`, `{projectName|This project} has been dead for {daysSinceLastCommit:day/days}. Not forever, though.`, `Last commit: {daysSinceLastCommit:day/days} ago. The ghost remembers.`, `{projectName|This project} still glows faintly in the dark.`, `{daysSinceLastCommit:day/days} of silence, and {projectName|this project} is still worth a séance.`, `Every great haunting starts with one small commit.` Generic X1 to X8: `Boo. Hello from the mist.`, `Something spooky this way comes.`, `Quiet in here.`, `The pumpkins say hi. 🎃`, `{ghostName|A friendly ghost} says hello.`, `{projectName|This one} is waiting in the moonlight.`, `{streakCount:day/days} so far. The moon approves.`, `{daysSinceLastCommit:day/days} on the clock. The fog is patient.` Copy them from design.md, not from memory.
     - The three Safe_Lines, verbatim: ghost mood line `Boo. Still here.`, séance verdict `Rest, then rise.`, generic `Still here.`.
     - Add `template_set_test.dart` or cover it in `template_catalog_test.dart` (task 6.6): `forPurpose` for both known constants, for a custom purpose and for a custom purpose that reuses a known id.
     - _Requirements: 6.1, 6.2, 7.6, 8.1, 8.6, 8.7, 8.14, 2.14, 2.16, 2.17, 17.3_
 
-  - [ ] 6.6 Write the template audit test
+  - [x] 6.6 Write the template audit test
     - Create `template_catalog_test.dart`. It runs on the VM and on Chrome. Loop over every template of the three sets and fill it with: no facts (when eligible), count 0, 1, 2 and 1000000, a 2-unit name, a 24-unit name of `W`, a 24-unit name of emoji, a name with accents, and the no-name variant of each. The extreme fill uses count 1000000 and a 24-unit name; the no-facts fill uses no facts at all.
     - For every filled text assert: no banned word (test-declared list), no insult word (test-declared list of the 13 words), at most one emoji and only the ghost or pumpkin, non-blank, no lone surrogate, no edge whitespace.
     - Assert the length table of design.md exactly (UTF-16 code units; "No facts", "Small" with count 1 and a 2-unit name, "Extreme" with count 1000000 and a 24-unit name, "No-name at extreme"), for all 24 rows: G1 15/15/15/15, G2 29/29/29/29, G3 33/33/33/33, G4 35/27/49/35, G5 n/a/40/47/47, G6 n/a/43/72/58, G7 n/a/28/57/43, G8 47/39/61/47, V1 32/32/32/32, V2 23/23/23/23, V3 15/15/15/15, V4 n/a/48/77/65, V5 n/a/44/51/51, V6 45/35/57/45, V7 n/a/49/78/66, V8 50/50/50/50, X1 25/25/25/25, X2 32/32/32/32, X3 14/14/14/14, X4 23/23/23/23, X5 28/14/36/28, X6 37/31/53/37, X7 n/a/32/39/39, X8 n/a/39/46/46. A row cell `n/a` means the template needs a count and is not eligible without facts. The longest filled text is 78 units.
@@ -152,12 +152,12 @@ Notes that apply to all tasks:
     - Also assert: at least 6 templates per set, at least 2 slot-free templates per set, at least one fact-free template of 16 units or fewer per set (G1, V3, X3), every pattern parses, the plural rule for 0, 1, 2 and 1000000, each Safe_Line is at most 16 units (16, 16 and 11 exactly) with no banned word and no insult word, and every word of the test-declared banned list is present in `TextRules.bannedWords` and every word of the test-declared insult list is in `TextRules.insultWords`, so weakening the exported lists fails a test.
     - _Requirements: 6.1, 6.2, 7.6, 8.2, 8.5, 8.7, 8.8, 8.9, 8.14, 15.13, 17.3_
 
-  - [ ] 6.7 Implement `OfflineEngine`, `ComposedText` and `ComposePath`
+  - [x] 6.7 Implement `OfflineEngine`, `ComposedText` and `ComposePath`
     - Create `composed_text.dart`, `compose_path.dart` and `offline_engine.dart` (internal). `ComposePath` has `picked`, `truncated`, `noNameVariant`, `nextTemplate`, `safeLine`. `OfflineEngine(catalog)` has `static final standard` and `compose(AiRequest)` implementing steps 1 to 9 of design.md's "Offline selection algorithm" exactly: eligible templates, fitting templates, most used facts, seed pick with `SeededRandom(seed).nextInt`, truncation of the shortest, the banned check on the final text, Recovery (a) with fallback phrases, Recovery (b) in seed-rotated catalog order (a candidate that does not fit is skipped, never cut), Recovery (c) the Safe_Line. The purpose id is used only to choose the set and never reaches the seed or the text.
     - Add `offline_engine_test.dart` with examples on the standard catalog: a known purpose with its fact picks a template that uses it, a fact-free request picks a fact-free template, a custom purpose gets a generic template, `maxLength` 16 gives a fitting fact-free template with path `picked`, the same request gives the same result twice.
     - _Requirements: 4.5, 4.6, 4.8, 5.2, 6.8, 6.9, 7.1, 7.2, 7.3, 7.4, 7.5, 8.10, 8.11, 8.12, 8.13, 2.17, 2.18, 17.3_
 
-  - [ ] 6.8 Write the Recovery and truncation tests
+  - [x] 6.8 Write the Recovery and truncation tests
     - In `offline_engine_test.dart`, use `OfflineEngine` with injected `TemplateCatalog`s. Add no public test hook and no `@visibleForTesting` parameter.
     - Boundary case, step (a): an injected set with one template `Hush, a mur{ghostName|!}`, Safe_Line `Boo. Still here.`, facts `ghostName: 'der'`, `maxLength` 80, any seed. Assert the text equals `Hush, a mur!` exactly and the path is `noNameVariant`. With name `Bo` the same template gives `Hush, a murBo` with path `picked`.
     - Step (b): an injected set with `Hush, a mur{ghostName|der}` and `Calm night.`, name `der`. Assert text `Calm night.` and path `nextTemplate`.
@@ -166,12 +166,12 @@ Notes that apply to all tasks:
     - A recovery candidate that does not fit is skipped, not cut. An empty eligible pool returns the Safe_Line with path `safeLine`.
     - _Requirements: 8.11, 8.12, 8.13, 8.15, 8.16, 7.4, 7.5, 15.13, 17.3_
 
-  - [ ] 6.9 Write property test for Recovery
+  - [x] 6.9 Write property test for Recovery
     - Create `offline_engine_property_test.dart`. `numRuns: 500`.
     - **Property 12: Recovery never returns a banned word or an overlong text.** For any injected catalog built from a pool of generated templates (some banned by their own text, some banned only through a name, some too long, some needing a count), any facts, any seed and any `maxLength >= 16`, `OfflineEngine.compose` returns text that has no banned word (test-declared list), has at most `maxLength` units and is non-empty. The same request gives the same text and path twice.
     - **Validates: Requirements 8.11, 8.12, 8.13**
 
-- [ ] 7. Checkpoint - Pure layer verification
+- [x] 7. Checkpoint - Pure layer verification
   - Run `dart format --set-exit-if-changed .`, `flutter analyze` and `flutter test` in `packages/coffin_core`. Fix anything that fails.
   - Confirm `git status --short` shows no pubspec change caused by this feature.
   - Ensure all tests pass, ask the user if questions arise.

@@ -82,3 +82,11 @@ A few lines per day: what I asked Kiro, what worked, what didn't, what I learned
   - The three older property files used glados generators that break on web (`1 << 32` is 0 in JavaScript). Kiro made them web-safe instead of dropping them. I ran the 14 pure storage test files in a real Chrome myself: **138 pass**, including all property tests at 200 runs.
   - **crypt-storage complete.** Verified: format clean, analyze no issues, coffin_core **499** + Hauntagotchi 9 + Graveyard 8 tests pass. ~33 credits for tasks 13–18.
   - Still to check by hand once an app uses storage: save a record in Chrome and reload (real IndexedDB), then repeat in a private window (memory fallback + reported issue).
+
+## Day 7 · Nov 15–16, 2026
+- **Key decision for the AI layer:** judges open the app by URL, so an API key in a Flutter web app would be visible to anyone. Plan: step 1 is a provider-agnostic `CoffinAI` with an offline template generator and a fallback wrapper (no network, no keys); step 2 adds a tiny proxy (e.g. a Cloudflare Worker) that holds the key with a rate limit and spend cap, falling back to offline if it's down.
+- **Fifth spec: `coffin-ai`.** In review I added two things: banned words can form *across* a template and a name ("…go" + "re…" = "gore"), so the generator needs a deterministic recovery (drop the name, then next template, then a pre-verified safe line); and Purpose became an open type so each app can add its own purposes without touching coffin_core.
+  - Kiro's research, run on both VM and Chrome: seeded `Random` matched, but Dart doesn't promise that, so it uses its own Mulberry32 generator. Several glados generators break in JavaScript, so it built web-safe copies. `Future.delayed(Duration.zero)` is ~180× slower in Chrome, so tests pump microtasks instead.
+  - I reviewed the 24 lines of template copy for tone ("Not gone, just napping.", "Every great haunting starts with one small commit.", "The pumpkins say hi. 🎃").
+  - Kiro caught a bug the design missed: equal requests could hash differently for `5` vs `5.0` on the VM.
+  - Task 7 checkpoint, verified myself: format clean, analyze no issues, **331 AI tests pass on the VM and the same 331 in Chrome**; coffin_core total **830**. No clock, URL, HTTP, `dart:io` or unseeded `Random` in `lib/src/ai`, and nothing changed outside the AI folders.
