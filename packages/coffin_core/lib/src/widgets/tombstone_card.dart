@@ -11,8 +11,11 @@ import 'tombstone_border.dart';
 /// A tombstone-shaped card with a title, an optional date line and an optional
 /// child.
 ///
-/// The card is at most 360 px wide and centered in its parent. It glows softly
-/// at rest. When [onTap] is not null the card is interactive: the glow grows on
+/// The card is at most 300 px wide and centered in its parent. Its arch is
+/// close to a half circle of the card width. When it has a [child] the card
+/// is at least 1.2 times as tall as it is wide, like a grave marker.
+///
+/// It glows softly at rest. When [onTap] is not null the card is interactive: the glow grows on
 /// hover and press, a focus ring shows on keyboard focus, Enter and Space
 /// activate it, and it is exposed to screen readers as a button of at least
 /// 48 by 48 logical pixels. Without [onTap] it is plain content.
@@ -52,8 +55,9 @@ class TombstoneCard extends StatefulWidget {
 }
 
 class _TombstoneCardState extends State<TombstoneCard> {
-  static const double _maxWidth = 360;
-  static const double _archRise = 48;
+  static const double _maxWidth = 300;
+  static const double _archRise = 140;
+  static const double _portraitRatio = 1.2;
   static const Duration _stateDuration = Duration(milliseconds: 300);
 
   bool _hovered = false;
@@ -213,7 +217,22 @@ class _TombstoneCardState extends State<TombstoneCard> {
       child: ClipPath(
         clipper: ShapeBorderClipper(shape: shape),
         clipBehavior: Clip.antiAlias,
-        child: SingleChildScrollView(primary: false, child: content),
+        child: SingleChildScrollView(
+          primary: false,
+          child: LayoutBuilder(
+            builder: (BuildContext context, BoxConstraints box) {
+              final double width = box.maxWidth.isFinite
+                  ? box.maxWidth
+                  : _maxWidth;
+              return ConstrainedBox(
+                constraints: BoxConstraints(
+                  minHeight: widget.child == null ? 0 : width * _portraitRatio,
+                ),
+                child: content,
+              );
+            },
+          ),
+        ),
       ),
     );
 

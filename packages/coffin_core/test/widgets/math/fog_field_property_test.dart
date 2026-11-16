@@ -33,8 +33,8 @@ List<_Replayed> _replay(int seed, int count) {
     r.nextInt(1001); // ay
     r.nextInt(1001); // bx
     r.nextInt(1001); // by
-    final double radius = (120 + r.nextInt(181)) / 1000;
-    final double alpha = (30 + r.nextInt(21)) / 1000;
+    final double radius = (350 + r.nextInt(251)) / 1000;
+    final double alpha = (30 + r.nextInt(11)) / 1000;
     final int periodMs = 30000 + 1000 * r.nextInt(61);
     r.nextUint32(); // startMs
     out.add((radius: radius, alpha: alpha, periodMs: periodMs));
@@ -56,7 +56,7 @@ void main() {
       anyElapsed,
       ExploreConfig(numRuns: _numRuns),
     ).test('returns clamp(count, 0, 24) particles with unit positions, radius '
-        '0.12 to 0.30 and alpha 0.03 to 0.05', (seed, count, elapsed) {
+        '0.35 to 0.60 and alpha 0.03 to 0.04', (seed, count, elapsed) {
       _validCounter.increment();
       final String why = 'seed=$seed count=$count elapsed=$elapsed';
       final int expected = count < 0 ? 0 : (count > 24 ? 24 : count);
@@ -70,8 +70,8 @@ void main() {
         final String at = '$why particle=$p';
         expect(p.x >= 0 && p.x <= 1, isTrue, reason: at);
         expect(p.y >= 0 && p.y <= 1, isTrue, reason: at);
-        expect(p.radius >= 0.12 && p.radius <= 0.30, isTrue, reason: at);
-        expect(p.alpha >= 0.03 && p.alpha <= 0.05, isTrue, reason: at);
+        expect(p.radius >= 0.35 && p.radius <= 0.60, isTrue, reason: at);
+        expect(p.alpha >= 0.03 && p.alpha <= 0.04, isTrue, reason: at);
       }
     });
 
@@ -102,7 +102,7 @@ void main() {
       final String why =
           'seed=$seed count=$count elapsed=$elapsed width=$width '
           'height=$height choice=$choice';
-      final double shorter = width < height ? width : height;
+      final double longer = width > height ? width : height;
 
       final List<FogParticle> particles = FogField(
         seed: seed,
@@ -113,7 +113,7 @@ void main() {
         final String at = '$why particle=$p disc=$d';
         expect(d.x >= 0 && d.x <= width, isTrue, reason: at);
         expect(d.y >= 0 && d.y <= height, isTrue, reason: at);
-        expect(d.radius >= 0 && d.radius <= shorter, isTrue, reason: at);
+        expect(d.radius >= 0 && d.radius <= longer, isTrue, reason: at);
       }
 
       // choice 0..5 breaks the width, 6..11 the height, 12..17 both.

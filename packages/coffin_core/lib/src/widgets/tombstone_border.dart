@@ -17,7 +17,7 @@ final class TombstoneBorder extends OutlinedBorder {
   /// path is built, so the arcs never invert.
   const TombstoneBorder({
     super.side = BorderSide.none,
-    this.archRise = 48,
+    this.archRise = 140,
     this.bottomRadius = CoffinMetrics.cornerRadius,
   });
 

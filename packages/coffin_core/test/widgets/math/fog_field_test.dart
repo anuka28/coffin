@@ -10,7 +10,7 @@ void main() {
       expect(FogField(seed: 1, count: 24).particlesAt(0), hasLength(24));
       expect(FogField(seed: 1, count: 25).particlesAt(0), hasLength(24));
       expect(FogField(seed: 1, count: 25).count, 24);
-      expect(FogField(seed: 1).particlesAt(0), hasLength(10));
+      expect(FogField(seed: 1).particlesAt(0), hasLength(5));
     });
   });
 
@@ -20,8 +20,8 @@ void main() {
         final field = FogField(seed: seed, count: 24);
         for (final t in [0, 1234, 45000, 99999, -50000]) {
           for (final p in field.particlesAt(t)) {
-            expect(p.radius, inInclusiveRange(0.12, 0.30));
-            expect(p.alpha, inInclusiveRange(0.03, 0.05));
+            expect(p.radius, inInclusiveRange(0.35, 0.60));
+            expect(p.alpha, inInclusiveRange(0.03, 0.04));
             expect(p.x, inInclusiveRange(0, 1));
             expect(p.y, inInclusiveRange(0, 1));
           }
@@ -72,7 +72,7 @@ void main() {
       final d = FogField.toBounds(p, 200, 100);
       expect(d.x, 100);
       expect(d.y, 25);
-      expect(d.radius, 0.2 * 100);
+      expect(d.radius, 0.2 * 200);
     });
 
     test('a zero dimension gives an all-zero disc', () {

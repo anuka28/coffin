@@ -54,10 +54,10 @@ void main() {
       await _settleAll(tester);
 
       expect(_panels, findsNWidgets(2));
-      expect(_panelColor(tester, _night), CoffinColorTokens.night.background);
+      expect(_panelColor(tester, _night), CoffinColorTokens.night.surface);
       expect(
         _panelColor(tester, _daylight),
-        CoffinColorTokens.daylight.background,
+        CoffinColorTokens.daylight.surface,
       );
       expect(
         Theme.of(_innerElement(tester, _night)).brightness,
@@ -69,6 +69,36 @@ void main() {
       );
     });
 
+    testWidgets('both panels share one rounded, framed panel treatment', (
+      tester,
+    ) async {
+      await pumpSpooky(tester, const CryptGallery());
+      await _settleAll(tester);
+      for (final (Finder panel, CoffinColorTokens tokens)
+          in <(Finder, CoffinColorTokens)>[
+            (_night, CoffinColorTokens.night),
+            (_daylight, CoffinColorTokens.daylight),
+          ]) {
+        final Material material = tester.widget<Material>(
+          find.descendant(of: panel, matching: find.byType(Material)).first,
+        );
+        final RoundedRectangleBorder shape =
+            material.shape! as RoundedRectangleBorder;
+        expect(shape.borderRadius, BorderRadius.circular(16));
+        expect(shape.side.color, tokens.muted);
+        expect(
+          tester
+              .getSize(
+                find.descendant(
+                  of: panel,
+                  matching: find.byType(FogBackground),
+                ),
+              )
+              .height,
+          240,
+        );
+      }
+    });
     testWidgets('daylight panel stays daylight inside a dark app', (
       tester,
     ) async {
@@ -80,7 +110,7 @@ void main() {
       await _settleAll(tester);
       expect(
         _panelColor(tester, _daylight),
-        CoffinColorTokens.daylight.background,
+        CoffinColorTokens.daylight.surface,
       );
 
       await pumpSpooky(
@@ -89,7 +119,7 @@ void main() {
         brightness: Brightness.light,
       );
       await _settleAll(tester);
-      expect(_panelColor(tester, _night), CoffinColorTokens.night.background);
+      expect(_panelColor(tester, _night), CoffinColorTokens.night.surface);
     });
 
     testWidgets('stacks panels below 900 and places them side by side', (

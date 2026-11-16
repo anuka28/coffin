@@ -41,7 +41,7 @@ This feature adds NO new package, NO image asset, NO sound asset and NO `pubspec
 - **Ghost_Bob**: The pure Dart class that maps elapsed time to the vertical bob offset of the ghost.
 - **Flicker_Schedule**: The pure Dart class that maps a Seed and elapsed time to a flicker opacity.
 - **Fog_Field**: The pure Dart class that maps a Seed, a particle count and elapsed time to a list of Fog_Particles in unit coordinates.
-- **Fog_Particle**: The immutable value for one fog blob: unit-square center `(x, y)` in 0.0 to 1.0, radius fraction, and alpha from 0.03 to 0.05.
+- **Fog_Particle**: The immutable value for one fog blob: unit-square center `(x, y)` in 0.0 to 1.0, radius fraction, and alpha from 0.03 to 0.04.
 - **Seed**: An integer that selects a pattern. The pure classes mask it with `0xFFFFFFFF`, so any Dart `int` is accepted and the effective range is 0 to 4294967295.
 - **Elapsed_Time**: A non-negative integer number of milliseconds, up to 2^40, passed to the pure classes. Negative values are handled without throwing (see Requirement 7.7).
 - **Reduced_Motion**: The state where `MediaQuery.disableAnimations` is true.
@@ -105,7 +105,7 @@ This feature adds NO new package, NO image asset, NO sound asset and NO `pubspec
 6. THE Tombstone_Card SHALL show the title in the `headlineSmall` style, the date line in the `bodySmall` style and the child below them, in that order from top to bottom.
 7. WHERE no `dateLine` is given, THE Tombstone_Card SHALL omit the date line and SHALL reserve no space for it.
 8. WHERE no `child` is given, THE Tombstone_Card SHALL omit it and SHALL reserve no space for it.
-9. THE Tombstone_Card SHALL keep all content inside the straight part of the shape, below the arch, with padding that clears the arched top.
+9. THE Tombstone_Card SHALL keep all content inside the straight part of the shape, below the arch, with padding that clears the arched top. The arch SHALL be close to a half circle of the card width (140 logical pixels high at the maximum width of 300), and WHEN the card has a `child` it SHALL be at least 1.2 times as tall as it is wide.
 10. IF the title or the date line is longer than the available width, THEN THE Tombstone_Card SHALL wrap the title to at most 3 lines and the date line to at most 2 lines, and SHALL end a longer text with an ellipsis.
 11. THE Tombstone_Card SHALL be a stateless-looking value to callers: it SHALL hold no data beyond its constructor arguments and the transient hover, press and focus state.
 
@@ -150,17 +150,17 @@ This feature adds NO new package, NO image asset, NO sound asset and NO `pubspec
 
 #### Acceptance Criteria
 
-1. THE Fog_Background SHALL require a `child` and SHALL accept optional `seed` (default 0) and `particleCount` (default 10).
+1. THE Fog_Background SHALL require a `child` and SHALL accept optional `seed` (default 0) and `particleCount` (default 5).
 2. THE Fog_Background SHALL clamp `particleCount` into 0 to 24, so that a negative count draws no fog and a count above 24 draws 24 blobs.
 3. THE Fog_Background SHALL paint the fog behind the `child` and SHALL lay out the `child` exactly as it would be laid out without the fog.
-4. THE Fog_Background SHALL draw each Fog_Particle as a soft round blob with a radial fade, using the `primary` token with an alpha from 0.03 to 0.05 (Decision Q5), and SHALL clip the blobs to its own bounds.
+4. THE Fog_Background SHALL draw each Fog_Particle as a soft round blob with a radial fade, using the `primary` token with an alpha from 0.03 to 0.04 (Decision Q5), and SHALL clip the blobs to its own bounds.
 5. THE Fog_Background SHALL take the positions of all Fog_Particles from the Fog_Field, and SHALL map each unit position `(x, y)` to the pixel position `(x * width, y * height)` of its own bounds.
 6. WHILE Reduced_Motion is off, THE Fog_Background SHALL move the Fog_Particles with a loop whose slowest particle completes a back-and-forth cycle in at least 30 s and whose fastest completes one in at most 90 s.
 7. THE Fog_Background SHALL exclude the fog layer from the semantics tree and SHALL leave the semantics of the `child` unchanged.
 8. THE Fog_Background SHALL ignore pointer events on the fog layer, so that the `child` receives all taps and hovers.
 9. WHEN the incoming bounds have a width or height of 0, THE Fog_Background SHALL paint no fog and SHALL NOT throw.
-10. THE Fog_Background SHALL keep body text legible: for the `text` and `muted` tokens of each Token_Set, the contrast ratio against the `background` token and against the `surface` token, each blended with four overlapping Fog_Particles at the maximum alpha of 0.05, SHALL be at least 4.5, measured with `WcagContrast` (Decision Q5 records the computed values).
-11. THE Fog_Background SHALL state in its doc comment: "Put long body text on an opaque surface, not straight on the fog; the 4.5:1 guarantee covers up to 4 overlapping blobs." (Decision N2).
+10. THE Fog_Background SHALL keep body text legible: for the `text` and `muted` tokens of each Token_Set, the contrast ratio against the `background` token and against the `surface` token, each blended with five overlapping Fog_Particles at the maximum alpha of 0.04, SHALL be at least 4.5, measured with `WcagContrast` (Decision Q5 records the computed values).
+11. THE Fog_Background SHALL state in its doc comment: "Put long body text on an opaque surface, not straight on the fog; the 4.5:1 guarantee covers up to 5 overlapping blobs." (Decision N2).
 
 ### Requirement 7: Ghost_Bob pure math
 
@@ -206,7 +206,7 @@ This feature adds NO new package, NO image asset, NO sound asset and NO `pubspec
 1. THE Fog_Field SHALL be a plain Dart class with no Flutter imports, constructed from a Seed and a particle count, and SHALL clamp the count into 0 to 24.
 2. THE Fog_Field SHALL provide `particlesAt(elapsedMs)` that returns exactly as many Fog_Particles as the clamped count, for every Elapsed_Time.
 3. THE Fog_Field SHALL return, for every Seed, count and Elapsed_Time, Fog_Particles whose unit center `(x, y)` lies in the closed range 0.0 to 1.0 on both axes.
-4. THE Fog_Field SHALL give each Fog_Particle a radius fraction from 0.12 to 0.30 of the shorter side of the bounds, and an alpha from 0.03 to 0.05, constant over time.
+4. THE Fog_Field SHALL give each Fog_Particle a radius fraction from 0.35 to 0.60 of the longer side of the bounds, and an alpha from 0.03 to 0.04, constant over time.
 5. THE Fog_Field SHALL give the same particles for the same Seed, count and Elapsed_Time, on every call, every instance and every platform.
 6. THE Fog_Field SHALL move each particle back and forth between two end points that are both inside the unit square, using the same eased motion as Ghost_Bob (polynomial, no transcendental functions), so that particles never wrap, never jump and never leave the bounds.
 7. THE Fog_Field SHALL give each particle a back-and-forth period from 30000 to 90000 ms and a start phase from the Seeded_Generator.
@@ -293,7 +293,7 @@ This feature adds NO new package, NO image asset, NO sound asset and NO `pubspec
 
 1. THE Spooky_Widgets SHALL lay out without a `RenderFlex` overflow or any layout exception at the widths of 320, 360 and 1280 logical pixels.
 2. THE Spooky_Widgets SHALL lay out without overflow at a text scale factor of 1.0 and of 1.5.
-3. THE Tombstone_Card SHALL fill the width given by its parent up to a maximum of 360 logical pixels, and SHALL be centered when the parent is wider.
+3. THE Tombstone_Card SHALL fill the width given by its parent up to a maximum of 300 logical pixels, and SHALL be centered when the parent is wider.
 4. WHEN the Tombstone_Card, Ghost_Loader or Fog_Background is placed in a parent with bounded height smaller than its natural height, THE widget SHALL NOT throw, and the Tombstone_Card content SHALL stay scrollable or clipped inside the shape rather than overflowing it.
 5. WHEN the Fog_Background receives unbounded constraints on one axis, THE Fog_Background SHALL size itself to its `child` on that axis, and SHALL NOT throw.
 6. THE Crypt_Gallery SHALL stack the night panel and the daylight panel vertically at widths below 900 logical pixels, and place them side by side at 900 or more.
@@ -307,8 +307,9 @@ This feature adds NO new package, NO image asset, NO sound asset and NO `pubspec
 
 1. THE Crypt_Gallery SHALL show two panels, one titled "Night" using `CoffinTheme.dark()` and one titled "Daylight" using `CoffinTheme.light()`, each applied through a `Theme` widget around the panel content.
 2. THE Crypt_Gallery SHALL show in each panel: a Ghost_Loader with a caption, a Ghost_Loader without a caption, a non-interactive Tombstone_Card with a date line and a child, an interactive Tombstone_Card, a Flicker_Text, and a Fog_Background that wraps sample content.
-3. THE Crypt_Gallery SHALL paint the background of each panel with the `background` token of that panel's Token_Set, so that the daylight panel shows in daylight colors even inside a dark app.
-4. WHEN the interactive Tombstone_Card is tapped, THE Crypt_Gallery SHALL show a short snack bar message with spooky copy and SHALL NOT navigate.
+3. THE Crypt_Gallery SHALL paint each panel with the `surface` token of that panel's Token_Set, inside a 16 px rounded frame with a one-pixel `muted` outline, so that both panels look like a pair and so that the daylight panel shows in daylight colors even inside a dark app.
+4. WHEN the interactive Tombstone_Card is tapped, THE Crypt_Gallery SHALL show a short snack bar message with spooky copy and SHALL NOT navigate. `CoffinTheme` SHALL style snack bars as floating, with the `raised` background, the `text` color, 16 px rounded corners, and text and action colors of at least 4.5:1 against `raised` in both Token_Sets.
+   The Fog_Background sample in each panel SHALL be 240 logical pixels high.
 5. THE Crypt_Gallery SHALL use short, witty, slightly spooky copy that is never mean to the user and never gory, for example "This project has been dead for 214 days".
 6. WHERE the caller supplies an `onBack` callback, THE Crypt_Gallery SHALL show a button, at least 48x48, labeled "Back to the crypt" that calls `onBack`.
 7. THE Crypt_Gallery SHALL use the same Seed for the same sample in the night and the daylight panel, so that both panels show the same pattern.
@@ -359,7 +360,7 @@ This feature adds NO new package, NO image asset, NO sound asset and NO `pubspec
 6. THE Widget_Property_Tests SHALL include a property: FOR ALL Seeds in the full range 0 to 4294967295 and all Elapsed_Times, the Flicker_Schedule opacity is within 0.75 to 1.0 (Requirement 8.4).
 7. THE Widget_Property_Tests SHALL include a property: FOR ALL Seeds, two Flicker_Schedules from the same Seed give the same opacity at every sampled Elapsed_Time, and the opacity at `t` equals the opacity at `t + 6400` (Requirements 8.5 and 8.6).
 8. THE Widget_Property_Tests SHALL include a property: FOR ALL Seeds, sampling the Flicker_Schedule every 10 ms over a loop shows at most 3 local extrema in any window of 1000 ms, neighboring level steps of at most 0.25, at least one level of at most 0.90 and at least one level of 1.0 (Requirements 8.7, 8.8 and 8.9).
-9. THE Widget_Property_Tests SHALL include a property: FOR ALL Seeds, counts (including negative and above 24) and Elapsed_Times, the Fog_Field returns the clamped number of particles, each with unit center in 0.0 to 1.0, radius fraction in 0.12 to 0.30 and alpha in 0.03 to 0.05 (Requirements 9.2, 9.3 and 9.4).
+9. THE Widget_Property_Tests SHALL include a property: FOR ALL Seeds, counts (including negative and above 24) and Elapsed_Times, the Fog_Field returns the clamped number of particles, each with unit center in 0.0 to 1.0, radius fraction in 0.35 to 0.60 and alpha in 0.03 to 0.04 (Requirements 9.2, 9.3 and 9.4).
 10. THE Widget_Property_Tests SHALL include a property: FOR ALL Seeds, counts, widths and heights from 0 up to 4000 (including 0 and values below 1), the pixel mapping returns centers inside the bounds and a radius from 0 to the shorter side (Requirement 9.9).
 11. THE Widget_Property_Tests SHALL include a property: FOR ALL Seeds and counts, two Fog_Fields from the same Seed and count give equal particles at every sampled Elapsed_Time, and the particles at `t` equal the particles at `t + period` for each particle (Requirements 9.5 and 9.8).
 12. THE Widget_Property_Tests SHALL include a property: FOR ALL integers as Seeds, including negative values and values above 2^32, the pure classes give the same result as the same Seed masked to 32 bits and do not throw (Requirement 10.3).
@@ -453,6 +454,7 @@ All of A1 to A7 are accepted by the user.
 - **A2 (accepted).** `CryptGallery` is exported from the Barrel so that apps use it through the public API (confirmed by Q3).
 - **A3 (accepted).** The pure math classes stay internal. Tests inside `coffin_core` import them from `src/`. The later ghost-states spec can ask to export `GhostBob` if it needs it.
 - **A4 (accepted).** The Web_Safe glados generators and `RunCounter` are copied into `test/widgets/support/` as an independent copy, as coffin-ai did, instead of importing helpers from `test/ai/support/`. This duplicates about 50 lines of test code on purpose, so that each feature's tests stand alone.
-- **A5 (accepted, with the changes of Q5 and D1 to D2).** The numbers in this document (3600 ms period, 6 px amplitude, 16 levels of 400 ms, opacity floor 0.75, 24 particles at most, 30 to 90 s fog periods, 900 px breakpoint) are starting values chosen to satisfy the steering rules (slow, subtle, at most 3 flashes per second, WCAG AA). The fog alpha range is now 0.03 to 0.05.
+- **A5 (accepted, with the changes of Q5 and D1 to D2).** The numbers in this document (3600 ms period, 6 px amplitude, 16 levels of 400 ms, opacity floor 0.75, 24 particles at most, 30 to 90 s fog periods, 900 px breakpoint) are starting values chosen to satisfy the steering rules (slow, subtle, at most 3 flashes per second, WCAG AA). The fog alpha range is now 0.03 to 0.04 (see V1).
 - **A6 (accepted).** Chrome runs use `flutter test --platform chrome` on the pure test files. Widget tests run on the VM, and the Chrome check of widget code is covered by the web builds.
 - **A7 (accepted).** The gallery is not shown in the apps' navigation and has no persistence.
+- **V1 (Visual polish after reviewing /#/gallery).** TombstoneCard: maximum width 300 px, arch height 140 px, portrait with a child (height at least 1.2 times the width). FogBackground: default 5 blobs, radius 0.35 to 0.60 of the longer side, radial fade with a middle stop, peak alpha 0.03 to 0.04. With blobs this large, 5 peaks can overlap, so the guarantee now covers 5 overlapping blobs and the alpha cap was recomputed with `WcagContrast` (worst case 4.65, night `surface` `muted`; 0.045 gives 4.45 and fails). Gallery panels use the `surface` token with a rounded `muted` outline, and the fog sample is 240 px high. `CoffinTheme` gets a snack bar theme. *Changed:* Requirements 3.9, 6.1, 6.10, 6.11, 9.4, 15.3, 16.3, 16.4, 19.9 and the Glossary entry Fog_Particle.

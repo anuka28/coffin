@@ -259,7 +259,7 @@ List<String> _publicTypes(String source) {
 /// several doc lines also matches.
 const String _n2 =
     'Put long body text on an opaque surface, not straight on the fog; '
-    'the 4.5:1 guarantee covers up to 4 overlapping blobs.';
+    'the 4.5:1 guarantee covers up to 5 overlapping blobs.';
 
 bool _hasN2(String source) {
   final doc = source

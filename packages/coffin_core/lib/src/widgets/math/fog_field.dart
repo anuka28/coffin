@@ -26,8 +26,8 @@ final class FogField {
       if ((dx < 0 ? -dx : dx) < 100) {
         bx = ax <= 500 ? ax + 300 : ax - 300;
       }
-      final double radius = (120 + r.nextInt(181)) / 1000;
-      final double alpha = (30 + r.nextInt(21)) / 1000;
+      final double radius = (350 + r.nextInt(251)) / 1000;
+      final double alpha = (30 + r.nextInt(11)) / 1000;
       final int periodMs = minPeriodMs + 1000 * r.nextInt(61);
       final int startMs = r.nextUint32() % periodMs;
       specs.add(_Spec(ax, ay, bx, by, radius, alpha, periodMs, startMs));
@@ -41,7 +41,7 @@ final class FogField {
   static const int maxCount = 24;
 
   /// Number of particles when none is given.
-  static const int defaultCount = 10;
+  static const int defaultCount = 5;
 
   /// Shortest drift period, in milliseconds.
   static const int minPeriodMs = 30000;
@@ -71,16 +71,20 @@ final class FogField {
 
   /// Maps a unit particle to pixels inside a [width] by [height] box.
   ///
+  /// The radius is a fraction of the longer side, so a blob is large on a
+  /// wide or tall box. It is 0 when either side is 0.
+  ///
   /// A dimension that is negative, NaN or infinite counts as 0. Unit values
   /// are clamped into 0..1, and NaN counts as 0.
   static FogDisc toBounds(FogParticle particle, double width, double height) {
     final double w = (width.isFinite && width >= 0) ? width : 0;
     final double h = (height.isFinite && height >= 0) ? height : 0;
-    final double shorter = w < h ? w : h;
+    // A box with a zero side has no area to paint, so the radius is 0.
+    final double longer = (w > 0 && h > 0) ? (w > h ? w : h) : 0;
     return FogDisc(
       x: _unit(particle.x) * w,
       y: _unit(particle.y) * h,
-      radius: _unit(particle.radius) * shorter,
+      radius: _unit(particle.radius) * longer,
     );
   }
 

@@ -39,8 +39,11 @@ class CryptGalleryPanel extends StatelessWidget {
           final CoffinColorTokens tokens = SpookyTokens.of(context);
           final TextTheme textTheme = Theme.of(context).textTheme;
           return Material(
-            color: tokens.background,
-            borderRadius: BorderRadius.circular(CoffinMetrics.cornerRadius),
+            color: tokens.surface,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(CoffinMetrics.cornerRadius),
+              side: BorderSide(color: tokens.muted),
+            ),
             clipBehavior: Clip.antiAlias,
             child: Padding(
               padding: const EdgeInsets.all(16),
@@ -73,7 +76,7 @@ class CryptGalleryPanel extends StatelessWidget {
                   ),
                   const SizedBox(height: 16),
                   SizedBox(
-                    height: 160,
+                    height: 240,
                     child: FogBackground(
                       seed: 13,
                       child: Padding(

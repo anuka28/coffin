@@ -46,6 +46,14 @@ void main() {
       expect(path.contains(const Offset(180, 2)), isTrue);
     });
 
+    test('the default arch is close to a half circle of a 300 px card', () {
+      final arch = border.getOuterPath(const Rect.fromLTWH(0, 0, 300, 400));
+      expect(border.archRise, greaterThanOrEqualTo(0.9 * 150));
+      // The arch is an ellipse 150 wide and 140 high: (20, 40) is outside it.
+      expect(arch.contains(const Offset(150, 20)), isTrue);
+      expect(arch.contains(const Offset(20, 40)), isFalse);
+      expect(arch.contains(const Offset(150, 150)), isTrue);
+    });
     test('does not contain a point at the top-left corner', () {
       expect(path.contains(const Offset(2, 2)), isFalse);
     });

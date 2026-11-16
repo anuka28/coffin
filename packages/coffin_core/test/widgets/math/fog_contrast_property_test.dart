@@ -31,8 +31,8 @@ void main() {
     // Feature: spooky-widgets, Property 12: Fog keeps text readable
     // Validates: Requirements 6.10
     Glados2(
-      anyIntBetween(1, 5),
-      anyIntBetween(30, 51),
+      anyIntBetween(1, 6),
+      anyIntBetween(30, 41),
       ExploreConfig(numRuns: _numRuns),
     ).test(
       'text and muted keep at least 4.5:1 over fogged background and surface',
@@ -69,7 +69,7 @@ void main() {
       expect(_counter.runs > 0 && _counter.runs == _numRuns, isTrue);
     });
 
-    test('worst case (4 layers, alpha 0.05) passes for all 8 combinations', () {
+    test('worst case (5 layers, alpha 0.04) passes for all 8 combinations', () {
       for (final (
             CoffinColorTokens set,
             String baseName,
@@ -78,7 +78,7 @@ void main() {
             int fg,
           )
           in _combos()) {
-        final int fogged = blendRepeated(set.primary.toARGB32(), base, 0.05, 4);
+        final int fogged = blendRepeated(set.primary.toARGB32(), base, 0.04, 5);
         final double ratio = WcagContrast.ratio(fg, fogged);
         expect(
           ratio >= WcagContrast.aaNormalText,
@@ -86,12 +86,12 @@ void main() {
           reason: '${set.name}/$baseName/$fgName ratio=$ratio',
         );
         if (set.name == 'night' && baseName == 'surface' && fgName == 'muted') {
-          expect(ratio.toStringAsFixed(2), '4.61');
+          expect(ratio.toStringAsFixed(2), '4.65');
         }
         if (set.name == 'daylight' &&
             baseName == 'background' &&
             fgName == 'muted') {
-          expect(ratio.toStringAsFixed(2), '5.21');
+          expect(ratio.toStringAsFixed(2), '5.25');
         }
       }
     });

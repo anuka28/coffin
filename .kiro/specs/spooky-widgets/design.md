@@ -366,8 +366,8 @@ final class FogParticle {
   const FogParticle({required this.x, required this.y, required this.radius, required this.alpha});
   final double x;       // 0..1 of the width
   final double y;       // 0..1 of the height
-  final double radius;  // 0.12..0.30 of the shorter side
-  final double alpha;   // 0.03..0.05, constant over time
+  final double radius;  // 0.35..0.60 of the longer side
+  final double alpha;   // 0.03..0.04, constant over time
   // ==, hashCode (Object.hash), toString
 }
 
@@ -387,7 +387,7 @@ final class FogField {
   /// Builds a field. [seed] is masked; [count] is clamped into 0..24.
   FogField({required int seed, int count = defaultCount});
 
-  static const int maxCount = 24, defaultCount = 10;
+  static const int maxCount = 24, defaultCount = 5;
   static const int minPeriodMs = 30000, maxPeriodMs = 90000;
 
   final int seed;    // masked
@@ -411,8 +411,8 @@ Per-particle parameters (drawn once in the constructor from one `SeededRandom`, 
 | --- | --- | --- |
 | 1 to 4 | `ax = r.nextInt(1001)`, `ay = r.nextInt(1001)`, `bx = r.nextInt(1001)`, `by = r.nextInt(1001)` | end points in thousandths of the unit square |
 | repair | if `abs(bx - ax) < 100` then `bx = ax <= 500 ? ax + 300 : ax - 300` | guarantees a horizontal drift of at least 0.1 and keeps `bx` in 201..800 |
-| 5 | `radius = (120 + r.nextInt(181)) / 1000` | 0.12 to 0.30 |
-| 6 | `alpha = (30 + r.nextInt(21)) / 1000` | 0.030 to 0.050 |
+| 5 | `radius = (350 + r.nextInt(251)) / 1000` | 0.35 to 0.60 of the longer side |
+| 6 | `alpha = (30 + r.nextInt(11)) / 1000` | 0.030 to 0.040 |
 | 7 | `periodMs = 30000 + 1000 * r.nextInt(61)` | 30000 to 90000 |
 | 8 | `startMs = r.nextUint32() % periodMs` | 0 to `periodMs - 1` |
 
@@ -437,10 +437,11 @@ Pixel mapping:
 w = (width  is finite and >= 0) ? width  : 0
 h = (height is finite and >= 0) ? height : 0
 x01 = clamp(particle.x, 0, 1) ; y01 likewise ; r01 = clamp(particle.radius, 0, 1)   // NaN becomes 0
-FogDisc(x: x01 * w, y: y01 * h, radius: r01 * min(w, h))
+longer = (w > 0 && h > 0) ? max(w, h) : 0
+FogDisc(x: x01 * w, y: y01 * h, radius: r01 * longer)
 ```
 
-`x01 * w <= w` holds in IEEE arithmetic because `x01 <= 1`, so the center is inside the box, and `radius <= 0.30 * min(w, h) <= min(w, h)`. For `w = 0.5` the disc is tiny but valid. For `w = 0` or `h = 0` all values are 0, and the widget paints nothing.
+`x01 * w <= w` holds in IEEE arithmetic because `x01 <= 1`, so the center is inside the box, and `radius <= 0.60 * max(w, h) <= max(w, h)` (a blob may reach past the box edge; the painter clips it). For `w = 0.5` the disc is tiny but valid. For `w = 0` or `h = 0` all values are 0, and the widget paints nothing.
 
 ### SpookyTokens (internal)
 
@@ -584,7 +585,7 @@ File `lib/src/widgets/tombstone_border.dart`. This is the choice that Requiremen
 
 ```dart
 final class TombstoneBorder extends OutlinedBorder {
-  const TombstoneBorder({super.side = BorderSide.none, this.archRise = 48,
+  const TombstoneBorder({super.side = BorderSide.none, this.archRise = 140,
                          this.bottomRadius = CoffinMetrics.cornerRadius});
   final double archRise;       // vertical radius of the arch
   final double bottomRadius;   // radius of the two bottom corners
@@ -605,7 +606,7 @@ line to (left + br, bottom);   arc to (left, bottom - br), radius br        // b
 close
 ```
 
-- A half ellipse keeps the classic arched top while the arch height stays at 48 px on a 360 px card (a full half circle would cost 180 px of height).
+- The arch is a half ellipse with `archRise` 140 px on a card at most 300 px wide (rx 150), so it is close to a half circle. The 48 px arch of the first version read as a loaf of bread.
 - `paint` strokes the path of `rect.deflate(side.width / 2)` with `side.toPaint()` when the side is visible.
 - Used with `ShapeDecoration(shape: TombstoneBorder(...), color: fill, shadows: glow)`, the fill and the glow both follow the tombstone outline (Requirements 3.2 and 3.5, Q4). Content is clipped with `ClipPath(clipper: ShapeBorderClipper(shape: border), clipBehavior: Clip.antiAlias)`.
 
@@ -625,9 +626,9 @@ class TombstoneCard extends StatefulWidget {
 Layout, top to bottom, inside the shape (Requirements 3.6 to 3.10, 15.3, 15.4):
 
 ```text
-Align(center) > ConstrainedBox(maxWidth: 360, [minWidth/minHeight 48 when interactive]) >
-  ClipPath(shape) > DecoratedBox(ShapeDecoration) > SingleChildScrollView >
-    Padding(left 20, top archRise + 8, right 20, bottom 20) > Column(center, min) [
+Align(center) > ConstrainedBox(maxWidth: 300, [minWidth/minHeight 48 when interactive]) >
+  ClipPath(shape) > DecoratedBox(ShapeDecoration) > SingleChildScrollView > LayoutBuilder >
+    ConstrainedBox(minHeight: child != null ? width * 1.2 : 0) > Padding(left 20, top archRise + 8, right 20, bottom 20) > Column(center, min) [
       Text(title,    style: headlineSmall, maxLines: 3, overflow: ellipsis, textAlign: center),
       if dateLine:  Text(dateLine, style: bodySmall, maxLines: 2, overflow: ellipsis, textAlign: center),
       if child:     Padding(top 12, child),
@@ -710,7 +711,7 @@ File `lib/src/widgets/fog_background.dart`.
 ```dart
 /// Slow drifting fog behind [child].
 ///
-/// Put long body text on an opaque surface, not straight on the fog; the 4.5:1 guarantee covers up to 4 overlapping blobs.
+/// Put long body text on an opaque surface, not straight on the fog; the 4.5:1 guarantee covers up to 5 overlapping blobs.
 class FogBackground extends StatefulWidget {
   const FogBackground({super.key, required this.child, this.seed = 0,
                        this.particleCount = FogField.defaultCount});
@@ -731,7 +732,7 @@ Stack(fit: StackFit.passthrough, children: [
 
 - The fog is the first, positioned child, so it is painted behind `child`. The only non-positioned child is `widget.child`, so the stack takes exactly the size the child would have alone: layout is unchanged (Requirement 6.3). With unbounded constraints on one axis the stack sizes to the child on that axis and nothing throws (Requirement 15.5).
 - `_FogPainter` (a private class in the same file) has `super(repaint: loopController)`, so a frame repaints only the fog layer inside its own `RepaintBoundary`, and neither the child nor the widget rebuilds (Requirements 12.2, 12.3 and 12.5).
-- Paint: `canvas.clipRect(Offset.zero & size)`. For each `FogParticle p` of `field.particlesAt(elapsed)`, `d = FogField.toBounds(p, size.width, size.height)` and a `Paint` whose shader is `ui.Gradient.radial(center, d.radius, [primary.withValues(alpha: p.alpha), primary.withValues(alpha: 0)])` fills `drawCircle(center, d.radius)`. The radial fade means each blob is strongest at its center and zero at its edge.
+- Paint: `canvas.clipRect(Offset.zero & size)`. For each `FogParticle p` of `field.particlesAt(elapsed)`, `d = FogField.toBounds(p, size.width, size.height)` and a `Paint` whose shader is `ui.Gradient.radial(center, d.radius, [primary at p.alpha, primary at 0.45 * p.alpha, primary at 0], [0, 0.5, 1])` fills `drawCircle(center, d.radius)`. The radial fade means each blob is strongest at its center and zero at its edge.
 - A box with `width == 0` or `height == 0` paints nothing (`size.isEmpty`), as does a radius of 0 (Requirement 6.9).
 - `field` is rebuilt in `didUpdateWidget` when `seed` or `particleCount` changes. `shouldRepaint` compares the field's seed and count and the color.
 - Reduced_Motion paints `field.staticParticles` once, with the controller stopped and no repaint listenable.
@@ -764,7 +765,7 @@ Scaffold(body: SafeArea(child: SingleChildScrollView(padding: 16, child: Center(
   ]))))))
 ```
 
-`CryptGalleryPanel(title, theme)` wraps its content in `Theme(data: theme, child: Builder(...))` and `Material(color: tokens.background, borderRadius: 16, clipBehavior: antiAlias, child: Padding(16, Column(...)))`. The two `ThemeData` values (`CoffinTheme.dark()` and `CoffinTheme.light()`) are built once in the page's state. Inside the panel `SpookyTokens.of` therefore sees the panel's brightness, so each widget uses the right Token_Set, and the daylight panel shows daylight colors inside a dark app (Requirement 16.3).
+`CryptGalleryPanel(title, theme)` wraps its content in `Theme(data: theme, child: Builder(...))` and `Material(color: tokens.surface, shape: RoundedRectangleBorder(borderRadius: 16, side: BorderSide(color: tokens.muted)), clipBehavior: antiAlias, child: Padding(16, Column(...)))`. The two `ThemeData` values (`CoffinTheme.dark()` and `CoffinTheme.light()`) are built once in the page's state. Inside the panel `SpookyTokens.of` therefore sees the panel's brightness, so each widget uses the right Token_Set, and the daylight panel shows daylight colors inside a dark app (Requirement 16.3).
 
 Panel content, in order, with the same seeds in both panels (Requirement 16.7):
 
@@ -773,8 +774,9 @@ Panel content, in order, with the same seeds in both panels (Requirement 16.7):
 3. A non-interactive `TombstoneCard(title: 'Old Todo App', dateLine: 'Died 214 days ago', child: Text('This project has been dead for 214 days'))`.
 4. An interactive `TombstoneCard(title: 'Weather Widget', dateLine: 'Abandoned last March', onTap: ...)`. The tap shows `SnackBar(content: Text('The grave stirs, but nothing rises. Yet.'))` through `ScaffoldMessenger.of(context)` and does not navigate (Requirement 16.4).
 5. `FlickerText('The candle is not out yet…', seed: 7)`.
-6. `FogBackground(seed: 13, child: <padded sample text on the panel background, 160 px high>)`.
+6. `FogBackground(seed: 13, child: <padded sample text on the panel surface, 240 px high>)`.
 
+Snack bar theme (in `CoffinTheme`, not in the gallery): `SnackBarThemeData(behavior: floating, backgroundColor: tokens.raised, contentTextStyle: bodyMedium in tokens.text, actionTextColor: tokens.primary, elevation: 0, shape: 16 px rounded)`. Both text colors have at least 4.5:1 against `raised` in both Token_Sets (a test in `coffin_theme_test.dart` checks it).
 The gallery adds no controller of its own (Requirement 11.7). It needs no `GoRouter` (Requirement 16.8): `onBack` is a plain callback. The page uses the page's ambient `Scaffold`, so the snack bar works in any `MaterialApp`.
 
 Responsive checks (Requirement 15): at 320 px the panel content is 288 px wide (16 px page padding, 16 px panel padding), which every widget fits. At 900 px and above the panels sit side by side. The page scrolls vertically at every width. With a text scale of 1.5 every text wraps (titles at most 3 lines, dates at most 2) and nothing is in a fixed-height box except the ghost box and the fog sample.
@@ -825,11 +827,11 @@ All pure values are immutable and have no behavior beyond equality.
 | --- | --- | --- |
 | `GhostBob` | `periodMs: int`, `amplitude: double` | `2500 <= periodMs <= 5000`, `2 <= amplitude <= 10` |
 | `FlickerSchedule` | `seed: int`, 16 level percents (private) | seed in `0..4294967295`, each percent in `75..100`, at least one `<= 90`, at least one `== 100` |
-| `FogParticle` | `x`, `y`, `radius`, `alpha` | `x, y` in `[0, 1]`, `radius` in `[0.12, 0.30]`, `alpha` in `[0.03, 0.05]` |
+| `FogParticle` | `x`, `y`, `radius`, `alpha` | `x, y` in `[0, 1]`, `radius` in `[0.35, 0.60]`, `alpha` in `[0.03, 0.04]` |
 | `FogDisc` | `x`, `y`, `radius` (pixels) | `0 <= x <= width`, `0 <= y <= height`, `0 <= radius <= min(width, height)` |
 | `FogField` | `seed: int`, `count: int`, per-particle specs (private) | `0 <= count <= 24`, every spec's end points in `0..1000`, period in `30000..90000` |
 
-Constants in one place (all in the classes above, none in widgets): bob period 3600 ms and amplitude 6 px; flicker 16 levels, 400 ms, 6400 ms loop, 0.75 to 1.0; fog count 10 (max 24), alpha 0.03 to 0.05, radius 0.12 to 0.30, period 30 to 90 s; tombstone arch 48 px, maximum width 360 px, glow 0.30 / 0.55 / 0.80; gallery breakpoint 900 px.
+Constants in one place (all in the classes above, none in widgets): bob period 3600 ms and amplitude 6 px; flicker 16 levels, 400 ms, 6400 ms loop, 0.75 to 1.0; fog count 5 (max 24), alpha 0.03 to 0.04, radius 0.35 to 0.60 of the longer side, period 30 to 90 s; tombstone arch 140 px, maximum width 300 px, portrait ratio 1.2 with a child, glow 0.30 / 0.55 / 0.80; gallery breakpoint 900 px.
 
 ### Fog readability (Requirement 6.10, Decision Q5)
 
@@ -841,7 +843,7 @@ Method. With WCAG relative luminance `L` (the formula of `WcagContrast`), contra
 c_n = f + (c0 - f) * (1 - a)^n          (the closed form of n repeated "source over" steps)
 ```
 
-Four overlapping blobs at the peak alpha is the worst case that Requirement 6.10 names (the radial fade makes every real overlap weaker than four peaks). For `a = 0.05`, `(1 - a)^4 = 0.8145`.
+Revision V1: five overlapping blobs at the peak alpha is now the worst case that Requirement 6.10 names (see "Revision V1" below; the tables here show the original four-blob numbers). Originally four overlapping blobs were the worst case that Requirement 6.10 named (the radial fade makes every real overlap weaker than four peaks). For `a = 0.05`, `(1 - a)^4 = 0.8145`.
 
 Worked example, night over `background` (`c0 = (14, 11, 22)`, `f = (155, 107, 255)`):
 
@@ -878,7 +880,8 @@ Findings that shape the decision:
 - Daylight would allow up to 0.06 (all of `background`, `surface` and `raised` pass at 0.06; `raised` is 4.51). The user's suggestion to make the daylight fog fainter than the night fog would therefore go the wrong way here. One shared range of 0.03 to 0.05 is used because it passes in both sets, keeps `FogParticle.alpha` independent of the theme, and so keeps `FogField` free of any token knowledge. The painter uses `p.alpha` as it is.
 - Cost: the night fog is very faint (an alpha of 0.05 over `0E0B16`). It stays visible as a soft purple haze because the blobs are large (12 to 30 percent of the shorter side) and the fade is radial.
 - The 0.03 lower bound is kept. The property test checks every `n` from 1 to 4 and every alpha from 0.030 to 0.050 in steps of 0.001.
-- Limit of the guarantee: it covers four overlapping peaks, as Requirement 6.10 states. More overlap lowers `muted` contrast: night `background` still passes with 6 peaks (4.55) and fails with 7 (4.27); night `surface` passes with 4 peaks only (4.32 with 5). With the maximum of 24 particles stacked on one point, contrast would fall to about 1.9 to 2.2 (measured at alpha 0.05). This limit is accepted (decision N2): the fog paints behind the child, so text on an opaque surface card is never affected. Only text drawn directly over fog is at risk, and the radial fade keeps real overlaps below the peak. The limit is documented in the `FogBackground` doc comment: "Put long body text on an opaque surface, not straight on the fog; the 4.5:1 guarantee covers up to 4 overlapping blobs." No alpha scaling and no count cap is added.
+- **Revision V1 (larger blobs).** The fog now has 5 blobs of 0.35 to 0.60 of the longer side, so up to 5 peaks can overlap. Recomputed with `WcagContrast` and the 8-bit blend of `blendRepeated` for 5 layers: worst case at alpha 0.04 is 4.65 (night `surface`, `muted`); other combinations are night `background` 5.18, daylight `background` 5.25, daylight `surface` 5.67 (`muted`) and at least 11.5 for `text`. At 0.043 the worst case is 4.52, at 0.044 it is 4.51 and from 0.045 it fails (4.45), so the cap is 0.04, the largest round value with margin. The alpha range is 0.03 to 0.04. The painter adds a middle gradient stop (peak, 0.45 of peak at half the radius, then 0) for a softer edge; this never raises the peak, so the guarantee holds.
+- Limit of the guarantee (original four-blob text; now five): it covers four overlapping peaks, as Requirement 6.10 states. More overlap lowers `muted` contrast: night `background` still passes with 6 peaks (4.55) and fails with 7 (4.27); night `surface` passes with 4 peaks only (4.32 with 5). With the maximum of 24 particles stacked on one point, contrast would fall to about 1.9 to 2.2 (measured at alpha 0.05). This limit is accepted (decision N2): the fog paints behind the child, so text on an opaque surface card is never affected. Only text drawn directly over fog is at risk, and the radial fade keeps real overlaps below the peak. The limit is documented in the `FogBackground` doc comment: "Put long body text on an opaque surface, not straight on the fog; the 4.5:1 guarantee covers up to 5 overlapping blobs." No alpha scaling and no count cap is added.
 
 ## Correctness Properties
 
@@ -946,7 +949,7 @@ For any seed, sampling `opacityAt` every 10 ms over one loop (and wrapping into 
 
 ### Property 7: Fog particles are valid
 
-For any seed, any particle count (negative, 0 to 24, and above 24) and any elapsed time from minus 2^40 to 2^40, `particlesAt(t)` returns exactly `clamp(count, 0, 24)` particles, each with `x` and `y` in `[0, 1]`, radius in `[0.12, 0.30]` and alpha in `[0.03, 0.05]`.
+For any seed, any particle count (negative, 0 to 24, and above 24) and any elapsed time from minus 2^40 to 2^40, `particlesAt(t)` returns exactly `clamp(count, 0, 24)` particles, each with `x` and `y` in `[0, 1]`, radius in `[0.35, 0.60]` and alpha in `[0.03, 0.04]`.
 
 **Validates: Requirements 9.1, 9.2, 9.3, 9.4**
 
@@ -976,7 +979,7 @@ For any seed, any elapsed time, and each of `background`, `surface` and `raised`
 
 ### Property 12: Fog keeps text readable
 
-For any overlap count from 1 to 4, any fog alpha from 0.030 to 0.050 in steps of 0.001, both Token_Sets, and each of `background` and `surface`, the `text` and `muted` tokens have a `WcagContrast` ratio of at least 4.5 against the `primary` fog blended over that base the given number of times (rounded to 8 bits per layer).
+For any overlap count from 1 to 5, any fog alpha from 0.030 to 0.040 in steps of 0.001, both Token_Sets, and each of `background` and `surface`, the `text` and `muted` tokens have a `WcagContrast` ratio of at least 4.5 against the `primary` fog blended over that base the given number of times (rounded to 8 bits per layer).
 
 **Validates: Requirements 6.10**
 
@@ -1026,7 +1029,7 @@ Both kinds of test are used. Property tests prove the numeric rules over many in
 - `SeededRandom`: the moved tests, unchanged.
 - Fixed values (Requirement 10.5), one file `test/widgets/math/fixed_values_test.dart`, runs in Chrome too: first 16 levels of `FlickerSchedule` for seeds 0, 1, 42, 4294967295 (seed 0 starts `93, 76, 91, 83`); `FogField` first particle parameters and `particlesAt(0)` for the same seeds; `GhostBob.offsetAt` at 0, quarter, half, three quarters and one period for the default bob. Expected numbers are produced by an independent BigInt reference written in the test, as the AI feature did, and then pinned.
 - Clamping and edges: period 2499 and 5001, amplitude 1.99 and 10.01, NaN amplitude; count -1, 0, 24, 25; size 0, 0.5, infinite, NaN; seeds 0 to 15 give at least two different schedules and two different fields (Requirements 8.10 and 9.13).
-- `TombstoneBorder`: path bounds for 360 by 200, 320 by 120 and 10 by 10 rects; empty path for zero size.
+- `TombstoneBorder`: path bounds for 360 by 200 (plus an arch check on 300 by 400), 320 by 120 and 10 by 10 rects; empty path for zero size.
 - `GhostPainter`: `shouldRepaint` is true for each changed field and false for equal inputs; painting on zero sizes records no draw calls.
 - Ghost colors (N3, Requirement 2.7): for both Token_Sets, `WcagContrast.ratio(SpookyTokens.ghostBody(t), t.background)` is at least 3.0 (recorded 15.99 night, 5.84 daylight) and `WcagContrast.ratio(t.background, SpookyTokens.ghostBody(t))` is at least 3.0. `ghostBody` returns `text` for night and `primary` for daylight. Under each theme the `GhostLoader` painter receives that body color, `background` as the eye color and a glow in `primary`.
 
@@ -1106,7 +1109,7 @@ Further widget tests: the interactive card in the gallery shows a snack bar and 
 - **Q2** Direct URL only. Rejected: a link on the placeholder screen.
 - **Q3** `CryptGallery` in `coffin_core`, exported. Rejected: placing it in the Hauntagotchi app.
 - **Q4** Reuse the `CoffinGlow` values along the tombstone path through `ShapeDecoration.shadows`. Rejected: a new `CoffinGlow` helper for arbitrary paths.
-- **Q5** Readability wins, alpha range 0.03 to 0.05 (see "Fog readability").
+- **Q5** Readability wins, alpha range 0.03 to 0.05 (now 0.03 to 0.04, see Revision V1) (see "Fog readability").
 - **N1** Approved: one allow-list branch for exactly `offline_engine.dart` importing `../common/seeded_random.dart`, plus a self-check assertion inside the existing test (count stays 985). Rejected: leaving `SeededRandom` in `lib/src/ai/` (undoes Q1); a re-export shim (the same import rule rejects an `export` with a path).
 - **N2** Accepted, option (a). Rejected: (b) scaling each blob's alpha by `min(1, 4 / count)` (a count of 10 would give blobs at 0.012 to 0.020, too faint); (c) capping the effective count at 8. The limit is documented in the `FogBackground` doc comment.
 - **N3** Ghost body is `text` (bone white) in night and `primary` in daylight, eyes in `background`, glow in `primary`. Rejected: the `primary` purple in both sets (first draft). Contrast values are in the GhostPainter section; all are at least 5.84.
@@ -1119,9 +1122,9 @@ Further widget tests: the interactive card in the gallery shows a snack bar and 
 - **Easing math.** An integer-scaled smoothstep ping-pong. Rejected: `sin` and `cos` (not guaranteed identical between the VM and JavaScript, and Requirement 7.6 forbids them); a linear triangle wave (visible turn-around jerk); a cosine lookup table (more code, no gain).
 - **Flicker interpolation.** Smoothstep between levels, not linear. A linear ramp gives a sharp corner at every level time; the eased step reads as mist and still has extrema only at level times. Rejected: holding each level flat (Requirement 8.2's first wording), which looks like a stuttering blink.
 - **Fog periods.** 61 whole-second periods from 30 s to 90 s, not a fixed small menu. The pure classes wrap time themselves, so no common multiple is needed.
-- **Fog alpha range.** One shared 0.03 to 0.05 range for both Token_Sets, not a per-set mapping. A per-set mapping would put theme knowledge into the pure class or add a scaling layer to the painter for a gain of 0.01 in daylight only.
+- **Fog alpha range.** One shared 0.03 to 0.04 range (was 0.03 to 0.05 before Revision V1) for both Token_Sets, not a per-set mapping. A per-set mapping would put theme knowledge into the pure class or add a scaling layer to the painter for a gain of 0.01 in daylight only.
 - **Tombstone shape.** A `ShapeBorder` used with `ShapeDecoration`. Rejected: a `CustomPainter` path (would duplicate fill, outline, shadow and clip logic that `ShapeDecoration` and `ShapeBorderClipper` already provide); `InkWell` ripples (Material ink does not follow a custom path cleanly, and the design language asks for glows, not ripples).
-- **Half-ellipse arch of 48 px.** A full semicircle would be 180 px tall on a 360 px card.
+- **Half-ellipse arch of 140 px.** A full semicircle would be 150 px tall on a 300 px card; 140 px reads as a grave. The first version used 48 px on 360 px and looked like a loaf of bread.
 - **Shared `MotionLoop` mixin.** Rejected: three copies of the reduced-motion and dispose logic.
 - **Repaint strategy.** `AnimatedBuilder` over a small subtree for the ghost and the text, `CustomPainter(repaint:)` for the fog. Rejected: `setState` per frame (Requirement 12.5).
 - **No Barrel export of the pure classes.** Hauntagotchi's later ghost-states spec can ask for `GhostBob` (Assumption A3).
@@ -1134,6 +1137,6 @@ Further widget tests: the interactive card in the gallery shows a snack bar and 
 The user answered the four open questions. Nothing is open.
 
 - **N1: approved.** The one allow-list branch in `_importProblems` for exactly `offline_engine.dart` and `../common/seeded_random.dart` is applied, together with the self-check: two `expect` lines added **inside the existing test** "import rules flag bad directives", so the same import is still rejected in every other file. No new test is created, so the count after the move is **985**, not 986. *Changed in this document:* "Edits, file by file" row 4, "FLAGGED", "Verification of the move", "Task order".
-- **N2: accepted, option (a).** The fog paints behind the child, so text on opaque surface cards is never affected. Only text drawn directly over fog is at risk, and the radial fade keeps real overlaps below the peak. The `FogBackground` doc comment carries the line "Put long body text on an opaque surface, not straight on the fog; the 4.5:1 guarantee covers up to 4 overlapping blobs." *Changed:* FogBackground section, "Fog readability" limit bullet, Requirement 6.11 (new).
+- **N2: accepted, option (a).** The fog paints behind the child, so text on opaque surface cards is never affected. Only text drawn directly over fog is at risk, and the radial fade keeps real overlaps below the peak. The `FogBackground` doc comment carries the line "Put long body text on an opaque surface, not straight on the fog; the 4.5:1 guarantee covers up to 5 overlapping blobs." *Changed:* FogBackground section, "Fog readability" limit bullet, Requirement 6.11 (new).
 - **N3: ghost body is the `text` token in night and the `primary` token in daylight.** The eyes stay in `background`, and the glow uses `primary` in both sets. Measured with `WcagContrast` on the real tokens: night body versus `background` 15.99 and eyes versus body 15.99; daylight body versus `background` 5.84 and eyes versus body 5.84. All are above 3.0. *Changed:* GhostPainter and GhostLoader sections, `SpookyTokens.ghostBody`, Testing Strategy, Requirement 2.7.
 - **N4: accepted.** Property 10 (seed masking up to 2^40) is verified in Chrome at Checkpoint A. If it fails, the property range shrinks to the signed 32-bit range and the limit is documented in the property test, in the doc comments of `FlickerSchedule` and `FogField`, and in "Error Handling". *Changed:* Error Handling, Task order.

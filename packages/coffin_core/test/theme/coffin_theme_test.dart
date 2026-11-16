@@ -109,6 +109,23 @@ void main() {
         });
       });
 
+      test('snack bar is raised, floating, rounded and passes AA', () {
+        final SnackBarThemeData snack = theme.snackBarTheme;
+        expect(snack.behavior, SnackBarBehavior.floating);
+        expect(snack.backgroundColor, tokens.raised);
+        expect(snack.contentTextStyle!.color, tokens.text);
+        expect(snack.shape, isA<RoundedRectangleBorder>());
+        expect((snack.shape! as RoundedRectangleBorder).borderRadius, radius16);
+        final int bg = tokens.raised.toARGB32();
+        expect(
+          WcagContrast.ratio(snack.contentTextStyle!.color!.toARGB32(), bg),
+          greaterThanOrEqualTo(WcagContrast.aaNormalText),
+        );
+        expect(
+          WcagContrast.ratio(snack.actionTextColor!.toARGB32(), bg),
+          greaterThanOrEqualTo(WcagContrast.aaNormalText),
+        );
+      });
       test('focused buttons draw a text-colored ring with >= 3:1 contrast', () {
         for (final ButtonStyle? style in <ButtonStyle?>[
           theme.filledButtonTheme.style,

@@ -11,7 +11,7 @@ import 'spooky_tokens.dart';
 
 /// Slow drifting fog behind [child].
 ///
-/// Put long body text on an opaque surface, not straight on the fog; the 4.5:1 guarantee covers up to 4 overlapping blobs.
+/// Put long body text on an opaque surface, not straight on the fog; the 4.5:1 guarantee covers up to 5 overlapping blobs.
 ///
 /// The fog is painted on its own repaint layer, ignores pointer events and
 /// adds no semantics node. The widget lays out exactly like [child]. When
@@ -108,10 +108,16 @@ class _FogPainter extends CustomPainter {
       if (d.radius <= 0) continue;
       final Offset center = Offset(d.x, d.y);
       final Paint paint = Paint()
-        ..shader = ui.Gradient.radial(center, d.radius, <Color>[
-          color.withValues(alpha: p.alpha),
-          clear,
-        ]);
+        ..shader = ui.Gradient.radial(
+          center,
+          d.radius,
+          <Color>[
+            color.withValues(alpha: p.alpha),
+            color.withValues(alpha: p.alpha * 0.45),
+            clear,
+          ],
+          <double>[0, 0.5, 1],
+        );
       canvas.drawCircle(center, d.radius, paint);
     }
   }

@@ -112,7 +112,7 @@ void main() {
     ) async {
       await pumpSpooky(tester, const TombstoneCard(title: 'Only title'));
       final double titleHeight = _textHeight(tester, find.text('Only title'));
-      expect(tester.getSize(_decoratedFinder).height, 56 + titleHeight + 20);
+      expect(tester.getSize(_decoratedFinder).height, 148 + titleHeight + 20);
 
       await pumpSpooky(
         tester,
@@ -121,7 +121,7 @@ void main() {
       final double dateHeight = _textHeight(tester, find.text('Date'));
       expect(
         tester.getSize(_decoratedFinder).height,
-        56 + titleHeight + dateHeight + 20,
+        148 + titleHeight + dateHeight + 20,
       );
 
       await pumpSpooky(
@@ -131,10 +131,10 @@ void main() {
           child: SizedBox(height: 30, width: 30),
         ),
       );
-      expect(
-        tester.getSize(_decoratedFinder).height,
-        56 + titleHeight + 12 + 30 + 20,
-      );
+      // With a child the card is portrait: at least 1.2 times its width.
+      final Size withChild = tester.getSize(_decoratedFinder);
+      expect(withChild.height, greaterThanOrEqualTo(withChild.width * 1.2));
+      expect(withChild.height, greaterThan(withChild.width));
     });
 
     testWidgets('a long title keeps 3 lines and a long date 2, with ellipsis', (
@@ -171,12 +171,12 @@ void main() {
       );
     });
 
-    testWidgets('is at most 360 wide and centered in a wider parent', (
+    testWidgets('is at most 300 wide and centered in a wider parent', (
       tester,
     ) async {
       await pumpSpooky(tester, const TombstoneCard(title: 'Wide'), width: 1280);
       final Rect rect = tester.getRect(_decoratedFinder);
-      expect(rect.width, lessThanOrEqualTo(360));
+      expect(rect.width, lessThanOrEqualTo(300));
       expect(rect.center.dx, closeTo(640, 0.5));
 
       await pumpSpooky(
@@ -184,7 +184,9 @@ void main() {
         const TombstoneCard(title: 'Narrow'),
         width: 320,
       );
-      expect(tester.getRect(_decoratedFinder).width, 320);
+      expect(tester.getRect(_decoratedFinder).width, 300);
+      await pumpSpooky(tester, const TombstoneCard(title: 'Tiny'), width: 280);
+      expect(tester.getRect(_decoratedFinder).width, 280);
     });
 
     testWidgets('survives a 60 px high parent and stays scrollable', (
@@ -430,7 +432,7 @@ void main() {
               of: find.byType(TombstoneCard),
               matching: find.byWidgetPredicate(
                 (Widget w) =>
-                    w is ConstrainedBox && w.constraints.maxWidth == 360,
+                    w is ConstrainedBox && w.constraints.maxWidth == 300,
               ),
             )
             .first,
@@ -449,7 +451,7 @@ void main() {
               of: find.byType(TombstoneCard),
               matching: find.byWidgetPredicate(
                 (Widget w) =>
-                    w is ConstrainedBox && w.constraints.maxWidth == 360,
+                    w is ConstrainedBox && w.constraints.maxWidth == 300,
               ),
             )
             .first,

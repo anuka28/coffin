@@ -109,6 +109,14 @@ abstract final class CoffinTheme {
         errorBorder: _inputBorder(tokens.error, 1),
         focusedErrorBorder: _inputBorder(tokens.error, 2),
       ),
+      snackBarTheme: SnackBarThemeData(
+        behavior: SnackBarBehavior.floating,
+        backgroundColor: tokens.raised,
+        contentTextStyle: textTheme.bodyMedium?.copyWith(color: tokens.text),
+        actionTextColor: tokens.primary,
+        elevation: 0,
+        shape: _roundedShape,
+      ),
       appBarTheme: AppBarTheme(
         backgroundColor: tokens.background,
         foregroundColor: tokens.text,

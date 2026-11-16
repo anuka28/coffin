@@ -14,10 +14,10 @@ final class FogParticle {
   /// Center as a fraction of the height, 0 to 1.
   final double y;
 
-  /// Radius as a fraction of the shorter side, 0.12 to 0.30.
+  /// Radius as a fraction of the longer side, 0.35 to 0.60.
   final double radius;
 
-  /// Opacity at the center, 0.03 to 0.05, constant over time.
+  /// Opacity at the center, 0.03 to 0.04, constant over time.
   final double alpha;
 
   @override
