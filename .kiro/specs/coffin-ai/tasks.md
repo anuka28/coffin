@@ -17,7 +17,7 @@ Notes that apply to all tasks:
 - AI source files are plain Dart: no Flutter, `dart:io`, `dart:html`, `dart:math`, storage, router, theme, widgets, go_router, hive or riverpod. No `String.hashCode` or `Object.hashCode` in the generator files. No unseeded `Random`.
 - All AI test support under `test/ai/support/` is pure and Chrome-safe. It imports no `dart:io`, no `hive_ce`, no `flutter` UI and nothing from `test/storage/support`.
 - `glados` exports its own `expect`, `group` and `test`, so test files `hide` the clashing names from the glados import, as `packages/coffin_core/test/router/fog_math_property_test.dart` does. Tag each property with `// Feature: coffin-ai, Property N: <title>` and `// Validates: Requirements ...`.
-- Run counts from the design: 500 runs for Properties 1 to 9 and 12; 300 runs for Properties 10, 11, 13 to 17; 200 runs for Properties 18 to 22 with at most 8 steps per sequence. Never lower a run count or sequence length. See the timing task.
+- Run counts from the design: 500 runs for Properties 1 to 9 and 12; 300 runs for Properties 10, 11, 13 to 17; 200 runs for Properties 18 to 22 with at most 8 steps per sequence. Never lower a run count or sequence length. See the timing task (limits: 60 s for the VM run, 90 s for the Chrome run).
 - Every property test counts its runs with a `RunCounter` (top-level counter incremented in the body). A plain `test(...)` declared after the glados test in the same group asserts `runs > 0` and `runs == numRuns`. Wrapper properties also count calls and assert `calls > 0`.
 - Use only these glados generators: `choose`, `either`, `oneOf`, `always`, `bool`, `combine2` to `combine10`, `doubleInRange`, `nullable`, `map`, `simple`. Use the helpers `anyIntBetween` and `anyListBetween` from `test/ai/support/ai_generators.dart`. Never use `any.intInRange`, `any.listWithLengthInRange`, `any.int`, `any.list`, `any.letters`, `any.letterOrDigits`, `any.stringOf` or any other glados string generator, `uint32`, `uint8`, `uint16`, `positiveIntOrZero` or `nonEmptyList`. They throw on Flutter Web. Keep every generated integer below 2^53, and never write `1 << 32`.
 - Async glados bodies are awaited on the VM and on Chrome. Each run owns its own clock, wrapper, reporter and zone, because glados re-runs a failed body once without awaiting it. Wrap asserts in `try`/`catch` and rethrow a `TestFailure` that includes `describeRequest` or the generated sequence, so failures show the input.
@@ -290,25 +290,25 @@ Notes that apply to all tasks:
   - Ensure all tests pass, ask the user if questions arise.
   - _Requirements: 17.1, 17.2, 17.4, 17.5_
 
-- [ ] 11. Barrel
-  - [ ] 11.1 Export the AI API from the barrel
+- [x] 11. Barrel
+  - [x] 11.1 Export the AI API from the barrel
     - Edit `packages/coffin_core/lib/coffin_core.dart`, keeping every existing export. Add `show` exports for exactly the 13 lines of design.md "Barrel exports", placed before the `src/router` lines: `AiFactKeys`, `AiFallbackError`, `AiIssue`, `AiIssueKind`, `AiIssueReporter` and `discardAiIssues`, `AiPurpose`, `AiReply`, `AiRequest`, `AiTimerFactory`, `CoffinAI`, `FallbackCoffinAI`, `OfflineCoffinAI`, `ReplySource`.
     - Do not export `reportAiIssueSafely`, `OfflineEngine`, `ComposedText`, `ComposePath`, `TemplateCatalog`, `TemplateSet`, `Template`, `CleanFacts`, `TextRules`, `SeededRandom` or `IdentifierRules`.
     - Run `flutter analyze` in the workspace and confirm no name clash in the barrel and no clash or ambiguity in `apps/hauntagotchi` or `apps/graveyard`. Fix the clash by reporting it to the user. Do not rename without asking.
     - _Requirements: 16.4, 16.7, 17.2_
 
-  - [ ] 11.2 Write the barrel test
+  - [x] 11.2 Write the barrel test
     - Create `ai_barrel_test.dart` (Chrome-safe, no `dart:io`). Importing only `package:coffin_core/coffin_core.dart`: every exported AI name is usable (construct a request, a reply, an issue, `OfflineCoffinAI`, `FallbackCoffinAI` with a fake clock, `AiFactKeys` keys, a `ReplySource`); a class defined in the test outside `coffin_core` implements `CoffinAI` using only the barrel and works as the primary of a `FallbackCoffinAI` (Req 1.6 and 12.1). The file imports no `src/` path.
     - The hidden names cannot be referenced through the barrel; the source scan (task 12.2) checks this on the barrel text, because a compile-time check cannot be a passing test.
     - _Requirements: 1.6, 12.1, 16.4, 17.3_
 
-- [ ] 12. Source scan
-  - [ ] 12.1 Write the scanner helpers
+- [x] 12. Source scan
+  - [x] 12.1 Write the scanner helpers
     - Create `test/ai/support/source_scanner.dart` (pure Dart, no `dart:io`, Chrome-safe): functions that take a file's text and return its violations for a rule list, a seedless-`Random` detector using the regular expression `(?<![A-Za-z0-9_$])Random\s*\(\s*\)` and `(?<![A-Za-z0-9_$])Random\.secure`, a `.hashCode` detector, a public-class counter that exempts typedef-only files, and a barrel-export parser.
     - Add `test/ai/support/source_scanner_test.dart` testing the scanner on sample strings: `final r = Random();` is flagged, `Random.secure()` is flagged, `SeededRandom(seed)` and `class SeededRandom {` are not flagged, each forbidden word is found case-insensitively, `.hashCode` is found, a typedef-only file counts as zero classes, two public classes count as two.
     - _Requirements: 12.4, 12.5, 5.4, 16.1_
 
-  - [ ] 12.2 Write the source scan test
+  - [x] 12.2 Write the source scan test
     - Create `ai_sources_test.dart` with `@TestOn('vm')`. Resolve repo paths relative to the test file location so it works from any working directory. Read every `.dart` file under `packages/coffin_core/lib/src/ai/`. Each scan asserts it found a nonzero number of files (and a nonzero number of lines scanned).
     - Fail when any file contains, case-insensitively: `http://`, `https://`, `api_key`, `apikey`, `authorization`, `bearer`, `package:http`, `dart:io`, `dart:html`, `HttpClient`, `package:flutter`, `DateTime.now`, `Stopwatch`, `src/storage`, `src/router`, `src/theme`, `src/widgets`, `package:go_router`, `package:hive`, `riverpod`, `dart:math`. Fail on a seedless `Random(` or `Random.secure` (no false positive on `SeededRandom(`). Fail on `.hashCode` member access in `offline_coffin_ai.dart`, `offline_engine.dart`, `template*.dart`, `clean_facts.dart`, `text_rules.dart` and `seeded_random.dart`.
     - Structure: each file declares at most one public class (typedef-only files exempt); no file under `lib/src/ai` imports `apps/`, `package:hauntagotchi` or `package:graveyard`; every file imports only `dart:core`, `dart:async` (in `fallback_coffin_ai.dart` and `ai_timer_factory.dart` only), `package:meta/meta.dart` and other files of `src/ai`.
@@ -317,42 +317,44 @@ Notes that apply to all tasks:
     - Secrets: no file under `lib/src/ai` or `test/ai` contains a URL, `sk-`, `AKIA`, a long hex or base64 token, or a `.env` reference.
     - _Requirements: 4.2, 4.5, 5.4, 11.4, 12.3, 12.4, 12.5, 12.6, 12.7, 16.1, 16.3, 16.4, 16.6, 16.7, 16.8, 16.9, 17.7, 17.8_
 
-- [ ] 13. Timing report
-  - [ ] 13.1 Measure the AI test run time
+- [x] 13. Timing report
+  - [x] 13.1 Measure the AI test run time
     - In `packages/coffin_core`, run `flutter test test/ai` on the VM and measure wall-clock time (shell `time`, explicit timeout of 1800000 ms). Then measure the Chrome run separately, using the exact file list of task 14.1, with its own wall-clock time. Report both totals and the slowest files (time the heavy files separately: `offline_coffin_ai_property_test.dart`, `fallback_coffin_ai_property_test.dart`, `offline_engine_property_test.dart`, `template_catalog_test.dart`).
-    - If either total exceeds about 60 seconds, STOP and tell the user the timings BEFORE lowering any run count or sequence length. Wait for their decision. Never lower counts silently. Note the first Chrome compile can take tens of seconds, and say how much of the total that was.
+    - Two limits apply: the VM run (`flutter test test/ai`) stops at about 60 seconds, and the Chrome run stops at about 90 seconds. If a run exceeds its limit, STOP and tell the user the timings BEFORE lowering any run count or sequence length. Wait for their decision. Never lower counts silently; stop and ask before lowering. Note the first Chrome compile can take tens of seconds, and say how much of the total that was.
+    - Measured result: VM 9.3 s with 486 tests; Chrome 68.6 s with 464 tests. About 17 s of the Chrome time is Chrome and compiler startup before the first test, and the test reporter counted 51 s. The user accepted the Chrome time (decision: raise the Chrome limit to 90 s, keep 60 s for the VM run). Every run count is unchanged.
     - _Requirements: 13.10, 14.7, 17.5, 17.6_
 
-- [ ] 14. Chrome run of the AI tests
-  - [ ] 14.1 Run every AI test except the source scan on the web runner
+- [x] 14. Chrome run of the AI tests
+  - [x] 14.1 Run every AI test except the source scan on the web runner
     - First check that Chrome is available (`flutter devices` lists Chrome, or `flutter doctor`). If it is not, REPORT that the Chrome step could not run and why. Do not skip silently and do not mark the step as passed.
-    - In `packages/coffin_core`, run `flutter test --platform chrome` with exactly this file list: `test/ai/coffin_ai_test.dart`, `test/ai/ai_purpose_test.dart`, `test/ai/ai_purpose_property_test.dart`, `test/ai/reply_source_test.dart`, `test/ai/ai_request_test.dart`, `test/ai/ai_request_property_test.dart`, `test/ai/ai_fact_keys_test.dart`, `test/ai/ai_reply_test.dart`, `test/ai/ai_reply_property_test.dart`, `test/ai/identifier_rules_test.dart`, `test/ai/text_rules_test.dart`, `test/ai/text_rules_property_test.dart`, `test/ai/seeded_random_test.dart`, `test/ai/seeded_random_property_test.dart`, `test/ai/clean_facts_test.dart`, `test/ai/template_test.dart`, `test/ai/template_catalog_test.dart`, `test/ai/offline_engine_test.dart`, `test/ai/offline_engine_property_test.dart`, `test/ai/offline_coffin_ai_test.dart`, `test/ai/offline_coffin_ai_property_test.dart`, `test/ai/fallback_coffin_ai_test.dart`, `test/ai/fallback_coffin_ai_property_test.dart`, `test/ai/ai_issue_test.dart`, `test/ai/ai_issue_reporter_test.dart`, `test/ai/ai_fallback_error_test.dart`, `test/ai/ai_barrel_test.dart`, `test/ai/support/ai_generators_test.dart`, `test/ai/support/fake_clock_test.dart`, `test/ai/support/scripted_ai_test.dart`, `test/ai/support/source_scanner_test.dart`. If any file was added or renamed during the work, update this list so it holds every file under `test/ai` except `ai_sources_test.dart`, and say so in the report.
+    - In `packages/coffin_core`, run `flutter test --platform chrome` with exactly this file list: `test/ai/coffin_ai_test.dart`, `test/ai/ai_purpose_test.dart`, `test/ai/ai_purpose_property_test.dart`, `test/ai/reply_source_test.dart`, `test/ai/ai_request_test.dart`, `test/ai/ai_request_property_test.dart`, `test/ai/ai_fact_keys_test.dart`, `test/ai/ai_reply_test.dart`, `test/ai/ai_reply_property_test.dart`, `test/ai/identifier_rules_test.dart`, `test/ai/text_rules_test.dart`, `test/ai/text_rules_property_test.dart`, `test/ai/seeded_random_test.dart`, `test/ai/seeded_random_property_test.dart`, `test/ai/clean_facts_test.dart`, `test/ai/template_test.dart`, `test/ai/template_set_test.dart`, `test/ai/template_catalog_test.dart`, `test/ai/offline_engine_test.dart`, `test/ai/offline_engine_property_test.dart`, `test/ai/offline_coffin_ai_test.dart`, `test/ai/offline_coffin_ai_property_test.dart`, `test/ai/fallback_coffin_ai_test.dart`, `test/ai/fallback_coffin_ai_property_test.dart`, `test/ai/ai_issue_test.dart`, `test/ai/ai_issue_reporter_test.dart`, `test/ai/ai_fallback_error_test.dart`, `test/ai/ai_barrel_test.dart`, `test/ai/support/ai_generators_test.dart`, `test/ai/support/fake_clock_test.dart`, `test/ai/support/scripted_ai_test.dart`, `test/ai/support/source_scanner_test.dart`. If any file was added or renamed during the work, update this list so it holds every file under `test/ai` except `ai_sources_test.dart`, and say so in the report.
+    - The list must cover every file under `test/ai` except `ai_sources_test.dart`.
     - The SeededRandom exact-value test (task 6.1), the template audit with its exact lengths (task 6.6) and the golden table (task 8.2) must all pass on Chrome.
     - If glados or any file fails to compile or run on the web runner, report the exact failure. If a glados generator breaks on web, fix the generator to be web-safe. Do not drop or skip the file, do not weaken assertions and do not lower run counts. If a recorded value differs on Chrome, STOP and report. If the run is slow, the timing rule of task 13 applies.
     - Report what the Chrome run does and does not cover: it checks the VM and web number and string differences (integral doubles, 32-bit arithmetic, code-unit lengths, microtask ordering) with the development compiler, but not dart2js release-mode output.
     - _Requirements: 5.3, 5.7, 7.7, 13.7, 13.8, 14.8, 14.10, 17.6_
 
-- [ ] 15. Final verification
-  - [ ] 15.1 Format, analyze and test everything
+- [x] 15. Final verification
+  - [x] 15.1 Format, analyze and test everything
     - Run `dart format --set-exit-if-changed .` at the workspace root, `flutter analyze` (zero issues) and `flutter test` in `packages/coffin_core`, `apps/hauntagotchi` and `apps/graveyard`. All must be clean and passing. Fix failures in files this feature created only; report anything else.
     - _Requirements: 17.1, 17.2, 17.3, 17.4, 17.5_
 
-  - [ ] 15.2 Build both apps for the web
+  - [x] 15.2 Build both apps for the web
     - Run `flutter build web` in `apps/hauntagotchi` and in `apps/graveyard`. Report success or the exact failure. Do not edit the design to work around a failure. Neither app imports the AI API, but the barrel now brings it into the compile graph.
     - _Requirements: 17.9, 16.7_
 
-  - [ ] 15.3 Confirm the pubspecs and lockfile are unchanged
+  - [x] 15.3 Confirm the pubspecs and lockfile are unchanged
     - Run `git diff --stat HEAD -- packages/coffin_core/pubspec.yaml apps/hauntagotchi/pubspec.yaml apps/graveyard/pubspec.yaml pubspec.lock` and compare `git hash-object` of each of the four files with the baseline recorded in task 1.1. Report any difference. A difference from HEAD that was already in the baseline is not caused by this feature, and must be stated as such. A difference from the baseline is a failure: STOP and report.
     - Confirm no new `dependencies:` or `dev_dependencies:` entry and no new `workspace:` entry appeared.
     - _Requirements: 16.9, 17.7, 12.7_
 
-  - [ ] 15.4 Confirm scope, secrets and report what was not verified
+  - [x] 15.4 Confirm scope, secrets and report what was not verified
     - Run `git status --short` and confirm only these paths changed because of this feature: `.kiro/specs/coffin-ai/`, `packages/coffin_core/lib/coffin_core.dart`, `packages/coffin_core/lib/src/ai/` and `packages/coffin_core/test/ai/`. Confirm no app file, `DIARY.md`, crypt-storage file, `pubspec.yaml`, `pubspec.lock`, `CREDITS.md` or generated `*.g.dart` file was changed or added by this feature, and that nothing was created or edited outside the repository. Other changes already present from crypt-storage work are reported and left alone.
     - Run a secrets grep over the files this feature added or changed (`lib/src/ai`, `test/ai`, the barrel line additions, `.kiro/specs/coffin-ai/`): `http://`, `https://`, `api_key`, `apikey`, `authorization`, `bearer`, `sk-`, `AKIA`, `token`, `secret`. Report every hit and explain each (for example the scan test's own forbidden-word list), and confirm no real secret or URL.
     - In the final message, state plainly what was not verified: tone is subjective (the golden texts and the 24 lines need a human read), there is no real remote provider and no network call, and there is no dart2js release-mode determinism check beyond the development compiler used by `flutter test --platform chrome`. Also state that Recovery and truncation are proven only through injected catalogs, and that real-clock ordering at the exact timeout is not testable.
     - _Requirements: 12.7, 16.6, 16.7, 16.10, 17.8_
 
-- [ ] 16. Final checkpoint - Full workspace verification
+- [x] 16. Final checkpoint - Full workspace verification
   - Confirm no package was added: `glados`, `flutter_test` and `meta` remain the only test and annotation dependencies used, and the four files from task 15.3 match the baseline.
   - Ensure all tests pass, ask the user if questions arise.
   - _Requirements: 16.9, 17.2, 17.5, 17.7_

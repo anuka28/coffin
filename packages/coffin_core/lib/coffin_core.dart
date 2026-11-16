@@ -7,6 +7,19 @@ library;
 export 'package:go_router/go_router.dart'
     show GoRouter, GoRouterHelper, GoRouterState;
 
+export 'src/ai/ai_fact_keys.dart' show AiFactKeys;
+export 'src/ai/ai_fallback_error.dart' show AiFallbackError;
+export 'src/ai/ai_issue.dart' show AiIssue;
+export 'src/ai/ai_issue_kind.dart' show AiIssueKind;
+export 'src/ai/ai_issue_reporter.dart' show AiIssueReporter, discardAiIssues;
+export 'src/ai/ai_purpose.dart' show AiPurpose;
+export 'src/ai/ai_reply.dart' show AiReply;
+export 'src/ai/ai_request.dart' show AiRequest;
+export 'src/ai/ai_timer_factory.dart' show AiTimerFactory;
+export 'src/ai/coffin_ai.dart' show CoffinAI;
+export 'src/ai/fallback_coffin_ai.dart' show FallbackCoffinAI;
+export 'src/ai/offline_coffin_ai.dart' show OfflineCoffinAI;
+export 'src/ai/reply_source.dart' show ReplySource;
 export 'src/router/app_route.dart' show AppRoute;
 export 'src/router/fog_frame.dart' show FogFrame;
 export 'src/router/fog_math.dart' show FogMath;

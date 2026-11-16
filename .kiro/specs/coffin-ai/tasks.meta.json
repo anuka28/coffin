@@ -664,6 +664,173 @@
         "chatSessionId": "sess_8c75afc9-f8e7-4add-97a9-13fb781fd74a",
         "timestamp": 1794808640316
       }
+    ],
+    "11.1 Export the AI API from the barrel": [
+      {
+        "executionId": "35eabff6-ef29-44b2-a036-68671107ef2f",
+        "chatSessionId": "sess_8c75afc9-f8e7-4add-97a9-13fb781fd74a",
+        "timestamp": 1794809102308
+      },
+      {
+        "executionId": "35eabff6-ef29-44b2-a036-68671107ef2f",
+        "chatSessionId": "sess_8c75afc9-f8e7-4add-97a9-13fb781fd74a",
+        "timestamp": 1794809205629
+      }
+    ],
+    "11.2 Write the barrel test": [
+      {
+        "executionId": "35eabff6-ef29-44b2-a036-68671107ef2f",
+        "chatSessionId": "sess_8c75afc9-f8e7-4add-97a9-13fb781fd74a",
+        "timestamp": 1794809211378
+      },
+      {
+        "executionId": "35eabff6-ef29-44b2-a036-68671107ef2f",
+        "chatSessionId": "sess_8c75afc9-f8e7-4add-97a9-13fb781fd74a",
+        "timestamp": 1794809226855
+      }
+    ],
+    "11. Barrel": [
+      {
+        "executionId": "35eabff6-ef29-44b2-a036-68671107ef2f",
+        "chatSessionId": "sess_8c75afc9-f8e7-4add-97a9-13fb781fd74a",
+        "timestamp": 1794809226879
+      }
+    ],
+    "12.1 Write the scanner helpers": [
+      {
+        "executionId": "35eabff6-ef29-44b2-a036-68671107ef2f",
+        "chatSessionId": "sess_8c75afc9-f8e7-4add-97a9-13fb781fd74a",
+        "timestamp": 1794809227641
+      },
+      {
+        "executionId": "35eabff6-ef29-44b2-a036-68671107ef2f",
+        "chatSessionId": "sess_8c75afc9-f8e7-4add-97a9-13fb781fd74a",
+        "timestamp": 1794809332336
+      }
+    ],
+    "12.2 Write the source scan test": [
+      {
+        "executionId": "35eabff6-ef29-44b2-a036-68671107ef2f",
+        "chatSessionId": "sess_8c75afc9-f8e7-4add-97a9-13fb781fd74a",
+        "timestamp": 1794809459022
+      },
+      {
+        "executionId": "35eabff6-ef29-44b2-a036-68671107ef2f",
+        "chatSessionId": "sess_8c75afc9-f8e7-4add-97a9-13fb781fd74a",
+        "timestamp": 1794809483639
+      }
+    ],
+    "12. Source scan": [
+      {
+        "executionId": "35eabff6-ef29-44b2-a036-68671107ef2f",
+        "chatSessionId": "sess_8c75afc9-f8e7-4add-97a9-13fb781fd74a",
+        "timestamp": 1794809483666
+      }
+    ],
+    "13.1 Measure the AI test run time": [
+      {
+        "executionId": "35eabff6-ef29-44b2-a036-68671107ef2f",
+        "chatSessionId": "sess_8c75afc9-f8e7-4add-97a9-13fb781fd74a",
+        "timestamp": 1794809685365
+      },
+      {
+        "executionId": "0684cd99-e3d4-4df9-9191-5a347420a6ff",
+        "chatSessionId": "sess_8c75afc9-f8e7-4add-97a9-13fb781fd74a",
+        "timestamp": 1794817080313
+      }
+    ],
+    "13. Timing report": [
+      {
+        "executionId": "0684cd99-e3d4-4df9-9191-5a347420a6ff",
+        "chatSessionId": "sess_8c75afc9-f8e7-4add-97a9-13fb781fd74a",
+        "timestamp": 1794817080396
+      }
+    ],
+    "14.1 Run every AI test except the source scan on the web runner": [
+      {
+        "executionId": "0684cd99-e3d4-4df9-9191-5a347420a6ff",
+        "chatSessionId": "sess_8c75afc9-f8e7-4add-97a9-13fb781fd74a",
+        "timestamp": 1794817085533
+      },
+      {
+        "executionId": "0684cd99-e3d4-4df9-9191-5a347420a6ff",
+        "chatSessionId": "sess_8c75afc9-f8e7-4add-97a9-13fb781fd74a",
+        "timestamp": 1794817223740
+      }
+    ],
+    "14. Chrome run of the AI tests": [
+      {
+        "executionId": "0684cd99-e3d4-4df9-9191-5a347420a6ff",
+        "chatSessionId": "sess_8c75afc9-f8e7-4add-97a9-13fb781fd74a",
+        "timestamp": 1794817223765
+      }
+    ],
+    "15.1 Format, analyze and test everything": [
+      {
+        "executionId": "0684cd99-e3d4-4df9-9191-5a347420a6ff",
+        "chatSessionId": "sess_8c75afc9-f8e7-4add-97a9-13fb781fd74a",
+        "timestamp": 1794817228413
+      },
+      {
+        "executionId": "0684cd99-e3d4-4df9-9191-5a347420a6ff",
+        "chatSessionId": "sess_8c75afc9-f8e7-4add-97a9-13fb781fd74a",
+        "timestamp": 1794817295556
+      }
+    ],
+    "15.2 Build both apps for the web": [
+      {
+        "executionId": "0684cd99-e3d4-4df9-9191-5a347420a6ff",
+        "chatSessionId": "sess_8c75afc9-f8e7-4add-97a9-13fb781fd74a",
+        "timestamp": 1794817299559
+      },
+      {
+        "executionId": "0684cd99-e3d4-4df9-9191-5a347420a6ff",
+        "chatSessionId": "sess_8c75afc9-f8e7-4add-97a9-13fb781fd74a",
+        "timestamp": 1794817343177
+      }
+    ],
+    "15.3 Confirm the pubspecs and lockfile are unchanged": [
+      {
+        "executionId": "0684cd99-e3d4-4df9-9191-5a347420a6ff",
+        "chatSessionId": "sess_8c75afc9-f8e7-4add-97a9-13fb781fd74a",
+        "timestamp": 1794817347074
+      },
+      {
+        "executionId": "0684cd99-e3d4-4df9-9191-5a347420a6ff",
+        "chatSessionId": "sess_8c75afc9-f8e7-4add-97a9-13fb781fd74a",
+        "timestamp": 1794817389290
+      }
+    ],
+    "15.4 Confirm scope, secrets and report what was not verified": [
+      {
+        "executionId": "0684cd99-e3d4-4df9-9191-5a347420a6ff",
+        "chatSessionId": "sess_8c75afc9-f8e7-4add-97a9-13fb781fd74a",
+        "timestamp": 1794817393036
+      },
+      {
+        "executionId": "0684cd99-e3d4-4df9-9191-5a347420a6ff",
+        "chatSessionId": "sess_8c75afc9-f8e7-4add-97a9-13fb781fd74a",
+        "timestamp": 1794817449799
+      }
+    ],
+    "15. Final verification": [
+      {
+        "executionId": "0684cd99-e3d4-4df9-9191-5a347420a6ff",
+        "chatSessionId": "sess_8c75afc9-f8e7-4add-97a9-13fb781fd74a",
+        "timestamp": 1794817449825
+      }
+    ],
+    "16. Final checkpoint - Full workspace verification": [
+      {
+        "executionId": "0684cd99-e3d4-4df9-9191-5a347420a6ff",
+        "chatSessionId": "sess_8c75afc9-f8e7-4add-97a9-13fb781fd74a",
+        "timestamp": 1794817453876
+      },
+      {
+        "executionId": "0684cd99-e3d4-4df9-9191-5a347420a6ff",
+        "chatSessionId": "sess_8c75afc9-f8e7-4add-97a9-13fb781fd74a",
+        "timestamp": 1794817551068
+      }
     ]
   }
 }

@@ -1259,7 +1259,9 @@ The Chrome run is the list of every file in `test/ai/` except `ai_sources_test.d
 | `flutter test test/ai` on the VM | Seconds. The fixed per-file startup dominates. |
 | Chrome run | The first compile takes tens of seconds, as in my experiments. Test bodies stay fast because no real timer is used: the 100000-request prototype took about a second on Chrome, and 40000 microtask hops took 181 ms. |
 
-These are expectations from the measurements above, not measurements of the real test files, which do not exist yet.
+These are expectations from the measurements above, not measurements of the real test files, which did not exist when this table was written.
+
+Limits and measured results (task 13.1): the VM run (`flutter test test/ai`) has a limit of about 60 s, and the Chrome run has a limit of about 90 s. Measured: VM 9.3 s with 486 tests, Chrome 68.6 s with 464 tests. About 17 s of the Chrome time is Chrome and compiler startup before the first test, and the test reporter counted 51 s. The user accepted the Chrome time and raised the Chrome limit to 90 s. Every run count is unchanged.
 
 ### Other unit tests (Requirement 15)
 
@@ -1320,3 +1322,7 @@ The example list of Requirement 15 maps to files as follows: 15.1 to `offline_co
 17. **Recovery lives on an internal `OfflineEngine`** that tests build with an injected catalog, instead of a `@visibleForTesting` parameter on the public class.
 18. **Names are not stripped of zero-width or bidirectional control characters**, only of control characters (category Cc), as the requirement says.
 19. **Count 0 is treated as missing** (user decision after the golden-text review), so a new user never sees a zero count.
+
+## Decisions confirmed by the user
+
+- Chrome AI test run limit raised to 90 s (measured 68.6 s); VM limit stays 60 s; no run count lowered.
