@@ -26,10 +26,10 @@ void main() {
     expect(find.byType(NotFoundPage), findsNothing);
   });
 
-  testWidgets('the home route is the only declared route', (tester) async {
-    expect(appRoutes, hasLength(1));
-    expect(appRoutes.single.path, '/');
-    expect(appRoutes.single.name, 'home');
+  testWidgets('the app declares the home and gallery routes', (tester) async {
+    expect(appRoutes, hasLength(2));
+    expect(appRoutes.map((r) => r.path).toList(), <String>['/', '/gallery']);
+    expect(appRoutes.map((r) => r.name).toList(), <String?>['home', 'gallery']);
   });
 
   testWidgets('an unknown location shows the not-found page', (tester) async {

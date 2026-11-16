@@ -454,6 +454,128 @@
         "chatSessionId": "sess_8c75afc9-f8e7-4add-97a9-13fb781fd74a",
         "timestamp": 1794825530525
       }
+    ],
+    "6.1 Implement `CryptGalleryPanel` and `CryptGallery` with widget tests": [
+      {
+        "executionId": "d03a9547-9f0f-4e7f-8dcb-d3064b7ab07d",
+        "chatSessionId": "sess_8c75afc9-f8e7-4add-97a9-13fb781fd74a",
+        "timestamp": 1794843271996
+      },
+      {
+        "executionId": "d03a9547-9f0f-4e7f-8dcb-d3064b7ab07d",
+        "chatSessionId": "sess_8c75afc9-f8e7-4add-97a9-13fb781fd74a",
+        "timestamp": 1794843491414
+      }
+    ],
+    "6.2 Add the Barrel exports and the barrel test": [
+      {
+        "executionId": "d03a9547-9f0f-4e7f-8dcb-d3064b7ab07d",
+        "chatSessionId": "sess_8c75afc9-f8e7-4add-97a9-13fb781fd74a",
+        "timestamp": 1794843496247
+      },
+      {
+        "executionId": "d03a9547-9f0f-4e7f-8dcb-d3064b7ab07d",
+        "chatSessionId": "sess_8c75afc9-f8e7-4add-97a9-13fb781fd74a",
+        "timestamp": 1794843564885
+      }
+    ],
+    "6.3 Add the Hauntagotchi `/gallery` route and its tests": [
+      {
+        "executionId": "d03a9547-9f0f-4e7f-8dcb-d3064b7ab07d",
+        "chatSessionId": "sess_8c75afc9-f8e7-4add-97a9-13fb781fd74a",
+        "timestamp": 1794843569519
+      },
+      {
+        "executionId": "d03a9547-9f0f-4e7f-8dcb-d3064b7ab07d",
+        "chatSessionId": "sess_8c75afc9-f8e7-4add-97a9-13fb781fd74a",
+        "timestamp": 1794843649315
+      }
+    ],
+    "6. Crypt gallery, Barrel exports and the Hauntagotchi route": [
+      {
+        "executionId": "d03a9547-9f0f-4e7f-8dcb-d3064b7ab07d",
+        "chatSessionId": "sess_8c75afc9-f8e7-4add-97a9-13fb781fd74a",
+        "timestamp": 1794843649344
+      }
+    ],
+    "7.1 Format, analyze and test everything": [
+      {
+        "executionId": "d03a9547-9f0f-4e7f-8dcb-d3064b7ab07d",
+        "chatSessionId": "sess_8c75afc9-f8e7-4add-97a9-13fb781fd74a",
+        "timestamp": 1794843654051
+      },
+      {
+        "executionId": "d03a9547-9f0f-4e7f-8dcb-d3064b7ab07d",
+        "chatSessionId": "sess_8c75afc9-f8e7-4add-97a9-13fb781fd74a",
+        "timestamp": 1794843702637
+      }
+    ],
+    "7.2 Run the pure tests in Chrome": [
+      {
+        "executionId": "d03a9547-9f0f-4e7f-8dcb-d3064b7ab07d",
+        "chatSessionId": "sess_8c75afc9-f8e7-4add-97a9-13fb781fd74a",
+        "timestamp": 1794843703608
+      },
+      {
+        "executionId": "d03a9547-9f0f-4e7f-8dcb-d3064b7ab07d",
+        "chatSessionId": "sess_8c75afc9-f8e7-4add-97a9-13fb781fd74a",
+        "timestamp": 1794843753269
+      }
+    ],
+    "7.3 Build both apps for the web": [
+      {
+        "executionId": "d03a9547-9f0f-4e7f-8dcb-d3064b7ab07d",
+        "chatSessionId": "sess_8c75afc9-f8e7-4add-97a9-13fb781fd74a",
+        "timestamp": 1794843754101
+      },
+      {
+        "executionId": "d03a9547-9f0f-4e7f-8dcb-d3064b7ab07d",
+        "chatSessionId": "sess_8c75afc9-f8e7-4add-97a9-13fb781fd74a",
+        "timestamp": 1794843814408
+      }
+    ],
+    "7.4 Confirm the pubspecs and the lockfile are unchanged": [
+      {
+        "executionId": "d03a9547-9f0f-4e7f-8dcb-d3064b7ab07d",
+        "chatSessionId": "sess_8c75afc9-f8e7-4add-97a9-13fb781fd74a",
+        "timestamp": 1794843815411
+      },
+      {
+        "executionId": "d03a9547-9f0f-4e7f-8dcb-d3064b7ab07d",
+        "chatSessionId": "sess_8c75afc9-f8e7-4add-97a9-13fb781fd74a",
+        "timestamp": 1794843857643
+      }
+    ],
+    "7.5 Confirm scope, secrets and report what was not verified": [
+      {
+        "executionId": "d03a9547-9f0f-4e7f-8dcb-d3064b7ab07d",
+        "chatSessionId": "sess_8c75afc9-f8e7-4add-97a9-13fb781fd74a",
+        "timestamp": 1794843862386
+      },
+      {
+        "executionId": "d03a9547-9f0f-4e7f-8dcb-d3064b7ab07d",
+        "chatSessionId": "sess_8c75afc9-f8e7-4add-97a9-13fb781fd74a",
+        "timestamp": 1794843925634
+      }
+    ],
+    "7.6 Final checkpoint": [
+      {
+        "executionId": "d03a9547-9f0f-4e7f-8dcb-d3064b7ab07d",
+        "chatSessionId": "sess_8c75afc9-f8e7-4add-97a9-13fb781fd74a",
+        "timestamp": 1794843930661
+      },
+      {
+        "executionId": "d03a9547-9f0f-4e7f-8dcb-d3064b7ab07d",
+        "chatSessionId": "sess_8c75afc9-f8e7-4add-97a9-13fb781fd74a",
+        "timestamp": 1794843982865
+      }
+    ],
+    "7. Final checkpoint - Full verification": [
+      {
+        "executionId": "d03a9547-9f0f-4e7f-8dcb-d3064b7ab07d",
+        "chatSessionId": "sess_8c75afc9-f8e7-4add-97a9-13fb781fd74a",
+        "timestamp": 1794843982894
+      }
     ]
   }
 }
