@@ -94,6 +94,14 @@ A few lines per day: what I asked Kiro, what worked, what didn't, what I learned
 - Kiro stalled once (it was running tasks in parallel) and twice marked tasks done before doing them; it reopened them itself. I asked it to go one task at a time, which worked. An editor tab holding a stale copy of a test file triggered a "Failed to save… content is newer" prompt; I discarded the stale copy instead of overwriting Kiro's newer file.
 - Task 10 checkpoint, verified myself: format clean, analyze no issues, coffin_core **942 tests** on the VM; the **443 AI tests pass in Chrome** in ~41 s. No stray files.
 - The timing gate fired: the Chrome run of the AI tests took 68.6 s against a 60 s limit, and Kiro stopped to ask instead of lowering run counts. ~17 s is Chrome and compiler startup, and the everyday VM run is 9.3 s, so I accepted it: raised the Chrome limit to 90 s and kept every run count, since web coverage is what caught the JavaScript number bugs in crypt-storage. Kiro also found its own Chrome file list was missing a test file.
-- **coffin-ai complete.** Verified: all 16 tasks done, format clean, analyze no issues, coffin_core **985** + Hauntagotchi 9 + Graveyard 8 tests pass. No new packages; the barrel adds 13 AI exports; no secrets or URLs in the code.
+- **coffin-ai complete** (commit 2adf440; tasks 11–16 took ~11 credits and 11 min). Verified: all 16 tasks done, format clean, analyze no issues, coffin_core **985** + Hauntagotchi 9 + Graveyard 8 tests pass. No new packages; the barrel adds 13 AI exports; no secrets or URLs in the code.
 - Not yet covered: a real remote provider. That's step 2, a small proxy that holds the API key.
 - Started recording a short screen clip at each milestone for the demo video. First one: the coffin-ai spec (requirements → design → tasks) and `flutter test` ending on 985 passing.
+
+## Day 8 · Nov 16, 2026 (a day early)
+- **Sixth spec: `spooky-widgets`** (GhostLoader, TombstoneCard, FlickerText, FogBackground + a CryptGallery page at `/#/gallery` in Hauntagotchi). Requirements ~6.5 credits, design ~27, tasks ~19.5.
+  - My review answers: move `SeededRandom` to a shared `lib/src/common/` (Graveyard and Hauntagotchi will need it too); keep the gallery in coffin_core because it's the kit's showcase; readability beats fog visibility.
+  - Kiro computed real WCAG contrast before choosing numbers: fog alpha came down from 0.03–0.08 to 0.03–0.05 because night muted text dropped to 4.49 at 5.5%. It also found that `ShapeDecoration` already draws shadows along any shape, so the tombstone glow needed no `CoffinGlow` change.
+  - It flagged honestly that moving `SeededRandom` needs one non-import edit to the coffin-ai source scan (one allow-list branch for one file); approved.
+  - Ghost colour: bone white in night with a purple glow, purple in daylight (contrast 15.99 and 5.84).
+  - Kiro's spec sub-agent wrote one temp file to `/tmp` while computing contrast and reported it itself; I checked and nothing was left behind.
