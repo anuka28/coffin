@@ -138,6 +138,9 @@ List<String> _importProblems(String name, String text, Set<String> siblings) {
       if (!_asyncFiles.contains(name)) problems.add('dart:async not allowed');
     } else if (uri == 'package:meta/meta.dart') {
       continue;
+    } else if (name == 'offline_engine.dart' &&
+        uri == '../common/seeded_random.dart') {
+      continue;
     } else if (!uri.contains(':') &&
         !uri.contains('/') &&
         siblings.contains(uri)) {
@@ -602,6 +605,22 @@ void main() {
         isNotEmpty,
       );
       expect(_importProblems('a.dart', "import 'c.dart';", sib), isNotEmpty);
+      expect(
+        _importProblems(
+          'offline_engine.dart',
+          "import '../common/seeded_random.dart';",
+          sib,
+        ),
+        isEmpty,
+      );
+      expect(
+        _importProblems(
+          'a.dart',
+          "import '../common/seeded_random.dart';",
+          sib,
+        ),
+        isNotEmpty,
+      );
       expect(
         _importProblems('a.dart', "import '../storage/x.dart';", sib),
         isNotEmpty,

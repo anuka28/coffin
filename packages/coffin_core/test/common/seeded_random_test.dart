@@ -1,4 +1,4 @@
-import 'package:coffin_core/src/ai/seeded_random.dart';
+import 'package:coffin_core/src/common/seeded_random.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {

@@ -1,0 +1,325 @@
+{
+  "pbtResults": {
+    "2.3 Write property test for ping-pong shape": {
+      "status": "passed",
+      "lastRunTimestamp": 1794822151058
+    },
+    "2.11 Write property test for flicker legibility": {
+      "status": "passed",
+      "lastRunTimestamp": 1794822666513
+    },
+    "2.16 Write property test for seed masking": {
+      "status": "passed",
+      "lastRunTimestamp": 1794823068754
+    }
+  },
+  "executionHistory": {
+    "1.1 Record the baseline before any edit": [
+      {
+        "executionId": "c5e7768b-9d71-47d5-a2d6-02c48d58e0dd",
+        "chatSessionId": "sess_8c75afc9-f8e7-4add-97a9-13fb781fd74a",
+        "timestamp": 1794821449267
+      },
+      {
+        "executionId": "c5e7768b-9d71-47d5-a2d6-02c48d58e0dd",
+        "chatSessionId": "sess_8c75afc9-f8e7-4add-97a9-13fb781fd74a",
+        "timestamp": 1794821481766
+      }
+    ],
+    "1.2 Move the files and fix the imports": [
+      {
+        "executionId": "c5e7768b-9d71-47d5-a2d6-02c48d58e0dd",
+        "chatSessionId": "sess_8c75afc9-f8e7-4add-97a9-13fb781fd74a",
+        "timestamp": 1794821482619
+      },
+      {
+        "executionId": "c5e7768b-9d71-47d5-a2d6-02c48d58e0dd",
+        "chatSessionId": "sess_8c75afc9-f8e7-4add-97a9-13fb781fd74a",
+        "timestamp": 1794821562302
+      }
+    ],
+    "1.3 Verify the move with its own full run (Checkpoint)": [
+      {
+        "executionId": "c5e7768b-9d71-47d5-a2d6-02c48d58e0dd",
+        "chatSessionId": "sess_8c75afc9-f8e7-4add-97a9-13fb781fd74a",
+        "timestamp": 1794821562385
+      },
+      {
+        "executionId": "c5e7768b-9d71-47d5-a2d6-02c48d58e0dd",
+        "chatSessionId": "sess_8c75afc9-f8e7-4add-97a9-13fb781fd74a",
+        "timestamp": 1794821640684
+      }
+    ],
+    "1. Move `SeededRandom` to `lib/src/common/` (Requirement 22)": [
+      {
+        "executionId": "c5e7768b-9d71-47d5-a2d6-02c48d58e0dd",
+        "chatSessionId": "sess_8c75afc9-f8e7-4add-97a9-13fb781fd74a",
+        "timestamp": 1794821640716
+      }
+    ],
+    "2.1 Create the web-safe test support": [
+      {
+        "executionId": "0e7169f0-d8ab-426d-a8a0-fdaa30157740",
+        "chatSessionId": "sess_8c75afc9-f8e7-4add-97a9-13fb781fd74a",
+        "timestamp": 1794821892943
+      },
+      {
+        "executionId": "0e7169f0-d8ab-426d-a8a0-fdaa30157740",
+        "chatSessionId": "sess_8c75afc9-f8e7-4add-97a9-13fb781fd74a",
+        "timestamp": 1794822046332
+      }
+    ],
+    "2.2 Implement `PingPong` with unit tests": [
+      {
+        "executionId": "0e7169f0-d8ab-426d-a8a0-fdaa30157740",
+        "chatSessionId": "sess_8c75afc9-f8e7-4add-97a9-13fb781fd74a",
+        "timestamp": 1794822047141
+      },
+      {
+        "executionId": "0e7169f0-d8ab-426d-a8a0-fdaa30157740",
+        "chatSessionId": "sess_8c75afc9-f8e7-4add-97a9-13fb781fd74a",
+        "timestamp": 1794822092026
+      }
+    ],
+    "2.3 Write property test for ping-pong shape": [
+      {
+        "executionId": "0e7169f0-d8ab-426d-a8a0-fdaa30157740",
+        "chatSessionId": "sess_8c75afc9-f8e7-4add-97a9-13fb781fd74a",
+        "timestamp": 1794822096285
+      },
+      {
+        "executionId": "0e7169f0-d8ab-426d-a8a0-fdaa30157740",
+        "chatSessionId": "sess_8c75afc9-f8e7-4add-97a9-13fb781fd74a",
+        "timestamp": 1794822161550
+      }
+    ],
+    "2.4 Implement `GhostBob` with unit tests": [
+      {
+        "executionId": "0e7169f0-d8ab-426d-a8a0-fdaa30157740",
+        "chatSessionId": "sess_8c75afc9-f8e7-4add-97a9-13fb781fd74a",
+        "timestamp": 1794822162640
+      },
+      {
+        "executionId": "0e7169f0-d8ab-426d-a8a0-fdaa30157740",
+        "chatSessionId": "sess_8c75afc9-f8e7-4add-97a9-13fb781fd74a",
+        "timestamp": 1794822215485
+      }
+    ],
+    "2.5 Write property test for bob range and loop": [
+      {
+        "executionId": "0e7169f0-d8ab-426d-a8a0-fdaa30157740",
+        "chatSessionId": "sess_8c75afc9-f8e7-4add-97a9-13fb781fd74a",
+        "timestamp": 1794822220404
+      },
+      {
+        "executionId": "0e7169f0-d8ab-426d-a8a0-fdaa30157740",
+        "chatSessionId": "sess_8c75afc9-f8e7-4add-97a9-13fb781fd74a",
+        "timestamp": 1794822271275
+      }
+    ],
+    "2.7 Implement `FlickerSchedule` with unit tests": [
+      {
+        "executionId": "0e7169f0-d8ab-426d-a8a0-fdaa30157740",
+        "chatSessionId": "sess_8c75afc9-f8e7-4add-97a9-13fb781fd74a",
+        "timestamp": 1794822287672
+      },
+      {
+        "executionId": "0e7169f0-d8ab-426d-a8a0-fdaa30157740",
+        "chatSessionId": "sess_8c75afc9-f8e7-4add-97a9-13fb781fd74a",
+        "timestamp": 1794822341156
+      }
+    ],
+    "2.6 Write property test for bob smoothness": [
+      {
+        "executionId": "0e7169f0-d8ab-426d-a8a0-fdaa30157740",
+        "chatSessionId": "sess_8c75afc9-f8e7-4add-97a9-13fb781fd74a",
+        "timestamp": 1794822345830
+      },
+      {
+        "executionId": "0e7169f0-d8ab-426d-a8a0-fdaa30157740",
+        "chatSessionId": "sess_8c75afc9-f8e7-4add-97a9-13fb781fd74a",
+        "timestamp": 1794822429506
+      }
+    ],
+    "2.8 Write property test for flicker range": [
+      {
+        "executionId": "0e7169f0-d8ab-426d-a8a0-fdaa30157740",
+        "chatSessionId": "sess_8c75afc9-f8e7-4add-97a9-13fb781fd74a",
+        "timestamp": 1794822430508
+      },
+      {
+        "executionId": "0e7169f0-d8ab-426d-a8a0-fdaa30157740",
+        "chatSessionId": "sess_8c75afc9-f8e7-4add-97a9-13fb781fd74a",
+        "timestamp": 1794822485613
+      }
+    ],
+    "2.9 Write property test for flicker determinism and loop": [
+      {
+        "executionId": "0e7169f0-d8ab-426d-a8a0-fdaa30157740",
+        "chatSessionId": "sess_8c75afc9-f8e7-4add-97a9-13fb781fd74a",
+        "timestamp": 1794822490519
+      },
+      {
+        "executionId": "0e7169f0-d8ab-426d-a8a0-fdaa30157740",
+        "chatSessionId": "sess_8c75afc9-f8e7-4add-97a9-13fb781fd74a",
+        "timestamp": 1794822538539
+      }
+    ],
+    "2.10 Write property test for flicker safety": [
+      {
+        "executionId": "0e7169f0-d8ab-426d-a8a0-fdaa30157740",
+        "chatSessionId": "sess_8c75afc9-f8e7-4add-97a9-13fb781fd74a",
+        "timestamp": 1794822543813
+      },
+      {
+        "executionId": "0e7169f0-d8ab-426d-a8a0-fdaa30157740",
+        "chatSessionId": "sess_8c75afc9-f8e7-4add-97a9-13fb781fd74a",
+        "timestamp": 1794822604200
+      }
+    ],
+    "2.11 Write property test for flicker legibility": [
+      {
+        "executionId": "0e7169f0-d8ab-426d-a8a0-fdaa30157740",
+        "chatSessionId": "sess_8c75afc9-f8e7-4add-97a9-13fb781fd74a",
+        "timestamp": 1794822608745
+      },
+      {
+        "executionId": "0e7169f0-d8ab-426d-a8a0-fdaa30157740",
+        "chatSessionId": "sess_8c75afc9-f8e7-4add-97a9-13fb781fd74a",
+        "timestamp": 1794822677930
+      }
+    ],
+    "2.12 Implement `FogParticle`, `FogDisc` and `FogField` with unit tests": [
+      {
+        "executionId": "0e7169f0-d8ab-426d-a8a0-fdaa30157740",
+        "chatSessionId": "sess_8c75afc9-f8e7-4add-97a9-13fb781fd74a",
+        "timestamp": 1794822683640
+      },
+      {
+        "executionId": "0e7169f0-d8ab-426d-a8a0-fdaa30157740",
+        "chatSessionId": "sess_8c75afc9-f8e7-4add-97a9-13fb781fd74a",
+        "timestamp": 1794822768686
+      }
+    ],
+    "2.13 Write property test for valid fog particles": [
+      {
+        "executionId": "0e7169f0-d8ab-426d-a8a0-fdaa30157740",
+        "chatSessionId": "sess_8c75afc9-f8e7-4add-97a9-13fb781fd74a",
+        "timestamp": 1794822773040
+      },
+      {
+        "executionId": "0e7169f0-d8ab-426d-a8a0-fdaa30157740",
+        "chatSessionId": "sess_8c75afc9-f8e7-4add-97a9-13fb781fd74a",
+        "timestamp": 1794822824773
+      }
+    ],
+    "2.14 Write property test for the pixel mapping": [
+      {
+        "executionId": "0e7169f0-d8ab-426d-a8a0-fdaa30157740",
+        "chatSessionId": "sess_8c75afc9-f8e7-4add-97a9-13fb781fd74a",
+        "timestamp": 1794822829260
+      },
+      {
+        "executionId": "0e7169f0-d8ab-426d-a8a0-fdaa30157740",
+        "chatSessionId": "sess_8c75afc9-f8e7-4add-97a9-13fb781fd74a",
+        "timestamp": 1794822923065
+      }
+    ],
+    "2.15 Write property test for fog determinism, loop and prefix": [
+      {
+        "executionId": "0e7169f0-d8ab-426d-a8a0-fdaa30157740",
+        "chatSessionId": "sess_8c75afc9-f8e7-4add-97a9-13fb781fd74a",
+        "timestamp": 1794822927320
+      },
+      {
+        "executionId": "0e7169f0-d8ab-426d-a8a0-fdaa30157740",
+        "chatSessionId": "sess_8c75afc9-f8e7-4add-97a9-13fb781fd74a",
+        "timestamp": 1794823000420
+      }
+    ],
+    "2.16 Write property test for seed masking": [
+      {
+        "executionId": "0e7169f0-d8ab-426d-a8a0-fdaa30157740",
+        "chatSessionId": "sess_8c75afc9-f8e7-4add-97a9-13fb781fd74a",
+        "timestamp": 1794823005096
+      },
+      {
+        "executionId": "0e7169f0-d8ab-426d-a8a0-fdaa30157740",
+        "chatSessionId": "sess_8c75afc9-f8e7-4add-97a9-13fb781fd74a",
+        "timestamp": 1794823080552
+      }
+    ],
+    "2.17 Write property test for fog legibility": [
+      {
+        "executionId": "0e7169f0-d8ab-426d-a8a0-fdaa30157740",
+        "chatSessionId": "sess_8c75afc9-f8e7-4add-97a9-13fb781fd74a",
+        "timestamp": 1794823085333
+      },
+      {
+        "executionId": "0e7169f0-d8ab-426d-a8a0-fdaa30157740",
+        "chatSessionId": "sess_8c75afc9-f8e7-4add-97a9-13fb781fd74a",
+        "timestamp": 1794823153983
+      },
+      {
+        "executionId": "84076e12-0198-446e-b70a-e002b182545e",
+        "chatSessionId": "sess_8c75afc9-f8e7-4add-97a9-13fb781fd74a",
+        "timestamp": 1794823674787
+      },
+      {
+        "executionId": "84076e12-0198-446e-b70a-e002b182545e",
+        "chatSessionId": "sess_8c75afc9-f8e7-4add-97a9-13fb781fd74a",
+        "timestamp": 1794823715546
+      }
+    ],
+    "2.18 Pin the fixed values of the pure classes": [
+      {
+        "executionId": "0e7169f0-d8ab-426d-a8a0-fdaa30157740",
+        "chatSessionId": "sess_8c75afc9-f8e7-4add-97a9-13fb781fd74a",
+        "timestamp": 1794823159352
+      },
+      {
+        "executionId": "0e7169f0-d8ab-426d-a8a0-fdaa30157740",
+        "chatSessionId": "sess_8c75afc9-f8e7-4add-97a9-13fb781fd74a",
+        "timestamp": 1794823303935
+      }
+    ],
+    "2. Pure math, web-safe generators and their tests": [
+      {
+        "executionId": "0e7169f0-d8ab-426d-a8a0-fdaa30157740",
+        "chatSessionId": "sess_8c75afc9-f8e7-4add-97a9-13fb781fd74a",
+        "timestamp": 1794823303973
+      }
+    ],
+    "3.1 Format, analyze and run the VM tests": [
+      {
+        "executionId": "0e7169f0-d8ab-426d-a8a0-fdaa30157740",
+        "chatSessionId": "sess_8c75afc9-f8e7-4add-97a9-13fb781fd74a",
+        "timestamp": 1794823308390
+      },
+      {
+        "executionId": "0e7169f0-d8ab-426d-a8a0-fdaa30157740",
+        "chatSessionId": "sess_8c75afc9-f8e7-4add-97a9-13fb781fd74a",
+        "timestamp": 1794823422710
+      }
+    ],
+    "3.2 Run the pure tests in Chrome and settle decision N4": [
+      {
+        "executionId": "0e7169f0-d8ab-426d-a8a0-fdaa30157740",
+        "chatSessionId": "sess_8c75afc9-f8e7-4add-97a9-13fb781fd74a",
+        "timestamp": 1794823423103
+      },
+      {
+        "executionId": "0e7169f0-d8ab-426d-a8a0-fdaa30157740",
+        "chatSessionId": "sess_8c75afc9-f8e7-4add-97a9-13fb781fd74a",
+        "timestamp": 1794823519635
+      }
+    ],
+    "3. Checkpoint A - Pure math verified on the VM and in Chrome": [
+      {
+        "executionId": "0e7169f0-d8ab-426d-a8a0-fdaa30157740",
+        "chatSessionId": "sess_8c75afc9-f8e7-4add-97a9-13fb781fd74a",
+        "timestamp": 1794823519658
+      }
+    ]
+  }
+}

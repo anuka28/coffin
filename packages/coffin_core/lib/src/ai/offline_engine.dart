@@ -1,8 +1,8 @@
+import '../common/seeded_random.dart';
 import 'ai_request.dart';
 import 'clean_facts.dart';
 import 'compose_path.dart';
 import 'composed_text.dart';
-import 'seeded_random.dart';
 import 'template.dart';
 import 'template_catalog.dart';
 import 'template_set.dart';

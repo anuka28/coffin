@@ -1,11 +1,11 @@
 import 'dart:math' as math;
 
-import 'package:coffin_core/src/ai/seeded_random.dart';
+import 'package:coffin_core/src/common/seeded_random.dart';
 import 'package:flutter_test/flutter_test.dart'
     show TestFailure, expect, group, test;
 import 'package:glados/glados.dart' hide expect, group, test;
 
-import 'support/ai_generators.dart';
+import '../ai/support/ai_generators.dart';
 
 const int _numRuns = 300;
 final RunCounter _runs = RunCounter();

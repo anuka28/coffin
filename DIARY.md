@@ -105,3 +105,8 @@ A few lines per day: what I asked Kiro, what worked, what didn't, what I learned
   - It flagged honestly that moving `SeededRandom` needs one non-import edit to the coffin-ai source scan (one allow-list branch for one file); approved.
   - Ghost colour: bone white in night with a purple glow, purple in daylight (contrast 15.99 and 5.84).
   - Kiro's spec sub-agent wrote one temp file to `/tmp` while computing contrast and reported it itself; I checked and nothing was left behind.
+- Task 1 (move `SeededRandom` to `lib/src/common/`): byte-identical move, only import paths changed plus the one approved scan branch; still exactly 985 tests. ~5 credits.
+  - Git lesson: Kiro had *staged* the renames, and the Commit button then committed only the staged files, so commit 1cbbc0d has the moves without the import fixes (it doesn't build on its own). The next commit completes it. Now I check for a "Staged Changes" section before committing.
+- Tasks 2–3, Checkpoint A: pure math (`PingPong`, `GhostBob`, `FlickerSchedule`, `FogField`) with glados property tests. Verified myself: format clean, analyze no issues, coffin_core **1,077 tests** on the VM and **106 pure tests pass in Chrome**. No Flutter, `dart:math`, `sin`/`cos` or unseeded `Random` in the math files. ~44 credits, 27 min.
+  - Dimmest flicker frame still has 7.05:1 contrast (4.5 needed). Kiro replaced test-generator loop periods the design never uses with the real ones, and checked seed masking against actual web behaviour instead of against itself.
+  - Asked Kiro to remove three debug `print()`s from the tests to keep the output (and my video clips) clean.

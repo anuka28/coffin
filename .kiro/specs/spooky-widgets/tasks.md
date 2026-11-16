@@ -24,8 +24,8 @@ Notes that apply to all tasks:
 
 ## Tasks
 
-- [ ] 1. Move `SeededRandom` to `lib/src/common/` (Requirement 22)
-  - [ ] 1.1 Record the baseline before any edit
+- [x] 1. Move `SeededRandom` to `lib/src/common/` (Requirement 22)
+  - [x] 1.1 Record the baseline before any edit
     - Do this first, before any file is changed. Run `git status --short`, and `git hash-object` on `packages/coffin_core/pubspec.yaml`, `apps/hauntagotchi/pubspec.yaml`, `apps/graveyard/pubspec.yaml`, `pubspec.yaml` and `pubspec.lock`. Report the values in the task summary. When this plan was written, all five equalled HEAD (`git diff --stat HEAD` for them was empty) and `git status` showed only `DIARY.md` modified and `.kiro/specs/spooky-widgets/` untracked. Expected hashes:
       - `packages/coffin_core/pubspec.yaml`: `86b7df0f95cdaa687934aaad17fc19e2d9480549`
       - `apps/hauntagotchi/pubspec.yaml`: `f0025dfd7bc1ed61db10df56d5f7131a0169a8d1`
@@ -36,101 +36,101 @@ Notes that apply to all tasks:
     - Also record the hashes of the three files that move: `packages/coffin_core/lib/src/ai/seeded_random.dart` expected `cd4fdb07c8de6ebe3b9546426855eaf9809df262`; `packages/coffin_core/test/ai/seeded_random_test.dart` expected `b56cd73aa65053324e08dfeaf4c2a3ab562114b8`; `packages/coffin_core/test/ai/seeded_random_property_test.dart` expected `3d61b26f4c81be7abb3a3f8f4e0a45cb2c459e5c`. The first is used for the byte-identity check in task 1.3.
     - Confirm `glados`, `flutter_test` and `meta` are already declared in `packages/coffin_core/pubspec.yaml`. Add and change nothing. Create no files in this task.
     - _Requirements: 21.10, 22.2, 22.8_
-  - [ ] 1.2 Move the files and fix the imports
+  - [x] 1.2 Move the files and fix the imports
     - Use `git mv` so the move is recorded as a rename: `packages/coffin_core/lib/src/ai/seeded_random.dart` to `packages/coffin_core/lib/src/common/seeded_random.dart`; `packages/coffin_core/test/ai/seeded_random_test.dart` to `packages/coffin_core/test/common/seeded_random_test.dart`; `packages/coffin_core/test/ai/seeded_random_property_test.dart` to `packages/coffin_core/test/common/seeded_random_property_test.dart`. Do not edit the content of `seeded_random.dart` at all.
     - Import-path edits only (design, "Edits, file by file", rows 1 to 3): in `lib/src/ai/offline_engine.dart`, `import 'seeded_random.dart';` becomes `import '../common/seeded_random.dart';`. In both moved tests, `package:coffin_core/src/ai/seeded_random.dart` becomes `package:coffin_core/src/common/seeded_random.dart`. In the moved property test, `support/ai_generators.dart` becomes `../ai/support/ai_generators.dart`. No assertion, fixed value or run count changes.
     - Flagged edit, approved as decision N1, in `packages/coffin_core/test/ai/ai_sources_test.dart` only: (a) in `_importProblems`, add before the final `else` the branch `} else if (name == 'offline_engine.dart' && uri == '../common/seeded_random.dart') { continue; }` so exactly one import in exactly one file is allowed; (b) add two `expect` lines **inside the body of the existing test** "import rules flag bad directives" (the `expect`s sit with the other `_importProblems` checks): `expect(_importProblems('offline_engine.dart', "import '../common/seeded_random.dart';", sib), isEmpty);` and `expect(_importProblems('a.dart', "import '../common/seeded_random.dart';", sib), isNotEmpty);`. Do NOT create a new `test(...)` for the self-check. The self-check is an assertion inside an existing test, so the test count stays 985.
     - Nothing else changes: the Barrel does not export `SeededRandom`, no other file under `lib/` changes, no other test changes. The old file `lib/src/ai/seeded_random.dart` and the two old test files must no longer exist.
     - _Requirements: 22.1, 22.2, 22.3, 22.4, 22.5, 22.7, 10.2_
-  - [ ] 1.3 Verify the move with its own full run (Checkpoint)
+  - [x] 1.3 Verify the move with its own full run (Checkpoint)
     - In `packages/coffin_core` run `dart format --set-exit-if-changed .` (no changes), `flutter analyze` (zero issues) and the full `flutter test`. The result MUST be **exactly 985 passing tests, zero failing, zero skipped**. If the count is 986 or any other number, STOP and report the number and the cause (a self-check written as a new `test(...)` would give 986). Do not adjust any test to reach the count.
     - Byte-identity: `git hash-object packages/coffin_core/lib/src/common/seeded_random.dart` MUST equal the value recorded in task 1.1 for the old file (`cd4fdb07c8de6ebe3b9546426855eaf9809df262`), and `git diff --cached -M --stat` MUST list `lib/src/ai/seeded_random.dart => lib/src/common/seeded_random.dart` as a pure rename with no changed lines. `git diff --cached -M` for the two moved tests MUST show only the import lines changed (the package path in both, and the generators path in the property test). If any of this differs, STOP and report.
     - Recorded values: the exact-value test in `test/common/seeded_random_test.dart` still passes unchanged with the first three `nextUint32` values per seed from the coffin-ai design (seed 0: 1144304738, 1416247, 958946056; seed 1: 2693262067, 11749833, 2265367787; seed 42: 2581720956, 1925393290, 3661312704; seed 4294967295: 3850105811, 813802916, 3073704848). If any value differs, STOP and report. Never edit an expected value.
     - Confirm `ai_sources_test.dart` passes, the barrel test still lists `SeededRandom` as internal, and `git status --short` shows only: the three renames, `lib/src/ai/offline_engine.dart`, `test/ai/ai_sources_test.dart`, and the files that were already changed or untracked at task 1.1.
     - _Requirements: 22.2, 22.4, 22.6, 22.7, 22.8, 21.1, 21.2, 21.3, 21.7_
 
-- [ ] 2. Pure math, web-safe generators and their tests
-  - [ ] 2.1 Create the web-safe test support
+- [x] 2. Pure math, web-safe generators and their tests
+  - [x] 2.1 Create the web-safe test support
     - Create `packages/coffin_core/test/widgets/support/widget_generators.dart`: an independent copy (not an import) of `anyIntBetween`, `anyListBetween` and `RunCounter` from `test/ai/support/ai_generators.dart`, plus `anySeed` (0 to 4294967295, with the edge values 0, 1, 42, 2147483647, 2147483648, 4294967295 drawn about 20 percent of the time), `anyWideInt` (minus 2^40 to 2^40), `anyElapsed` (minus 2^40 to 2^40, with edges 0, 1, minus 1 and the period values), `anyCount` (minus 5 to 40), `anySize` (0 to 4000 built from integer thousandths, plus the fixed edge values 0, 0.5 and 1) and `anyAmplitude` (integer thousandths from minus 5 to 40). All built with `any.simple` and `combineN`. No glados string generator.
     - Create `packages/coffin_core/test/widgets/support/color_blend.dart`: `blendOver(int foreground, int background, double alpha)` returning the opaque `0xAARRGGBB` with each channel `round(fg * a + bg * (1 - a))` (8-bit per layer), and `blendRepeated(int fog, int base, double alpha, int layers)`. Pure Dart, no `dart:io`, no Flutter.
     - Add `test/widgets/support/widget_generators_test.dart` (generated values stay in range; the edge seeds appear; sizes include 0 and 0.5; counts include negative values and values above 24; `RunCounter` counts) and `test/widgets/support/color_blend_test.dart` (alpha 0 gives the background, alpha 1 gives the foreground, one known blend by hand, `blendRepeated` with 1 layer equals `blendOver`).
     - Both support files and both tests are Chrome-safe (no `dart:io`).
     - _Requirements: 19.2, 19.3, 19.15_
-  - [ ] 2.2 Implement `PingPong` with unit tests
+  - [x] 2.2 Implement `PingPong` with unit tests
     - Create `packages/coffin_core/lib/src/widgets/math/ping_pong.dart` exactly as in design.md: `abstract final class PingPong` with `static double at(int phaseMs, int periodMs)`, `n = 2 * p`, fold when `n > P`, result `n * n * (3 * P - 2 * n) / (P * P * P)`, one division, integers below 2^53 for `P <= 90000`.
     - Add `test/widgets/math/ping_pong_test.dart`: `at(0, P) == 0`; `at(P ~/ 2, P) == 1` for even `P`; symmetry on a few values; a hand-computed value for `P = 4`, `p = 1` (`n = 2`, result `4 * (12 - 4) / 64 = 0.5`); monotone over the first half for `P = 10`; the largest period `90000` gives values in `[0, 1]`.
     - _Requirements: 7.6, 9.6, 10.4_
-  - [ ] 2.3 Write property test for ping-pong shape
+  - [x] 2.3 Write property test for ping-pong shape
     - Create `test/widgets/math/ping_pong_property_test.dart`. `numRuns: 300`, `RunCounter` check.
     - **Property 1: Ping-pong shape.** For any period `P` in 2 to 90000 and any phase `p` in `[0, P)`, `PingPong.at(p, P)` is finite and in `[0, 1]`; `at(0, P) == 0`; `at(p, P) == at(P - p, P)` for `0 < p < P`; and `at` does not decrease as `p` grows from 0 to `P / 2` (compare `p` with a larger phase `q <= P ~/ 2`).
     - **Validates: Requirements 7.3, 7.6, 9.6**
-  - [ ] 2.4 Implement `GhostBob` with unit tests
+  - [x] 2.4 Implement `GhostBob` with unit tests
     - Create `lib/src/widgets/math/ghost_bob.dart` as in design.md: constants `minPeriodMs` 2500, `maxPeriodMs` 5000, `defaultPeriodMs` 3600, `minAmplitude` 2, `maxAmplitude` 10, `defaultAmplitude` 6, `staticOffset` 0; the constructor clamps the period and the amplitude (NaN amplitude becomes 6) and exposes the clamped values; `offsetAt(elapsedMs)` is `amplitude * (2 * PingPong.at(phase, periodMs) - 1)` with `phase = (elapsedMs + periodMs ~/ 4) % periodMs`. Document the domain `|elapsedMs| <= 2^40`.
     - Add `test/widgets/math/ghost_bob_test.dart`: clamping at 2499, 2500, 5000, 5001 and amplitude 1.99, 2, 10, 10.01 and NaN; `offsetAt(0)` is within 0.03 of 0 for the default bob; the offset at quarter, half, three quarters and one period of the default bob (expected values hand-derived in the test from `PingPong`); a negative time such as minus 1 gives an in-range value; `staticOffset` is 0 and in range.
     - _Requirements: 7.1, 7.2, 7.3, 7.4, 7.7, 7.8, 1.6_
-  - [ ] 2.5 Write property test for bob range and loop
+  - [x] 2.5 Write property test for bob range and loop
     - Create `test/widgets/math/ghost_bob_property_test.dart`. `numRuns: 300`, `RunCounter` check.
     - **Property 2: Bob stays in range and loops.** For any period (including values outside 2500 to 5000), any amplitude (including values outside 2 to 10), and any elapsed time from minus 2^40 to 2^40, `GhostBob.offsetAt(t)` is finite and within the closed range from minus the clamped amplitude to plus the clamped amplitude, the exposed period and amplitude are the clamped values, and `offsetAt(t) == offsetAt(t + periodMs)`.
     - **Validates: Requirements 7.2, 7.3, 7.4, 7.7**
-  - [ ] 2.6 Write property test for bob smoothness
+  - [x] 2.6 Write property test for bob smoothness
     - In `test/widgets/math/ghost_bob_property_test.dart`. `numRuns: 300`, its own `RunCounter` check.
     - **Property 3: Bob moves smoothly.** For any period, amplitude and elapsed time from minus 2^40 to 2^40 (negative times included), `abs(offsetAt(t + 16) - offsetAt(t)) <= 6 * amplitude * 16 / periodMs + 1e-9`, using the clamped amplitude and period.
     - **Validates: Requirements 7.5, 7.7**
-  - [ ] 2.7 Implement `FlickerSchedule` with unit tests
+  - [x] 2.7 Implement `FlickerSchedule` with unit tests
     - Create `lib/src/widgets/math/flicker_schedule.dart` as in design.md: constants `levelCount` 16, `stepMs` 400, `loopMs` 6400, `minPercent` 75, `maxPercent` 100, `minOpacity` 0.75, `maxOpacity` 1.0, `staticOpacity` 1.0. The constructor masks the seed with `0xFFFFFFFF`, draws 16 percents as `75 + r.nextInt(26)` from `SeededRandom` (import `../../common/seeded_random.dart`), then applies the two repairs in order (minimum above 90 becomes 85 at the first minimum; maximum not 100 becomes 100 at the first maximum). `levels` is unmodifiable. `opacityAt` uses `phase = elapsedMs % 6400`, the smoothstep numerator `w * w * (1200 - 2 * w)` and `(a * 64000000 + (b - a) * s) / 6400000000`, easing the last step back to level 0. Document that a seed outside 0 to 4294967295 is masked.
     - Add `test/widgets/math/flicker_schedule_test.dart`: the levels of seed 0 start `93, 76, 91, 83` and equal the full list `93, 76, 91, 83, 93, 80, 78, 81, 80, 87, 100, 80, 96, 88, 79, 89` divided by 100 (these come from the design's independent port; if they differ, STOP and report); `levels[i] == opacityAt(i * 400)`; seeds 0 to 15 give at least two different schedules (Requirement 8.10); the `levels` list cannot be modified; a negative time gives an in-range value; `staticOpacity` is 1.0.
     - _Requirements: 8.1, 8.2, 8.3, 8.4, 8.5, 8.6, 8.9, 8.10, 8.11, 8.12, 10.2, 10.3_
-  - [ ] 2.8 Write property test for flicker range
+  - [x] 2.8 Write property test for flicker range
     - Create `test/widgets/math/flicker_schedule_property_test.dart`. `numRuns: 300`, `RunCounter` check.
     - **Property 4: Flicker opacity stays in range.** For any seed from 0 to 4294967295 and any elapsed time from minus 2^40 to 2^40, `FlickerSchedule(seed).opacityAt(t)` is finite and within 0.75 to 1.0 inclusive, and every exposed level is a whole percent from 75 to 100 divided by 100.
     - **Validates: Requirements 8.3, 8.4, 8.11**
-  - [ ] 2.9 Write property test for flicker determinism and loop
+  - [x] 2.9 Write property test for flicker determinism and loop
     - In `test/widgets/math/flicker_schedule_property_test.dart`. `numRuns: 300`, its own `RunCounter` check.
     - **Property 5: Flicker is deterministic and loops.** For any seed and any elapsed time, two separately built schedules from the same seed give the same opacity, and `opacityAt(t) == opacityAt(t + 6400)`.
     - **Validates: Requirements 8.5, 8.6**
-  - [ ] 2.10 Write property test for flicker safety
+  - [x] 2.10 Write property test for flicker safety
     - In `test/widgets/math/flicker_schedule_property_test.dart`. `numRuns: 200`, its own `RunCounter` check.
     - **Property 6: Flicker is safe to look at.** For any seed, sampling `opacityAt` every 10 ms over one loop (wrapping into the next loop) shows at most 3 local extrema in every 1000 ms window, a change between neighboring levels of at most 0.25, at least one level at or below 0.90, and at least one level equal to 1.0.
     - **Validates: Requirements 8.7, 8.8, 8.9**
-  - [ ] 2.11 Write property test for flicker legibility
+  - [x] 2.11 Write property test for flicker legibility
     - Create `test/widgets/math/flicker_contrast_property_test.dart`. `numRuns: 200`, `RunCounter` check. Uses `color_blend.dart` and `WcagContrast` from `package:coffin_core/src/theme/wcag_contrast.dart`.
     - **Property 11: Flicker keeps text readable.** For any seed, any elapsed time, and each of `background`, `surface` and `raised` in both Token_Sets (`CoffinColorTokens.night` and `daylight`), the `text` token drawn at `opacityAt(t)` over that token (blended and rounded to 8 bits per channel) has a `WcagContrast` ratio of at least 4.5. If the property fails for the minimum opacity of 0.75, STOP and report (Requirement 8.13 says the design must then raise the floor).
     - **Validates: Requirements 8.13**
-  - [ ] 2.12 Implement `FogParticle`, `FogDisc` and `FogField` with unit tests
+  - [x] 2.12 Implement `FogParticle`, `FogDisc` and `FogField` with unit tests
     - Create `lib/src/widgets/math/fog_particle.dart` (`FogParticle`, const, `x`, `y`, `radius`, `alpha`, with value equality and `hashCode` built by `Object.hash(x, y, radius, alpha)`, which is a function call and not a `.hashCode` member access, so the pure-folder scan still passes), `fog_disc.dart` (`FogDisc`, `x`, `y`, `radius`) and `fog_field.dart` (`FogField`) as in design.md: `maxCount` 24, `defaultCount` 10, `minPeriodMs` 30000, `maxPeriodMs` 90000; the constructor masks the seed and clamps the count into 0 to 24; per particle the eight draws in the exact order of the design table (`ax, ay, bx, by` from `nextInt(1001)`, the horizontal repair, radius `(120 + nextInt(181)) / 1000`, alpha `(30 + nextInt(21)) / 1000`, period `30000 + 1000 * nextInt(61)`, start `nextUint32() % periodMs`); `particlesAt` positions with `PingPong.at` and a final clamp; `staticParticles` is `particlesAt(0)`; `toBounds` treats a negative, NaN or infinite dimension as 0 and clamps unit values, with `radius = r01 * min(w, h)`.
     - Add `test/widgets/math/fog_field_test.dart`: count clamping for minus 1, 0, 24 and 25 (0 gives an empty list, 25 gives 24); every particle has radius in 0.12 to 0.30 and alpha in 0.03 to 0.05; `FogParticle` equality and `toString`; `toBounds` for width 0, height 0, 0.5, negative, NaN and infinity; seeds 0 to 15 give at least two different fields (Requirement 9.13); `staticParticles` equals `particlesAt(0)`; the first particle of seed 0 has the same values on every call.
     - _Requirements: 9.1, 9.2, 9.3, 9.4, 9.5, 9.6, 9.7, 9.9, 9.10, 9.11, 9.12, 9.13, 10.2, 10.3, 10.7_
-  - [ ] 2.13 Write property test for valid fog particles
+  - [x] 2.13 Write property test for valid fog particles
     - Create `test/widgets/math/fog_field_property_test.dart`. `numRuns: 300`, `RunCounter` check.
     - **Property 7: Fog particles are valid.** For any seed, any particle count (negative, 0 to 24, and above 24) and any elapsed time from minus 2^40 to 2^40, `particlesAt(t)` returns exactly `clamp(count, 0, 24)` particles, each with `x` and `y` in `[0, 1]`, radius in `[0.12, 0.30]` and alpha in `[0.03, 0.05]`.
     - **Validates: Requirements 9.1, 9.2, 9.3, 9.4**
-  - [ ] 2.14 Write property test for the pixel mapping
+  - [x] 2.14 Write property test for the pixel mapping
     - In `test/widgets/math/fog_field_property_test.dart`. `numRuns: 300`, its own `RunCounter` check.
     - **Property 8: Pixel mapping stays inside the box.** For any seed, count and elapsed time, and any width and height that are finite and at least 0 (including 0 and values below 1, up to 4000), every `FogField.toBounds` result has `0 <= x <= width`, `0 <= y <= height` and `0 <= radius <= min(width, height)`; and for any negative, NaN or infinite dimension the result equals the result for 0 and nothing throws.
     - **Validates: Requirements 9.9, 9.10, 6.9**
-  - [ ] 2.15 Write property test for fog determinism, loop and prefix
+  - [x] 2.15 Write property test for fog determinism, loop and prefix
     - In `test/widgets/math/fog_field_property_test.dart`. `numRuns: 300`, its own `RunCounter` check.
     - **Property 9: Fog is deterministic, loops, and extends by prefix.** For any seed, count and elapsed time, two separately built fields give equal particles; each particle at `t` equals the particle at `t + period_i` of that particle (the test recovers each particle's period by replaying the documented draw order with `SeededRandom` inside the test, so `FogField` gets no extra public API); and the particles of the field with count `N` are the first `N` particles of the field with the same seed and any count `M >= N`.
     - **Validates: Requirements 9.5, 9.7, 9.8, 9.11**
-  - [ ] 2.16 Write property test for seed masking
+  - [x] 2.16 Write property test for seed masking
     - Create `test/widgets/math/seed_masking_property_test.dart`. `numRuns: 300`, `RunCounter` check.
     - **Property 10: Seed masking.** For any integer seed (negative, zero, and up to 2^40, generated with `anyWideInt`), `FlickerSchedule` and `FogField` built from the seed give the same results as the same classes built from `seed & 0xFFFFFFFF`, and building them does not throw.
     - Keep the full range of minus 2^40 to 2^40 in this task. Decision N4 is settled at task 3.2 by the Chrome run, not here.
     - **Validates: Requirements 10.3**
-  - [ ] 2.17 Write property test for fog legibility
+  - [x] 2.17 Write property test for fog legibility
     - Create `test/widgets/math/fog_contrast_property_test.dart`. `numRuns: 200`, `RunCounter` check. Uses `color_blend.dart` and `WcagContrast`.
     - **Property 12: Fog keeps text readable.** For any overlap count from 1 to 4, any fog alpha from 0.030 to 0.050 in steps of 0.001 (an integer thousandths generator divided by 1000), both Token_Sets, and each of `background` and `surface`, the `text` and `muted` tokens have a `WcagContrast` ratio of at least 4.5 against the `primary` fog blended over that base the given number of times (rounded to 8 bits per layer). The recorded worst cases are night `muted` over `surface` 4.61 and daylight `muted` over `background` 5.21 (8-bit); if the property fails, STOP and report (Requirement 6.10).
     - **Validates: Requirements 6.10**
-  - [ ] 2.18 Pin the fixed values of the pure classes
+  - [x] 2.18 Pin the fixed values of the pure classes
     - Create `test/widgets/math/fixed_values_test.dart` (Chrome-safe). It carries its own BigInt reference implementation of Mulberry32, the smoothstep ping-pong and the flicker numerators, written in the test and independent from the lib code (as the coffin-ai spec did), and compares the lib output to it for the seeds 0, 1, 42 and 4294967295. Pinned values: the 16 levels of `FlickerSchedule` for each seed (seed 0 starts `93, 76, 91, 83`); the first particle parameters and `particlesAt(0)` of `FogField(seed: s, count: 10)` for each seed; `GhostBob().offsetAt` at 0, 900, 1800, 2700 and 3600 ms. After the reference agrees, write the exact numbers into the test as literals so a later change to the reference cannot hide a change to the lib.
     - This file runs unchanged on the VM and in Chrome. If a recorded or reference value differs, STOP and report. Never edit an expected value.
     - _Requirements: 10.1, 10.2, 10.5, 10.6, 10.7, 19.14_
 
-- [ ] 3. Checkpoint A - Pure math verified on the VM and in Chrome
-  - [ ] 3.1 Format, analyze and run the VM tests
+- [x] 3. Checkpoint A - Pure math verified on the VM and in Chrome
+  - [x] 3.1 Format, analyze and run the VM tests
     - In `packages/coffin_core` run `dart format --set-exit-if-changed .`, `flutter analyze` (zero issues) and `flutter test`. All must pass. The test count must be 985 plus the new tests of task 2 (report both numbers, and report the count of new tests so the next checkpoint can compare). Fix failures in files this feature created only. Report anything else.
     - _Requirements: 21.1, 21.2, 21.3, 21.6, 21.7, 21.11_
-  - [ ] 3.2 Run the pure tests in Chrome and settle decision N4
+  - [x] 3.2 Run the pure tests in Chrome and settle decision N4
     - In `packages/coffin_core` run `CHROME_EXECUTABLE="/Applications/Google Chrome.app/Contents/MacOS/Google Chrome" flutter test --platform chrome test/common/seeded_random_test.dart test/common/seeded_random_property_test.dart test/widgets/support/widget_generators_test.dart test/widgets/support/color_blend_test.dart test/widgets/math/ping_pong_test.dart test/widgets/math/ping_pong_property_test.dart test/widgets/math/ghost_bob_test.dart test/widgets/math/ghost_bob_property_test.dart test/widgets/math/flicker_schedule_test.dart test/widgets/math/flicker_schedule_property_test.dart test/widgets/math/flicker_contrast_property_test.dart test/widgets/math/fog_field_test.dart test/widgets/math/fog_field_property_test.dart test/widgets/math/seed_masking_property_test.dart test/widgets/math/fog_contrast_property_test.dart test/widgets/math/fixed_values_test.dart`. The list must cover every file under `test/common/` and `test/widgets/math/` and the two pure support tests. No file in it imports `dart:io`.
     - First check that Chrome is available. If it is not, REPORT that the Chrome step could not run and why. Do not mark the task passed.
     - If a recorded value (the `SeededRandom` table, the seed 0 flicker levels, a fixed value of task 2.18) differs in Chrome, STOP and report the exact difference.
