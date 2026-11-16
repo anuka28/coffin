@@ -26,6 +26,19 @@ Map<String, Object?> _factsMap(int count, String? name) => <String, Object?>{
   AiFactKeys.projectName: ?name,
 };
 
+/// Count 0 is built directly because `CleanFacts.from` treats 0 as missing.
+/// This checks the plural rule for 0 at the Template level.
+CleanFacts _facts(int count, String? name) {
+  if (count != 0) return CleanFacts.from(_factsMap(count, name));
+  final CleanFacts names = CleanFacts.from(_factsMap(1, name));
+  return CleanFacts(
+    streakCount: 0,
+    daysSinceLastCommit: 0,
+    ghostName: names.ghostName,
+    projectName: names.projectName,
+  );
+}
+
 List<_Fill> _fills(Template t) {
   final List<_Fill> out = <_Fill>[];
   void add(String label, CleanFacts facts, String? name, {bool names = true}) {
@@ -44,9 +57,9 @@ List<_Fill> _fills(Template t) {
     'accents': accents,
   };
   for (final int count in <int>[0, 1, 2, 1000000]) {
-    add('count $count', CleanFacts.from(_factsMap(count, null)), null);
+    add('count $count', _facts(count, null), null);
     for (final MapEntry<String, String?> e in names.entries) {
-      final CleanFacts f = CleanFacts.from(_factsMap(count, e.value));
+      final CleanFacts f = _facts(count, e.value);
       add('count $count, name ${e.key}', f, e.value);
       add('count $count, no-name ${e.key}', f, null, names: false);
     }
@@ -146,11 +159,31 @@ void main() {
       expect(_expected.keys.toSet(), byId.keys.toSet());
     });
 
+    test(
+      'count 0 through CleanFacts.from makes count templates ineligible',
+      () {
+        final CleanFacts f = CleanFacts.from(_factsMap(0, 'Bo'));
+        expect(f.streakCount, isNull);
+        expect(f.daysSinceLastCommit, isNull);
+        final Iterable<String> left = byId.entries
+            .where((MapEntry<String, Template> e) => e.value.isEligible(f))
+            .map((MapEntry<String, Template> e) => e.key);
+        expect(
+          left,
+          unorderedEquals(<String>[
+            'G1', 'G2', 'G3', 'G4', 'G8', //
+            'V1', 'V2', 'V3', 'V6', 'V8',
+            'X1', 'X2', 'X3', 'X4', 'X5', 'X6',
+          ]),
+        );
+      },
+    );
+
     test('plural rule for 0, 1, 2 and 1000000', () {
       final Template t = Template('{streakCount:day/days} left');
       String fill(int n) =>
           t.render(CleanFacts.from(<String, Object?>{'streakCount': n}));
-      expect(fill(0), '0 days left');
+      expect(t.render(const CleanFacts(streakCount: 0)), '0 days left');
       expect(fill(1), '1 day left');
       expect(fill(2), '2 days left');
       expect(fill(1000000), '1000000 days left');

@@ -128,8 +128,8 @@ Notes that apply to all tasks:
     - **Validates: Requirements 5.4**
 
   - [x] 6.3 Implement `CleanFacts`
-    - Create `clean_facts.dart` (internal) with `CleanFacts.from(Map<String, Object?>)`. Count rule: a `num`, finite, from 0 to 1000000, equal to its own `truncateToDouble()`, then `toInt()`; everything else is missing (bool, String, null, list, fractional, non-finite, negative, above 1000000). Name rule: a `String` cleaned with `TextRules.cleanName`, missing when empty or when it contains a banned word. Read only the four `AiFactKeys` keys, ignore every other key.
-    - Add `clean_facts_test.dart`: the counts in design.md's list (`0`, `-0.0`, `5.0`, `1000000`, `1000000.0`, `1000001`, `-1`, `0.5`, `NaN`, `Infinity`, `'5'`, `true`, `null`, `4294967295`) give the same results on the VM and on Chrome, `5.0` and `5` both give 5, names with emoji, accents, control characters and more than 24 units are cleaned, a name of `Murderous` and a blank name are missing, extra keys and an empty key are ignored, a wrong-type fact is missing.
+    - Create `clean_facts.dart` (internal) with `CleanFacts.from(Map<String, Object?>)`. Count rule: a `num`, finite, from 1 to 1000000, equal to its own `truncateToDouble()`, then `toInt()`; everything else is missing (bool, String, null, list, fractional, non-finite, zero including `0.0` and `-0.0`, negative, above 1000000). A missing count makes the templates with a count slot for that fact ineligible. `Template.render` is unchanged, but `CleanFacts.from` never yields 0. Name rule: a `String` cleaned with `TextRules.cleanName`, missing when empty or when it contains a banned word. Read only the four `AiFactKeys` keys, ignore every other key.
+    - Add `clean_facts_test.dart`: the counts in design.md's list (`0`, `-0.0`, `5.0`, `1000000`, `1000000.0`, `1000001`, `-1`, `0.5`, `NaN`, `Infinity`, `'5'`, `true`, `null`, `4294967295`) give the same results on the VM and on Chrome: `0` and `-0.0` are missing, `5.0` and `1000000.0` give 5 and 1000000, `1000001`, `-1`, `0.5`, `NaN`, `Infinity`, `'5'`, `true`, `null` and `4294967295` are missing; `5.0` and `5` both give 5, names with emoji, accents, control characters and more than 24 units are cleaned, a name of `Murderous` and a blank name are missing, extra keys and an empty key are ignored, a wrong-type fact is missing.
     - _Requirements: 2.7, 5.5, 5.6, 6.3, 6.4, 6.5, 6.6, 6.7, 6.10, 15.2, 17.3_
 
   - [x] 6.4 Implement `Template`
@@ -145,7 +145,7 @@ Notes that apply to all tasks:
     - _Requirements: 6.1, 6.2, 7.6, 8.1, 8.6, 8.7, 8.14, 2.14, 2.16, 2.17, 17.3_
 
   - [x] 6.6 Write the template audit test
-    - Create `template_catalog_test.dart`. It runs on the VM and on Chrome. Loop over every template of the three sets and fill it with: no facts (when eligible), count 0, 1, 2 and 1000000, a 2-unit name, a 24-unit name of `W`, a 24-unit name of emoji, a name with accents, and the no-name variant of each. The extreme fill uses count 1000000 and a 24-unit name; the no-facts fill uses no facts at all.
+    - Create `template_catalog_test.dart`. It runs on the VM and on Chrome. Loop over every template of the three sets and fill it with: no facts (when eligible), count 0, 1, 2 and 1000000 (count 0 is filled with a `CleanFacts` constructed directly, because `CleanFacts.from` treats 0 as missing; this checks the plural rule for 0 at the Template level), a 2-unit name, a 24-unit name of `W`, a 24-unit name of emoji, a name with accents, and the no-name variant of each. The extreme fill uses count 1000000 and a 24-unit name; the no-facts fill uses no facts at all. Add a fill built through `CleanFacts.from` with count 0 and assert that every template with a count slot for that fact is ineligible (skipped), so only count-free templates remain.
     - For every filled text assert: no banned word (test-declared list), no insult word (test-declared list of the 13 words), at most one emoji and only the ghost or pumpkin, non-blank, no lone surrogate, no edge whitespace.
     - Assert the length table of design.md exactly (UTF-16 code units; "No facts", "Small" with count 1 and a 2-unit name, "Extreme" with count 1000000 and a 24-unit name, "No-name at extreme"), for all 24 rows: G1 15/15/15/15, G2 29/29/29/29, G3 33/33/33/33, G4 35/27/49/35, G5 n/a/40/47/47, G6 n/a/43/72/58, G7 n/a/28/57/43, G8 47/39/61/47, V1 32/32/32/32, V2 23/23/23/23, V3 15/15/15/15, V4 n/a/48/77/65, V5 n/a/44/51/51, V6 45/35/57/45, V7 n/a/49/78/66, V8 50/50/50/50, X1 25/25/25/25, X2 32/32/32/32, X3 14/14/14/14, X4 23/23/23/23, X5 28/14/36/28, X6 37/31/53/37, X7 n/a/32/39/39, X8 n/a/39/46/46. A row cell `n/a` means the template needs a count and is not eligible without facts. The longest filled text is 78 units.
     - If any recorded length differs, STOP and report to the user. Do not change the expected numbers.
@@ -177,71 +177,71 @@ Notes that apply to all tasks:
   - Ensure all tests pass, ask the user if questions arise.
   - _Requirements: 17.1, 17.2, 17.5, 16.9_
 
-- [ ] 8. OfflineCoffinAI
-  - [ ] 8.1 Implement `OfflineCoffinAI`
+- [x] 8. OfflineCoffinAI
+  - [x] 8.1 Implement `OfflineCoffinAI`
     - Create `offline_coffin_ai.dart`: `final class OfflineCoffinAI implements CoffinAI` with a `const` constructor and no field. `ask` calls `OfflineEngine.standard.compose(request)` and returns `Future<AiReply>.value(AiReply(text:, source: ReplySource.offline))`. No catch-all.
     - Add `offline_coffin_ai_test.dart` with example tests: one per known purpose and one for an app-defined purpose (the reply fits and has the source `offline`), a fact-using reply, missing facts, wrong-type facts, out-of-range counts, extra facts that never appear in the reply, string facts with emoji, accents, control characters and more than 24 units, `maxLength` 16 and 17, the reply completes in the next microtask (pump a fixed microtask loop, no real delay, no event-loop turn), a `const OfflineCoffinAI()` is usable, call order does not change a reply, an app purpose reusing `ghost_mood_line` gives the known-purpose reply, the purpose identifier never appears in the reply.
     - _Requirements: 4.1, 4.2, 4.3, 4.4, 4.6, 4.7, 4.8, 2.3, 2.15, 2.17, 2.18, 5.6, 6.7, 6.10, 7.1, 7.2, 7.3, 15.1, 15.2, 15.3, 17.3_
 
-  - [ ] 8.2 Write the golden table test
-    - In `offline_coffin_ai_test.dart`, add a golden test with the 11 fixed requests of design.md's table. Requests: (1) ghost mood line, no facts, `maxLength` 80, seed 0; (2) ghost mood line, `streakCount: 3`, `ghostName: 'Boo'`, 80, seed 1; (3) ghost mood line, `streakCount: 1`, 40, seed 2; (4) ghost mood line, `streakCount: 5.0`, `ghostName: 'Wisp'`, 80, seed 4294967295; (5) séance verdict, `daysSinceLastCommit: 214`, `projectName: 'Todo Crypt'`, 120, seed 42; (6) séance verdict, `daysSinceLastCommit: 1`, 60, seed 7; (7) séance verdict, `projectName` of 14 ghost emoji (28 units), 100, seed 3; (8) custom `AiPurpose('my_app_hint')`, `streakCount: 2`, 60, seed 5; (9) ghost mood line, no facts, 16, seed 9; (10) ghost mood line, `streakCount: 0`, `ghostName: 'a\u0000  b\n'`, 80, seed 11; (11) ghost mood line, `streakCount: 4`, `ghostName: 'Murderous'`, 80, seed 6.
-    - Produce the exact expected texts from the implementation in this task: run the 11 requests once, compare each text with the prototype column in design.md and note differences, then paste the actual texts as string literals into the test. Do not compute the expectations in the test.
+  - [x] 8.2 Write the golden table test
+    - In `offline_coffin_ai_test.dart`, add a golden test with the 11 fixed requests of design.md's table. Requests: (1) ghost mood line, no facts, `maxLength` 80, seed 0; (2) ghost mood line, `streakCount: 3`, `ghostName: 'Boo'`, 80, seed 1; (3) ghost mood line, `streakCount: 1`, 40, seed 2; (4) ghost mood line, `streakCount: 5.0`, `ghostName: 'Wisp'`, 80, seed 4294967295; (5) séance verdict, `daysSinceLastCommit: 214`, `projectName: 'Todo Crypt'`, 120, seed 42; (6) séance verdict, `daysSinceLastCommit: 1`, 60, seed 7; (7) séance verdict, `projectName` of 14 ghost emoji (28 units), 100, seed 3; (8) custom `AiPurpose('my_app_hint')`, `streakCount: 2`, 60, seed 5; (9) ghost mood line, no facts, 16, seed 9; (10) ghost mood line, `streakCount: 0`, `ghostName: 'a\u0000  b\n'`, 80, seed 11 (the count 0 is treated as missing, so the request has an eligible name and no count, and a name-only ghost mood template is expected); (11) ghost mood line, `streakCount: 4`, `ghostName: 'Murderous'`, 80, seed 6.
+    - Produce the exact expected texts from the implementation in this task: run the 11 requests once, compare each text with the prototype column in design.md and note differences (row 10 has no prototype text: its expected text is regenerated from the implementation under the new count rule, and its old prototype text `0 days so far. a b is humming.` no longer holds), then paste the actual texts as string literals into the test. Do not compute the expectations in the test.
     - Run the golden test on the VM AND on Chrome (`flutter test --platform chrome test/ai/offline_coffin_ai_test.dart`). Both must pass with the same literals.
     - Show the 11 golden texts to the user in the task report (as a table: request number, request summary, text, and whether it differs from the design prototype) so a human can review the tone. Say plainly that tone is subjective and that a catalog edit changes these texts.
     - _Requirements: 5.3, 5.7, 15.14, 17.6_
 
-  - [ ] 8.3 Write property test for length and non-emptiness
+  - [x] 8.3 Write property test for length and non-emptiness
     - Create `offline_coffin_ai_property_test.dart`. `numRuns: 500`. Requests come from `anyAiRequest` with `maxLength` from 16 up to 5000.
     - **Property 1: Offline reply is non-empty and fits the limit.** For any `AiRequest`, the `OfflineCoffinAI` reply text contains at least one non-whitespace character and has `length <= maxLength`.
     - **Validates: Requirements 2.4, 7.1, 7.2, 7.7, 13.2**
 
-  - [ ] 8.4 Write property test for determinism
+  - [x] 8.4 Write property test for determinism
     - In `offline_coffin_ai_property_test.dart`. `numRuns: 500`.
     - **Property 2: Offline replies are deterministic and stateless.** For any request `r` and any other request `q`, `ask(r)` twice on one instance, `ask(r)` on a fresh instance, and `ask(r)` after `ask(q)` on the same instance all return equal replies.
     - **Validates: Requirements 4.6, 5.1, 5.2, 13.3**
 
-  - [ ] 8.5 Write property test for always answering with the offline source
+  - [x] 8.5 Write property test for always answering with the offline source
     - In `offline_coffin_ai_property_test.dart`. `numRuns: 500`.
     - **Property 3: Offline always answers, with the offline source.** For any request, `ask` returns a future without throwing synchronously, the future completes with a reply (not an error), and the source equals `ReplySource.offline`.
     - **Validates: Requirements 1.4, 4.3, 4.8, 13.6**
 
-  - [ ] 8.6 Write property test for banned words
+  - [x] 8.6 Write property test for banned words
     - In `offline_coffin_ai_property_test.dart`. `numRuns: 500`.
     - **Property 4: No banned word in the reply.** For any request, the reply text folded with the test's ASCII-only fold contains none of the words of the banned list that the test file declares itself (`test_texts.dart`, not `TextRules.bannedWords`). Generators include facts that carry banned words, fragments of banned words and names such as `Murderous`.
     - **Validates: Requirements 8.3, 8.4, 8.10, 8.13, 13.4**
 
-  - [ ] 8.7 Write property test for surrogates and edge whitespace
+  - [x] 8.7 Write property test for surrogates and edge whitespace
     - In `offline_coffin_ai_property_test.dart`. `numRuns: 500`.
     - **Property 5: No lone surrogate and no edge whitespace.** For any request whose facts may hold emoji, lone surrogates, control characters and long text, the reply text has no unpaired surrogate and its first and last code units are not whitespace (test-declared whitespace set).
     - **Validates: Requirements 6.10, 7.3, 7.5, 13.5**
 
-  - [ ] 8.8 Write property test for the purpose identifier
+  - [x] 8.8 Write property test for the purpose identifier
     - In `offline_coffin_ai_property_test.dart`. `numRuns: 500`.
     - **Property 6: The purpose identifier never changes or appears in the reply.** For any request with a custom purpose whose identifier is not a known identifier and starts with the marker `zzmark_`, the reply does not contain the identifier (Req 13.13). For any two such custom purposes with otherwise equal requests, the replies are equal (Req 13.14, custom-purpose independence). For any request, replacing the purpose by `AiPurpose('ghost_mood_line')` or `AiPurpose('seance_verdict')` gives the same reply as the matching constant.
     - **Validates: Requirements 2.16, 2.17, 2.18, 13.13, 13.14**
 
-  - [ ] 8.9 Write property test for whole doubles
+  - [x] 8.9 Write property test for whole doubles
     - In `offline_coffin_ai_property_test.dart`. `numRuns: 500`.
-    - **Property 7: A whole double is the same fact as the int.** For any request, replacing each count fact that holds an `int` in 0 to 1000000 by the same number as a `double` gives an equal reply.
+    - **Property 7: A whole double is the same fact as the int.** For any request, replacing each count fact that holds an `int` in 1 to 1000000 by the same number as a `double` gives an equal reply.
     - **Validates: Requirements 5.5**
 
-  - [ ] 8.10 Write property test for unusable and extra facts
+  - [x] 8.10 Write property test for unusable and extra facts
     - In `offline_coffin_ai_property_test.dart`. `numRuns: 500`.
-    - **Property 8: Unusable and extra facts behave like absent facts.** For any request, removing every unknown key, every known-key entry with an unusable value (wrong type, fractional, non-finite, negative, above 1000000, a name that is blank after cleaning or has a banned word) and every entry with an empty key gives an equal reply to the original.
+    - **Property 8: Unusable and extra facts behave like absent facts.** For any request, removing every unknown key, every known-key entry with an unusable value (wrong type, fractional, non-finite, zero, negative, above 1000000, a name that is blank after cleaning or has a banned word) and every entry with an empty key gives an equal reply to the original. Also assert that a request with `streakCount: 0` or `daysSinceLastCommit: 0` (as `int`, `0.0` or `-0.0`) never yields a reply containing `0 day`, for any seed.
     - **Validates: Requirements 2.7, 5.6, 6.4, 6.6, 6.7**
 
-  - [ ] 8.11 Write property test for fact usage
+  - [x] 8.11 Write property test for fact usage
     - In `offline_coffin_ai_property_test.dart`. `numRuns: 500`.
-    - **Property 9: Available facts are used when they fit.** For any request with `AiPurpose.ghostMoodLine` and a valid `streakCount`, or with `AiPurpose.seanceVerdict` and a valid `daysSinceLastCommit`, and any `maxLength >= 80`, the reply contains the count followed by `day` for 1 and `days` for any other number.
+    - **Property 9: Available facts are used when they fit.** For any request with `AiPurpose.ghostMoodLine` and a valid `streakCount`, or with `AiPurpose.seanceVerdict` and a valid `daysSinceLastCommit`, and any `maxLength >= 80`, where the count is valid (1 to 1000000), the reply contains the count followed by `day` for 1 and `days` for any other number.
     - **Validates: Requirements 6.3, 6.8, 6.9**
 
-- [ ] 9. FallbackCoffinAI
-  - [ ] 9.1 Implement `FallbackCoffinAI`
+- [x] 9. FallbackCoffinAI
+  - [x] 9.1 Implement `FallbackCoffinAI`
     - Create `fallback_coffin_ai.dart` following design.md's skeleton and rules: the constructor throws `ArgumentError` when `timeout` is zero or negative and takes `primary`, `secondary`, `timeout`, an optional `AiIssueReporter` (default `discardAiIssues`) and an optional `AiTimerFactory` (default `Timer.new`). `ask` is `async`. A synchronous throw from `primary.ask` is caught and classified `threw` with no timer created. A `Completer` race: the timer callback settles `timedOut` synchronously, the primary result reaches `settle` only through `call.then(onValue, onError:)` attached at the start (so a late error is always handled), the first settle wins, so a completion at exactly the timeout counts as a timeout. The timer is cancelled with `whenComplete(timer.cancel)` on every outcome. Success returns the primary's reply object unchanged and reports nothing. Empty or whitespace-only text is `emptyReply` (wins over too long), text longer than `maxLength` is `invalidReply` and is never truncated. For every other outcome, report exactly one `AiIssue.forKind(kind)` through `reportAiIssueSafely` before the secondary is asked. A secondary that throws, or returns an empty or overlong reply, makes the future complete with `AiFallbackError` and reports no second issue. The class holds only `final` fields. The doc comment states the contract: a reply or an error, never a synchronous throw, no cancellation, the exact-timeout rule and that the secondary is not given a timeout.
     - Add no state, no retry, no built-in last-resort line.
     - _Requirements: 9.1, 9.2, 9.3, 9.4, 9.5, 9.6, 9.7, 9.8, 9.9, 9.10, 9.11, 9.12, 9.13, 9.14, 9.15, 10.1, 10.2, 10.3, 10.4, 10.5, 10.6, 10.7, 10.8, 10.9, 10.10, 1.4, 12.1, 16.1, 16.5_
 
-  - [ ] 9.2 Write example tests for the wrapper
+  - [x] 9.2 Write example tests for the wrapper
     - Create `fallback_coffin_ai_test.dart` using `FakeClock` from `test/ai/support/` and `ScriptedCoffinAI`. Pump microtasks with a fixed loop of `await Future<void>.value()`, never `Future.delayed(Duration.zero)`.
     - Each outcome through the wrapper with an `OfflineCoffinAI` secondary and a recording reporter: success (primary reply returned unchanged, same object, secondary not called, no issue), synchronous throw (`threw`), asynchronous error (`threw`), never-completing (`timedOut` after `advance(timeout)`), empty and whitespace-only reply (`emptyReply`), overlong reply (`invalidReply`, not truncated). Check the reporter output (kind and the fixed message) and that the issue is recorded before the returned future's completion handler runs.
     - Constructor: zero and negative timeout throw `ArgumentError`. The default reporter works with no reporter supplied.
@@ -254,38 +254,38 @@ Notes that apply to all tasks:
     - A wrapper keeps no state: a failed call does not change the next call.
     - _Requirements: 9.1, 9.3, 9.4, 9.5, 9.6, 9.7, 9.8, 9.9, 9.10, 9.11, 9.12, 9.13, 9.14, 10.3, 10.4, 10.5, 10.6, 10.7, 10.9, 10.10, 12.2, 15.5, 15.6, 15.9, 15.10, 17.3_
 
-  - [ ] 9.3 Write the timeout boundary and late-completion tests
+  - [x] 9.3 Write the timeout boundary and late-completion tests
     - In `fallback_coffin_ai_test.dart`, add the four-row boundary test of design.md with `FakeClock`: (1) the primary completes at timeout minus 1 ms and microtasks are pumped, then the clock reaches the timeout: success; (2) the clock reaches exactly the timeout, then the primary completes: `timedOut`; (3) the primary completes and in the same synchronous block the clock reaches the timeout with no pump between: `timedOut`; (4) the clock passes the timeout by 1 ms, then the primary completes: `timedOut`. Each row asserts the reply source and the reported kind and 0 pending timers. The test uses a 30 s timeout and finishes in milliseconds of real time.
     - Late completion: inside `runZonedGuarded`, a primary that completes with a value after the timeout, and a primary that completes with an error after the timeout, both ignored. Assert zero unhandled zone errors in both cases, and assert the first result of the call is the secondary's reply with exactly one `timedOut` issue.
     - _Requirements: 10.1, 10.2, 10.3, 10.10, 15.7, 15.8, 17.3_
 
-  - [ ] 9.4 Write property test for answers and sources
+  - [x] 9.4 Write property test for answers and sources
     - Create `fallback_coffin_ai_property_test.dart`. `numRuns: 200`, sequences of 0 to 8 steps. Each step has a request (purposes include both known constants and custom purposes) and a scripted primary outcome from: usable reply with a generated source, synchronous throw, asynchronous error, never-completing, reply completing after the timeout, error completing after the timeout, empty or whitespace-only reply, overlong reply. Run every step through one `FallbackCoffinAI` with an `OfflineCoffinAI` secondary, a recording reporter and a per-run `FakeClock`, inside `runZonedGuarded`, with an async body.
     - **Property 18: A wrapper with an offline secondary always answers, from the right source.** Each step yields a usable, non-empty reply. For a usable primary reply the result is the primary's reply object unchanged, its source is the primary's source and the secondary was not called. For every other outcome the source is `ReplySource.offline`. The primary is called exactly once per step with the same request object.
     - Count runs and calls. Assert `runs > 0`, `runs == numRuns` and `calls > 0`.
     - **Validates: Requirements 9.4, 9.5, 9.12, 9.14, 10.8, 12.1, 12.2, 14.1, 14.2, 14.3**
 
-  - [ ] 9.5 Write property test for the issues
+  - [x] 9.5 Write property test for the issues
     - In `fallback_coffin_ai_property_test.dart`. `numRuns: 200`.
     - **Property 19: Exactly one fixed issue per fallback.** For the same sequences, the reporter received no issue for a usable primary reply and exactly one issue for every other step. The kind is `threw` for synchronous and asynchronous errors, `timedOut` for a never-completing or late primary, `emptyReply` for an empty or whitespace-only reply and `invalidReply` for an overlong reply. The message equals the fixed message of that kind and contains neither the reply text nor any fact value from the request. The issue is already recorded when the completion handler of the returned future runs.
     - **Validates: Requirements 9.6, 9.7, 9.8, 9.9, 9.10, 9.11, 11.3, 14.4, 14.5**
 
-  - [ ] 9.6 Write property test for timers and unhandled errors
+  - [x] 9.6 Write property test for timers and unhandled errors
     - In `fallback_coffin_ai_property_test.dart`. `numRuns: 200`.
     - **Property 20: No timer and no unhandled error is left behind.** For the same sequences, after each call has completed the fake clock has 0 pending timers, and after a late value or a late error from an abandoned primary has been delivered (completed after the pump), the zone that ran the sequence recorded 0 unhandled errors.
     - **Validates: Requirements 10.1, 10.10, 14.6**
 
-  - [ ] 9.7 Write property test for a failing secondary
+  - [x] 9.7 Write property test for a failing secondary
     - In `fallback_coffin_ai_property_test.dart`. `numRuns: 200`.
     - **Property 21: A failing secondary gives a typed error and still one issue.** For any request and any secondary that throws, returns an empty reply, or returns an overlong reply, combined with any failing primary outcome, the returned future completes with an `AiFallbackError` whose `primaryFailure` and `secondaryFailure` are the matching kinds, whose `toString` contains no reply text and no fact value, and the reporter received exactly one issue.
     - **Validates: Requirements 10.6, 10.7**
 
-  - [ ] 9.8 Write property test for overlapping calls
+  - [x] 9.8 Write property test for overlapping calls
     - In `fallback_coffin_ai_property_test.dart`. `numRuns: 200`.
     - **Property 22: Overlapping calls do not mix results.** For any two requests asked back to back before either primary completes, with the two primaries completed in either order, each call returns the result of its own primary (or its own fallback), and each issue and reply matches the call that produced it.
     - **Validates: Requirements 9.13, 10.9**
 
-- [ ] 10. Checkpoint - Offline and fallback verification
+- [x] 10. Checkpoint - Offline and fallback verification
   - Run `dart format --set-exit-if-changed .`, `flutter analyze` and `flutter test` in `packages/coffin_core`. Fix anything that fails.
   - Ensure all tests pass, ask the user if questions arise.
   - _Requirements: 17.1, 17.2, 17.4, 17.5_

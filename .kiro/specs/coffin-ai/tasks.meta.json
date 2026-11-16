@@ -3,6 +3,14 @@
     "5.6 Write property test for truncation": {
       "status": "passed",
       "lastRunTimestamp": 1794801358766
+    },
+    "8.9 Write property test for whole doubles": {
+      "status": "passed",
+      "lastRunTimestamp": 1794808019696
+    },
+    "8.11 Write property test for fact usage": {
+      "status": "passed",
+      "lastRunTimestamp": 1794808337498
     }
   },
   "executionHistory": {
@@ -193,6 +201,16 @@
         "executionId": "6d56d7df-b82f-47a9-8932-07c35f20c983",
         "chatSessionId": "sess_8c75afc9-f8e7-4add-97a9-13fb781fd74a",
         "timestamp": 1794798364613
+      },
+      {
+        "executionId": "0e000459-a962-46d3-8ba3-1937330c555d",
+        "chatSessionId": "sess_8c75afc9-f8e7-4add-97a9-13fb781fd74a",
+        "timestamp": 1794803478308
+      },
+      {
+        "executionId": "0e000459-a962-46d3-8ba3-1937330c555d",
+        "chatSessionId": "sess_8c75afc9-f8e7-4add-97a9-13fb781fd74a",
+        "timestamp": 1794803493815
       }
     ],
     "4. Pure test support": [
@@ -346,6 +364,305 @@
         "executionId": "6d56d7df-b82f-47a9-8932-07c35f20c983",
         "chatSessionId": "sess_8c75afc9-f8e7-4add-97a9-13fb781fd74a",
         "timestamp": 1794802299276
+      }
+    ],
+    "8.1 Implement `OfflineCoffinAI`": [
+      {
+        "executionId": "20dbf773-ae57-4e98-84b5-31fa031232ef",
+        "chatSessionId": "sess_8c75afc9-f8e7-4add-97a9-13fb781fd74a",
+        "timestamp": 1794802738532
+      },
+      {
+        "executionId": "20dbf773-ae57-4e98-84b5-31fa031232ef",
+        "chatSessionId": "sess_8c75afc9-f8e7-4add-97a9-13fb781fd74a",
+        "timestamp": 1794802891368
+      }
+    ],
+    "9.1 Implement `FallbackCoffinAI`": [
+      {
+        "executionId": "20dbf773-ae57-4e98-84b5-31fa031232ef",
+        "chatSessionId": "sess_8c75afc9-f8e7-4add-97a9-13fb781fd74a",
+        "timestamp": 1794802738712
+      },
+      {
+        "executionId": "20dbf773-ae57-4e98-84b5-31fa031232ef",
+        "chatSessionId": "sess_8c75afc9-f8e7-4add-97a9-13fb781fd74a",
+        "timestamp": 1794802891428
+      }
+    ],
+    "8.2 Write the golden table test": [
+      {
+        "executionId": "20dbf773-ae57-4e98-84b5-31fa031232ef",
+        "chatSessionId": "sess_8c75afc9-f8e7-4add-97a9-13fb781fd74a",
+        "timestamp": 1794802897743
+      },
+      {
+        "executionId": "0e000459-a962-46d3-8ba3-1937330c555d",
+        "chatSessionId": "sess_8c75afc9-f8e7-4add-97a9-13fb781fd74a",
+        "timestamp": 1794803478268
+      },
+      {
+        "executionId": "0e000459-a962-46d3-8ba3-1937330c555d",
+        "chatSessionId": "sess_8c75afc9-f8e7-4add-97a9-13fb781fd74a",
+        "timestamp": 1794803502257
+      },
+      {
+        "executionId": "0e000459-a962-46d3-8ba3-1937330c555d",
+        "chatSessionId": "sess_8c75afc9-f8e7-4add-97a9-13fb781fd74a",
+        "timestamp": 1794803612717
+      },
+      {
+        "executionId": "0e000459-a962-46d3-8ba3-1937330c555d",
+        "chatSessionId": "sess_8c75afc9-f8e7-4add-97a9-13fb781fd74a",
+        "timestamp": 1794803627453
+      }
+    ],
+    "8.3 Write property test for length and non-emptiness": [
+      {
+        "executionId": "20dbf773-ae57-4e98-84b5-31fa031232ef",
+        "chatSessionId": "sess_8c75afc9-f8e7-4add-97a9-13fb781fd74a",
+        "timestamp": 1794802898769
+      },
+      {
+        "executionId": "20dbf773-ae57-4e98-84b5-31fa031232ef",
+        "chatSessionId": "sess_8c75afc9-f8e7-4add-97a9-13fb781fd74a",
+        "timestamp": 1794803095687
+      }
+    ],
+    "9.2 Write example tests for the wrapper": [
+      {
+        "executionId": "20dbf773-ae57-4e98-84b5-31fa031232ef",
+        "chatSessionId": "sess_8c75afc9-f8e7-4add-97a9-13fb781fd74a",
+        "timestamp": 1794802899986
+      },
+      {
+        "executionId": "20dbf773-ae57-4e98-84b5-31fa031232ef",
+        "chatSessionId": "sess_8c75afc9-f8e7-4add-97a9-13fb781fd74a",
+        "timestamp": 1794803095740
+      }
+    ],
+    "9.4 Write property test for answers and sources": [
+      {
+        "executionId": "20dbf773-ae57-4e98-84b5-31fa031232ef",
+        "chatSessionId": "sess_8c75afc9-f8e7-4add-97a9-13fb781fd74a",
+        "timestamp": 1794802900624
+      },
+      {
+        "executionId": "20dbf773-ae57-4e98-84b5-31fa031232ef",
+        "chatSessionId": "sess_8c75afc9-f8e7-4add-97a9-13fb781fd74a",
+        "timestamp": 1794803095892
+      }
+    ],
+    "8.4 Write property test for determinism": [
+      {
+        "executionId": "0e000459-a962-46d3-8ba3-1937330c555d",
+        "chatSessionId": "sess_8c75afc9-f8e7-4add-97a9-13fb781fd74a",
+        "timestamp": 1794803628667
+      },
+      {
+        "executionId": "0e000459-a962-46d3-8ba3-1937330c555d",
+        "chatSessionId": "sess_8c75afc9-f8e7-4add-97a9-13fb781fd74a",
+        "timestamp": 1794803756976
+      }
+    ],
+    "9.3 Write the timeout boundary and late-completion tests": [
+      {
+        "executionId": "0e000459-a962-46d3-8ba3-1937330c555d",
+        "chatSessionId": "sess_8c75afc9-f8e7-4add-97a9-13fb781fd74a",
+        "timestamp": 1794803629962
+      },
+      {
+        "executionId": "0e000459-a962-46d3-8ba3-1937330c555d",
+        "chatSessionId": "sess_8c75afc9-f8e7-4add-97a9-13fb781fd74a",
+        "timestamp": 1794803755209
+      }
+    ],
+    "9.5 Write property test for the issues": [
+      {
+        "executionId": "0e000459-a962-46d3-8ba3-1937330c555d",
+        "chatSessionId": "sess_8c75afc9-f8e7-4add-97a9-13fb781fd74a",
+        "timestamp": 1794803630479
+      },
+      {
+        "executionId": "0e000459-a962-46d3-8ba3-1937330c555d",
+        "chatSessionId": "sess_8c75afc9-f8e7-4add-97a9-13fb781fd74a",
+        "timestamp": 1794803756018
+      }
+    ],
+    "8.5 Write property test for always answering with the offline source": [
+      {
+        "executionId": "0e000459-a962-46d3-8ba3-1937330c555d",
+        "chatSessionId": "sess_8c75afc9-f8e7-4add-97a9-13fb781fd74a",
+        "timestamp": 1794803857751
+      },
+      {
+        "executionId": "0e000459-a962-46d3-8ba3-1937330c555d",
+        "chatSessionId": "sess_8c75afc9-f8e7-4add-97a9-13fb781fd74a",
+        "timestamp": 1794803858417
+      },
+      {
+        "executionId": "0e000459-a962-46d3-8ba3-1937330c555d",
+        "chatSessionId": "sess_8c75afc9-f8e7-4add-97a9-13fb781fd74a",
+        "timestamp": 1794803943604
+      },
+      {
+        "executionId": "0e000459-a962-46d3-8ba3-1937330c555d",
+        "chatSessionId": "sess_8c75afc9-f8e7-4add-97a9-13fb781fd74a",
+        "timestamp": 1794804049865
+      }
+    ],
+    "9.6 Write property test for timers and unhandled errors": [
+      {
+        "executionId": "0e000459-a962-46d3-8ba3-1937330c555d",
+        "chatSessionId": "sess_8c75afc9-f8e7-4add-97a9-13fb781fd74a",
+        "timestamp": 1794803857793
+      },
+      {
+        "executionId": "0e000459-a962-46d3-8ba3-1937330c555d",
+        "chatSessionId": "sess_8c75afc9-f8e7-4add-97a9-13fb781fd74a",
+        "timestamp": 1794803877606
+      }
+    ],
+    "9.7 Write property test for a failing secondary": [
+      {
+        "executionId": "0e000459-a962-46d3-8ba3-1937330c555d",
+        "chatSessionId": "sess_8c75afc9-f8e7-4add-97a9-13fb781fd74a",
+        "timestamp": 1794803943644
+      },
+      {
+        "executionId": "0e000459-a962-46d3-8ba3-1937330c555d",
+        "chatSessionId": "sess_8c75afc9-f8e7-4add-97a9-13fb781fd74a",
+        "timestamp": 1794804050884
+      }
+    ],
+    "8.6 Write property test for banned words": [
+      {
+        "executionId": "0e000459-a962-46d3-8ba3-1937330c555d",
+        "chatSessionId": "sess_8c75afc9-f8e7-4add-97a9-13fb781fd74a",
+        "timestamp": 1794804066572
+      },
+      {
+        "executionId": "0e000459-a962-46d3-8ba3-1937330c555d",
+        "chatSessionId": "sess_8c75afc9-f8e7-4add-97a9-13fb781fd74a",
+        "timestamp": 1794804170485
+      }
+    ],
+    "8.7 Write property test for surrogates and edge whitespace": [
+      {
+        "executionId": "0e000459-a962-46d3-8ba3-1937330c555d",
+        "chatSessionId": "sess_8c75afc9-f8e7-4add-97a9-13fb781fd74a",
+        "timestamp": 1794804176484
+      },
+      {
+        "executionId": "406c929d-1e99-4a49-941f-07957037daf2",
+        "chatSessionId": "sess_8c75afc9-f8e7-4add-97a9-13fb781fd74a",
+        "timestamp": 1794807747251
+      },
+      {
+        "executionId": "406c929d-1e99-4a49-941f-07957037daf2",
+        "chatSessionId": "sess_8c75afc9-f8e7-4add-97a9-13fb781fd74a",
+        "timestamp": 1794807753896
+      },
+      {
+        "executionId": "406c929d-1e99-4a49-941f-07957037daf2",
+        "chatSessionId": "sess_8c75afc9-f8e7-4add-97a9-13fb781fd74a",
+        "timestamp": 1794807825372
+      }
+    ],
+    "9.8 Write property test for overlapping calls": [
+      {
+        "executionId": "0e000459-a962-46d3-8ba3-1937330c555d",
+        "chatSessionId": "sess_8c75afc9-f8e7-4add-97a9-13fb781fd74a",
+        "timestamp": 1794804177557
+      },
+      {
+        "executionId": "406c929d-1e99-4a49-941f-07957037daf2",
+        "chatSessionId": "sess_8c75afc9-f8e7-4add-97a9-13fb781fd74a",
+        "timestamp": 1794807747301
+      },
+      {
+        "executionId": "406c929d-1e99-4a49-941f-07957037daf2",
+        "chatSessionId": "sess_8c75afc9-f8e7-4add-97a9-13fb781fd74a",
+        "timestamp": 1794807747402
+      },
+      {
+        "executionId": "406c929d-1e99-4a49-941f-07957037daf2",
+        "chatSessionId": "sess_8c75afc9-f8e7-4add-97a9-13fb781fd74a",
+        "timestamp": 1794807847405
+      }
+    ],
+    "9. FallbackCoffinAI": [
+      {
+        "executionId": "406c929d-1e99-4a49-941f-07957037daf2",
+        "chatSessionId": "sess_8c75afc9-f8e7-4add-97a9-13fb781fd74a",
+        "timestamp": 1794807747345
+      }
+    ],
+    "8.8 Write property test for the purpose identifier": [
+      {
+        "executionId": "406c929d-1e99-4a49-941f-07957037daf2",
+        "chatSessionId": "sess_8c75afc9-f8e7-4add-97a9-13fb781fd74a",
+        "timestamp": 1794807853272
+      },
+      {
+        "executionId": "406c929d-1e99-4a49-941f-07957037daf2",
+        "chatSessionId": "sess_8c75afc9-f8e7-4add-97a9-13fb781fd74a",
+        "timestamp": 1794807869345
+      }
+    ],
+    "8.9 Write property test for whole doubles": [
+      {
+        "executionId": "406c929d-1e99-4a49-941f-07957037daf2",
+        "chatSessionId": "sess_8c75afc9-f8e7-4add-97a9-13fb781fd74a",
+        "timestamp": 1794807870265
+      },
+      {
+        "executionId": "406c929d-1e99-4a49-941f-07957037daf2",
+        "chatSessionId": "sess_8c75afc9-f8e7-4add-97a9-13fb781fd74a",
+        "timestamp": 1794807969297
+      }
+    ],
+    "8.10 Write property test for unusable and extra facts": [
+      {
+        "executionId": "406c929d-1e99-4a49-941f-07957037daf2",
+        "chatSessionId": "sess_8c75afc9-f8e7-4add-97a9-13fb781fd74a",
+        "timestamp": 1794807969855
+      },
+      {
+        "executionId": "406c929d-1e99-4a49-941f-07957037daf2",
+        "chatSessionId": "sess_8c75afc9-f8e7-4add-97a9-13fb781fd74a",
+        "timestamp": 1794808207122
+      }
+    ],
+    "8.11 Write property test for fact usage": [
+      {
+        "executionId": "406c929d-1e99-4a49-941f-07957037daf2",
+        "chatSessionId": "sess_8c75afc9-f8e7-4add-97a9-13fb781fd74a",
+        "timestamp": 1794808214385
+      },
+      {
+        "executionId": "406c929d-1e99-4a49-941f-07957037daf2",
+        "chatSessionId": "sess_8c75afc9-f8e7-4add-97a9-13fb781fd74a",
+        "timestamp": 1794808376488
+      }
+    ],
+    "8. OfflineCoffinAI": [
+      {
+        "executionId": "406c929d-1e99-4a49-941f-07957037daf2",
+        "chatSessionId": "sess_8c75afc9-f8e7-4add-97a9-13fb781fd74a",
+        "timestamp": 1794808376512
+      }
+    ],
+    "10. Checkpoint - Offline and fallback verification": [
+      {
+        "executionId": "406c929d-1e99-4a49-941f-07957037daf2",
+        "chatSessionId": "sess_8c75afc9-f8e7-4add-97a9-13fb781fd74a",
+        "timestamp": 1794808385696
+      },
+      {
+        "executionId": "406c929d-1e99-4a49-941f-07957037daf2",
+        "chatSessionId": "sess_8c75afc9-f8e7-4add-97a9-13fb781fd74a",
+        "timestamp": 1794808640316
       }
     ]
   }

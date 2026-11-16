@@ -2,7 +2,8 @@ import 'ai_fact_keys.dart';
 import 'text_rules.dart';
 
 /// The facts of a request after cleaning. A fact that is missing, has the
-/// wrong type or fails its rule is `null`.
+/// wrong type or fails its rule is `null`. [CleanFacts.from] never yields a
+/// count of 0, but the constructor accepts any value.
 ///
 /// Only the four keys of [AiFactKeys] are read. Every other key is ignored,
 /// so its value can never reach a reply.
@@ -37,16 +38,19 @@ final class CleanFacts {
   /// The cleaned project name. Never empty and never holds a banned word.
   final String? projectName;
 
+  /// The smallest accepted count. `0`, `0.0` and `-0.0` are missing.
+  static const int minCount = 1;
+
   /// The largest accepted count.
   static const int maxCount = 1000000;
 
+  /// Accepts an `int` or a whole finite `double` from [minCount] to
+  /// [maxCount]. Everything else, zero included, is missing.
   static int? _count(Object? value) {
     if (value is! num) return null;
     if (!value.isFinite) return null;
-    if (value < 0 || value > maxCount) return null;
+    if (value < minCount || value > maxCount) return null;
     if (value != value.truncateToDouble()) return null;
-    // A zero of either sign is the plain integer 0 on every platform.
-    if (value == 0) return 0;
     return value.toInt();
   }
 

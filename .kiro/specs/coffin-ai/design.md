@@ -592,7 +592,26 @@ final class CleanFacts {
 }
 ```
 
-**Count rule (Requirements 5.5, 6.4).** A value is a count when it is a `num`, finite, from 0 to 1000000, and equal to its own `truncateToDouble()`. Then the count is `value.toInt()`. A `bool`, a `String`, `null`, a list, a fractional or non-finite number, a negative number or a number above 1000000 is "missing". On web `5.0` and `5` are the same value; on the VM they are different types; both give the count 5 and the text `5 days`. I ran this rule on both platforms for `0`, `-0.0`, `5.0`, `1000000`, `1000000.0`, `1000001`, `-1`, `0.5`, `NaN`, `Infinity`, `'5'`, `true`, `null` and `4294967295`; the produced counts (the text after the arrow) were identical. Only the printed label of the input differed, because web prints `5.0` as `5`.
+**Count rule (Requirements 5.5, 6.4).** A value is a count when it is a `num`, finite, from 1 to 1000000, and equal to its own `truncateToDouble()`. Then the count is `value.toInt()`. A `bool`, a `String`, `null`, a list, a fractional or non-finite number, zero (`0`, `0.0` and `-0.0`), a negative number or a number above 1000000 is "missing". Zero is missing by user decision, so that a new user never sees "0 days so far". "Missing" has the usual meaning: templates with a count slot for that fact become ineligible, and the offline generator picks among templates that need no such count. Counts are read only by count slots, so name facts are unaffected. `Template.render` is unchanged and can still render `0 days` when a `CleanFacts` is constructed directly, but `CleanFacts.from` never yields 0. On web `5.0` and `5` are the same value; on the VM they are different types; both give the count 5 and the text `5 days`. Expected outcome per value under the rule:
+
+| Input | Count |
+|---|---|
+| `0` | missing (changed from 0) |
+| `-0.0` | missing (changed from 0) |
+| `5.0` | 5 |
+| `1000000` | 1000000 |
+| `1000000.0` | 1000000 |
+| `1000001` | missing |
+| `-1` | missing |
+| `0.5` | missing |
+| `NaN` | missing |
+| `Infinity` | missing |
+| `'5'` | missing |
+| `true` | missing |
+| `null` | missing |
+| `4294967295` | missing |
+
+I ran the earlier rule (lower bound 0) on both platforms for these 14 values; the produced counts were identical on the VM and on Chrome, and only the printed label of the input differed, because web prints `5.0` as `5`. Only the rows for `0` and `-0.0` change under the new rule (they gave count 0 before). The new outcome for those two rows follows from the rule and has not been run; the task 6.3 test checks it on both platforms.
 
 **Name rule (Requirements 6.5, 6.6).** A value is a name when it is a `String`. It is cleaned with `cleanName`. It is "missing" when the result is empty or contains a banned word. This is the early filter; the final-text check is the guarantee.
 
@@ -608,7 +627,7 @@ count key := streakCount | daysSinceLastCommit    needs ':', has no '|'
 name key  := ghostName | projectName              needs '|', has no ':'
 ```
 
-A count slot renders `<number> <noun>`, with `singular` only when the number is 1 (`1 day`, `0 days`, `2 days`, `1000000 days`). There is no thousands separator and no locale. A name slot renders the cleaned name, or the `fallback` text when the name is missing. The `Template` constructor parses the pattern once and throws `StateError` on a bad pattern (unknown key, missing noun or fallback, stray brace). The catalog is built on first use, and the audit test builds it, so a bad pattern fails the tests and cannot reach a user.
+A count slot renders `<number> <noun>`, with `singular` only when the number is 1 (`1 day`, `0 days`, `2 days`, `1000000 days`; the renderer handles 0 even though `CleanFacts.from` never yields it). There is no thousands separator and no locale. A name slot renders the cleaned name, or the `fallback` text when the name is missing. The `Template` constructor parses the pattern once and throws `StateError` on a bad pattern (unknown key, missing noun or fallback, stray brace). The catalog is built on first use, and the audit test builds it, so a bad pattern fails the tests and cannot reach a user.
 
 ```dart
 final class Template {
@@ -847,8 +866,8 @@ That is 13 export lines and 14 names (`AiIssueReporter` and `discardAiIssues` sh
 
 | Key | Accepted value | Read by |
 |---|---|---|
-| `streakCount` | `int` or whole `double`, 0 to 1000000 | ghost mood line, generic |
-| `daysSinceLastCommit` | same | séance verdict, generic |
+| `streakCount` | `int` or whole `double`, 1 to 1000000 (0 is missing) | ghost mood line, generic |
+| `daysSinceLastCommit` | same (1 to 1000000, 0 is missing) | séance verdict, generic |
 | `ghostName` | `String`, cleaned, at most 24 units | ghost mood line, generic |
 | `projectName` | `String`, cleaned, at most 24 units | séance verdict, generic |
 
@@ -868,7 +887,7 @@ Why three: a mood line, a verdict and a custom line each read better with a matc
 
 ### Initial template copy
 
-All copy follows the design steering: short, witty, slightly spooky, never mean, never gory, at most one emoji and only a ghost or pumpkin. Count slots read `{streakCount:day/days}`, so `1` gives "1 day" and everything else "N days". `{ghostName|Your ghost}` shows the name, or "Your ghost" when there is none. Templates were written to read kindly for a count of 0 and for 1000000.
+All copy follows the design steering: short, witty, slightly spooky, never mean, never gory, at most one emoji and only a ghost or pumpkin. Count slots read `{streakCount:day/days}`, so `1` gives "1 day" and everything else "N days". `{ghostName|Your ghost}` shows the name, or "Your ghost" when there is none. Templates were written to read well for a count of 1 and for 1000000. A count of 0 never reaches a reply, because `CleanFacts.from` treats it as missing; the Template renderer can still print `0 days` when it is given a directly constructed `CleanFacts`.
 
 **Ghost mood line (8 templates, 3 without any slot)**
 
@@ -957,10 +976,10 @@ The longest filled text is V7 at 78 units, so every eligible template fits any `
 | 7 | `👻👻👻👻👻👻👻👻👻👻👻👻 still glows faintly in the dark.` |
 | 8 | `2 days so far. The moon approves.` |
 | 9 | `Floating along.` |
-| 10 | `0 days so far. a b is humming.` |
+| 10 | to be regenerated from the implementation in task 8.2 under the new count rule (old prototype text `0 days so far. a b is humming.` no longer holds) |
 | 11 | `Streak: 4 days. The mist is on your side.` |
 
-Row 10 shows the cleaning of the name `a\u0000  b\n` into `a b`. Row 7 shows 14 ghosts (28 units) capped at 12 ghosts (24 units) with no split pair. Row 11 shows the name `Murderous` being dropped as a banned name, so the template that needs no name was picked.
+Row 10 still shows the cleaning of the name `a\u0000  b\n` into `a b`, but its request has `streakCount: 0`, which is now missing. The request therefore has an eligible name and no count, so a name-only ghost mood template is expected (G4 or G8 are the ones that use a name and need no count). The exact text is not invented here; it is produced by the implementation in task 8.2. Row 7 shows 14 ghosts (28 units) capped at 12 ghosts (24 units) with no split pair. Row 11 shows the name `Murderous` being dropped as a banned name, so the template that needs no name was picked.
 
 ### Boundary construction for Recovery (Requirements 8.15, 8.16)
 
@@ -1023,19 +1042,19 @@ For any request with a custom purpose whose identifier is not a known identifier
 
 ### Property 7: A whole double is the same fact as the int
 
-For any request, replacing each count fact that holds an `int` in 0 to 1000000 by the same number as a `double` gives an equal reply.
+For any request, replacing each count fact that holds an `int` in 1 to 1000000 by the same number as a `double` gives an equal reply.
 
 **Validates: Requirements 5.5**
 
 ### Property 8: Unusable and extra facts behave like absent facts
 
-For any request, removing every unknown key, every known-key entry with an unusable value (wrong type, fractional, non-finite, negative, above 1000000, a name that is blank after cleaning or has a banned word) and every entry with an empty key gives an equal reply to the original.
+For any request, removing every unknown key, every known-key entry with an unusable value (wrong type, fractional, non-finite, zero, negative, above 1000000, a name that is blank after cleaning or has a banned word) and every entry with an empty key gives an equal reply to the original. In addition, for any seed and any `maxLength`, a request that holds `streakCount: 0` or `daysSinceLastCommit: 0` (as `int`, `0.0` or `-0.0`) never yields a reply that contains `0 day`.
 
 **Validates: Requirements 2.7, 5.6, 6.4, 6.6, 6.7**
 
 ### Property 9: Available facts are used when they fit
 
-For any request with `AiPurpose.ghostMoodLine` and a valid `streakCount`, or with `AiPurpose.seanceVerdict` and a valid `daysSinceLastCommit`, and any `maxLength >= 80`, the reply contains the count followed by `day` for 1 and `days` for any other number.
+For any request with `AiPurpose.ghostMoodLine` and a valid `streakCount`, or with `AiPurpose.seanceVerdict` and a valid `daysSinceLastCommit`, and any `maxLength >= 80`, where the count is valid (1 to 1000000), the reply contains the count followed by `day` for 1 and `days` for any other number.
 
 **Validates: Requirements 6.3, 6.8, 6.9**
 
@@ -1200,7 +1219,7 @@ Each property test increments a `RunCounter` in its body. A `tearDownAll` assert
 
 ### Golden table (Requirement 5.7)
 
-`offline_coffin_ai_test.dart` holds a table of 11 requests with exact expected texts. The strings are produced from the implementation in the tasks phase, reviewed against the prototype column above, and pasted in. The same table runs on the VM and on Chrome.
+`offline_coffin_ai_test.dart` holds a table of 11 requests with exact expected texts. The strings are produced from the implementation in the tasks phase, reviewed against the prototype column above, and pasted in. Row 10 has no prototype text under the new count rule (a count of 0 is missing); its text comes only from the implementation. The other 10 rows use counts 3, 1, 5.0, 214, 1, 2 and 4 (or none), so none of them uses a count of 0 and their prototype texts are unchanged. The same table runs on the VM and on Chrome.
 
 | # | Purpose | Facts | `maxLength` | Seed | What it covers |
 |---|---|---|---|---|---|
@@ -1213,12 +1232,12 @@ Each property test increments a `RunCounter` in its body. A `tearDownAll` assert
 | 7 | séance verdict | `projectName` of 14 ghost emoji (28 units) | 100 | 3 | 24-unit cap without a split pair |
 | 8 | custom `AiPurpose('my_app_hint')` | `streakCount: 2` | 60 | 5 | generic set |
 | 9 | ghost mood line | none | 16 | 9 | minimum limit |
-| 10 | ghost mood line | `streakCount: 0`, `ghostName: 'a\u0000  b\n'` | 80 | 11 | control character and whitespace cleaning |
+| 10 | ghost mood line | `streakCount: 0`, `ghostName: 'a\u0000  b\n'` | 80 | 11 | control character and whitespace cleaning, and a zero count treated as missing (expected text regenerated in task 8.2; a name-only template is expected) |
 | 11 | ghost mood line | `streakCount: 4`, `ghostName: 'Murderous'` | 80 | 6 | banned name treated as missing |
 
 ### Template audit (Requirement 8.8)
 
-`template_catalog_test.dart` loops over every template of the three sets and fills it with: no facts (when eligible), count 0, count 1, count 2, count 1000000, a 2-unit name, a 24-unit name made of `W`, a 24-unit name made of emoji, a name with accents, and the no-name variant of each. For each text it asserts the length is at most 78, there is no banned word (test-declared list), no insult word, at most one emoji and only the ghost or pumpkin, no blank, no lone surrogate, no edge whitespace. It also asserts: at least 6 templates per set, at least 2 with no slots per set, at least one fact-free template of 16 units or fewer per set, every Safe_Line is at most 16 units with no banned or insult word, every pattern parses, the plural rule for 0, 1, 2 and 1000000, and that every word of the test-declared banned list is present in `TextRules.bannedWords` (so weakening the exported list fails a test, Requirement 8.9).
+`template_catalog_test.dart` loops over every template of the three sets and fills it with: no facts (when eligible), count 0 (a `CleanFacts` constructed directly, because `CleanFacts.from` would drop it; this checks the plural rule for 0 at the Template level), count 1, count 2, count 1000000, a 2-unit name, a 24-unit name made of `W`, a 24-unit name made of emoji, a name with accents, and the no-name variant of each. For each text it asserts the length is at most 78, there is no banned word (test-declared list), no insult word, at most one emoji and only the ghost or pumpkin, no blank, no lone surrogate, no edge whitespace. It also asserts: at least 6 templates per set, at least 2 with no slots per set, at least one fact-free template of 16 units or fewer per set, every Safe_Line is at most 16 units with no banned or insult word, every pattern parses, the plural rule for 0, 1, 2 and 1000000, and that every word of the test-declared banned list is present in `TextRules.bannedWords` (so weakening the exported list fails a test, Requirement 8.9). Count 0 is handled in two ways: the Template-level fill above, with `CleanFacts` constructed directly, still checks the plural rule for 0; and a fill built through `CleanFacts.from` with count 0 checks that every template with a count slot for that fact is skipped (ineligible) and only count-free templates remain.
 
 ### Source scan (Requirements 12.3 to 12.6, 16.3, 16.8, 5.4)
 
@@ -1248,7 +1267,7 @@ The example list of Requirement 15 maps to files as follows: 15.1 to `offline_co
 
 ## What cannot be fully verified
 
-- **Tone.** Whether the lines are witty and kind is a judgment. The audit proves there is no banned word, no insult word, at most one emoji and sensible lengths. It cannot prove charm. You should read the 24 lines above, especially for a count of 0 ("0 days so far") and for the line "has been dead for N days".
+- **Tone.** Whether the lines are witty and kind is a judgment. The audit proves there is no banned word, no insult word, at most one emoji and sensible lengths. It cannot prove charm. You should read the 24 lines above, especially for a count of 1 ("1 day so far") and for the line "has been dead for N days".
 - **No real remote provider.** Nothing calls a network or an LLM. Step 2 will need its own timeout tuning, error mapping and secrets handling (a proxy server, no key in the client).
 - **The real catalog never reaches Recovery or truncation.** Both are exercised only through injected catalogs. That is deliberate, but a future catalog edit could make them reachable, and the injected tests are the only proof they work.
 - **dart2js release output.** The Chrome run uses the development compiler. The PRNG, the cleaning and the formatting avoid 64-bit and shift traps, and the prototype matched on Chrome, but I did not run a release build.
@@ -1300,3 +1319,4 @@ The example list of Requirement 15 maps to files as follows: 15.1 to `offline_co
 16. **`CoffinAI` is an `abstract interface class`.** Apps can implement it but not extend it.
 17. **Recovery lives on an internal `OfflineEngine`** that tests build with an injected catalog, instead of a `@visibleForTesting` parameter on the public class.
 18. **Names are not stripped of zero-width or bidirectional control characters**, only of control characters (category Cc), as the requirement says.
+19. **Count 0 is treated as missing** (user decision after the golden-text review), so a new user never sees a zero count.

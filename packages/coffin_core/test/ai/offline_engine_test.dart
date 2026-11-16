@@ -1,9 +1,12 @@
 import 'package:coffin_core/src/ai/ai_purpose.dart';
+import 'package:coffin_core/src/ai/ai_reply.dart';
 import 'package:coffin_core/src/ai/ai_request.dart';
 import 'package:coffin_core/src/ai/compose_path.dart';
 import 'package:coffin_core/src/ai/clean_facts.dart';
 import 'package:coffin_core/src/ai/composed_text.dart';
+import 'package:coffin_core/src/ai/offline_coffin_ai.dart';
 import 'package:coffin_core/src/ai/offline_engine.dart';
+import 'package:coffin_core/src/ai/reply_source.dart';
 import 'package:coffin_core/src/ai/template_catalog.dart';
 import 'package:coffin_core/src/ai/template_set.dart';
 import 'package:coffin_core/src/ai/text_rules.dart';
@@ -187,7 +190,7 @@ void main() {
           80,
           11,
         ),
-        '0 days so far. a b is humming.',
+        'a b waits by the window, glowing softly.',
       );
       expect(
         run(ghost, const {'streakCount': 4, 'ghostName': 'Murderous'}, 80, 6),
@@ -274,7 +277,26 @@ void main() {
         expect(r.text, 'Boo. Still here.');
         expect(r.path, ComposePath.safeLine);
       }
-      // Task 8.1 adds the same assertion through the public OfflineCoffinAI.
+      // OfflineCoffinAI has no catalog injection by design, so it cannot reach
+      // an all-banned catalog. offline_coffin_ai_test.dart instead proves the
+      // public class is a thin shell over OfflineEngine.standard.
+    });
+    test('OfflineCoffinAI returns the standard engine text, offline', () async {
+      for (final seed in <int>[0, 5, 99]) {
+        final AiRequest r = AiRequest(
+          purpose: AiPurpose.ghostMoodLine,
+          facts: const {'streakCount': 2},
+          maxLength: 40,
+          seed: seed,
+        );
+        expect(
+          await const OfflineCoffinAI().ask(r),
+          AiReply(
+            text: OfflineEngine.standard.compose(r).text,
+            source: ReplySource.offline,
+          ),
+        );
+      }
     });
 
     test('a recovery candidate that does not fit is skipped, not cut', () {

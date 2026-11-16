@@ -13,8 +13,9 @@ void main() {
   group('CleanFacts counts', () {
     // Expected counts from design.md's cross-platform list.
     final cases = <String, (Object?, int?)>{
-      '0': (0, 0),
-      '-0.0': (-0.0, 0),
+      '0': (0, null),
+      '0.0': (0.0, null),
+      '-0.0': (-0.0, null),
       '5.0': (5.0, 5),
       '1000000': (1000000, 1000000),
       '1000000.0': (1000000.0, 1000000),
@@ -38,11 +39,6 @@ void main() {
         }).daysSinceLastCommit;
         expect(days, c.$2);
       });
-    });
-
-    test('-0.0 prints as 0', () {
-      expect('${_streak(-0.0)}', '0');
-      expect('${_streak(0.0)}', '0');
     });
 
     test('5.0 and 5 both give 5', () {
