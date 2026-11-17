@@ -29,7 +29,7 @@ Rules for every task:
     - _Requirements: 13.8_
 
 - [ ] 2. Local days, clock and name rules
-  - [ ] 2.1 Implement `LocalDay`, `Clock` and `NameRules` in `lib/src/domain`
+  - [x] 2.1 Implement `LocalDay`, `Clock` and `NameRules` in `lib/src/domain`
     - Create `local_day.dart` with the integer civil-calendar `epochDay`/`fromEpochDay`, `fromDateTime`, `tryParse`, `toIso`, `next`, `previous`, `addDays`, `daysUntil`, `Comparable`, and value equality. No `Duration` and no 24-hour arithmetic.
     - Create `clock.dart` (`abstract interface class Clock { DateTime now(); }`) and `name_rules.dart` (`maxLength` 40, `violation`, `normalize`, counting code points).
     - Remove `lib/src/domain/.gitkeep`.
@@ -40,7 +40,7 @@ Rules for every task:
     - Keep every generated integer far below 2^53.
     - _Requirements: 14.8_
 
-  - [ ] 2.3 Write unit tests for `LocalDay` and `NameRules`
+  - [x] 2.3 Write unit tests for `LocalDay` and `NameRules`
     - Create `test/domain/local_day_test.dart` and `test/domain/name_rules_test.dart`: leap years, invalid dates, strict `tryParse`, year bounds, month ends, negative `addDays`, trimming and code-point counting at 1 and 40.
     - _Requirements: 2.2, 2.3, 2.4, 2.6, 1.2_
 

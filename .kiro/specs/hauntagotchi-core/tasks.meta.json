@@ -1,0 +1,29 @@
+{
+  "pbtResults": {},
+  "executionHistory": {
+    "2.1 Implement `LocalDay`, `Clock` and `NameRules` in `lib/src/domain`": [
+      {
+        "executionId": "fb129b4a-b1ae-4ec0-b536-294ffd81668a",
+        "chatSessionId": "sess_54426c3d-9e88-4d30-b811-ddcae59d691f",
+        "timestamp": 1794922691860
+      },
+      {
+        "executionId": "fb129b4a-b1ae-4ec0-b536-294ffd81668a",
+        "chatSessionId": "sess_54426c3d-9e88-4d30-b811-ddcae59d691f",
+        "timestamp": 1794922742868
+      }
+    ],
+    "2.3 Write unit tests for `LocalDay` and `NameRules`": [
+      {
+        "executionId": "fb129b4a-b1ae-4ec0-b536-294ffd81668a",
+        "chatSessionId": "sess_54426c3d-9e88-4d30-b811-ddcae59d691f",
+        "timestamp": 1794922754028
+      },
+      {
+        "executionId": "fb129b4a-b1ae-4ec0-b536-294ffd81668a",
+        "chatSessionId": "sess_54426c3d-9e88-4d30-b811-ddcae59d691f",
+        "timestamp": 1794922822745
+      }
+    ]
+  }
+}
