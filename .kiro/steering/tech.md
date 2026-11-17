@@ -7,7 +7,7 @@ inclusion: always
 ## Stack
 - Flutter 3.47 (stable), Dart 3.13. Primary target: **Flutter Web**. Must also work on Android/iOS screen sizes.
 - Monorepo using a **Dart pub workspace** (root `pubspec.yaml` with `workspace:` listing the packages and apps).
-- State management: **Riverpod** (`flutter_riverpod`). No other state libraries.
+- State management: Flutter's built-in ChangeNotifier with ListenableBuilder. No state-management packages.
 - Routing: **go_router**.
 - Local storage: **hive_ce** (works on web), always behind a repository interface.
 - AI: the `CoffinAI` interface in `coffin_core`. Apps never call an LLM API directly. It must have an offline/mock implementation so the apps work without a network or key.

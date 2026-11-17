@@ -16,14 +16,14 @@ Rules for every task:
 
 ## Tasks
 
-- [ ] 1. Steering line and dependency (first change of the feature)
-  - [ ] 1.1 Correct the state-management line in both steering files
+- [x] 1. Steering line and dependency (first change of the feature)
+  - [x] 1.1 Correct the state-management line in both steering files
     - In `.kiro/steering/tech.md` (line 10) and `tool/templates/app/.kiro/steering/tech.md.tmpl` (line 9), replace ``- State management: **Riverpod** (`flutter_riverpod`). No other state libraries.`` with `- State management: Flutter's built-in ChangeNotifier with ListenableBuilder. No state-management packages.`
     - Change no other line in either file. Check `git diff -U0` shows one removed and one added line per file, and `grep -rniI riverpod .kiro/steering tool/templates` finds nothing.
     - Run `flutter test` in `tool/` (template integrity, raiser and repo-guard tests) while nothing else edits `apps/`. Then run `flutter test --tags raise-check --run-skipped` in `tool/`. Both must pass.
     - _Requirements: 15.1, 15.2, 15.3, 15.4_
 
-  - [ ] 1.2 Add `glados: 1.1.7` to Hauntagotchi dev dependencies
+  - [x] 1.2 Add `glados: 1.1.7` to Hauntagotchi dev dependencies
     - In `apps/hauntagotchi/pubspec.yaml`, add exactly one line, `glados: 1.1.7`, under `dev_dependencies` after `flutter_lints`. Add no other dependency.
     - Run `flutter pub get --enforce-lockfile` at the repo root. Check `git diff --exit-code -- pubspec.lock` exits 0 and `git diff -U0 -- apps/hauntagotchi/pubspec.yaml` shows one added line. If the lock would change, stop and ask the user.
     - _Requirements: 13.8_
