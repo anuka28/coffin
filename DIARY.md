@@ -121,3 +121,19 @@ A few lines per day: what I asked Kiro, what worked, what didn't, what I learned
 - **First vibe-coding session** (Kiro "Default" mode, not a spec), because this was visual polish rather than a feature: taller, narrower tombstones (300 px max, portrait with a child), larger and softer fog blobs, framed panels on both sides, and a themed floating snackbar. Kiro updated the spec docs and pinned test values to match (changed expected values, weakened none) and recomputed the fog alpha cap with `WcagContrast` (0.03–0.04 now, worst case 4.65:1). coffin_core **1,289 tests** pass. ~10 credits, 8 min.
   - My take on spec vs vibe: specs for anything with rules or logic, vibe for "make it look right" after a human has looked at it.
   - Kiro left an empty `/tmp/x` directory again, even though the prompt said not to. I removed it.
+- Looked again in Chrome after the polish: the tombstones now read as gravestones, the fog reads as mist, and both panels are framed. Small follow-up vibe request: an engraved "R.I.P." in the tombstone arch (muted, Creepster 20 px, hidden from screen readers, `showEpitaph` flag). ~3.5 credits; coffin_core **1,293 tests**. (It landed in commit f59ece4, which reused the previous polish message by mistake.)
+  - I accidentally sent the same prompt twice. Kiro noticed the work was already done, changed nothing and said so (0.65 credits).
+
+## Day 9 · Nov 17, 2026 (a day early)
+- **Kiro Crew** (desktop, v0.12.2 stable, not the rc). Skipped its offer to import my Claude Code / Gemini setup, so it works only from the repo's own Kiro steering and none of my other (client) projects' context leaks in.
+- First Crew job: **Nightly Build Watch**, a scheduled (9 PM daily) **read-only** agent that runs format, analyze and tests in coffin_core, Hauntagotchi and Graveyard and reports a table, suggesting fixes as text only.
+  - First run (manual): every package green: coffin_core 1,293, Hauntagotchi 12, Graveyard 8. It also found `dart`/`flutter` weren't on its PATH and used the Flutter SDK's own bin folder, and it noticed my uncommitted DIARY.md.
+  - It asked for approval before running each command, even from a schedule. Good for safety, but an unattended 9 PM run will wait for a click.
+  - I checked afterwards: same commit, same `git status`, same ignored files, `/tmp` unchanged. Crew kept to read-only.
+  - IDE vs Crew, my take: the IDE is where I build with Kiro; Crew keeps watch while I'm away.
+- Housekeeping: found a leftover `/tmp/l.dart` from a coffin-ai run on Nov 16 (Kiro measuring a template line's length) and removed it.
+- **Seventh spec: `raise-app`**, the Kiro-native starter: `dart run tool/raise.dart <name>` creates `apps/<name>/` already wired to coffin_core, with its own `.kiro/` (steering, format hook, a README on writing the first spec). ~11 credits for requirements, ~9.5 for design, ~5 for tasks.
+  - My review: make `tool/` a real workspace package (`coffin_raise`) instead of working around the resolver; copy `design.md` byte for byte with a drift test; tag the slow "raise a real app and run analyze + test" check so everyday runs stay fast (it will also go into the Crew nightly job).
+  - What I caught: a raised app's `.kiro/` only loads when you open that app's folder in Kiro, not the repo root. Now stated in the app README, the success message (with a test) and the root README.
+  - What I caught in the task list: Kiro had marked every test task optional (`*`). I made them all required, and removed a task that would have had Kiro write in this diary.
+  - Kiro verified uncertain tool behaviour on a throwaway copy before designing around it (`exclude_tags` can't combine with `--tags`, so it uses `skip:` + `--run-skipped`).
