@@ -1,5 +1,10 @@
 {
-  "pbtResults": {},
+  "pbtResults": {
+    "2.4 Write property test for the `LocalDay` round trip": {
+      "status": "passed",
+      "lastRunTimestamp": 1794923797795
+    }
+  },
   "executionHistory": {
     "2.1 Implement `LocalDay`, `Clock` and `NameRules` in `lib/src/domain`": [
       {
@@ -23,6 +28,49 @@
         "executionId": "fb129b4a-b1ae-4ec0-b536-294ffd81668a",
         "chatSessionId": "sess_54426c3d-9e88-4d30-b811-ddcae59d691f",
         "timestamp": 1794922822745
+      }
+    ],
+    "2.2 Create web-safe test generators (base set)": [
+      {
+        "executionId": "f8952f0a-4d91-49b1-86a9-4cc4bffc4765",
+        "chatSessionId": "sess_1b4b8382-7a80-4a01-babf-95127c73fc9e",
+        "timestamp": 1794923607786
+      },
+      {
+        "executionId": "f8952f0a-4d91-49b1-86a9-4cc4bffc4765",
+        "chatSessionId": "sess_1b4b8382-7a80-4a01-babf-95127c73fc9e",
+        "timestamp": 1794923672757
+      }
+    ],
+    "2.4 Write property test for the `LocalDay` round trip": [
+      {
+        "executionId": "5a5a0d81-980d-4fe8-9e8c-6e0cca0e120f",
+        "chatSessionId": "sess_1705f556-bf25-465d-958a-1e6917a8a443",
+        "timestamp": 1794923707296
+      },
+      {
+        "executionId": "5a5a0d81-980d-4fe8-9e8c-6e0cca0e120f",
+        "chatSessionId": "sess_1705f556-bf25-465d-958a-1e6917a8a443",
+        "timestamp": 1794923806026
+      }
+    ],
+    "2.5 Create test doubles in `test/support/`": [
+      {
+        "executionId": "1ccaf8ab-b502-48cc-980d-09728e6b15a4",
+        "chatSessionId": "sess_06159dc5-41f1-464c-a4ee-b41d077d3cca",
+        "timestamp": 1794923842718
+      },
+      {
+        "executionId": "1ccaf8ab-b502-48cc-980d-09728e6b15a4",
+        "chatSessionId": "sess_06159dc5-41f1-464c-a4ee-b41d077d3cca",
+        "timestamp": 1794923886339
+      }
+    ],
+    "2. Local days, clock and name rules": [
+      {
+        "executionId": "1ccaf8ab-b502-48cc-980d-09728e6b15a4",
+        "chatSessionId": "sess_06159dc5-41f1-464c-a4ee-b41d077d3cca",
+        "timestamp": 1794923886362
       }
     ]
   }

@@ -28,14 +28,14 @@ Rules for every task:
     - Run `flutter pub get --enforce-lockfile` at the repo root. Check `git diff --exit-code -- pubspec.lock` exits 0 and `git diff -U0 -- apps/hauntagotchi/pubspec.yaml` shows one added line. If the lock would change, stop and ask the user.
     - _Requirements: 13.8_
 
-- [ ] 2. Local days, clock and name rules
+- [x] 2. Local days, clock and name rules
   - [x] 2.1 Implement `LocalDay`, `Clock` and `NameRules` in `lib/src/domain`
     - Create `local_day.dart` with the integer civil-calendar `epochDay`/`fromEpochDay`, `fromDateTime`, `tryParse`, `toIso`, `next`, `previous`, `addDays`, `daysUntil`, `Comparable`, and value equality. No `Duration` and no 24-hour arithmetic.
     - Create `clock.dart` (`abstract interface class Clock { DateTime now(); }`) and `name_rules.dart` (`maxLength` 40, `violation`, `normalize`, counting code points).
     - Remove `lib/src/domain/.gitkeep`.
     - _Requirements: 2.1, 2.2, 2.3, 2.4, 2.6, 1.2, 13.2, 13.4_
 
-  - [ ] 2.2 Create web-safe test generators (base set)
+  - [x] 2.2 Create web-safe test generators (base set)
     - Create `test/domain/support/haunt_generators.dart` with `anyIntBetween`, `anyListBetween` (built on `any.simple` and `Random.nextInt`), a `RunCounter`, `anyLocalDay` (epoch days 10957 to 47482 plus fixed edge days: leap days, month and year ends, 2026-03-08, 2026-03-29, 2026-10-25, 2026-11-01), `anyHabitName` (valid, over-40 and whitespace-only values) and `anyHealth` (extra weight on band edges).
     - Keep every generated integer far below 2^53.
     - _Requirements: 14.8_
@@ -44,12 +44,12 @@ Rules for every task:
     - Create `test/domain/local_day_test.dart` and `test/domain/name_rules_test.dart`: leap years, invalid dates, strict `tryParse`, year bounds, month ends, negative `addDays`, trimming and code-point counting at 1 and 40.
     - _Requirements: 2.2, 2.3, 2.4, 2.6, 1.2_
 
-  - [ ] 2.4 Write property test for the `LocalDay` round trip
+  - [x] 2.4 Write property test for the `LocalDay` round trip
     - **Property 1: LocalDay round trip**
     - **Validates: Requirements 2.6**
     - Create `test/domain/local_day_property_test.dart`.
 
-  - [ ] 2.5 Create test doubles in `test/support/`
+  - [x] 2.5 Create test doubles in `test/support/`
     - Create `fake_clock.dart` (`FakeClock` whose time the test sets) and `throwing_record_repository.dart` (`ThrowingRecordRepository` implementing `RecordRepository`, throwing on `put` or `getAll`/`get` on demand). Neither imports `dart:io`.
     - _Requirements: 2.7, 14.9, 14.10_
 
