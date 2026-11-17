@@ -54,7 +54,7 @@ Rules for every task:
     - _Requirements: 2.7, 14.9, 14.10_
 
 - [ ] 3. Habits and the habit book
-  - [ ] 3.1 Implement `Habit`, `HabitBook` and the result types
+  - [x] 3.1 Implement `Habit`, `HabitBook` and the result types
     - Create `habit.dart` (`isActive`, `isActiveOn`, `isCompletedOn`, equality, unmodifiable `completedDays`), `habit_rejection.dart` (enum), `habit_result.dart` (sealed), `habit_changed.dart`, `habit_rejected.dart`, `habit_book.dart` (`maxActive` 5, `suggestedMin` 3, `add` with ids `h1`, `h2`, ..., `rename`, `archive`, `complete`, `undo`, `activeCountOn`, `completedCountOn`, `anyCompletedOn`, `missingToSuggested`, `restore`).
     - Reject completion and undo for any day but Today, and reject rename, complete and undo for archived or unknown ids.
     - _Requirements: 1.1, 1.2, 1.3, 1.4, 1.5, 1.6, 1.7, 1.8, 1.9, 1.10, 1.11, 1.12, 1.13, 1.14, 4.9_
@@ -63,16 +63,16 @@ Rules for every task:
     - Add `anyBook(today)` (0 to 6 habits, archive offsets, completion offsets, run through `HabitBook.restore`), `anyHabit` and `anyGhost` to `test/domain/support/haunt_generators.dart`.
     - _Requirements: 14.8_
 
-  - [ ] 3.3 Write unit tests for `HabitBook`
+  - [x] 3.3 Write unit tests for `HabitBook`
     - Create `test/domain/habit_book_test.dart` covering each criterion of Requirement 1 with named examples, `missingToSuggested` from 0 to 5, id uniqueness after archiving, and `restore` trimming more than 5 active habits.
     - _Requirements: 1.1 to 1.14, 14.9_
 
-  - [ ] 3.4 Write property test for rejections and the limit
+  - [x] 3.4 Write property test for rejections and the limit
     - **Property 18: Rejections change nothing and the limit holds**
     - **Validates: Requirements 1.2, 1.3, 1.8, 1.10, 1.11, 1.13**
     - Create `test/domain/habit_book_rejection_property_test.dart`.
 
-  - [ ] 3.5 Write property test for add, rename and archive
+  - [x] 3.5 Write property test for add, rename and archive
     - **Property 19: Add, rename and archive keep what they should**
     - **Validates: Requirements 1.1, 1.4, 1.5, 1.6**
     - Create `test/domain/habit_book_edit_property_test.dart`.

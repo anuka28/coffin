@@ -3,6 +3,14 @@
     "2.4 Write property test for the `LocalDay` round trip": {
       "status": "passed",
       "lastRunTimestamp": 1794923797795
+    },
+    "3.4 Write property test for rejections and the limit": {
+      "status": "passed",
+      "lastRunTimestamp": 1794924462185
+    },
+    "3.5 Write property test for add, rename and archive": {
+      "status": "passed",
+      "lastRunTimestamp": 1794924543758
     }
   },
   "executionHistory": {
@@ -71,6 +79,76 @@
         "executionId": "1ccaf8ab-b502-48cc-980d-09728e6b15a4",
         "chatSessionId": "sess_06159dc5-41f1-464c-a4ee-b41d077d3cca",
         "timestamp": 1794923886362
+      }
+    ],
+    "3.1 Implement `Habit`, `HabitBook` and the result types": [
+      {
+        "executionId": "661ffe69-c68f-4085-b2f2-90b711f039c2",
+        "chatSessionId": "sess_09def181-b698-4837-ac14-32e98ba2b003",
+        "timestamp": 1794923991305
+      },
+      {
+        "executionId": "661ffe69-c68f-4085-b2f2-90b711f039c2",
+        "chatSessionId": "sess_09def181-b698-4837-ac14-32e98ba2b003",
+        "timestamp": 1794924108878
+      },
+      {
+        "executionId": "661ffe69-c68f-4085-b2f2-90b711f039c2",
+        "chatSessionId": "sess_09def181-b698-4837-ac14-32e98ba2b003",
+        "timestamp": 1794924124421
+      },
+      {
+        "executionId": "661ffe69-c68f-4085-b2f2-90b711f039c2",
+        "chatSessionId": "sess_09def181-b698-4837-ac14-32e98ba2b003",
+        "timestamp": 1794924183523
+      }
+    ],
+    "3.2 Extend the test generators with habits, books and ghosts": [
+      {
+        "executionId": "757f7fcf-d715-4026-ae31-189206066f3b",
+        "chatSessionId": "sess_0aa7a548-08b9-4922-9a23-7081302e6a95",
+        "timestamp": 1794924200546
+      },
+      {
+        "executionId": "3762758c-eadd-43a9-ad43-c80665fbd84b",
+        "chatSessionId": "sess_d5ce23f8-2822-4ea1-836b-50fb67046ad0",
+        "timestamp": 1794924292699
+      }
+    ],
+    "3.3 Write unit tests for `HabitBook`": [
+      {
+        "executionId": "3762758c-eadd-43a9-ad43-c80665fbd84b",
+        "chatSessionId": "sess_d5ce23f8-2822-4ea1-836b-50fb67046ad0",
+        "timestamp": 1794924292733
+      },
+      {
+        "executionId": "3762758c-eadd-43a9-ad43-c80665fbd84b",
+        "chatSessionId": "sess_d5ce23f8-2822-4ea1-836b-50fb67046ad0",
+        "timestamp": 1794924357811
+      }
+    ],
+    "3.4 Write property test for rejections and the limit": [
+      {
+        "executionId": "e71ff4f2-585e-4bbc-b082-1bf4aad0980b",
+        "chatSessionId": "sess_dbd37327-94a2-4406-9fc5-697c274423cd",
+        "timestamp": 1794924370478
+      },
+      {
+        "executionId": "e71ff4f2-585e-4bbc-b082-1bf4aad0980b",
+        "chatSessionId": "sess_dbd37327-94a2-4406-9fc5-697c274423cd",
+        "timestamp": 1794924475267
+      }
+    ],
+    "3.5 Write property test for add, rename and archive": [
+      {
+        "executionId": "7fe929f7-f702-4da9-8339-e2bbce006ff2",
+        "chatSessionId": "sess_3b66fb09-31b9-4985-9fd9-d5b80108556b",
+        "timestamp": 1794924495333
+      },
+      {
+        "executionId": "7fe929f7-f702-4da9-8339-e2bbce006ff2",
+        "chatSessionId": "sess_3b66fb09-31b9-4985-9fd9-d5b80108556b",
+        "timestamp": 1794924551707
       }
     ]
   }

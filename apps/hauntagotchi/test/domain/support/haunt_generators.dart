@@ -2,6 +2,8 @@ import 'dart:math' as math;
 
 import 'package:flutter_test/flutter_test.dart' show expect, equals, isPositive;
 import 'package:glados/glados.dart' hide expect, group, test;
+import 'package:hauntagotchi/src/domain/habit.dart';
+import 'package:hauntagotchi/src/domain/habit_book.dart';
 import 'package:hauntagotchi/src/domain/local_day.dart';
 import 'package:hauntagotchi/src/domain/name_rules.dart';
 
@@ -174,3 +176,74 @@ Generator<int> get anyHealth => any.simple<int>(
       : random.nextInt(101),
   shrink: (int v) => v == 0 ? const <int>[] : <int>[v ~/ 2],
 );
+
+/// Generates a valid [Habit] with the given [id], created up to 400 days
+/// before [today].
+///
+/// About a third are archived on a day from the creation day to [today].
+/// Completions fall only on days when the habit was active (up to 12 of
+/// them). Names are valid and trimmed. Shrinks by dropping completions.
+Generator<Habit> anyHabit(LocalDay today, {String id = 'h1'}) =>
+    any.simple<Habit>(
+      generate: (math.Random random, int size) =>
+          _randomHabit(random, id, today),
+      shrink: (Habit h) sync* {
+        if (h.completedDays.isNotEmpty) {
+          yield h.copyWith(completedDays: <LocalDay>{});
+        }
+      },
+    );
+
+/// Generates a [HabitBook] of 0 to 6 habits (ids `h1`, `h2`, ...) with
+/// archive offsets and completion offsets, run through [HabitBook.restore]
+/// so at most [HabitBook.maxActive] habits are active.
+///
+/// Shrinks by dropping the last habit.
+Generator<HabitBook> anyBook(LocalDay today) => any.simple<HabitBook>(
+  generate: (math.Random random, int size) {
+    final int count = random.nextInt(7);
+    return HabitBook.restore(<Habit>[
+      for (int i = 1; i <= count; i++) _randomHabit(random, 'h$i', today),
+    ], today: today);
+  },
+  shrink: (HabitBook b) sync* {
+    if (b.all.isNotEmpty) {
+      yield HabitBook(b.all.take(b.all.length - 1));
+    }
+  },
+);
+
+Habit _randomHabit(math.Random random, String id, LocalDay today) {
+  final LocalDay created = today.addDays(-random.nextInt(401));
+  final int span = created.daysUntil(today);
+  LocalDay? archived;
+  if (random.nextInt(3) == 0) {
+    archived = created.addDays(random.nextInt(span + 1));
+  }
+  // Days on which the habit counted as active: created up to (excluding)
+  // the archive day, or through today while active.
+  final int activeDays = archived == null
+      ? span + 1
+      : created.daysUntil(archived);
+  final Set<LocalDay> done = <LocalDay>{};
+  if (activeDays > 0) {
+    final int picks = random.nextInt(13);
+    for (int i = 0; i < picks; i++) {
+      // Bias towards recent days so streaks appear.
+      final int back = random.nextBool()
+          ? random.nextInt(activeDays < 4 ? activeDays : 4)
+          : random.nextInt(activeDays);
+      done.add(created.addDays(activeDays - 1 - back));
+    }
+  }
+  final String name = NameRules.normalize(
+    _word(random, 1 + random.nextInt(NameRules.maxLength)),
+  );
+  return Habit(
+    id: id,
+    name: name,
+    createdDay: created,
+    completedDays: done,
+    archivedDay: archived,
+  );
+}
