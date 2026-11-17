@@ -15,8 +15,8 @@ import 'tombstone_border.dart';
 /// close to a half circle of the card width. When it has a [child] the card
 /// is at least 1.2 times as tall as it is wide, like a grave marker.
 ///
-/// A small engraved "R.I.P." sits in the arch. It is decorative and hidden
-/// from screen readers; [showEpitaph] turns it off.
+/// A small engraved [epitaph] ("R.I.P." by default) sits in the arch. It is
+/// decorative and hidden from screen readers; [showEpitaph] turns it off.
 ///
 /// It glows softly at rest. When [onTap] is not null the card is interactive: the glow grows on
 /// hover and press, a focus ring shows on keyboard focus, Enter and Space
@@ -37,6 +37,7 @@ class TombstoneCard extends StatefulWidget {
     this.onTap,
     this.semanticLabel,
     this.showEpitaph = true,
+    this.epitaph = 'R.I.P.',
   });
 
   /// The headline of the card.
@@ -54,9 +55,13 @@ class TombstoneCard extends StatefulWidget {
   /// Optional screen reader label for an interactive card.
   final String? semanticLabel;
 
-  /// Whether the arch shows a small engraved "R.I.P.". Defaults to true. The
-  /// text is decorative and excluded from semantics.
+  /// Whether the arch shows the small engraved [epitaph]. Defaults to true.
+  /// The text is decorative and excluded from semantics.
   final bool showEpitaph;
+
+  /// The short text engraved in the arch when [showEpitaph] is true. Defaults
+  /// to "R.I.P.". It is one line and excluded from semantics.
+  final String epitaph;
 
   @override
   State<TombstoneCard> createState() => _TombstoneCardState();
@@ -249,7 +254,7 @@ class _TombstoneCardState extends State<TombstoneCard> {
                             child: ExcludeSemantics(
                               child: Center(
                                 child: Text(
-                                  'R.I.P.',
+                                  widget.epitaph,
                                   maxLines: 1,
                                   style: TextStyle(
                                     fontFamily: CoffinTypography.displayFamily,

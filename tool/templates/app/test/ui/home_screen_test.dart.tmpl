@@ -17,6 +17,7 @@ void main() {
     expect(find.byType(HomeScreen), findsOneWidget);
     expect(find.byType(GhostLoader), findsOneWidget);
     expect(find.byType(TombstoneCard), findsOneWidget);
+    expect(find.text('RISEN'), findsOneWidget);
   });
 
   testWidgets('applies the dark Coffin theme', (tester) async {

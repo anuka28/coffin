@@ -699,6 +699,62 @@ void main() {
       );
       handle.dispose();
     });
+    testWidgets('custom epitaph replaces R.I.P.', (tester) async {
+      await pumpSpooky(
+        tester,
+        const TombstoneCard(title: 'Risen', epitaph: 'RISEN'),
+      );
+      expect(find.text('RISEN'), findsOneWidget);
+      expect(find.text('R.I.P.'), findsNothing);
+    });
+
+    test('epitaph defaults to R.I.P.', () {
+      expect(const TombstoneCard(title: 'x').epitaph, 'R.I.P.');
+    });
+
+    testWidgets('showEpitaph: false hides a custom epitaph', (tester) async {
+      await pumpSpooky(
+        tester,
+        const TombstoneCard(
+          title: 'Risen',
+          epitaph: 'RISEN',
+          showEpitaph: false,
+        ),
+      );
+      expect(find.text('RISEN'), findsNothing);
+    });
+
+    testWidgets('custom epitaph is excluded from semantics', (tester) async {
+      final SemanticsHandle handle = tester.ensureSemantics();
+      await pumpSpooky(
+        tester,
+        const TombstoneCard(title: 'Risen', epitaph: 'RISEN'),
+      );
+      expect(find.bySemanticsLabel('RISEN'), findsNothing);
+      expect(
+        find.ancestor(
+          of: find.text('RISEN'),
+          matching: find.byType(ExcludeSemantics),
+        ),
+        findsWidgets,
+      );
+      handle.dispose();
+    });
+
+    testWidgets('custom epitaph uses the default epitaph style', (
+      tester,
+    ) async {
+      await pumpSpooky(
+        tester,
+        const TombstoneCard(title: 'Risen', epitaph: 'RISEN'),
+      );
+      final Text text = tester.widget<Text>(find.text('RISEN'));
+      expect(text.maxLines, 1);
+      expect(text.style!.color, CoffinColorTokens.night.muted);
+      expect(text.style!.fontFamily, endsWith('Creepster'));
+      expect(text.style!.fontSize, 20);
+    });
+
     testWidgets('muted epitaph keeps 4.5:1 on surface and raised', (
       tester,
     ) async {

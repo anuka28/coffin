@@ -26,6 +26,7 @@ class HomeScreen extends StatelessWidget {
                     const SizedBox(height: 32),
                     TombstoneCard(
                       title: '{{display_name}}',
+                      epitaph: 'RISEN',
                       semanticLabel:
                           '{{display_name}} is empty. Edit '
                           'lib/src/ui/app_routes.dart to add a screen.',
@@ -33,6 +34,7 @@ class HomeScreen extends StatelessWidget {
                         'Nothing lives here yet. Edit '
                         'lib/src/ui/app_routes.dart and wake something up.',
                         style: textTheme.bodyLarge,
+                        textAlign: TextAlign.center,
                       ),
                     ),
                   ],

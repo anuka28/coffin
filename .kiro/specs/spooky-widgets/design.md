@@ -617,10 +617,12 @@ File `lib/src/widgets/tombstone_card.dart`.
 ```dart
 class TombstoneCard extends StatefulWidget {
   const TombstoneCard({super.key, required this.title, this.dateLine, this.child,
-                       this.onTap, this.semanticLabel, this.showEpitaph = true});
+                       this.onTap, this.semanticLabel, this.showEpitaph = true,
+                       this.epitaph = 'R.I.P.'});
   final String title; final String? dateLine; final Widget? child;
   final VoidCallback? onTap; final String? semanticLabel;
-  final bool showEpitaph;  // decorative "R.I.P." in the arch
+  final bool showEpitaph;  // decorative epitaph in the arch
+  final String epitaph;    // text of the epitaph, default 'R.I.P.'
 }
 ```
 
@@ -636,7 +638,7 @@ Align(center) > ConstrainedBox(maxWidth: 300, [minWidth/minHeight 48 when intera
     ]
 ```
 
-Epitaph (Requirement 3.10): when `showEpitaph` is true, the padded content is wrapped in a `Stack` with a `Positioned(top: 56, left: 0, right: 0)` holding `ExcludeSemantics(Center(Text('R.I.P.')))`. The style is `fontFamily: Creepster` (package `coffin_core`), size 20, letter spacing 2, color `muted`, and a 1 px `Shadow` in `background` that gives the engraved look. At the top padding of 148 px the text (about 24 px high at 20 px) ends well above the title and sits in the arch. `muted` on `surface` and `raised` are listed contrast pairs, so it is at least 4.5:1 in both Token_Sets. The Stack is sized by the content, so the card height does not change.
+Epitaph (Requirement 3.10): when `showEpitaph` is true, the padded content is wrapped in a `Stack` with a `Positioned(top: 56, left: 0, right: 0)` holding `ExcludeSemantics(Center(Text(epitaph, maxLines: 1)))`, where `epitaph` defaults to `'R.I.P.'` (so the default renders exactly as before, and a custom text is decorative and excluded from semantics too). The style is `fontFamily: Creepster` (package `coffin_core`), size 20, letter spacing 2, color `muted`, and a 1 px `Shadow` in `background` that gives the engraved look. At the top padding of 148 px the text (about 24 px high at 20 px) ends well above the title and sits in the arch. `muted` on `surface` and `raised` are listed contrast pairs, so it is at least 4.5:1 in both Token_Sets. The Stack is sized by the content, so the card height does not change.
 The `SingleChildScrollView` scrolls when the parent's height is bounded and smaller than the content, and sizes to the content when the height is unbounded. Nothing overflows the shape.
 
 Visual states (all colors from the Token_Set, glow from `CoffinGlow.decoration(...).boxShadow`):
@@ -1031,7 +1033,7 @@ Both kinds of test are used. Property tests prove the numeric rules over many in
 - `SeededRandom`: the moved tests, unchanged.
 - Fixed values (Requirement 10.5), one file `test/widgets/math/fixed_values_test.dart`, runs in Chrome too: first 16 levels of `FlickerSchedule` for seeds 0, 1, 42, 4294967295 (seed 0 starts `93, 76, 91, 83`); `FogField` first particle parameters and `particlesAt(0)` for the same seeds; `GhostBob.offsetAt` at 0, quarter, half, three quarters and one period for the default bob. Expected numbers are produced by an independent BigInt reference written in the test, as the AI feature did, and then pinned.
 - Clamping and edges: period 2499 and 5001, amplitude 1.99 and 10.01, NaN amplitude; count -1, 0, 24, 25; size 0, 0.5, infinite, NaN; seeds 0 to 15 give at least two different schedules and two different fields (Requirements 8.10 and 9.13).
-- `TombstoneCard` epitaph: shown by default in muted Creepster, centered and above the title; absent with `showEpitaph: false`; excluded from semantics; `muted` contrast on `surface` and `raised`.
+- `TombstoneCard` epitaph: shown by default ('R.I.P.') in muted Creepster, centered and above the title; a custom `epitaph` is shown instead of 'R.I.P.'; absent with `showEpitaph: false` (also with a custom `epitaph`); excluded from semantics (default and custom text); `muted` contrast on `surface` and `raised`.
 - `TombstoneBorder`: path bounds for 360 by 200 (plus an arch check on 300 by 400), 320 by 120 and 10 by 10 rects; empty path for zero size.
 - `GhostPainter`: `shouldRepaint` is true for each changed field and false for equal inputs; painting on zero sizes records no draw calls.
 - Ghost colors (N3, Requirement 2.7): for both Token_Sets, `WcagContrast.ratio(SpookyTokens.ghostBody(t), t.background)` is at least 3.0 (recorded 15.99 night, 5.84 daylight) and `WcagContrast.ratio(t.background, SpookyTokens.ghostBody(t))` is at least 3.0. `ghostBody` returns `text` for night and `primary` for daylight. Under each theme the `GhostLoader` painter receives that body color, `background` as the eye color and a glow in `primary`.
