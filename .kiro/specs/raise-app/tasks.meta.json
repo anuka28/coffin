@@ -1,0 +1,36 @@
+{
+  "pbtResults": {},
+  "executionHistory": {
+    "1.1 Create the `coffin_raise` package and verify workspace resolution": [
+      {
+        "executionId": "ad718636-2e76-4743-8073-4d24c614b3b2",
+        "chatSessionId": "sess_784d6699-6046-47bf-9fc8-5232e4ff6497",
+        "timestamp": 1794898506406
+      },
+      {
+        "executionId": "ad718636-2e76-4743-8073-4d24c614b3b2",
+        "chatSessionId": "sess_784d6699-6046-47bf-9fc8-5232e4ff6497",
+        "timestamp": 1794898570639
+      }
+    ],
+    "1.2 Add shared test support helpers": [
+      {
+        "executionId": "ad718636-2e76-4743-8073-4d24c614b3b2",
+        "chatSessionId": "sess_784d6699-6046-47bf-9fc8-5232e4ff6497",
+        "timestamp": 1794898571511
+      },
+      {
+        "executionId": "ad718636-2e76-4743-8073-4d24c614b3b2",
+        "chatSessionId": "sess_784d6699-6046-47bf-9fc8-5232e4ff6497",
+        "timestamp": 1794898611576
+      }
+    ],
+    "1. Set up the `tool` package and re-verify it in the real repo": [
+      {
+        "executionId": "ad718636-2e76-4743-8073-4d24c614b3b2",
+        "chatSessionId": "sess_784d6699-6046-47bf-9fc8-5232e4ff6497",
+        "timestamp": 1794898611604
+      }
+    ]
+  }
+}

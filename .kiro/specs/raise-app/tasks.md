@@ -6,8 +6,8 @@ Build the `coffin_raise` workspace package in `tool/` (Dart), bottom-up: pure ru
 
 ## Tasks
 
-- [ ] 1. Set up the `tool` package and re-verify it in the real repo
-  - [ ] 1.1 Create the `coffin_raise` package and verify workspace resolution
+- [x] 1. Set up the `tool` package and re-verify it in the real repo
+  - [x] 1.1 Create the `coffin_raise` package and verify workspace resolution
     - Create `tool/pubspec.yaml` (`name: coffin_raise`, `publish_to: none`, `resolution: workspace`, SDK constraint equal to the root's, dev dependencies `flutter_test`, `flutter_lints: ^6.0.0`, `glados: 1.1.7`)
     - Create `tool/analysis_options.yaml` (include `../analysis_options.yaml`, exclude `templates/**`), `tool/dart_test.yaml` (tag `raise-check` with `skip` message and a longer timeout), and a minimal stub `tool/raise.dart` (`void main() {}`) so `dart run` can be checked
     - Add `  - tool` as the last item of the `workspace:` list in the root `pubspec.yaml`, changing nothing else
@@ -16,7 +16,7 @@ Build the `coffin_raise` workspace package in `tool/` (Dart), bottom-up: pure ru
     - Confirm `git status` shows no change under `apps/` or `packages/`
     - _Requirements: 9.7, 11.2, 11.3, Dependency Notice_
 
-  - [ ] 1.2 Add shared test support helpers
+  - [x] 1.2 Add shared test support helpers
     - Create `tool/test/support/temp_root.dart` (`tempRoot()` creates a unique temp dir and registers deletion with `addTearDown`)
     - Create `tool/test/support/fnv_hash.dart` (64-bit FNV-1a hash of bytes); add only helpers the next tasks use
     - _Requirements: 8.4, 8.5_
