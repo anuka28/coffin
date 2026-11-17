@@ -11,6 +11,10 @@
     "3.5 Write property test for add, rename and archive": {
       "status": "passed",
       "lastRunTimestamp": 1794924543758
+    },
+    "4.3 Write property test for dead if and only if Health is zero": {
+      "status": "passed",
+      "lastRunTimestamp": 1794924865730
     }
   },
   "executionHistory": {
@@ -149,6 +153,61 @@
         "executionId": "7fe929f7-f702-4da9-8339-e2bbce006ff2",
         "chatSessionId": "sess_3b66fb09-31b9-4985-9fd9-d5b80108556b",
         "timestamp": 1794924551707
+      }
+    ],
+    "4.1 Implement `Ghost`, `GhostState`, `RecentHistory`, `GhostStateRules` and `Balance`": [
+      {
+        "executionId": "0d8fd86c-a4e7-4a13-9aae-5394da3b6625",
+        "chatSessionId": "sess_589554ef-0b4c-47d6-8661-afc052e933a3",
+        "timestamp": 1794924652795
+      },
+      {
+        "executionId": "0d8fd86c-a4e7-4a13-9aae-5394da3b6625",
+        "chatSessionId": "sess_589554ef-0b4c-47d6-8661-afc052e933a3",
+        "timestamp": 1794924695400
+      }
+    ],
+    "4.2 Write unit tests for state bands and balance constants": [
+      {
+        "executionId": "a688cafe-a531-429a-8804-b78996af2150",
+        "chatSessionId": "sess_92a4ad1f-5645-445e-a4b8-fc978f212401",
+        "timestamp": 1794924752325
+      },
+      {
+        "executionId": "a688cafe-a531-429a-8804-b78996af2150",
+        "chatSessionId": "sess_92a4ad1f-5645-445e-a4b8-fc978f212401",
+        "timestamp": 1794924806259
+      }
+    ],
+    "4.3 Write property test for dead if and only if Health is zero": [
+      {
+        "executionId": "5b8e95ea-465b-4436-9908-c35617784166",
+        "chatSessionId": "sess_2978914a-4527-4fbd-8271-dccd7a00e323",
+        "timestamp": 1794924817109
+      },
+      {
+        "executionId": "5b8e95ea-465b-4436-9908-c35617784166",
+        "chatSessionId": "sess_2978914a-4527-4fbd-8271-dccd7a00e323",
+        "timestamp": 1794924872775
+      }
+    ],
+    "4.4 Write property test for state monotonicity": [
+      {
+        "executionId": "012bac42-c072-47c4-b3da-f2eeccb61e71",
+        "chatSessionId": "sess_c67ee76f-ad2c-4ca6-8c20-8f136d5348bd",
+        "timestamp": 1794924891159
+      },
+      {
+        "executionId": "012bac42-c072-47c4-b3da-f2eeccb61e71",
+        "chatSessionId": "sess_c67ee76f-ad2c-4ca6-8c20-8f136d5348bd",
+        "timestamp": 1794924929829
+      }
+    ],
+    "4. Ghost, state derivation and balance numbers": [
+      {
+        "executionId": "012bac42-c072-47c4-b3da-f2eeccb61e71",
+        "chatSessionId": "sess_c67ee76f-ad2c-4ca6-8c20-8f136d5348bd",
+        "timestamp": 1794924929857
       }
     ]
   }

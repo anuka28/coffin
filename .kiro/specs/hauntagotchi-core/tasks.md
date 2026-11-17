@@ -77,21 +77,21 @@ Rules for every task:
     - **Validates: Requirements 1.1, 1.4, 1.5, 1.6**
     - Create `test/domain/habit_book_edit_property_test.dart`.
 
-- [ ] 4. Ghost, state derivation and balance numbers
-  - [ ] 4.1 Implement `Ghost`, `GhostState`, `RecentHistory`, `GhostStateRules` and `Balance`
+- [x] 4. Ghost, state derivation and balance numbers
+  - [x] 4.1 Implement `Ghost`, `GhostState`, `RecentHistory`, `GhostStateRules` and `Balance`
     - Create `ghost.dart` (with `Ghost.fresh` named `Wisp`, Health 100, last settled day before Today), `ghost_state.dart` (ordered enum), `recent_history.dart`, `ghost_state_rules.dart` (bands 0 / 1-24 / 25-49 / 50-79 / 80-100 and the idle caps), `balance.dart` (`maxHealth` 100, `fullFeed` 20, `neglectLoss` 15, `freshStartHealth` 40, `candlesNeeded` 2, `qualifyingPercent` 60, `defaultGhostName`, and `feed(n, c) = (20 * c) ~/ n`).
     - _Requirements: 3.1, 3.2, 3.3, 3.4, 3.5, 3.6, 3.7, 3.8, 5.8_
 
-  - [ ] 4.2 Write unit tests for state bands and balance constants
+  - [x] 4.2 Write unit tests for state bands and balance constants
     - Create `test/domain/ghost_state_rules_test.dart` (band edges 0, 1, 24, 25, 49, 50, 79, 80, 100, and both caps) and `test/domain/balance_test.dart` (constants and the feed table equal the design tables).
     - _Requirements: 3.3, 3.4, 3.5, 5.8_
 
-  - [ ] 4.3 Write property test for dead if and only if Health is zero
+  - [x] 4.3 Write property test for dead if and only if Health is zero
     - **Property 5: Dead if and only if Health is zero**
     - **Validates: Requirements 3.3, 3.4, 3.5, 3.7**
     - Create `test/domain/ghost_state_dead_property_test.dart`.
 
-  - [ ] 4.4 Write property test for state monotonicity
+  - [x] 4.4 Write property test for state monotonicity
     - **Property 6: Lower Health is never healthier**
     - **Validates: Requirements 3.6**
     - Create `test/domain/ghost_state_order_property_test.dart`.
