@@ -151,3 +151,4 @@ A few lines per day: what I asked Kiro, what worked, what didn't, what I learned
 - **`coffin_core` README written with Kiro CLI V3** (the CLI updated from V2 since Nov 10). It covers theme, router, storage, AI and widgets with small examples, plus accessibility and testing. ~1.9 credits, under 3 minutes.
   - The CLI said honestly that it hadn't compiled its examples. I compiled every snippet against the real API in a throwaway file: no issues. One real error: "run the whole suite in Chrome" would fail, because two source-scan tests read files from disk. The CLI fixed it to run only the pure folders, and I ran that command: it passes.
   - IDE vs CLI, my take: specs and multi-step builds in the IDE; a focused docs job in the terminal is quicker in the CLI.
+- Updated the Crew nightly job to also check the new `tool` package and run the end-to-end raise-check, one package at a time.
