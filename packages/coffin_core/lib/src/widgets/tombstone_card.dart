@@ -15,6 +15,9 @@ import 'tombstone_border.dart';
 /// close to a half circle of the card width. When it has a [child] the card
 /// is at least 1.2 times as tall as it is wide, like a grave marker.
 ///
+/// A small engraved "R.I.P." sits in the arch. It is decorative and hidden
+/// from screen readers; [showEpitaph] turns it off.
+///
 /// It glows softly at rest. When [onTap] is not null the card is interactive: the glow grows on
 /// hover and press, a focus ring shows on keyboard focus, Enter and Space
 /// activate it, and it is exposed to screen readers as a button of at least
@@ -33,6 +36,7 @@ class TombstoneCard extends StatefulWidget {
     this.child,
     this.onTap,
     this.semanticLabel,
+    this.showEpitaph = true,
   });
 
   /// The headline of the card.
@@ -50,6 +54,10 @@ class TombstoneCard extends StatefulWidget {
   /// Optional screen reader label for an interactive card.
   final String? semanticLabel;
 
+  /// Whether the arch shows a small engraved "R.I.P.". Defaults to true. The
+  /// text is decorative and excluded from semantics.
+  final bool showEpitaph;
+
   @override
   State<TombstoneCard> createState() => _TombstoneCardState();
 }
@@ -58,6 +66,8 @@ class _TombstoneCardState extends State<TombstoneCard> {
   static const double _maxWidth = 300;
   static const double _archRise = 140;
   static const double _portraitRatio = 1.2;
+  static const double _epitaphTop = 56;
+  static const double _epitaphSize = 20;
   static const Duration _stateDuration = Duration(milliseconds: 300);
 
   bool _hovered = false;
@@ -228,7 +238,39 @@ class _TombstoneCardState extends State<TombstoneCard> {
                 constraints: BoxConstraints(
                   minHeight: widget.child == null ? 0 : width * _portraitRatio,
                 ),
-                child: content,
+                child: widget.showEpitaph
+                    ? Stack(
+                        children: <Widget>[
+                          content,
+                          Positioned(
+                            top: _epitaphTop,
+                            left: 0,
+                            right: 0,
+                            child: ExcludeSemantics(
+                              child: Center(
+                                child: Text(
+                                  'R.I.P.',
+                                  maxLines: 1,
+                                  style: TextStyle(
+                                    fontFamily: CoffinTypography.displayFamily,
+                                    package: CoffinTypography.package,
+                                    fontSize: _epitaphSize,
+                                    letterSpacing: 2,
+                                    color: tokens.muted,
+                                    shadows: <Shadow>[
+                                      Shadow(
+                                        color: tokens.background,
+                                        offset: const Offset(0, 1),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                        ],
+                      )
+                    : content,
               );
             },
           ),

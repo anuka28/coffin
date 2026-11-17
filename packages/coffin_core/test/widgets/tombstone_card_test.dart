@@ -2,6 +2,7 @@ import 'dart:ui' show PointerDeviceKind;
 
 import 'package:coffin_core/src/theme/coffin_color_tokens.dart';
 import 'package:coffin_core/src/theme/coffin_metrics.dart';
+import 'package:coffin_core/src/theme/wcag_contrast.dart';
 import 'package:coffin_core/src/widgets/tombstone_border.dart';
 import 'package:coffin_core/src/widgets/tombstone_card.dart';
 import 'package:flutter/material.dart';
@@ -651,6 +652,65 @@ void main() {
       await pumpSpooky(tester, const TombstoneCard(title: 'Still'));
       await _settleAll(tester);
       expect(tester.binding.transientCallbackCount, 0);
+    });
+  });
+  group('epitaph', () {
+    testWidgets('shows R.I.P. in muted Creepster, centered in the arch', (
+      tester,
+    ) async {
+      await pumpSpooky(
+        tester,
+        const TombstoneCard(title: 'Old Todo App', child: Text('Body')),
+      );
+      final Finder rip = find.text('R.I.P.');
+      expect(rip, findsOneWidget);
+      final TextStyle style = tester.widget<Text>(rip).style!;
+      expect(style.color, CoffinColorTokens.night.muted);
+      expect(style.fontFamily, endsWith('Creepster'));
+      expect(style.fontSize, lessThanOrEqualTo(24));
+      final Rect card = tester.getRect(_decoratedFinder);
+      final Rect text = tester.getRect(rip);
+      expect(text.center.dx, closeTo(card.center.dx, 0.5));
+      expect(text.bottom, lessThan(card.top + 140));
+      expect(text.top, greaterThan(card.top));
+      expect(
+        tester.getTopLeft(find.text('Old Todo App')).dy,
+        greaterThanOrEqualTo(text.bottom),
+      );
+    });
+    testWidgets('showEpitaph: false removes it', (tester) async {
+      await pumpSpooky(
+        tester,
+        const TombstoneCard(title: 'Plain', showEpitaph: false),
+      );
+      expect(find.text('R.I.P.'), findsNothing);
+      expect(const TombstoneCard(title: 'x').showEpitaph, isTrue);
+    });
+    testWidgets('is excluded from semantics', (tester) async {
+      final SemanticsHandle handle = tester.ensureSemantics();
+      await pumpSpooky(tester, const TombstoneCard(title: 'Quiet grave'));
+      expect(find.bySemanticsLabel('R.I.P.'), findsNothing);
+      expect(
+        find.ancestor(
+          of: find.text('R.I.P.'),
+          matching: find.byType(ExcludeSemantics),
+        ),
+        findsWidgets,
+      );
+      handle.dispose();
+    });
+    testWidgets('muted epitaph keeps 4.5:1 on surface and raised', (
+      tester,
+    ) async {
+      for (final CoffinColorTokens t in CoffinColorTokens.variants) {
+        for (final Color bg in <Color>[t.surface, t.raised]) {
+          expect(
+            WcagContrast.ratio(t.muted.toARGB32(), bg.toARGB32()),
+            greaterThanOrEqualTo(WcagContrast.aaNormalText),
+            reason: t.name,
+          );
+        }
+      }
     });
   });
 }
