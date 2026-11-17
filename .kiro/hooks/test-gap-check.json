@@ -1,0 +1,14 @@
+{
+  "version": "v1",
+  "hooks": [
+    {
+      "name": "Test gap check",
+      "trigger": "PostTaskExec",
+      "description": "After a spec task completes, checks mirror tests for changed Dart files under lib/ and writes any missing ones.",
+      "action": {
+        "type": "agent",
+        "prompt": "A spec task just completed. For each .dart file under lib/ that this task created or changed (in packages/coffin_core, apps/*, or tool), check its mirror test. Tests mirror lib/ WITHOUT the src/ folder: packages/coffin_core/lib/src/widgets/foo.dart maps to packages/coffin_core/test/widgets/foo_test.dart, and tool/lib/src/names/foo.dart maps to tool/test/names/foo_test.dart. If a new or changed public class or method has no test, write the missing test before moving on, and run flutter test in that package. Never change lib/ code to make a test pass, and never weaken an existing test. Never create files outside the repo, including /tmp."
+      }
+    }
+  ]
+}
