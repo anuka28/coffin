@@ -1,0 +1,12 @@
+import 'package:coffin_core/coffin_core.dart';
+
+import 'home_screen.dart';
+
+/// The routes of {{display_name}}. Add new screens to this list.
+final List<AppRoute> appRoutes = <AppRoute>[
+  AppRoute(
+    path: '/',
+    name: 'home',
+    builder: (context, state) => const HomeScreen(),
+  ),
+];

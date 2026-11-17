@@ -1,5 +1,14 @@
 {
-  "pbtResults": {},
+  "pbtResults": {
+    "2.4 Write property test for derived names": {
+      "status": "passed",
+      "lastRunTimestamp": 1794899131488
+    },
+    "6.3 Write property test for unknown placeholders in the planner": {
+      "status": "passed",
+      "lastRunTimestamp": 1794900248084
+    }
+  },
   "executionHistory": {
     "1.1 Create the `coffin_raise` package and verify workspace resolution": [
       {
@@ -30,6 +39,420 @@
         "executionId": "ad718636-2e76-4743-8073-4d24c614b3b2",
         "chatSessionId": "sess_784d6699-6046-47bf-9fc8-5232e4ff6497",
         "timestamp": 1794898611604
+      }
+    ],
+    "2.1 Implement `NameValidator`, `NameIssue`, `NameIssueKind`, `NameSuggester`, `DisplayNames`, and the reserved-word list": [
+      {
+        "executionId": "893537af-05da-4e23-a6f5-7ada59ec0eb6",
+        "chatSessionId": "sess_784d6699-6046-47bf-9fc8-5232e4ff6497",
+        "timestamp": 1794898866560
+      },
+      {
+        "executionId": "893537af-05da-4e23-a6f5-7ada59ec0eb6",
+        "chatSessionId": "sess_784d6699-6046-47bf-9fc8-5232e4ff6497",
+        "timestamp": 1794898953250
+      }
+    ],
+    "2.2 Write property test for name validation": [
+      {
+        "executionId": "893537af-05da-4e23-a6f5-7ada59ec0eb6",
+        "chatSessionId": "sess_784d6699-6046-47bf-9fc8-5232e4ff6497",
+        "timestamp": 1794898960311
+      },
+      {
+        "executionId": "893537af-05da-4e23-a6f5-7ada59ec0eb6",
+        "chatSessionId": "sess_784d6699-6046-47bf-9fc8-5232e4ff6497",
+        "timestamp": 1794899047402
+      }
+    ],
+    "2.3 Write property test for name suggestions": [
+      {
+        "executionId": "893537af-05da-4e23-a6f5-7ada59ec0eb6",
+        "chatSessionId": "sess_784d6699-6046-47bf-9fc8-5232e4ff6497",
+        "timestamp": 1794899047903
+      },
+      {
+        "executionId": "893537af-05da-4e23-a6f5-7ada59ec0eb6",
+        "chatSessionId": "sess_784d6699-6046-47bf-9fc8-5232e4ff6497",
+        "timestamp": 1794899101310
+      }
+    ],
+    "2.4 Write property test for derived names": [
+      {
+        "executionId": "893537af-05da-4e23-a6f5-7ada59ec0eb6",
+        "chatSessionId": "sess_784d6699-6046-47bf-9fc8-5232e4ff6497",
+        "timestamp": 1794899100563
+      },
+      {
+        "executionId": "893537af-05da-4e23-a6f5-7ada59ec0eb6",
+        "chatSessionId": "sess_784d6699-6046-47bf-9fc8-5232e4ff6497",
+        "timestamp": 1794899140275
+      }
+    ],
+    "2.5 Write unit tests for name rules": [
+      {
+        "executionId": "893537af-05da-4e23-a6f5-7ada59ec0eb6",
+        "chatSessionId": "sess_784d6699-6046-47bf-9fc8-5232e4ff6497",
+        "timestamp": 1794899139822
+      },
+      {
+        "executionId": "893537af-05da-4e23-a6f5-7ada59ec0eb6",
+        "chatSessionId": "sess_784d6699-6046-47bf-9fc8-5232e4ff6497",
+        "timestamp": 1794899190969
+      }
+    ],
+    "3.1 Implement `Placeholders`, `PlaceholderRenderer`, `RenderOutcome`, `TemplateFile` and `TemplateLoader`": [
+      {
+        "executionId": "893537af-05da-4e23-a6f5-7ada59ec0eb6",
+        "chatSessionId": "sess_784d6699-6046-47bf-9fc8-5232e4ff6497",
+        "timestamp": 1794899190761
+      },
+      {
+        "executionId": "893537af-05da-4e23-a6f5-7ada59ec0eb6",
+        "chatSessionId": "sess_784d6699-6046-47bf-9fc8-5232e4ff6497",
+        "timestamp": 1794899247792
+      }
+    ],
+    "2. Implement name rules (pure)": [
+      {
+        "executionId": "893537af-05da-4e23-a6f5-7ada59ec0eb6",
+        "chatSessionId": "sess_784d6699-6046-47bf-9fc8-5232e4ff6497",
+        "timestamp": 1794899190993
+      }
+    ],
+    "3.2 Write property test for rendering": [
+      {
+        "executionId": "893537af-05da-4e23-a6f5-7ada59ec0eb6",
+        "chatSessionId": "sess_784d6699-6046-47bf-9fc8-5232e4ff6497",
+        "timestamp": 1794899247077
+      },
+      {
+        "executionId": "893537af-05da-4e23-a6f5-7ada59ec0eb6",
+        "chatSessionId": "sess_784d6699-6046-47bf-9fc8-5232e4ff6497",
+        "timestamp": 1794899303103
+      }
+    ],
+    "3.3 Write unit tests for the loader and renderer": [
+      {
+        "executionId": "893537af-05da-4e23-a6f5-7ada59ec0eb6",
+        "chatSessionId": "sess_784d6699-6046-47bf-9fc8-5232e4ff6497",
+        "timestamp": 1794899302655
+      },
+      {
+        "executionId": "893537af-05da-4e23-a6f5-7ada59ec0eb6",
+        "chatSessionId": "sess_784d6699-6046-47bf-9fc8-5232e4ff6497",
+        "timestamp": 1794899342881
+      }
+    ],
+    "3. Implement template loading and placeholder rendering": [
+      {
+        "executionId": "893537af-05da-4e23-a6f5-7ada59ec0eb6",
+        "chatSessionId": "sess_784d6699-6046-47bf-9fc8-5232e4ff6497",
+        "timestamp": 1794899342905
+      }
+    ],
+    "4.1 Implement `WorkspaceEditor` and `WorkspaceEditResult`": [
+      {
+        "executionId": "893537af-05da-4e23-a6f5-7ada59ec0eb6",
+        "chatSessionId": "sess_784d6699-6046-47bf-9fc8-5232e4ff6497",
+        "timestamp": 1794899343724
+      },
+      {
+        "executionId": "893537af-05da-4e23-a6f5-7ada59ec0eb6",
+        "chatSessionId": "sess_784d6699-6046-47bf-9fc8-5232e4ff6497",
+        "timestamp": 1794899428403
+      }
+    ],
+    "4.2 Write property tests for the workspace edit": [
+      {
+        "executionId": "893537af-05da-4e23-a6f5-7ada59ec0eb6",
+        "chatSessionId": "sess_784d6699-6046-47bf-9fc8-5232e4ff6497",
+        "timestamp": 1794899428430
+      },
+      {
+        "executionId": "893537af-05da-4e23-a6f5-7ada59ec0eb6",
+        "chatSessionId": "sess_784d6699-6046-47bf-9fc8-5232e4ff6497",
+        "timestamp": 1794899527197
+      }
+    ],
+    "4.3 Write unit tests for the workspace editor": [
+      {
+        "executionId": "893537af-05da-4e23-a6f5-7ada59ec0eb6",
+        "chatSessionId": "sess_784d6699-6046-47bf-9fc8-5232e4ff6497",
+        "timestamp": 1794899526683
+      },
+      {
+        "executionId": "893537af-05da-4e23-a6f5-7ada59ec0eb6",
+        "chatSessionId": "sess_784d6699-6046-47bf-9fc8-5232e4ff6497",
+        "timestamp": 1794899578090
+      }
+    ],
+    "5.1 Create the app templates in `tool/templates/app/`": [
+      {
+        "executionId": "893537af-05da-4e23-a6f5-7ada59ec0eb6",
+        "chatSessionId": "sess_784d6699-6046-47bf-9fc8-5232e4ff6497",
+        "timestamp": 1794899577590
+      },
+      {
+        "executionId": "893537af-05da-4e23-a6f5-7ada59ec0eb6",
+        "chatSessionId": "sess_784d6699-6046-47bf-9fc8-5232e4ff6497",
+        "timestamp": 1794899697524
+      }
+    ],
+    "4. Implement the workspace editor (pure)": [
+      {
+        "executionId": "893537af-05da-4e23-a6f5-7ada59ec0eb6",
+        "chatSessionId": "sess_784d6699-6046-47bf-9fc8-5232e4ff6497",
+        "timestamp": 1794899578113
+      }
+    ],
+    "5.2 Create the Kiro templates in `tool/templates/app/.kiro/`": [
+      {
+        "executionId": "893537af-05da-4e23-a6f5-7ada59ec0eb6",
+        "chatSessionId": "sess_784d6699-6046-47bf-9fc8-5232e4ff6497",
+        "timestamp": 1794899697554
+      },
+      {
+        "executionId": "893537af-05da-4e23-a6f5-7ada59ec0eb6",
+        "chatSessionId": "sess_784d6699-6046-47bf-9fc8-5232e4ff6497",
+        "timestamp": 1794899756866
+      }
+    ],
+    "5.3 Write template integrity tests": [
+      {
+        "executionId": "893537af-05da-4e23-a6f5-7ada59ec0eb6",
+        "chatSessionId": "sess_784d6699-6046-47bf-9fc8-5232e4ff6497",
+        "timestamp": 1794899756906
+      },
+      {
+        "executionId": "893537af-05da-4e23-a6f5-7ada59ec0eb6",
+        "chatSessionId": "sess_784d6699-6046-47bf-9fc8-5232e4ff6497",
+        "timestamp": 1794899814950
+      }
+    ],
+    "6.1 Implement `RaisePlanner`, `RaiseInputs`, `RaisePlan`, `PlannedFile` and `RaiseErrorKind`": [
+      {
+        "executionId": "893537af-05da-4e23-a6f5-7ada59ec0eb6",
+        "chatSessionId": "sess_784d6699-6046-47bf-9fc8-5232e4ff6497",
+        "timestamp": 1794899814195
+      },
+      {
+        "executionId": "893537af-05da-4e23-a6f5-7ada59ec0eb6",
+        "chatSessionId": "sess_784d6699-6046-47bf-9fc8-5232e4ff6497",
+        "timestamp": 1794899957136
+      }
+    ],
+    "5. Create the Template_Folder": [
+      {
+        "executionId": "893537af-05da-4e23-a6f5-7ada59ec0eb6",
+        "chatSessionId": "sess_784d6699-6046-47bf-9fc8-5232e4ff6497",
+        "timestamp": 1794899814967
+      }
+    ],
+    "6.2 Write property test for path safety": [
+      {
+        "executionId": "893537af-05da-4e23-a6f5-7ada59ec0eb6",
+        "chatSessionId": "sess_784d6699-6046-47bf-9fc8-5232e4ff6497",
+        "timestamp": 1794899956479
+      },
+      {
+        "executionId": "893537af-05da-4e23-a6f5-7ada59ec0eb6",
+        "chatSessionId": "sess_784d6699-6046-47bf-9fc8-5232e4ff6497",
+        "timestamp": 1794900178405
+      }
+    ],
+    "6.3 Write property test for unknown placeholders in the planner": [
+      {
+        "executionId": "893537af-05da-4e23-a6f5-7ada59ec0eb6",
+        "chatSessionId": "sess_784d6699-6046-47bf-9fc8-5232e4ff6497",
+        "timestamp": 1794900178435
+      },
+      {
+        "executionId": "893537af-05da-4e23-a6f5-7ada59ec0eb6",
+        "chatSessionId": "sess_784d6699-6046-47bf-9fc8-5232e4ff6497",
+        "timestamp": 1794900266766
+      }
+    ],
+    "6.4 Write property test for the rendered real template": [
+      {
+        "executionId": "893537af-05da-4e23-a6f5-7ada59ec0eb6",
+        "chatSessionId": "sess_784d6699-6046-47bf-9fc8-5232e4ff6497",
+        "timestamp": 1794900266384
+      },
+      {
+        "executionId": "893537af-05da-4e23-a6f5-7ada59ec0eb6",
+        "chatSessionId": "sess_784d6699-6046-47bf-9fc8-5232e4ff6497",
+        "timestamp": 1794900317742
+      }
+    ],
+    "7.1 Implement `FileOps`, `DiskFileOps`, `PlanWriter`, `Raiser` and `RaiseResult`": [
+      {
+        "executionId": "893537af-05da-4e23-a6f5-7ada59ec0eb6",
+        "chatSessionId": "sess_784d6699-6046-47bf-9fc8-5232e4ff6497",
+        "timestamp": 1794900317335
+      },
+      {
+        "executionId": "893537af-05da-4e23-a6f5-7ada59ec0eb6",
+        "chatSessionId": "sess_784d6699-6046-47bf-9fc8-5232e4ff6497",
+        "timestamp": 1794900434992
+      }
+    ],
+    "6. Implement the planner (pure)": [
+      {
+        "executionId": "893537af-05da-4e23-a6f5-7ada59ec0eb6",
+        "chatSessionId": "sess_784d6699-6046-47bf-9fc8-5232e4ff6497",
+        "timestamp": 1794900317761
+      }
+    ],
+    "7.2 Write property test for rollback": [
+      {
+        "executionId": "893537af-05da-4e23-a6f5-7ada59ec0eb6",
+        "chatSessionId": "sess_784d6699-6046-47bf-9fc8-5232e4ff6497",
+        "timestamp": 1794900434267
+      },
+      {
+        "executionId": "cadd526e-4b29-4335-bf93-daaf7e5959dd",
+        "chatSessionId": "sess_784d6699-6046-47bf-9fc8-5232e4ff6497",
+        "timestamp": 1794900645487
+      },
+      {
+        "executionId": "cadd526e-4b29-4335-bf93-daaf7e5959dd",
+        "chatSessionId": "sess_784d6699-6046-47bf-9fc8-5232e4ff6497",
+        "timestamp": 1794900648469
+      },
+      {
+        "executionId": "cadd526e-4b29-4335-bf93-daaf7e5959dd",
+        "chatSessionId": "sess_784d6699-6046-47bf-9fc8-5232e4ff6497",
+        "timestamp": 1794900683159
+      }
+    ],
+    "7.3 Write property test for pubspec refusals and written paths": [
+      {
+        "executionId": "cadd526e-4b29-4335-bf93-daaf7e5959dd",
+        "chatSessionId": "sess_784d6699-6046-47bf-9fc8-5232e4ff6497",
+        "timestamp": 1794900682785
+      },
+      {
+        "executionId": "cadd526e-4b29-4335-bf93-daaf7e5959dd",
+        "chatSessionId": "sess_784d6699-6046-47bf-9fc8-5232e4ff6497",
+        "timestamp": 1794900776079
+      }
+    ],
+    "7.4 Write unit tests for the Raiser": [
+      {
+        "executionId": "cadd526e-4b29-4335-bf93-daaf7e5959dd",
+        "chatSessionId": "sess_784d6699-6046-47bf-9fc8-5232e4ff6497",
+        "timestamp": 1794900776614
+      },
+      {
+        "executionId": "cadd526e-4b29-4335-bf93-daaf7e5959dd",
+        "chatSessionId": "sess_784d6699-6046-47bf-9fc8-5232e4ff6497",
+        "timestamp": 1794900853715
+      }
+    ],
+    "8.1 Implement `ExitCodes`, `RaiseMessages` and `RaiseCli`": [
+      {
+        "executionId": "cadd526e-4b29-4335-bf93-daaf7e5959dd",
+        "chatSessionId": "sess_784d6699-6046-47bf-9fc8-5232e4ff6497",
+        "timestamp": 1794900853120
+      },
+      {
+        "executionId": "cadd526e-4b29-4335-bf93-daaf7e5959dd",
+        "chatSessionId": "sess_784d6699-6046-47bf-9fc8-5232e4ff6497",
+        "timestamp": 1794900910335
+      }
+    ],
+    "7. Implement the disk layer": [
+      {
+        "executionId": "cadd526e-4b29-4335-bf93-daaf7e5959dd",
+        "chatSessionId": "sess_784d6699-6046-47bf-9fc8-5232e4ff6497",
+        "timestamp": 1794900853735
+      }
+    ],
+    "8.2 Write property test for the success message": [
+      {
+        "executionId": "cadd526e-4b29-4335-bf93-daaf7e5959dd",
+        "chatSessionId": "sess_784d6699-6046-47bf-9fc8-5232e4ff6497",
+        "timestamp": 1794900910361
+      },
+      {
+        "executionId": "cadd526e-4b29-4335-bf93-daaf7e5959dd",
+        "chatSessionId": "sess_784d6699-6046-47bf-9fc8-5232e4ff6497",
+        "timestamp": 1794900962381
+      }
+    ],
+    "8.3 Write unit tests for the CLI": [
+      {
+        "executionId": "cadd526e-4b29-4335-bf93-daaf7e5959dd",
+        "chatSessionId": "sess_784d6699-6046-47bf-9fc8-5232e4ff6497",
+        "timestamp": 1794900961946
+      },
+      {
+        "executionId": "cadd526e-4b29-4335-bf93-daaf7e5959dd",
+        "chatSessionId": "sess_784d6699-6046-47bf-9fc8-5232e4ff6497",
+        "timestamp": 1794901024811
+      }
+    ],
+    "8. Implement the CLI": [
+      {
+        "executionId": "cadd526e-4b29-4335-bf93-daaf7e5959dd",
+        "chatSessionId": "sess_784d6699-6046-47bf-9fc8-5232e4ff6497",
+        "timestamp": 1794901024836
+      }
+    ],
+    "9.1 Create the barrel and the real entry point": [
+      {
+        "executionId": "cadd526e-4b29-4335-bf93-daaf7e5959dd",
+        "chatSessionId": "sess_784d6699-6046-47bf-9fc8-5232e4ff6497",
+        "timestamp": 1794901025336
+      },
+      {
+        "executionId": "cadd526e-4b29-4335-bf93-daaf7e5959dd",
+        "chatSessionId": "sess_784d6699-6046-47bf-9fc8-5232e4ff6497",
+        "timestamp": 1794901083454
+      }
+    ],
+    "9.2 Write the repo guard test": [
+      {
+        "executionId": "cadd526e-4b29-4335-bf93-daaf7e5959dd",
+        "chatSessionId": "sess_784d6699-6046-47bf-9fc8-5232e4ff6497",
+        "timestamp": 1794901083923
+      },
+      {
+        "executionId": "cadd526e-4b29-4335-bf93-daaf7e5959dd",
+        "chatSessionId": "sess_784d6699-6046-47bf-9fc8-5232e4ff6497",
+        "timestamp": 1794901154626
+      }
+    ],
+    "9.3 Write the source scan test": [
+      {
+        "executionId": "cadd526e-4b29-4335-bf93-daaf7e5959dd",
+        "chatSessionId": "sess_784d6699-6046-47bf-9fc8-5232e4ff6497",
+        "timestamp": 1794901154963
+      },
+      {
+        "executionId": "cadd526e-4b29-4335-bf93-daaf7e5959dd",
+        "chatSessionId": "sess_784d6699-6046-47bf-9fc8-5232e4ff6497",
+        "timestamp": 1794901202981
+      }
+    ],
+    "9. Wire everything together": [
+      {
+        "executionId": "cadd526e-4b29-4335-bf93-daaf7e5959dd",
+        "chatSessionId": "sess_784d6699-6046-47bf-9fc8-5232e4ff6497",
+        "timestamp": 1794901203031
+      }
+    ],
+    "10. Checkpoint - Ensure all tests pass": [
+      {
+        "executionId": "cadd526e-4b29-4335-bf93-daaf7e5959dd",
+        "chatSessionId": "sess_784d6699-6046-47bf-9fc8-5232e4ff6497",
+        "timestamp": 1794901203055
+      },
+      {
+        "executionId": "cadd526e-4b29-4335-bf93-daaf7e5959dd",
+        "chatSessionId": "sess_784d6699-6046-47bf-9fc8-5232e4ff6497",
+        "timestamp": 1794901527538
       }
     ]
   }

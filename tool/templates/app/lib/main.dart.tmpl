@@ -1,0 +1,37 @@
+import 'package:coffin_core/coffin_core.dart';
+import 'package:flutter/material.dart';
+
+import 'src/ui/app_routes.dart';
+
+void main() {
+  runApp(const {{class_name}}App());
+}
+
+/// Root widget of the {{display_name}} app.
+class {{class_name}}App extends StatefulWidget {
+  /// Creates the app root.
+  const {{class_name}}App({super.key});
+
+  @override
+  State<{{class_name}}App> createState() => _{{class_name}}AppState();
+}
+
+class _{{class_name}}AppState extends State<{{class_name}}App> {
+  // Built once so rebuilds and hot reloads do not reset navigation.
+  late final GoRouter _router = FogRouter.create(routes: appRoutes);
+
+  @override
+  void dispose() {
+    _router.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp.router(
+      title: '{{display_name}}',
+      theme: CoffinTheme.dark(),
+      routerConfig: _router,
+    );
+  }
+}
