@@ -25,3 +25,20 @@ Third-party assets bundled with Coffin. Every asset here has a license that allo
   - Medium: https://raw.githubusercontent.com/Outfitio/Outfit-Fonts/main/fonts/ttf/Outfit-Medium.ttf
   - SemiBold: https://raw.githubusercontent.com/Outfitio/Outfit-Fonts/main/fonts/ttf/Outfit-SemiBold.ttf
   - License: https://raw.githubusercontent.com/google/fonts/main/ofl/outfit/OFL.txt
+
+## Icons
+
+### Flutter default web icons and favicon
+
+- **Author:** The Flutter Authors
+- **Used for:** web icons and favicon in the app template
+- **License:** BSD 3-Clause
+- **Files:**
+  - tool/templates/app/web/favicon.png
+  - tool/templates/app/web/icons/Icon-192.png
+  - tool/templates/app/web/icons/Icon-512.png
+  - tool/templates/app/web/icons/Icon-maskable-192.png
+  - tool/templates/app/web/icons/Icon-maskable-512.png
+- **Note:** same files as in apps/hauntagotchi/web
+- **Source files:**
+  - License: https://raw.githubusercontent.com/flutter/flutter/master/LICENSE

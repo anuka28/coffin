@@ -198,8 +198,8 @@ Build the `coffin_raise` workspace package in `tool/` (Dart), bottom-up: pure ru
 - [x] 10. Checkpoint - Ensure all tests pass
   - Run `dart format tool` and `flutter analyze` (zero warnings) and `flutter test` in `tool/`. Ensure all tests pass, ask the user if questions arise.
 
-- [ ] 11. Add the raise-check integration test
-  - [ ] 11.1 Write the `raise-check` tagged test
+- [x] 11. Add the raise-check integration test
+  - [x] 11.1 Write the `raise-check` tagged test
     - File: `tool/test/raise_check/raise_check_test.dart`, one test tagged `raise-check`
     - Copy `analysis_options.yaml`, `pubspec.lock` and a trimmed `packages/coffin_core` (`pubspec.yaml`, `analysis_options.yaml`, `lib/`, `assets/`) into a temp dir; write a root `pubspec.yaml` whose workspace list contains only existing folders (no `tool`, no `apps/hauntagotchi`, no `apps/graveyard`)
     - Raise `raise_check_app` with the real `tool/templates/app`, then run `flutter pub get --offline`, `dart format --output=none --set-exit-if-changed .`, `flutter analyze --no-pub` (assert `No issues found!`) and `flutter test --no-pub`, each exiting 0; print stdout and stderr of a failing command
@@ -207,18 +207,18 @@ Build the `coffin_raise` workspace package in `tool/` (Dart), bottom-up: pure ru
     - Confirm a plain `flutter test` in `tool/` skips it
     - _Requirements: 1.5, 1.6, 4.10, 4.11, 9.1, 9.2, 9.3, 9.4, 9.5, 9.6, 9.7, 9.8_
 
-- [ ] 12. Update docs and credits
-  - [ ] 12.1 Add the README section and layout entries
+- [x] 12. Update docs and credits
+  - [x] 12.1 Add the README section and layout entries
     - Add one short section on raising an app: the command with an example name, one sentence on what it creates, one sentence on name rules, how to run the new app (with `flutter pub get` first), and one sentence that the developer must open `apps/<app_name>` in Kiro to load its steering because opening the repo root loads the root `.kiro/` instead
     - Keep it under 15 lines excluding code blocks; add `tool/` and `tool/templates/app/` to the repo layout listing; change no other section
     - _Requirements: 10.1, 10.2, 10.3_
 
-  - [ ] 12.2 Update `CREDITS.md`
+  - [x] 12.2 Update `CREDITS.md`
     - Add one entry for the web icons and favicon in the Template_Folder (Flutter default icons, BSD-3 license, same files as in Hauntagotchi)
     - _Requirements: 4.12, 10.4_
 
 
-- [ ] 13. Final checkpoint - Ensure all tests pass
+- [x] 13. Final checkpoint - Ensure all tests pass
   - Run `dart format --set-exit-if-changed tool` and `flutter analyze` at the repo root (zero warnings)
   - Run `flutter test` in `tool/` and confirm it passes
   - Run `flutter test --tags raise-check --run-skipped` in `tool/` and confirm it passes

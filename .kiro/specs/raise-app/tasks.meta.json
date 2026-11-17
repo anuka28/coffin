@@ -454,6 +454,68 @@
         "chatSessionId": "sess_784d6699-6046-47bf-9fc8-5232e4ff6497",
         "timestamp": 1794901527538
       }
+    ],
+    "11.1 Write the `raise-check` tagged test": [
+      {
+        "executionId": "e869c11f-b8e5-41f6-8707-74c80d6cba86",
+        "chatSessionId": "sess_784d6699-6046-47bf-9fc8-5232e4ff6497",
+        "timestamp": 1794901689948
+      },
+      {
+        "executionId": "e869c11f-b8e5-41f6-8707-74c80d6cba86",
+        "chatSessionId": "sess_784d6699-6046-47bf-9fc8-5232e4ff6497",
+        "timestamp": 1794901789832
+      }
+    ],
+    "11. Add the raise-check integration test": [
+      {
+        "executionId": "e869c11f-b8e5-41f6-8707-74c80d6cba86",
+        "chatSessionId": "sess_784d6699-6046-47bf-9fc8-5232e4ff6497",
+        "timestamp": 1794901789853
+      }
+    ],
+    "12.1 Add the README section and layout entries": [
+      {
+        "executionId": "e869c11f-b8e5-41f6-8707-74c80d6cba86",
+        "chatSessionId": "sess_784d6699-6046-47bf-9fc8-5232e4ff6497",
+        "timestamp": 1794901789885
+      },
+      {
+        "executionId": "e869c11f-b8e5-41f6-8707-74c80d6cba86",
+        "chatSessionId": "sess_784d6699-6046-47bf-9fc8-5232e4ff6497",
+        "timestamp": 1794901827785
+      }
+    ],
+    "12.2 Update `CREDITS.md`": [
+      {
+        "executionId": "e869c11f-b8e5-41f6-8707-74c80d6cba86",
+        "chatSessionId": "sess_784d6699-6046-47bf-9fc8-5232e4ff6497",
+        "timestamp": 1794901828520
+      },
+      {
+        "executionId": "e869c11f-b8e5-41f6-8707-74c80d6cba86",
+        "chatSessionId": "sess_784d6699-6046-47bf-9fc8-5232e4ff6497",
+        "timestamp": 1794901860477
+      }
+    ],
+    "12. Update docs and credits": [
+      {
+        "executionId": "e869c11f-b8e5-41f6-8707-74c80d6cba86",
+        "chatSessionId": "sess_784d6699-6046-47bf-9fc8-5232e4ff6497",
+        "timestamp": 1794901860497
+      }
+    ],
+    "13. Final checkpoint - Ensure all tests pass": [
+      {
+        "executionId": "e869c11f-b8e5-41f6-8707-74c80d6cba86",
+        "chatSessionId": "sess_784d6699-6046-47bf-9fc8-5232e4ff6497",
+        "timestamp": 1794901864270
+      },
+      {
+        "executionId": "e869c11f-b8e5-41f6-8707-74c80d6cba86",
+        "chatSessionId": "sess_784d6699-6046-47bf-9fc8-5232e4ff6497",
+        "timestamp": 1794901949507
+      }
     ]
   }
 }

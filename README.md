@@ -32,6 +32,8 @@ coffin/
 ├── apps/
 │   ├── hauntagotchi/
 │   └── graveyard/
+├── tool/                   # raise.dart, the app generator
+│   └── templates/app/      # files copied into each raised app
 ├── CREDITS.md
 ├── DIARY.md
 └── pubspec.yaml            # Dart pub workspace root
@@ -45,6 +47,23 @@ flutter pub get            # from the repo root, resolves the whole workspace
 (cd apps/hauntagotchi && flutter run -d chrome)
 (cd apps/graveyard && flutter run -d chrome)
 ```
+
+## Raise a new app
+
+```sh
+dart run tool/raise.dart bone_shop
+```
+
+This creates `apps/bone_shop` as a new workspace member built on `coffin_core`, with its own `.kiro/` steering. The name must be a valid Dart package name (lowercase letters, digits and single underscores, starting with a letter, at most 64 characters) and must not be a reserved word or an existing package.
+
+To run it, resolve the workspace first, then start the app:
+
+```sh
+flutter pub get
+(cd apps/bone_shop && flutter run -d chrome)
+```
+
+Open `apps/bone_shop` (your `apps/<app_name>`) in Kiro to load its steering, because opening the repo root loads the root `.kiro/` instead.
 
 ## Run the tests
 
