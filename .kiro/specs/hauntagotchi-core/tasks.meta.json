@@ -35,6 +35,22 @@
     "5.14 Write property test for calendar arithmetic across daylight saving": {
       "status": "passed",
       "lastRunTimestamp": 1794967582747
+    },
+    "7.4 Write property test for Health range": {
+      "status": "passed",
+      "lastRunTimestamp": 1794968157066
+    },
+    "7.6 Write property test for a dead ghost": {
+      "status": "passed",
+      "lastRunTimestamp": 1794968349168
+    },
+    "7.7 Write property test for the ritual": {
+      "status": "passed",
+      "lastRunTimestamp": 1794968461101
+    },
+    "7.9 Write property test for steady effort": {
+      "status": "passed",
+      "lastRunTimestamp": 1794968658050
     }
   },
   "executionHistory": {
@@ -425,6 +441,145 @@
         "executionId": "bb24892c-877b-413f-8b88-410e3d2517ba",
         "chatSessionId": "sess_dadd1317-67bb-47f5-a1f7-5f9e3ac90b18",
         "timestamp": 1794967591727
+      }
+    ],
+    "6. Checkpoint - Domain building blocks": [
+      {
+        "executionId": "d09e1c64-9af6-4fad-be0f-82a0e0bcfc0a",
+        "chatSessionId": "sess_009b990d-5ec3-4772-8d84-c0558491c5af",
+        "timestamp": 1794967818818
+      },
+      {
+        "executionId": "d09e1c64-9af6-4fad-be0f-82a0e0bcfc0a",
+        "chatSessionId": "sess_009b990d-5ec3-4772-8d84-c0558491c5af",
+        "timestamp": 1794967838755
+      }
+    ],
+    "7.1 Implement `Haunting` and its results": [
+      {
+        "executionId": "7b2b6fb7-b014-4ce5-a34a-0b4352a0ace9",
+        "chatSessionId": "sess_fc6bc979-cad2-4c17-a0ac-707ff9b8e255",
+        "timestamp": 1794967853219
+      },
+      {
+        "executionId": "7b2b6fb7-b014-4ce5-a34a-0b4352a0ace9",
+        "chatSessionId": "sess_fc6bc979-cad2-4c17-a0ac-707ff9b8e255",
+        "timestamp": 1794967915586
+      }
+    ],
+    "7.2 Extend the test generators with operations and day plans": [
+      {
+        "executionId": "9e05ceba-aa20-47a0-b073-35f610ef1919",
+        "chatSessionId": "sess_1fe15704-4829-41ca-b299-1408a24a59dc",
+        "timestamp": 1794967940974
+      },
+      {
+        "executionId": "9e05ceba-aa20-47a0-b073-35f610ef1919",
+        "chatSessionId": "sess_1fe15704-4829-41ca-b299-1408a24a59dc",
+        "timestamp": 1794968014602
+      }
+    ],
+    "7.3 Write property test for time of day": [
+      {
+        "executionId": "ef417c19-9c4a-4bb9-b590-21ab377f9103",
+        "chatSessionId": "sess_2ad8e92b-f581-463e-960d-76c2b26d4b9e",
+        "timestamp": 1794968049338
+      },
+      {
+        "executionId": "ef417c19-9c4a-4bb9-b590-21ab377f9103",
+        "chatSessionId": "sess_2ad8e92b-f581-463e-960d-76c2b26d4b9e",
+        "timestamp": 1794968098272
+      }
+    ],
+    "7.4 Write property test for Health range": [
+      {
+        "executionId": "81a9650e-39b2-48f6-bf53-ddf74720c893",
+        "chatSessionId": "sess_9658db71-eda5-4c7d-a75e-01b8ebb4eafb",
+        "timestamp": 1794968120805
+      },
+      {
+        "executionId": "81a9650e-39b2-48f6-bf53-ddf74720c893",
+        "chatSessionId": "sess_9658db71-eda5-4c7d-a75e-01b8ebb4eafb",
+        "timestamp": 1794968168467
+      }
+    ],
+    "7.5 Write property test for complete then undo": [
+      {
+        "executionId": "5dd318de-eda9-4426-b1b6-ce50bb88a839",
+        "chatSessionId": "sess_c2b33ae3-a97f-4fd9-9705-178dd80a5b72",
+        "timestamp": 1794968188217
+      },
+      {
+        "executionId": "5dd318de-eda9-4426-b1b6-ce50bb88a839",
+        "chatSessionId": "sess_c2b33ae3-a97f-4fd9-9705-178dd80a5b72",
+        "timestamp": 1794968255074
+      }
+    ],
+    "7.6 Write property test for a dead ghost": [
+      {
+        "executionId": "8ef9b5d0-b545-48ac-8f3a-27c5c9be590c",
+        "chatSessionId": "sess_984c41a0-d9e6-4866-98d7-9d3d7d297680",
+        "timestamp": 1794968282586
+      },
+      {
+        "executionId": "8ef9b5d0-b545-48ac-8f3a-27c5c9be590c",
+        "chatSessionId": "sess_984c41a0-d9e6-4866-98d7-9d3d7d297680",
+        "timestamp": 1794968363635
+      }
+    ],
+    "7.7 Write property test for the ritual": [
+      {
+        "executionId": "64a8514c-4e8f-4579-9033-0f6778ee5e40",
+        "chatSessionId": "sess_83313fbb-bedc-45f8-85a8-2ee97d051f39",
+        "timestamp": 1794968389387
+      },
+      {
+        "executionId": "64a8514c-4e8f-4579-9033-0f6778ee5e40",
+        "chatSessionId": "sess_83313fbb-bedc-45f8-85a8-2ee97d051f39",
+        "timestamp": 1794968475398
+      }
+    ],
+    "7.8 Write property test for Live Health": [
+      {
+        "executionId": "76be0dff-231b-410b-8a8d-74f15dd7a927",
+        "chatSessionId": "sess_ca62ba1a-1e4c-4f10-bb68-cc129ee5848c",
+        "timestamp": 1794968492843
+      },
+      {
+        "executionId": "76be0dff-231b-410b-8a8d-74f15dd7a927",
+        "chatSessionId": "sess_ca62ba1a-1e4c-4f10-bb68-cc129ee5848c",
+        "timestamp": 1794968574121
+      }
+    ],
+    "7.9 Write property test for steady effort": [
+      {
+        "executionId": "4d62c522-40b1-4414-9ea5-9decec4e8bad",
+        "chatSessionId": "sess_3a7e896a-9442-46a7-a445-2fceabd2ef87",
+        "timestamp": 1794968615185
+      },
+      {
+        "executionId": "4d62c522-40b1-4414-9ea5-9decec4e8bad",
+        "chatSessionId": "sess_3a7e896a-9442-46a7-a445-2fceabd2ef87",
+        "timestamp": 1794968670429
+      }
+    ],
+    "7.10 Write unit tests for `Haunting` and the worked 14-day examples": [
+      {
+        "executionId": "633ffed2-46c3-4492-b8b4-75ff3a624a88",
+        "chatSessionId": "sess_04a3a318-ebf1-4479-9021-f6d11ea170a4",
+        "timestamp": 1794968695384
+      },
+      {
+        "executionId": "633ffed2-46c3-4492-b8b4-75ff3a624a88",
+        "chatSessionId": "sess_04a3a318-ebf1-4479-9021-f6d11ea170a4",
+        "timestamp": 1794968997205
+      }
+    ],
+    "7. The `Haunting` aggregate": [
+      {
+        "executionId": "633ffed2-46c3-4492-b8b4-75ff3a624a88",
+        "chatSessionId": "sess_04a3a318-ebf1-4479-9021-f6d11ea170a4",
+        "timestamp": 1794968997239
       }
     ]
   }

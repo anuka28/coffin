@@ -5,8 +5,16 @@ import 'package:glados/glados.dart' hide expect, group, test;
 import 'package:hauntagotchi/src/domain/ghost.dart';
 import 'package:hauntagotchi/src/domain/habit.dart';
 import 'package:hauntagotchi/src/domain/habit_book.dart';
+import 'package:hauntagotchi/src/domain/haunt_result.dart';
+import 'package:hauntagotchi/src/domain/haunting.dart';
 import 'package:hauntagotchi/src/domain/local_day.dart';
 import 'package:hauntagotchi/src/domain/name_rules.dart';
+
+import 'day_plan.dart';
+import 'operation.dart';
+
+export 'day_plan.dart';
+export 'operation.dart';
 
 // Pure support code: no dart:io. It also runs in Chrome. Every generated
 // integer stays far below 2^53.
@@ -284,4 +292,110 @@ Habit _randomHabit(math.Random random, String id, LocalDay today) {
     completedDays: done,
     archivedDay: archived,
   );
+}
+
+/// Generates an [Operation]: add, rename, archive, complete, undo or advance.
+///
+/// Complete and undo are the most common. Advances are 0 to 30 days, and
+/// about one in ten is a long jump of up to 10,000 days. Shrinks towards
+/// `AdvanceDaysOp(0)`.
+Generator<Operation> get anyOperation => any.simple<Operation>(
+  generate: (math.Random random, int size) {
+    final int index = random.nextInt(8);
+    switch (random.nextInt(10)) {
+      case 0:
+        return AddHabitOp(_randomName(random));
+      case 1:
+        return RenameHabitOp(index, _randomName(random));
+      case 2:
+        return ArchiveHabitOp(index);
+      case 3:
+      case 4:
+      case 5:
+        return CompleteOp(index);
+      case 6:
+      case 7:
+        return UndoOp(index);
+      default:
+        return AdvanceDaysOp(
+          random.nextInt(10) == 0 ? random.nextInt(10001) : random.nextInt(31),
+        );
+    }
+  },
+  shrink: (Operation op) sync* {
+    if (op is AdvanceDaysOp) {
+      if (op.days > 0) yield AdvanceDaysOp(op.days ~/ 2);
+    } else {
+      yield const AdvanceDaysOp(0);
+    }
+  },
+);
+
+String _randomName(math.Random random) {
+  final int roll = random.nextInt(10);
+  if (roll < 7) return _word(random, 1 + random.nextInt(NameRules.maxLength));
+  if (roll < 9) return _word(random, NameRules.maxLength + 1);
+  return '  ';
+}
+
+/// Applies [op] to [haunting] and returns the next [Haunting].
+///
+/// A rejected action returns [haunting] unchanged. A habit operation picks
+/// its habit by `index` into `book.all` (wrapping), or an unknown id when the
+/// book is empty. [AdvanceDaysOp] moves today with `addDays` and then calls
+/// `syncTo`.
+Haunting applyOp(Haunting haunting, Operation op) {
+  String idFor(HabitOp o) {
+    final List<Habit> all = haunting.book.all.toList();
+    return all.isEmpty ? 'h0' : all[o.index % all.length].id;
+  }
+
+  final HauntResult result;
+  switch (op) {
+    case AdvanceDaysOp(:final days):
+      return haunting.syncTo(haunting.today.addDays(days));
+    case AddHabitOp(:final name):
+      result = haunting.addHabit(name);
+    case RenameHabitOp(:final name):
+      result = haunting.renameHabit(idFor(op), name);
+    case ArchiveHabitOp():
+      result = haunting.archiveHabit(idFor(op));
+    case CompleteOp():
+      result = haunting.complete(idFor(op));
+    case UndoOp():
+      result = haunting.undo(idFor(op));
+  }
+  return switch (result) {
+    HauntChanged(:final next) => next,
+    HauntRejected() => haunting,
+  };
+}
+
+/// Generates a [DayPlan] with 1 to 5 active habits and 0 to all of them
+/// completed. Shrinks towards `DayPlan(1, 0)`.
+Generator<DayPlan> get anyDayPlan => any.simple<DayPlan>(
+  generate: (math.Random random, int size) {
+    final int n = 1 + random.nextInt(5);
+    return DayPlan(n, random.nextInt(n + 1));
+  },
+  shrink: (DayPlan p) sync* {
+    if (p.c > 0) yield DayPlan(p.n, p.c - 1);
+    if (p.n > 1) yield DayPlan(p.n - 1, p.c > p.n - 1 ? p.n - 1 : p.c);
+  },
+);
+
+/// Turns [plans] into steady effort: in every 7-day window (and every
+/// shorter prefix) at least 5 days qualify, which is at most 2 bad days.
+///
+/// Walks the list in order. A bad day that would be the third bad day in the
+/// 7 days ending on it is raised to all habits done. Other days stay as they
+/// are. The result has the same length.
+List<DayPlan> normalizeSteady(List<DayPlan> plans) {
+  final List<DayPlan> out = <DayPlan>[];
+  for (final DayPlan plan in plans) {
+    final int start = out.length < 6 ? 0 : out.length - 6;
+    final int badBefore = out.skip(start).where((p) => !p.qualifies).length;
+    out.add(!plan.qualifies && badBefore >= 2 ? DayPlan(plan.n, plan.n) : plan);
+  }
+  return out;
 }

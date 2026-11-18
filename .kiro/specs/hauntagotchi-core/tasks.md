@@ -161,54 +161,54 @@ Rules for every task:
     - **Validates: Requirements 2.3, 2.4, 14.5**
     - Create `test/domain/calendar_arithmetic_property_test.dart`; `n` from 0 to 800, including the four daylight saving dates; a catch-up over the span settles each day once.
 
-- [ ] 6. Checkpoint - Domain building blocks
+- [x] 6. Checkpoint - Domain building blocks
   - Ensure all tests pass, ask the user if questions arise.
 
-- [ ] 7. The `Haunting` aggregate
-  - [ ] 7.1 Implement `Haunting` and its results
+- [x] 7. The `Haunting` aggregate
+  - [x] 7.1 Implement `Haunting` and its results
     - Create `haunting.dart`, `haunt_result.dart` (sealed), `haunt_changed.dart` (`next`, `resurrected`), `haunt_rejected.dart`. Include `open` (fresh ghost when none, then `syncTo`), `syncTo`, `liveHealth`, `history` (idle days capped at 7), `state`, `streak`, `ritual`, and `addHabit`, `renameHabit`, `archiveHabit`, `complete`, `undo`, each running the ritual check afterwards.
     - _Requirements: 3.8, 4.1, 4.2, 5.1, 5.2, 6.2, 6.4, 6.5, 6.6, 6.8_
 
-  - [ ] 7.2 Extend the test generators with operations and day plans
+  - [x] 7.2 Extend the test generators with operations and day plans
     - Add the sealed `Operation` set, a pure `applyOp(Haunting, Operation)` helper, `anyDayPlan` (`n` 1 to 5, `c` 0 to `n`) and `normalizeSteady` to `test/domain/support/haunt_generators.dart`.
     - _Requirements: 14.8_
 
-  - [ ] 7.3 Write property test for time of day
+  - [x] 7.3 Write property test for time of day
     - **Property 3: Time of day does not matter**
     - **Validates: Requirements 2.2, 2.5, 14.4**
     - Create `test/domain/time_of_day_property_test.dart`.
 
-  - [ ] 7.4 Write property test for Health range
+  - [x] 7.4 Write property test for Health range
     - **Property 4: Health stays in range**
     - **Validates: Requirements 3.2, 4.7, 14.2**
     - Create `test/domain/health_range_property_test.dart`, with jumps of up to 10,000 days.
 
-  - [ ] 7.5 Write property test for complete then undo
+  - [x] 7.5 Write property test for complete then undo
     - **Property 11: Complete then undo restores the day**
     - **Validates: Requirements 1.7, 1.9, 1.12, 5.2, 7.6**
     - Create `test/domain/complete_undo_property_test.dart`.
 
-  - [ ] 7.6 Write property test for a dead ghost
+  - [x] 7.6 Write property test for a dead ghost
     - **Property 15: A dead ghost stays dead until the ritual**
     - **Validates: Requirements 6.1, 6.2, 14.6**
     - Create `test/domain/dead_ghost_property_test.dart`.
 
-  - [ ] 7.7 Write property test for the ritual
+  - [x] 7.7 Write property test for the ritual
     - **Property 16: The ritual brings the ghost back once**
     - **Validates: Requirements 6.4, 6.5, 6.6, 6.8**
     - Create `test/domain/ritual_property_test.dart`, including the archive-fulfils-ritual case.
 
-  - [ ] 7.8 Write property test for Live Health
+  - [x] 7.8 Write property test for Live Health
     - **Property 23: Live Health is what the next day settles**
     - **Validates: Requirements 4.2, 5.1, 5.2**
     - Create `test/domain/live_health_property_test.dart`.
 
-  - [ ] 7.9 Write property test for steady effort
+  - [x] 7.9 Write property test for steady effort
     - **Property 14: Steady effort keeps the ghost out of danger**
     - **Validates: Requirements 5.4**
     - Create `test/domain/steady_effort_property_test.dart` using `normalizeSteady`.
 
-  - [ ] 7.10 Write unit tests for `Haunting` and the worked 14-day examples
+  - [x] 7.10 Write unit tests for `Haunting` and the worked 14-day examples
     - Create `test/domain/haunting_test.dart` (open with and without a ghost, `syncTo`, `liveHealth`, state with idle caps, archive after a tick, add lowers today's feed) and add the tracks A and B of the design's 14-day example to `test/domain/balance_test.dart`, reproducing the Health values exactly.
     - _Requirements: 3.8, 5.4, 5.5, 5.6, 5.7, 5.8, 6.4_
 
