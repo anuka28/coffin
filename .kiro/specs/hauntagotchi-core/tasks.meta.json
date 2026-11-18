@@ -15,6 +15,26 @@
     "4.3 Write property test for dead if and only if Health is zero": {
       "status": "passed",
       "lastRunTimestamp": 1794924865730
+    },
+    "5.7 Write property test for catch-up equivalence": {
+      "status": "passed",
+      "lastRunTimestamp": 1794925572919
+    },
+    "5.9 Write property test for settled days": {
+      "status": "passed",
+      "lastRunTimestamp": 1794925748458
+    },
+    "5.10 Write property test for feeding and neglect": {
+      "status": "passed",
+      "lastRunTimestamp": 1794925956249
+    },
+    "5.11 Write property test for a neglect run": {
+      "status": "passed",
+      "lastRunTimestamp": 1794927640571
+    },
+    "5.14 Write property test for calendar arithmetic across daylight saving": {
+      "status": "passed",
+      "lastRunTimestamp": 1794967582747
     }
   },
   "executionHistory": {
@@ -117,6 +137,16 @@
         "executionId": "3762758c-eadd-43a9-ad43-c80665fbd84b",
         "chatSessionId": "sess_d5ce23f8-2822-4ea1-836b-50fb67046ad0",
         "timestamp": 1794924292699
+      },
+      {
+        "executionId": "3f05f795-5d76-494d-b9ad-4bff0d5cf2a9",
+        "chatSessionId": "sess_844d8ed1-d4c3-4176-a593-f2dc992d3faa",
+        "timestamp": 1794925046419
+      },
+      {
+        "executionId": "3f05f795-5d76-494d-b9ad-4bff0d5cf2a9",
+        "chatSessionId": "sess_844d8ed1-d4c3-4176-a593-f2dc992d3faa",
+        "timestamp": 1794925091673
       }
     ],
     "3.3 Write unit tests for `HabitBook`": [
@@ -208,6 +238,193 @@
         "executionId": "012bac42-c072-47c4-b3da-f2eeccb61e71",
         "chatSessionId": "sess_c67ee76f-ad2c-4ca6-8c20-8f136d5348bd",
         "timestamp": 1794924929857
+      }
+    ],
+    "3. Habits and the habit book": [
+      {
+        "executionId": "3f05f795-5d76-494d-b9ad-4bff0d5cf2a9",
+        "chatSessionId": "sess_844d8ed1-d4c3-4176-a593-f2dc992d3faa",
+        "timestamp": 1794925091713
+      }
+    ],
+    "5.1 Implement `CatchUp`": [
+      {
+        "executionId": "06a38d39-ae9f-48ee-b73b-adad7399eeb8",
+        "chatSessionId": "sess_a8ffe662-888f-46c1-8629-48e21cd7257d",
+        "timestamp": 1794925116448
+      },
+      {
+        "executionId": "06a38d39-ae9f-48ee-b73b-adad7399eeb8",
+        "chatSessionId": "sess_a8ffe662-888f-46c1-8629-48e21cd7257d",
+        "timestamp": 1794925167861
+      }
+    ],
+    "5.4 Write unit tests for `CatchUp`": [
+      {
+        "executionId": "06a38d39-ae9f-48ee-b73b-adad7399eeb8",
+        "chatSessionId": "sess_a8ffe662-888f-46c1-8629-48e21cd7257d",
+        "timestamp": 1794925173986
+      },
+      {
+        "executionId": "06a38d39-ae9f-48ee-b73b-adad7399eeb8",
+        "chatSessionId": "sess_a8ffe662-888f-46c1-8629-48e21cd7257d",
+        "timestamp": 1794925239709
+      }
+    ],
+    "5.2 Implement `Streak`": [
+      {
+        "executionId": "b258921f-7de3-4d44-ae14-34f367506eb2",
+        "chatSessionId": "sess_4516b0ed-4257-425b-bb06-4990f76fe7be",
+        "timestamp": 1794925247137
+      },
+      {
+        "executionId": "b258921f-7de3-4d44-ae14-34f367506eb2",
+        "chatSessionId": "sess_4516b0ed-4257-425b-bb06-4990f76fe7be",
+        "timestamp": 1794925277729
+      }
+    ],
+    "5.5 Write unit tests for `Streak`": [
+      {
+        "executionId": "b258921f-7de3-4d44-ae14-34f367506eb2",
+        "chatSessionId": "sess_4516b0ed-4257-425b-bb06-4990f76fe7be",
+        "timestamp": 1794925283514
+      },
+      {
+        "executionId": "b258921f-7de3-4d44-ae14-34f367506eb2",
+        "chatSessionId": "sess_4516b0ed-4257-425b-bb06-4990f76fe7be",
+        "timestamp": 1794925336965
+      }
+    ],
+    "5.3 Implement `ResurrectionRitual` and `RitualProgress`": [
+      {
+        "executionId": "0f55b8f3-42cd-45f1-a912-22528962c833",
+        "chatSessionId": "sess_3a2857ad-9f5b-4960-bb7c-7ae12b26a780",
+        "timestamp": 1794925358055
+      },
+      {
+        "executionId": "0f55b8f3-42cd-45f1-a912-22528962c833",
+        "chatSessionId": "sess_3a2857ad-9f5b-4960-bb7c-7ae12b26a780",
+        "timestamp": 1794925395957
+      }
+    ],
+    "5.6 Write unit tests for the ritual": [
+      {
+        "executionId": "0f55b8f3-42cd-45f1-a912-22528962c833",
+        "chatSessionId": "sess_3a2857ad-9f5b-4960-bb7c-7ae12b26a780",
+        "timestamp": 1794925408023
+      },
+      {
+        "executionId": "0f55b8f3-42cd-45f1-a912-22528962c833",
+        "chatSessionId": "sess_3a2857ad-9f5b-4960-bb7c-7ae12b26a780",
+        "timestamp": 1794925473978
+      }
+    ],
+    "5.7 Write property test for catch-up equivalence": [
+      {
+        "executionId": "adf2a6e1-2e75-45fa-9893-9ab73a3d790d",
+        "chatSessionId": "sess_369258e7-d453-408f-8130-ba899a3dcb56",
+        "timestamp": 1794925498825
+      },
+      {
+        "executionId": "adf2a6e1-2e75-45fa-9893-9ab73a3d790d",
+        "chatSessionId": "sess_369258e7-d453-408f-8130-ba899a3dcb56",
+        "timestamp": 1794925580780
+      }
+    ],
+    "5.8 Write property test for catch-up no-ops": [
+      {
+        "executionId": "d8f07f90-0571-47d2-a923-7ee4349d4d93",
+        "chatSessionId": "sess_0ee1da95-0ea6-4dd4-8bae-6ae41b0058a6",
+        "timestamp": 1794925614425
+      },
+      {
+        "executionId": "d8f07f90-0571-47d2-a923-7ee4349d4d93",
+        "chatSessionId": "sess_0ee1da95-0ea6-4dd4-8bae-6ae41b0058a6",
+        "timestamp": 1794925666892
+      }
+    ],
+    "5.9 Write property test for settled days": [
+      {
+        "executionId": "56c3526d-d5be-4dfd-a777-ab85dc28755c",
+        "chatSessionId": "sess_3a8c20fc-fc32-47aa-8d15-c045741f7154",
+        "timestamp": 1794925689432
+      },
+      {
+        "executionId": "56c3526d-d5be-4dfd-a777-ab85dc28755c",
+        "chatSessionId": "sess_3a8c20fc-fc32-47aa-8d15-c045741f7154",
+        "timestamp": 1794925757236
+      }
+    ],
+    "5.10 Write property test for feeding and neglect": [
+      {
+        "executionId": "d35a5050-d0c1-4269-b6e3-872ea045bbdd",
+        "chatSessionId": "sess_13d70c35-183d-4799-84b0-e8bc9409207e",
+        "timestamp": 1794925908327
+      },
+      {
+        "executionId": "d35a5050-d0c1-4269-b6e3-872ea045bbdd",
+        "chatSessionId": "sess_13d70c35-183d-4799-84b0-e8bc9409207e",
+        "timestamp": 1794925967742
+      }
+    ],
+    "5.11 Write property test for a neglect run": [
+      {
+        "executionId": "25ae614d-c245-46f9-88ea-f926feb9da43",
+        "chatSessionId": "sess_f38ed8b8-9656-43bc-83f0-665a882ccc80",
+        "timestamp": 1794927280951
+      },
+      {
+        "executionId": "25ae614d-c245-46f9-88ea-f926feb9da43",
+        "chatSessionId": "sess_f38ed8b8-9656-43bc-83f0-665a882ccc80",
+        "timestamp": 1794927648765
+      }
+    ],
+    "5.12 Write property test for a fully done day": [
+      {
+        "executionId": "d04c7eb5-9792-46e0-bd14-8ba23119db55",
+        "chatSessionId": "sess_164a85fa-8885-4576-967f-98ddd907a8ee",
+        "timestamp": 1794927680849
+      },
+      {
+        "executionId": "d04c7eb5-9792-46e0-bd14-8ba23119db55",
+        "chatSessionId": "sess_164a85fa-8885-4576-967f-98ddd907a8ee",
+        "timestamp": 1794927721198
+      }
+    ],
+    "5.13 Write property test for the streak": [
+      {
+        "executionId": "4637646f-a368-41b3-8972-acaf7329ca1a",
+        "chatSessionId": "sess_5b6e543d-cca4-43a0-a9c1-7640fbf2e5ff",
+        "timestamp": 1794927811563
+      },
+      {
+        "executionId": "4637646f-a368-41b3-8972-acaf7329ca1a",
+        "chatSessionId": "sess_5b6e543d-cca4-43a0-a9c1-7640fbf2e5ff",
+        "timestamp": 1794929769506
+      }
+    ],
+    "5.14 Write property test for calendar arithmetic across daylight saving": [
+      {
+        "executionId": "c543d7b8-3ed1-4ebe-9368-ed9ae3e5382e",
+        "chatSessionId": "sess_12a5242b-0cb0-415f-a418-49b3341b61e2",
+        "timestamp": 1794929797343
+      },
+      {
+        "executionId": "bb24892c-877b-413f-8b88-410e3d2517ba",
+        "chatSessionId": "sess_dadd1317-67bb-47f5-a1f7-5f9e3ac90b18",
+        "timestamp": 1794967399958
+      },
+      {
+        "executionId": "bb24892c-877b-413f-8b88-410e3d2517ba",
+        "chatSessionId": "sess_dadd1317-67bb-47f5-a1f7-5f9e3ac90b18",
+        "timestamp": 1794967591692
+      }
+    ],
+    "5. Catch-up, streak and the resurrection ritual": [
+      {
+        "executionId": "bb24892c-877b-413f-8b88-410e3d2517ba",
+        "chatSessionId": "sess_dadd1317-67bb-47f5-a1f7-5f9e3ac90b18",
+        "timestamp": 1794967591727
       }
     ]
   }

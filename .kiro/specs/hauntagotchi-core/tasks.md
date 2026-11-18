@@ -53,13 +53,13 @@ Rules for every task:
     - Create `fake_clock.dart` (`FakeClock` whose time the test sets) and `throwing_record_repository.dart` (`ThrowingRecordRepository` implementing `RecordRepository`, throwing on `put` or `getAll`/`get` on demand). Neither imports `dart:io`.
     - _Requirements: 2.7, 14.9, 14.10_
 
-- [ ] 3. Habits and the habit book
+- [x] 3. Habits and the habit book
   - [x] 3.1 Implement `Habit`, `HabitBook` and the result types
     - Create `habit.dart` (`isActive`, `isActiveOn`, `isCompletedOn`, equality, unmodifiable `completedDays`), `habit_rejection.dart` (enum), `habit_result.dart` (sealed), `habit_changed.dart`, `habit_rejected.dart`, `habit_book.dart` (`maxActive` 5, `suggestedMin` 3, `add` with ids `h1`, `h2`, ..., `rename`, `archive`, `complete`, `undo`, `activeCountOn`, `completedCountOn`, `anyCompletedOn`, `missingToSuggested`, `restore`).
     - Reject completion and undo for any day but Today, and reject rename, complete and undo for archived or unknown ids.
     - _Requirements: 1.1, 1.2, 1.3, 1.4, 1.5, 1.6, 1.7, 1.8, 1.9, 1.10, 1.11, 1.12, 1.13, 1.14, 4.9_
 
-  - [ ] 3.2 Extend the test generators with habits, books and ghosts
+  - [x] 3.2 Extend the test generators with habits, books and ghosts
     - Add `anyBook(today)` (0 to 6 habits, archive offsets, completion offsets, run through `HabitBook.restore`), `anyHabit` and `anyGhost` to `test/domain/support/haunt_generators.dart`.
     - _Requirements: 14.8_
 
@@ -96,67 +96,67 @@ Rules for every task:
     - **Validates: Requirements 3.6**
     - Create `test/domain/ghost_state_order_property_test.dart`.
 
-- [ ] 5. Catch-up, streak and the resurrection ritual
-  - [ ] 5.1 Implement `CatchUp`
+- [x] 5. Catch-up, streak and the resurrection ritual
+  - [x] 5.1 Implement `CatchUp`
     - Create `catch_up.dart` with `run(ghost, book, today)` and `settleDay(health, activeCount, completedCount)`: no-op when already current or the clock moved backward, dead ghosts only advance `lastSettledDay`, ordered day loop with early stop at Health 0, no active habit leaves Health unchanged.
     - _Requirements: 4.1, 4.2, 4.3, 4.4, 4.6, 4.7, 4.8, 4.9, 5.3, 6.1, 6.2_
 
-  - [ ] 5.2 Implement `Streak`
+  - [x] 5.2 Implement `Streak`
     - Create `streak.dart` with `Streak.compute(book, today)` over all habits including archived ones, anchored on Today or yesterday.
     - _Requirements: 7.1, 7.2, 7.3, 7.4, 7.5, 7.6_
 
-  - [ ] 5.3 Implement `ResurrectionRitual` and `RitualProgress`
+  - [x] 5.3 Implement `ResurrectionRitual` and `RitualProgress`
     - Create `ritual_progress.dart` and `resurrection_ritual.dart`: `progress` is null with no active habit, needs `min(2, activeCount)` completed active habits Today, and `apply` returns the revived ghost (Health 40, same name, `lastSettledDay` = yesterday, count + 1) or null.
     - _Requirements: 6.3, 6.4, 6.5, 6.6, 6.8_
 
-  - [ ] 5.4 Write unit tests for `CatchUp`
+  - [x] 5.4 Write unit tests for `CatchUp`
     - Create `test/domain/catch_up_test.dart`: fresh ghost, 5 days away equals 5 single days, 10,000 days, backward clock, no active habit, dead ghost.
     - _Requirements: 4.2, 4.3, 4.4, 4.6, 4.7, 4.8, 14.9_
 
-  - [ ] 5.5 Write unit tests for `Streak`
+  - [x] 5.5 Write unit tests for `Streak`
     - Create `test/domain/streak_test.dart`: archived habits, Today only, yesterday only, a gap, undo removing the day.
     - _Requirements: 7.1 to 7.6_
 
-  - [ ] 5.6 Write unit tests for the ritual
+  - [x] 5.6 Write unit tests for the ritual
     - Create `test/domain/resurrection_ritual_test.dart`: one habit needs one candle, two or more need two, progress values, no active habit, and an archive that fulfils the ritual (2 active habits, 1 ticked, archive the other).
     - _Requirements: 6.3, 6.4, 6.5, 6.7_
 
-  - [ ] 5.7 Write property test for catch-up equivalence
+  - [x] 5.7 Write property test for catch-up equivalence
     - **Property 7: One catch-up equals many single catch-ups**
     - **Validates: Requirements 4.2, 4.4, 14.3**
     - Create `test/domain/catch_up_equivalence_property_test.dart` with N from 0 to 60.
 
-  - [ ] 5.8 Write property test for catch-up no-ops
+  - [x] 5.8 Write property test for catch-up no-ops
     - **Property 8: Catch-up is a no-op when nothing is missed**
     - **Validates: Requirements 4.3, 4.6**
     - Create `test/domain/catch_up_noop_property_test.dart`.
 
-  - [ ] 5.9 Write property test for settled days
+  - [x] 5.9 Write property test for settled days
     - **Property 9: A settled day depends only on the habits active that day**
     - **Validates: Requirements 4.8, 4.9**
     - Create `test/domain/settled_day_property_test.dart`.
 
-  - [ ] 5.10 Write property test for feeding and neglect
+  - [x] 5.10 Write property test for feeding and neglect
     - **Property 10: Feeding raises Health and neglect lowers it**
     - **Validates: Requirements 5.1, 5.3**
     - Create `test/domain/feeding_property_test.dart`.
 
-  - [ ] 5.11 Write property test for a neglect run
+  - [x] 5.11 Write property test for a neglect run
     - **Property 12: A neglect run from full Health**
     - **Validates: Requirements 5.5**
     - Create `test/domain/neglect_run_property_test.dart`.
 
-  - [ ] 5.12 Write property test for a fully done day
+  - [x] 5.12 Write property test for a fully done day
     - **Property 13: A fully done day beats a neglect day**
     - **Validates: Requirements 5.6, 5.7**
     - Create `test/domain/full_day_property_test.dart`.
 
-  - [ ] 5.13 Write property test for the streak
+  - [x] 5.13 Write property test for the streak
     - **Property 17: Streak equals the run ending Today or yesterday**
     - **Validates: Requirements 7.1, 7.2, 7.3, 7.4, 7.5**
     - Create `test/domain/streak_property_test.dart`.
 
-  - [ ] 5.14 Write property test for calendar arithmetic across daylight saving
+  - [x] 5.14 Write property test for calendar arithmetic across daylight saving
     - **Property 2: Calendar arithmetic counts calendar days**
     - **Validates: Requirements 2.3, 2.4, 14.5**
     - Create `test/domain/calendar_arithmetic_property_test.dart`; `n` from 0 to 800, including the four daylight saving dates; a catch-up over the span settles each day once.

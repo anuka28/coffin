@@ -2,6 +2,7 @@ import 'dart:math' as math;
 
 import 'package:flutter_test/flutter_test.dart' show expect, equals, isPositive;
 import 'package:glados/glados.dart' hide expect, group, test;
+import 'package:hauntagotchi/src/domain/ghost.dart';
 import 'package:hauntagotchi/src/domain/habit.dart';
 import 'package:hauntagotchi/src/domain/habit_book.dart';
 import 'package:hauntagotchi/src/domain/local_day.dart';
@@ -209,6 +210,43 @@ Generator<HabitBook> anyBook(LocalDay today) => any.simple<HabitBook>(
   shrink: (HabitBook b) sync* {
     if (b.all.isNotEmpty) {
       yield HabitBook(b.all.take(b.all.length - 1));
+    }
+  },
+);
+
+/// Generates a [Ghost] with a valid name, a Health from 0 to 100,
+/// a last settled day 0 to 400 days before [today] and 0 to 20 resurrections.
+///
+/// Dead ghosts (Health 0) appear about one time in ten. Shrinks towards a
+/// ghost with Health 0 and no resurrections.
+Generator<Ghost> anyGhost(LocalDay today) => any.simple<Ghost>(
+  generate: (math.Random random, int size) => Ghost(
+    name: NameRules.normalize(
+      _word(random, 1 + random.nextInt(NameRules.maxLength)),
+    ),
+    health: random.nextInt(10) == 0
+        ? 0
+        : random.nextBool()
+        ? healthEdges[random.nextInt(healthEdges.length)]
+        : random.nextInt(101),
+    lastSettledDay: today.addDays(-random.nextInt(401)),
+    resurrectionCount: random.nextInt(21),
+  ),
+  shrink: (Ghost g) sync* {
+    if (g.resurrectionCount > 0) {
+      yield Ghost(
+        name: g.name,
+        health: g.health,
+        lastSettledDay: g.lastSettledDay,
+      );
+    }
+    if (g.health > 0) {
+      yield Ghost(
+        name: g.name,
+        health: g.health ~/ 2,
+        lastSettledDay: g.lastSettledDay,
+        resurrectionCount: g.resurrectionCount,
+      );
     }
   },
 );
