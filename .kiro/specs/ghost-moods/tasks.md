@@ -25,8 +25,8 @@ Notes that apply to all tasks:
 
 ## Tasks
 
-- [ ] 1. Record the baseline
-  - [ ] 1.1 Record the baseline before any edit
+- [x] 1. Record the baseline
+  - [x] 1.1 Record the baseline before any edit
     - Do this first, before any file is changed. Run `git status --short`, `git diff --stat HEAD -- pubspec.yaml pubspec.lock DIARY.md CREDITS.md README.md apps/graveyard tool packages/coffin_core/pubspec.yaml apps/hauntagotchi/pubspec.yaml` (it must be empty), and `git hash-object` on `pubspec.yaml`, `pubspec.lock`, `DIARY.md`, `packages/coffin_core/pubspec.yaml`, `apps/hauntagotchi/pubspec.yaml` and `apps/graveyard/pubspec.yaml`. Report every value in the task summary. When this plan was written, `git status --short` showed only `.kiro/specs/ghost-moods/` untracked.
     - If any of those paths already differs from HEAD, STOP and report which one. A difference present before this feature is not caused by it, but the user must be told, and the final check (task 11.4) then compares against the hash recorded here.
     - Run `flutter test` in `packages/coffin_core`, `apps/hauntagotchi`, `apps/graveyard` and `tool`. Report the passing count of each. They must all pass before any edit. If one fails, STOP and report.

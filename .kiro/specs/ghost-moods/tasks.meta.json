@@ -1,0 +1,24 @@
+{
+  "pbtResults": {},
+  "executionHistory": {
+    "1.1 Record the baseline before any edit": [
+      {
+        "executionId": "1f665b35-73f2-47de-8242-9a50ea6e2dea",
+        "chatSessionId": "sess_b77d43fe-0283-41e5-8c4f-7eab1f69990b",
+        "timestamp": 1794979190060
+      },
+      {
+        "executionId": "1f665b35-73f2-47de-8242-9a50ea6e2dea",
+        "chatSessionId": "sess_b77d43fe-0283-41e5-8c4f-7eab1f69990b",
+        "timestamp": 1794981149075
+      }
+    ],
+    "1. Record the baseline": [
+      {
+        "executionId": "1f665b35-73f2-47de-8242-9a50ea6e2dea",
+        "chatSessionId": "sess_b77d43fe-0283-41e5-8c4f-7eab1f69990b",
+        "timestamp": 1794981149106
+      }
+    ]
+  }
+}
