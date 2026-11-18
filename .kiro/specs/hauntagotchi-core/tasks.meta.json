@@ -51,6 +51,14 @@
     "7.9 Write property test for steady effort": {
       "status": "passed",
       "lastRunTimestamp": 1794968658050
+    },
+    "9.4 Write property tests for the codec round trips": {
+      "status": "passed",
+      "lastRunTimestamp": 1794970352538
+    },
+    "9.5 Write property test for corrupt records": {
+      "status": "passed",
+      "lastRunTimestamp": 1794970787634
     }
   },
   "executionHistory": {
@@ -580,6 +588,107 @@
         "executionId": "633ffed2-46c3-4492-b8b4-75ff3a624a88",
         "chatSessionId": "sess_04a3a318-ebf1-4479-9021-f6d11ea170a4",
         "timestamp": 1794968997239
+      }
+    ],
+    "8. Checkpoint - Domain complete": [
+      {
+        "executionId": "c5a88ee5-0c8d-4d28-8dcf-4e64b9fa2cba",
+        "chatSessionId": "sess_e8bbc773-fe17-449a-8fb9-4e9995da8c77",
+        "timestamp": 1794969160152
+      },
+      {
+        "executionId": "c5a88ee5-0c8d-4d28-8dcf-4e64b9fa2cba",
+        "chatSessionId": "sess_e8bbc773-fe17-449a-8fb9-4e9995da8c77",
+        "timestamp": 1794969214828
+      }
+    ],
+    "9.1 Implement `SystemClock`, `HabitCodec` and `GhostCodec` in `lib/src/data`": [
+      {
+        "executionId": "ff6ae3ae-0337-4ee1-8bfe-778c06bfcc62",
+        "chatSessionId": "sess_d84de3b6-b54c-48e9-b80c-7217eed8a5f4",
+        "timestamp": 1794969270353
+      },
+      {
+        "executionId": "ff6ae3ae-0337-4ee1-8bfe-778c06bfcc62",
+        "chatSessionId": "sess_d84de3b6-b54c-48e9-b80c-7217eed8a5f4",
+        "timestamp": 1794969405606
+      },
+      {
+        "executionId": "ff6ae3ae-0337-4ee1-8bfe-778c06bfcc62",
+        "chatSessionId": "sess_d84de3b6-b54c-48e9-b80c-7217eed8a5f4",
+        "timestamp": 1794969416885
+      },
+      {
+        "executionId": "ff6ae3ae-0337-4ee1-8bfe-778c06bfcc62",
+        "chatSessionId": "sess_d84de3b6-b54c-48e9-b80c-7217eed8a5f4",
+        "timestamp": 1794969512306
+      }
+    ],
+    "9.2 Implement `HauntStorage`": [
+      {
+        "executionId": "ebcb8b2a-051e-4d1c-8b98-79678698c03c",
+        "chatSessionId": "sess_cb1f01d8-4d28-4fa8-b5f9-b0cf462f4487",
+        "timestamp": 1794969551966
+      },
+      {
+        "executionId": "ebcb8b2a-051e-4d1c-8b98-79678698c03c",
+        "chatSessionId": "sess_cb1f01d8-4d28-4fa8-b5f9-b0cf462f4487",
+        "timestamp": 1794970001767
+      }
+    ],
+    "9.3 Write unit tests for the codecs": [
+      {
+        "executionId": "2c331d66-c0e9-4d18-9709-b3e385780243",
+        "chatSessionId": "sess_80889183-71ba-461a-a5be-9eba13135f20",
+        "timestamp": 1794970137263
+      },
+      {
+        "executionId": "2c331d66-c0e9-4d18-9709-b3e385780243",
+        "chatSessionId": "sess_80889183-71ba-461a-a5be-9eba13135f20",
+        "timestamp": 1794970180252
+      }
+    ],
+    "9.4 Write property tests for the codec round trips": [
+      {
+        "executionId": "a236777a-a531-4137-b994-5d1c79672449",
+        "chatSessionId": "sess_81bedaba-7906-42d7-b6c4-6eb8abd524fd",
+        "timestamp": 1794970285425
+      },
+      {
+        "executionId": "a236777a-a531-4137-b994-5d1c79672449",
+        "chatSessionId": "sess_81bedaba-7906-42d7-b6c4-6eb8abd524fd",
+        "timestamp": 1794970360188
+      }
+    ],
+    "9.5 Write property test for corrupt records": [
+      {
+        "executionId": "6d7544eb-510c-46a7-a6b6-9bdf96a01aae",
+        "chatSessionId": "sess_bc8a2dbd-b801-4ff0-83f8-3ed579f3e39d",
+        "timestamp": 1794970421129
+      },
+      {
+        "executionId": "6d7544eb-510c-46a7-a6b6-9bdf96a01aae",
+        "chatSessionId": "sess_bc8a2dbd-b801-4ff0-83f8-3ed579f3e39d",
+        "timestamp": 1794970797094
+      }
+    ],
+    "9.6 Write unit tests for `HauntStorage`": [
+      {
+        "executionId": "00a52677-c119-4c90-9a91-bff0e8f910a6",
+        "chatSessionId": "sess_821d1ce0-fce7-49a3-8796-2a9672a4a49c",
+        "timestamp": 1794970879105
+      },
+      {
+        "executionId": "00a52677-c119-4c90-9a91-bff0e8f910a6",
+        "chatSessionId": "sess_821d1ce0-fce7-49a3-8796-2a9672a4a49c",
+        "timestamp": 1794970944863
+      }
+    ],
+    "9. Data layer": [
+      {
+        "executionId": "00a52677-c119-4c90-9a91-bff0e8f910a6",
+        "chatSessionId": "sess_821d1ce0-fce7-49a3-8796-2a9672a4a49c",
+        "timestamp": 1794970944891
       }
     ]
   }

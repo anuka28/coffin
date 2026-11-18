@@ -212,35 +212,35 @@ Rules for every task:
     - Create `test/domain/haunting_test.dart` (open with and without a ghost, `syncTo`, `liveHealth`, state with idle caps, archive after a tick, add lowers today's feed) and add the tracks A and B of the design's 14-day example to `test/domain/balance_test.dart`, reproducing the Health values exactly.
     - _Requirements: 3.8, 5.4, 5.5, 5.6, 5.7, 5.8, 6.4_
 
-- [ ] 8. Checkpoint - Domain complete
+- [x] 8. Checkpoint - Domain complete
   - Ensure all tests pass, ask the user if questions arise. Also run `flutter test --platform chrome test/domain` in `apps/hauntagotchi` once the data tests exist (task 9) and again at task 15.
 
-- [ ] 9. Data layer
-  - [ ] 9.1 Implement `SystemClock`, `HabitCodec` and `GhostCodec` in `lib/src/data`
+- [x] 9. Data layer
+  - [x] 9.1 Implement `SystemClock`, `HabitCodec` and `GhostCodec` in `lib/src/data`
     - Create `system_clock.dart` (the only `DateTime.now()` call), `habit_codec.dart` and `ghost_codec.dart` implementing `RecordCodec`, encoding only JSON-safe values with days as sorted `YYYY-MM-DD` strings, and throwing `FormatException` for every violation in the design's decode table.
     - Remove `lib/src/data/.gitkeep`.
     - _Requirements: 2.7, 8.2, 8.3, 8.4, 8.5, 8.9_
 
-  - [ ] 9.2 Implement `HauntStorage`
+  - [x] 9.2 Implement `HauntStorage`
     - Create `haunt_storage.dart` with `open(StorageOpener)` using box names `hauntagotchi_habits` and `hauntagotchi_ghost`, `currentVersion` 1, key `ghost`, `isPersistent` true only when both repositories are persistent, and `close`.
     - _Requirements: 8.1, 8.6, 9.1_
 
-  - [ ] 9.3 Write unit tests for the codecs
+  - [x] 9.3 Write unit tests for the codecs
     - Create `test/data/habit_codec_test.dart` and `test/data/ghost_codec_test.dart`: every failure in Requirement 8.5 (empty and over-40 names, Health -1 and 101, `2026-02-30`, negative count, missing field, wrong type, `archived` before `created`) and the exact key sets. No `dart:io` import.
     - _Requirements: 8.2, 8.5, 8.9, 14.9_
 
-  - [ ] 9.4 Write property tests for the codec round trips
+  - [x] 9.4 Write property tests for the codec round trips
     - **Property 20: Habit codec round trip**
     - **Property 21: Ghost codec round trip**
     - **Validates: Requirements 8.2, 8.3, 8.4**
     - Create `test/data/codec_round_trip_property_test.dart`, including a trip through `jsonEncode` and `jsonDecode`.
 
-  - [ ] 9.5 Write property test for corrupt records
+  - [x] 9.5 Write property test for corrupt records
     - **Property 22: Corrupt records are rejected**
     - **Validates: Requirements 8.5**
     - Create `test/data/codec_corruption_property_test.dart`.
 
-  - [ ] 9.6 Write unit tests for `HauntStorage`
+  - [x] 9.6 Write unit tests for `HauntStorage`
     - Create `test/data/haunt_storage_test.dart` with a fake `StorageOpener`: box names, version 1, `isPersistent` from both repositories.
     - _Requirements: 8.1, 9.1_
 
