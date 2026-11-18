@@ -1,5 +1,18 @@
 {
-  "pbtResults": {},
+  "pbtResults": {
+    "2.5 Write property test for mood contrast": {
+      "status": "passed",
+      "lastRunTimestamp": 1794982388113
+    },
+    "2.8 Write property test for the blend easing": {
+      "status": "passed",
+      "lastRunTimestamp": 1794982736053
+    },
+    "2.16 Write property test for reaction ranges": {
+      "status": "passed",
+      "lastRunTimestamp": 1794983797591
+    }
+  },
   "executionHistory": {
     "1.1 Record the baseline before any edit": [
       {
@@ -30,6 +43,302 @@
         "executionId": "27e819bc-ef7e-4555-986a-9e20e22f7489",
         "chatSessionId": "sess_62cb3dee-3561-43b9-847f-98b0c9b9084a",
         "timestamp": 1794981633608
+      }
+    ],
+    "2.2 Create the mood test generators": [
+      {
+        "executionId": "6b923347-a892-4251-aa96-04596e59b01c",
+        "chatSessionId": "sess_5387e61f-effd-41da-ac23-e13edc954ab2",
+        "timestamp": 1794981841359
+      },
+      {
+        "executionId": "6b923347-a892-4251-aa96-04596e59b01c",
+        "chatSessionId": "sess_5387e61f-effd-41da-ac23-e13edc954ab2",
+        "timestamp": 1794981900816
+      }
+    ],
+    "2.3 Implement `EyeStyle`, `MouthStyle` and `MoodTraits` with unit tests": [
+      {
+        "executionId": "1cdf9a15-916a-47ac-959b-ac726cb259e1",
+        "chatSessionId": "sess_43782920-55f8-49e5-a4db-b7267d5f35c5",
+        "timestamp": 1794981940236
+      },
+      {
+        "executionId": "1cdf9a15-916a-47ac-959b-ac726cb259e1",
+        "chatSessionId": "sess_43782920-55f8-49e5-a4db-b7267d5f35c5",
+        "timestamp": 1794982028479
+      },
+      {
+        "executionId": "1cdf9a15-916a-47ac-959b-ac726cb259e1",
+        "chatSessionId": "sess_43782920-55f8-49e5-a4db-b7267d5f35c5",
+        "timestamp": 1794982044790
+      },
+      {
+        "executionId": "1cdf9a15-916a-47ac-959b-ac726cb259e1",
+        "chatSessionId": "sess_43782920-55f8-49e5-a4db-b7267d5f35c5",
+        "timestamp": 1794982087023
+      }
+    ],
+    "2.4 Write property test for the mood table": [
+      {
+        "executionId": "58d73b06-eb70-4e16-b3f9-547fc2bddb0d",
+        "chatSessionId": "sess_4291a816-0f47-44bd-918e-8dd18772c3b7",
+        "timestamp": 1794982133538
+      },
+      {
+        "executionId": "58d73b06-eb70-4e16-b3f9-547fc2bddb0d",
+        "chatSessionId": "sess_4291a816-0f47-44bd-918e-8dd18772c3b7",
+        "timestamp": 1794982194778
+      },
+      {
+        "executionId": "9b2e3a04-af5b-47b7-9688-790045ff3724",
+        "chatSessionId": "sess_4000a06d-59d9-4863-bdfe-4c7db7db05b7",
+        "timestamp": 1794982205351
+      },
+      {
+        "executionId": "9b2e3a04-af5b-47b7-9688-790045ff3724",
+        "chatSessionId": "sess_4000a06d-59d9-4863-bdfe-4c7db7db05b7",
+        "timestamp": 1794982249990
+      },
+      {
+        "executionId": "5e7c4ee2-9c92-40bf-bc21-c64144c9d0ca",
+        "chatSessionId": "sess_847d6226-0111-4212-8a04-d738b9848bdf",
+        "timestamp": 1794982260999
+      },
+      {
+        "executionId": "5e7c4ee2-9c92-40bf-bc21-c64144c9d0ca",
+        "chatSessionId": "sess_847d6226-0111-4212-8a04-d738b9848bdf",
+        "timestamp": 1794982301807
+      }
+    ],
+    "2.5 Write property test for mood contrast": [
+      {
+        "executionId": "f003db4e-c26b-4c68-98e9-33ef79de443e",
+        "chatSessionId": "sess_c6903f6e-70c2-4df9-a855-1a824ce6d27a",
+        "timestamp": 1794982340204
+      },
+      {
+        "executionId": "f003db4e-c26b-4c68-98e9-33ef79de443e",
+        "chatSessionId": "sess_c6903f6e-70c2-4df9-a855-1a824ce6d27a",
+        "timestamp": 1794982396938
+      }
+    ],
+    "2.6 Implement `MoodPose` with unit tests": [
+      {
+        "executionId": "d0ba777a-20a8-45f4-9357-6e38d145521a",
+        "chatSessionId": "sess_5f6fedf7-9ccf-4733-8a7b-c2499424ddc2",
+        "timestamp": 1794982435440
+      },
+      {
+        "executionId": "d0ba777a-20a8-45f4-9357-6e38d145521a",
+        "chatSessionId": "sess_5f6fedf7-9ccf-4733-8a7b-c2499424ddc2",
+        "timestamp": 1794982527927
+      }
+    ],
+    "2.7 Implement `MoodBlend` with unit tests": [
+      {
+        "executionId": "f5e6bcbb-a880-4f8d-978c-8f85fc20ee5e",
+        "chatSessionId": "sess_7dee40e8-8887-4e73-94bd-7f72160fdf75",
+        "timestamp": 1794982583821
+      },
+      {
+        "executionId": "f5e6bcbb-a880-4f8d-978c-8f85fc20ee5e",
+        "chatSessionId": "sess_7dee40e8-8887-4e73-94bd-7f72160fdf75",
+        "timestamp": 1794982649878
+      }
+    ],
+    "2.8 Write property test for the blend easing": [
+      {
+        "executionId": "ecb5b1f2-d8ee-4ca7-8ce4-284610d51103",
+        "chatSessionId": "sess_fa8bfab5-3e1c-4391-b6fe-281b379215c6",
+        "timestamp": 1794982681005
+      },
+      {
+        "executionId": "ecb5b1f2-d8ee-4ca7-8ce4-284610d51103",
+        "chatSessionId": "sess_fa8bfab5-3e1c-4391-b6fe-281b379215c6",
+        "timestamp": 1794982745421
+      }
+    ],
+    "2.9 Write property test for blend endpoints": [
+      {
+        "executionId": "63477fea-8229-41cf-8841-00620fc221ae",
+        "chatSessionId": "sess_c5f8d208-6ec1-4df9-824d-fa4aa58426c8",
+        "timestamp": 1794982866956
+      },
+      {
+        "executionId": "63477fea-8229-41cf-8841-00620fc221ae",
+        "chatSessionId": "sess_c5f8d208-6ec1-4df9-824d-fa4aa58426c8",
+        "timestamp": 1794982934552
+      }
+    ],
+    "2.10 Implement `MoodBob` with unit tests": [
+      {
+        "executionId": "48d84b90-1b3d-4d5d-9037-13b3c83da3a8",
+        "chatSessionId": "sess_2c194fe7-a805-4355-9e06-ab1be133f587",
+        "timestamp": 1794982968985
+      },
+      {
+        "executionId": "48d84b90-1b3d-4d5d-9037-13b3c83da3a8",
+        "chatSessionId": "sess_2c194fe7-a805-4355-9e06-ab1be133f587",
+        "timestamp": 1794983031305
+      }
+    ],
+    "2.11 Write property test for mood bob": [
+      {
+        "executionId": "b8bc33a3-b735-4fb4-bd5a-f9a1290fdb7a",
+        "chatSessionId": "sess_2e36b79c-d03d-4cac-9f14-0ab378e40bff",
+        "timestamp": 1794983061624
+      },
+      {
+        "executionId": "b8bc33a3-b735-4fb4-bd5a-f9a1290fdb7a",
+        "chatSessionId": "sess_2e36b79c-d03d-4cac-9f14-0ab378e40bff",
+        "timestamp": 1794983112101
+      }
+    ],
+    "2.12 Implement `MoodReaction` with unit tests": [
+      {
+        "executionId": "af6f0b91-80e2-464a-a420-505af8fc6d0b",
+        "chatSessionId": "sess_12e12605-c5d0-4310-a6a9-e37fb72d62f3",
+        "timestamp": 1794983181021
+      },
+      {
+        "executionId": "af6f0b91-80e2-464a-a420-505af8fc6d0b",
+        "chatSessionId": "sess_12e12605-c5d0-4310-a6a9-e37fb72d62f3",
+        "timestamp": 1794983260685
+      }
+    ],
+    "2.13 Create the pose chain test helper": [
+      {
+        "executionId": "db19351e-dec0-4afe-ba21-64c44421ab50",
+        "chatSessionId": "sess_aa383d2d-24ab-4284-a675-083af10b1ff0",
+        "timestamp": 1794983404764
+      },
+      {
+        "executionId": "db19351e-dec0-4afe-ba21-64c44421ab50",
+        "chatSessionId": "sess_aa383d2d-24ab-4284-a675-083af10b1ff0",
+        "timestamp": 1794983474103
+      }
+    ],
+    "2.14 Write property test for interrupted blends": [
+      {
+        "executionId": "61c6e97e-6c7d-4600-84dd-df69e9289368",
+        "chatSessionId": "sess_446b3c38-b37c-44a8-bcc7-9b35e244330e",
+        "timestamp": 1794983545142
+      },
+      {
+        "executionId": "61c6e97e-6c7d-4600-84dd-df69e9289368",
+        "chatSessionId": "sess_446b3c38-b37c-44a8-bcc7-9b35e244330e",
+        "timestamp": 1794983604352
+      }
+    ],
+    "2.15 Write property test for the mixed bob": [
+      {
+        "executionId": "79fedb11-6e14-4112-a4ae-e285e4d36450",
+        "chatSessionId": "sess_49d55f22-3a08-4b6e-b3d1-72adf2c56cad",
+        "timestamp": 1794983678239
+      },
+      {
+        "executionId": "79fedb11-6e14-4112-a4ae-e285e4d36450",
+        "chatSessionId": "sess_49d55f22-3a08-4b6e-b3d1-72adf2c56cad",
+        "timestamp": 1794983728985
+      }
+    ],
+    "2.16 Write property test for reaction ranges": [
+      {
+        "executionId": "5630d2a2-97e6-4ce4-b13f-6fd9333f361f",
+        "chatSessionId": "sess_b2b486a5-03ed-4387-aff0-15a918d3481c",
+        "timestamp": 1794983749001
+      },
+      {
+        "executionId": "5630d2a2-97e6-4ce4-b13f-6fd9333f361f",
+        "chatSessionId": "sess_b2b486a5-03ed-4387-aff0-15a918d3481c",
+        "timestamp": 1794983806374
+      }
+    ],
+    "2.17 Write property test for reaction speed": [
+      {
+        "executionId": "18d2c680-5b8a-4acc-9d07-3ddbf3f83f3a",
+        "chatSessionId": "sess_becad4fb-1ae0-402b-8053-7c93e336f414",
+        "timestamp": 1794983823605
+      },
+      {
+        "executionId": "18d2c680-5b8a-4acc-9d07-3ddbf3f83f3a",
+        "chatSessionId": "sess_becad4fb-1ae0-402b-8053-7c93e336f414",
+        "timestamp": 1794983878069
+      }
+    ],
+    "2.18 Write property test for the reserved box": [
+      {
+        "executionId": "827654d0-dd50-42d8-9349-740dfce78aaf",
+        "chatSessionId": "sess_a56ed504-9691-4c05-adb2-3c9fffd0f351",
+        "timestamp": 1794983903257
+      },
+      {
+        "executionId": "827654d0-dd50-42d8-9349-740dfce78aaf",
+        "chatSessionId": "sess_a56ed504-9691-4c05-adb2-3c9fffd0f351",
+        "timestamp": 1794983950358
+      }
+    ],
+    "2.19 Write property test for determinism": [
+      {
+        "executionId": "ab849ebd-b45b-4e91-a3fb-37b5e6f177a2",
+        "chatSessionId": "sess_540b9868-ca42-45e4-83e7-d13d9763447e",
+        "timestamp": 1794983974729
+      },
+      {
+        "executionId": "ab849ebd-b45b-4e91-a3fb-37b5e6f177a2",
+        "chatSessionId": "sess_540b9868-ca42-45e4-83e7-d13d9763447e",
+        "timestamp": 1794984047335
+      }
+    ],
+    "2.20 Pin the fixed values of the pure mood classes": [
+      {
+        "executionId": "0e1a7be9-bdbf-46f1-b74b-5ab90861e418",
+        "chatSessionId": "sess_c623c08c-213d-4dcf-990b-76aeeffa6b0f",
+        "timestamp": 1794984288488
+      },
+      {
+        "executionId": "0e1a7be9-bdbf-46f1-b74b-5ab90861e418",
+        "chatSessionId": "sess_c623c08c-213d-4dcf-990b-76aeeffa6b0f",
+        "timestamp": 1794984381855
+      }
+    ],
+    "2. `GhostMood` and the pure mood math": [
+      {
+        "executionId": "0e1a7be9-bdbf-46f1-b74b-5ab90861e418",
+        "chatSessionId": "sess_c623c08c-213d-4dcf-990b-76aeeffa6b0f",
+        "timestamp": 1794984381889
+      }
+    ],
+    "3.1 Format, analyze and run the VM tests": [
+      {
+        "executionId": "6cc5c28c-6281-4236-b519-c40556680df6",
+        "chatSessionId": "sess_f0387f83-8daa-430a-a83e-3ed4eb8efc8e",
+        "timestamp": 1794984517463
+      },
+      {
+        "executionId": "6cc5c28c-6281-4236-b519-c40556680df6",
+        "chatSessionId": "sess_f0387f83-8daa-430a-a83e-3ed4eb8efc8e",
+        "timestamp": 1794984690306
+      }
+    ],
+    "3.2 Run the pure tests in Chrome": [
+      {
+        "executionId": "6cc5c28c-6281-4236-b519-c40556680df6",
+        "chatSessionId": "sess_f0387f83-8daa-430a-a83e-3ed4eb8efc8e",
+        "timestamp": 1794984690754
+      },
+      {
+        "executionId": "6cc5c28c-6281-4236-b519-c40556680df6",
+        "chatSessionId": "sess_f0387f83-8daa-430a-a83e-3ed4eb8efc8e",
+        "timestamp": 1794984776976
+      }
+    ],
+    "3. Checkpoint A - Pure math verified on the VM and in Chrome": [
+      {
+        "executionId": "6cc5c28c-6281-4236-b519-c40556680df6",
+        "chatSessionId": "sess_f0387f83-8daa-430a-a83e-3ed4eb8efc8e",
+        "timestamp": 1794984777067
       }
     ]
   }

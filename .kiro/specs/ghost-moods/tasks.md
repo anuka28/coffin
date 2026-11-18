@@ -33,94 +33,95 @@ Notes that apply to all tasks:
     - Confirm `glados`, `flutter_test` and `meta` are already declared in `packages/coffin_core/pubspec.yaml`. Add and change nothing. Create no files in this task.
     - _Requirements: 23.1, 23.2, 23.4, 23.11_
 
-- [ ] 2. `GhostMood` and the pure mood math
+- [x] 2. `GhostMood` and the pure mood math
   - [x] 2.1 Create `GhostMood` and export it
     - Create `packages/coffin_core/lib/src/widgets/ghost_mood.dart`: `enum GhostMood { thriving, content, hungry, fading, dead, fed, rising }` with a doc comment on the enum and on every value. The enum doc names the five Steady_Moods and the two Reaction_Moods. The file imports nothing from Flutter.
     - Edit `packages/coffin_core/lib/coffin_core.dart`: insert `export 'src/widgets/ghost_mood.dart' show GhostMood;` in sorted order, after the `ghost_loader.dart` line. Add no other export.
     - Create `packages/coffin_core/test/widgets/ghost_mood_test.dart` (VM test, may read files): the seven values in the exact order; every value and the enum have a doc comment (read the source file); the file has no `import 'package:flutter` and no `dart:ui`; the Barrel text contains the exact `show GhostMood` line in sorted position; the Barrel does not mention `mood_traits`, `mood_pose`, `mood_bob`, `mood_blend`, `mood_reaction`, `eye_style`, `mouth_style` or `crypt_gallery_moods`.
     - _Requirements: 1.1, 1.2, 1.3, 1.4, 1.5_
-  - [ ] 2.2 Create the mood test generators
+  - [x] 2.2 Create the mood test generators
     - Create `packages/coffin_core/test/widgets/support/mood_generators.dart`: `anyMood` (index 0 to 6 over `GhostMood.values`), `anyProgress` (integer thousandths from minus 1.5 to 2.5 divided by 1000, with NaN, infinity, negative infinity, 0 and 1 drawn about 20 percent of the time), and `anyChain` (a list of 1 to 6 pairs of mood and progress, built with `anyListBetween` and `combineN`). Use only `any.simple`, `combineN`, `anyIntBetween` and `anyListBetween` imported from `widget_generators.dart`, which already exists. No glados string generator and no `dart:io`.
     - Create `packages/coffin_core/test/widgets/support/mood_generators_test.dart`: generated moods cover all seven values; progress values include NaN, infinity, negative values and values above 1; chains have 1 to 6 pairs; no generated progress outside the stated range except the special values.
     - _Requirements: 21.2, 21.3, 21.11_
-  - [ ] 2.3 Implement `EyeStyle`, `MouthStyle` and `MoodTraits` with unit tests
+  - [x] 2.3 Implement `EyeStyle`, `MouthStyle` and `MoodTraits` with unit tests
     - Create `lib/src/widgets/math/eye_style.dart` (`round, wide, droopy, halfClosed, cross, happyArc`), `mouth_style.dart` (`none, smile, gentleSmile, wideSmile, smallOpen, flat`) and `mood_traits.dart` exactly as in design.md: const rows per mood with `eyes`, `mouth`, `lean`, `droop`, `opacity`, `bobPeriodMs`, `bobAmplitude`, `static MoodTraits of(GhostMood mood)`, the constants `maxBobAmplitude` 8, `fedMaxScale` 1.10, `fedMaxLift` 6, `risingMaxLift` 10, `maxLean` 0.15, `popReserve` 0.05, `stretchReserve` 0.06, and `static int reserveFor(double size)` giving `ceil(8 + 10 + 0.06 * size)` for a size already clamped into 24 to 256 (NaN becomes 64). The table values are exactly: `thriving` wide, smile, 0, 0, 1.00, 3000, 8; `content` round, gentleSmile, 0, 0, 0.92, 3600, 6; `hungry` droopy, smallOpen, 0.04, 0.03, 0.85, 4400, 4; `fading` halfClosed, flat, 0.06, 0.07, 0.78, 5000, 2; `dead` cross, none, 0.15, 0.10, 0.72, 5000, 0; `fed` happyArc, wideSmile, 0, 0, 1.00, 3000, 8; `rising` wide, smallOpen, 0, -0.06, 1.00, 3000, 8. Doc comment on every public member. Compute `ceil` without `dart:math` (integer truncation and comparison).
     - Create `test/widgets/math/mood_traits_test.dart`: the table pinned row by row; the constants; `reserveFor` gives 20 at 24, 22 at 64, 24 at 96, 34 at 256, and clamps 0, 10, 4000 and NaN as the loader does; no two rows are equal.
     - _Requirements: 3.1, 3.2, 4.1, 4.2, 4.5, 5.1, 5.2, 5.6, 6.2, 12.1, 12.2, 12.3, 12.8, 21.10_
-  - [ ] 2.4 Write property test for the mood table
+  - [x] 2.4 Write property test for the mood table
     - Create `test/widgets/math/mood_traits_property_test.dart`. `numRuns: 300`, `RunCounter` check.
     - **Property 1: The mood table is ordered, in range and distinct.** For any two different moods, the rows differ in at least one of eyes, mouth, lean or droop. For any two steady moods in the order `thriving, content, hungry, fading, dead`, the earlier has the larger opacity; for any two bobbing steady moods (up to `fading`) the earlier has the smaller period and the larger amplitude. Every opacity is in 0.72 to 1.00, `fed` is 1.00, `rising` equals the opacity of `thriving`, and every bobbing mood has period 2500 to 5000 and amplitude 2 to 10.
     - **Validates: Requirements 3.2, 4.1, 4.2, 4.5, 5.1, 5.2, 5.6, 21.8**
-  - [ ] 2.5 Write property test for mood contrast
+  - [x] 2.5 Write property test for mood contrast
     - Create `test/widgets/math/mood_contrast_property_test.dart`. `numRuns: 200`, `RunCounter` check. Uses `blendOver` from `test/widgets/support/color_blend.dart` and `WcagContrast` from `package:coffin_core/src/theme/wcag_contrast.dart`.
     - **Property 3: Every mood keeps its contrast in both themes.** For any mood and each Token_Set (`CoffinColorTokens.night` and `daylight`), the body color (`text` in night, `primary` in daylight) blended at the mood's opacity over `background` (8 bits per channel) has a `WcagContrast` ratio of at least 3.0 against `background`, and the eye color (`background`) has a ratio of at least 3.0 against that blended body. If any pair is below 3.0, this is a HARD STOP: report the mood, the set and the ratio. Do not change the table.
     - **Validates: Requirements 4.4, 14.2, 21.9**
-  - [ ] 2.6 Implement `MoodPose` with unit tests
+  - [x] 2.6 Implement `MoodPose` with unit tests
     - Create `lib/src/widgets/math/mood_pose.dart` as in design.md: immutable, `weights` (unmodifiable list of 7 doubles indexed by `GhostMood.index`), `opacity`, `lean`, `droop`, `scale`, `lift`, `bobAmplitude`; `MoodPose.rest(GhostMood)` (weight 1 on the mood, numbers from `MoodTraits.of`, scale 1, lift 0); `copyWith({opacity, scale, lift})`; value `==` with a hand-written loop over the weights and `hashCode` through `Object.hash` and `Object.hashAll`; `toString`; `upwardReach(size)`, `downwardReach(size)` and `horizontalReach(size)` as the analytic bounds of design.md "Fixed layout" (linear in the weights, no trig, size clamped into 24 to 256 with NaN as 64). The class also exposes a `const` constructor for the blend result.
     - Create `test/widgets/math/mood_pose_test.dart`: `rest` for each mood has weights summing to 1 with a single 1; `copyWith` changes only the named fields; equality and hash agree for equal poses and differ for a changed number or weight; the weights list cannot be modified; hand-computed reaches for `rest(rising)` at size 96 (up `0.06 * 96`) and `rest(dead)` sideways; reaches are never negative and never NaN.
     - _Requirements: 6.2, 6.4, 12.1, 12.2, 12.4, 12.5, 12.8_
-  - [ ] 2.7 Implement `MoodBlend` with unit tests
+  - [x] 2.7 Implement `MoodBlend` with unit tests
     - Create `lib/src/widgets/math/mood_blend.dart` as in design.md: `transitionMs` 500, `restartMs` 200, `ease(u)` (clamped, NaN gives 1, smoothstep), `progressAt(sinceStartMs, durationMs)` (negative time gives 0, duration 0 or less gives 1) and `mix(from, to, progress)` (each number and weight is `from + (to - from) * e`, exact `from` at `e == 0` and exact `to` at `e == 1`, clamped between the two endpoints).
     - Create `test/widgets/math/mood_blend_test.dart`: `ease` at 0, 0.25, 0.5, 0.75, 1, -1, 2 and NaN with hand-derived values (0.5 gives 0.5, 0.25 gives 0.15625); `progressAt` at negative, 0, half, full, beyond and duration 0; `mix` of `rest(thriving)` and `rest(dead)` at 0, 0.5, 1, -1, 2 and NaN with hand-derived opacity and weights; mixing a pose with itself returns an equal pose; weights of a mix sum to 1 within 1e-9.
     - _Requirements: 7.2, 7.3, 7.4, 12.1, 12.2, 12.4, 12.6, 21.10_
-  - [ ] 2.8 Write property test for the blend easing
+  - [x] 2.8 Write property test for the blend easing
     - Create `test/widgets/math/mood_blend_property_test.dart`. `numRuns: 300`, `RunCounter` check.
     - **Property 4: The blend easing is monotonic, bounded and slow enough.** For any progress (including below 0, above 1, NaN and infinity), `MoodBlend.ease` is finite and in 0 to 1; `ease(0) == 0` and `ease(1) == 1`; for any `a <= b` (finite), `ease(a) <= ease(b)`; and for `d` in 500 and 200 and any `u` in 0 to `1 - 16 / d`, `ease(u + 16 / d) - ease(u) <= 1.5 * 16 / d + 1e-9`.
     - **Validates: Requirements 7.3, 7.4, 9.11, 21.6**
-  - [ ] 2.9 Write property test for blend endpoints
+  - [x] 2.9 Write property test for blend endpoints
     - In `test/widgets/math/mood_blend_property_test.dart`. `numRuns: 300`, its own `RunCounter` check.
     - **Property 5: A blend stays between its endpoints.** For any two moods and any progress (including below 0, above 1, NaN and infinity), every number of `MoodBlend.mix(rest(a), rest(b), progress)` (opacity, lean, droop, scale, lift, bob amplitude and each weight) is finite and between the two endpoint values inclusive; progress 0 gives the first pose exactly, progress 1 the second exactly; NaN behaves as progress 1.
     - **Validates: Requirements 7.2, 7.3, 21.5**
-  - [ ] 2.10 Implement `MoodBob` with unit tests
+  - [x] 2.10 Implement `MoodBob` with unit tests
     - Create `lib/src/widgets/math/mood_bob.dart` as in design.md: `offsetAt(mood, elapsedMs)` returns 0 for `dead` without calling `GhostBob`, else the offset of a `GhostBob` built once per mood from the table; `mixedOffsetAt(pose, elapsedMs)` is the sum over moods of `weight * offsetAt(mood, elapsedMs)` (skip zero weights).
     - Create `test/widgets/math/mood_bob_test.dart`: `dead` is 0 at 0, negative and 2^40; each bobbing mood equals a hand-built `GhostBob` with the table period and amplitude at 0, a quarter, half and full period and a negative time; offset at `t` equals offset at `t + period`; `mixedOffsetAt(rest(m), t) == offsetAt(m, t)`; a half-half mix of `thriving` and `dead` is half the `thriving` offset.
     - _Requirements: 5.3, 5.4, 5.5, 5.6, 5.7, 7.2, 12.2, 12.3, 12.4, 21.10_
-  - [ ] 2.11 Write property test for mood bob
+  - [x] 2.11 Write property test for mood bob
     - Create `test/widgets/math/mood_bob_property_test.dart`. `numRuns: 300`, `RunCounter` check.
     - **Property 2: Mood bob is bounded, periodic and equals GhostBob.** For any mood and any elapsed time from minus 2^40 to 2^40, `MoodBob.offsetAt` is finite and within minus the mood's amplitude to plus it; exactly 0 for `dead`; equal to the offset of a `GhostBob` with the table's period and amplitude for every other mood; and `offsetAt(t) == offsetAt(t + period)`.
     - **Validates: Requirements 5.3, 5.4, 5.5, 5.7, 21.4**
-  - [ ] 2.12 Implement `MoodReaction` with unit tests
+  - [x] 2.12 Implement `MoodReaction` with unit tests
     - Create `lib/src/widgets/math/mood_reaction.dart` as in design.md: `isReaction`, `durationMs` (fed 900, rising 2200, others 0), `progressAt(mood, elapsedMs)` from integer milliseconds (negative gives 0, at or above duration gives 1, duration 0 gives 1), `scaleAt`, `liftAt`, `opacityAt` using the envelope `bump(p) = ease(2p)` for `p <= 0.5` and `ease(2 - 2p)` above, with `fed` scale `1 + 0.10 * bump`, `fed` lift `6 * bump`, `rising` lift `10 * bump`, `rising` opacity `dead + (thriving - dead) * ease(p)`. NaN progress is 1, progress is clamped into 0 to 1. A steady mood gives scale 1, lift 0, its own opacity and duration 0. Reuse `MoodBlend.ease`.
     - Create `test/widgets/math/mood_reaction_test.dart`: durations; `progressAt` at -1, 0, 450, 900, 901 and 2^40; hand-derived values at progress 0, 0.25, 0.5, 0.75 and 1 for each reaction (fed scale 1.0, 1.05, 1.10, 1.05, 1.0 at those points and lift 0, 3, 6, 3, 0 follows from `bump(0.25) = ease(0.5) = 0.5`); NaN, -1 and 2; steady moods are neutral.
     - _Requirements: 8.1, 8.2, 8.3, 8.4, 8.5, 8.6, 8.8, 12.2, 12.3, 12.4, 21.10_
-  - [ ] 2.13 Create the pose chain test helper
+  - [x] 2.13 Create the pose chain test helper
     - Create `packages/coffin_core/test/widgets/support/mood_chain.dart` (pure, no `dart:io`): `MoodPose applyChain(List<(GhostMood, double)> chain)` starting at `MoodPose.rest(thriving)` and, for each pair, mixing from the pose reached so far to the rest pose of the mood at that progress, using a reaction overlay (`copyWith` with `MoodReaction.scaleAt`, `liftAt` and `opacityAt` at the same progress) when the mood is a reaction mood. Also `tableRange(String field)` helpers returning the smallest and largest table value of each pose number (including the reaction ranges: scale 1 to 1.10, lift 0 to 10).
     - Create `test/widgets/support/mood_chain_test.dart`: an empty-effect chain of one steady mood at progress 1 equals `rest(mood)`; a reaction mood at progress 0.5 carries the overlay; every number of a few fixed chains lies inside `tableRange`.
     - _Requirements: 7.5, 7.6, 9.4, 21.3_
-  - [ ] 2.14 Write property test for interrupted blends
+  - [x] 2.14 Write property test for interrupted blends
     - In `test/widgets/math/mood_blend_property_test.dart`. `numRuns: 200`, its own `RunCounter` check. Uses `applyChain` and `tableRange`.
     - **Property 6: Interrupted blends have no jump and stay valid mixes.** For any chain of 1 to 6 blends (each from the pose reached so far to a mood at any progress, reaction overlays included), the weights of the reached pose are each in 0 to 1 and sum to 1 within 1e-9, every number lies between the smallest and the largest table value of that number, and `mix(reached, next, 0)` equals the reached pose.
     - **Validates: Requirements 7.5, 7.6, 9.4**
-  - [ ] 2.15 Write property test for the mixed bob
+  - [x] 2.15 Write property test for the mixed bob
     - In `test/widgets/math/mood_bob_property_test.dart`. `numRuns: 300`, its own `RunCounter` check.
     - **Property 7: The mixed bob never exceeds the blended amplitude.** For any pose reached by a chain and any elapsed time from minus 2^40 to 2^40, `MoodBob.mixedOffsetAt` is finite and its absolute value is at most `pose.bobAmplitude + 1e-9`; for `rest(m)` of any mood it equals `MoodBob.offsetAt(m, t)`.
     - **Validates: Requirements 5.4, 7.2, 7.6**
-  - [ ] 2.16 Write property test for reaction ranges
+  - [x] 2.16 Write property test for reaction ranges
     - Create `test/widgets/math/mood_reaction_property_test.dart`. `numRuns: 300`, `RunCounter` check.
     - **Property 8: Reaction values stay in range and start and end without a jump.** For any reaction mood and any elapsed time (negative, zero, up to 2^40), `progressAt` is in 0 to 1, is 0 at or below 0 and 1 at or above the duration. For any progress (including below 0, above 1, NaN): the `fed` scale is in 1.0 to 1.10, the `fed` lift in 0 to 6, the `rising` lift in 0 to 10, the `rising` opacity between the opacity of `dead` and of `thriving`; at progress 0 and 1 the `fed` scale is 1.0, lift 0 and opacity 1.0, the `rising` lift is 0, the `rising` opacity is the `dead` value at 0 and the `thriving` value at 1; NaN behaves as progress 1.
     - **Validates: Requirements 8.3, 8.4, 8.5, 8.6, 21.7**
-  - [ ] 2.17 Write property test for reaction speed
+  - [x] 2.17 Write property test for reaction speed
     - In `test/widgets/math/mood_reaction_property_test.dart`. `numRuns: 300`, its own `RunCounter` check.
     - **Property 9: Reactions move no faster than 1.5 times their average speed.** For any reaction mood and any progress `p` in 0 to `1 - 16 / duration`, the change of scale, lift and opacity over the next 16 ms is at most `1.5 * travel / duration * 16 + 1e-9`, with travel `fed` scale 0.20, `fed` lift 12, `rising` lift 20, `rising` opacity 0.28. Compare the progress values `p` and `p + 16 / duration` through the same functions.
     - **Validates: Requirements 8.9**
-  - [ ] 2.18 Write property test for the reserved box
+  - [x] 2.18 Write property test for the reserved box
     - Create `test/widgets/math/mood_reserve_property_test.dart`. `numRuns: 200`, `RunCounter` check. Uses `applyChain` and `anySize`.
     - **Property 10: The reserved box covers every reachable pose.** For any size from 0 to 4000 (clamped into 24 to 256, NaN as 64, as the loader does), any pose reached by a chain with reaction overlays, and any elapsed time, `pose.upwardReach(size) + abs(bob)` and `pose.downwardReach(size) + abs(bob)` are at most `MoodTraits.reserveFor(size)`, and `pose.horizontalReach(size)` is at most `size / 2`, where `bob` is `MoodBob.mixedOffsetAt(pose, t)`.
     - **Validates: Requirements 6.2, 6.4**
-  - [ ] 2.19 Write property test for determinism
+  - [x] 2.19 Write property test for determinism
     - Create `test/widgets/math/mood_determinism_property_test.dart`. `numRuns: 300`, `RunCounter` check.
     - **Property 11: Pure mood classes are deterministic.** For any mood, chain, progress (including NaN and infinity) and elapsed time, calling `MoodBob`, `MoodBlend`, `MoodReaction` and `MoodTraits` twice with the same arguments gives equal results, and no call throws.
     - **Validates: Requirements 12.5, 12.6**
-  - [ ] 2.20 Pin the fixed values of the pure mood classes
+  - [x] 2.20 Pin the fixed values of the pure mood classes
     - Create `test/widgets/math/mood_fixed_values_test.dart` (Chrome-safe, no `dart:io`). For every mood, pin literal numbers for: `MoodBob.offsetAt` at 0, 750, 1500, 2250 and 3000 ms; `MoodReaction.progressAt`, `scaleAt`, `liftAt` and `opacityAt` at progress 0, 0.25, 0.5 and 1 (reaction moods); `MoodBlend.ease` at 0, 0.25, 0.5 and 1; `MoodBlend.mix(rest(thriving), rest(dead), p)` opacity, lean and bob amplitude at p 0, 0.25, 0.5 and 1; `MoodTraits.reserveFor` at 24, 64, 96 and 256. Derive each number once by hand from the formulas of design.md in the test comments, then write it as a literal. No literal is computed by the code under test.
+    - Also pin `MoodReaction.fedDurationMs == 900` and `MoodReaction.risingDurationMs == 2200` directly, as literals.
     - This file runs unchanged on the VM and in Chrome. If a pinned value differs from the code, STOP and report. Never edit an expected value.
     - _Requirements: 12.7, 21.10, 21.11_
 
-- [ ] 3. Checkpoint A - Pure math verified on the VM and in Chrome
-  - [ ] 3.1 Format, analyze and run the VM tests
+- [x] 3. Checkpoint A - Pure math verified on the VM and in Chrome
+  - [x] 3.1 Format, analyze and run the VM tests
     - In `packages/coffin_core` run `dart format --set-exit-if-changed .` (no changes), `flutter analyze` (zero issues) and `flutter test`. All must pass. Report the total count and the count added since task 1.1. Confirm the existing tests listed in the notes were not edited (`git status --short` shows no modified file under `packages/coffin_core/test/` that existed before, apart from new files and the approved F13 line in `widgets_barrel_sources_test.dart`). Confirm `widgets_sources_test.dart` passes, which scans the new math files. Fix failures in files this feature created only. Report anything else.
     - _Requirements: 23.3, 23.4, 23.6, 23.8, 14.3_
-  - [ ] 3.2 Run the pure tests in Chrome
+  - [x] 3.2 Run the pure tests in Chrome
     - In `packages/coffin_core` run the Chrome command from the notes. First check that Chrome is available. If it is not, REPORT that the Chrome step could not run and why, and do not mark the step passed. If a pinned value of task 2.20 or a property differs in Chrome, STOP and report the exact difference.
     - Report the wall-clock time and what the run covers (VM versus web number differences with the development compiler) and what it does not cover (dart2js release output, widget tests).
     - _Requirements: 23.9, 21.11, 12.4_
