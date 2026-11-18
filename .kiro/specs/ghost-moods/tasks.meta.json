@@ -19,6 +19,18 @@
         "chatSessionId": "sess_b77d43fe-0283-41e5-8c4f-7eab1f69990b",
         "timestamp": 1794981149106
       }
+    ],
+    "2.1 Create `GhostMood` and export it": [
+      {
+        "executionId": "27e819bc-ef7e-4555-986a-9e20e22f7489",
+        "chatSessionId": "sess_62cb3dee-3561-43b9-847f-98b0c9b9084a",
+        "timestamp": 1794981321821
+      },
+      {
+        "executionId": "27e819bc-ef7e-4555-986a-9e20e22f7489",
+        "chatSessionId": "sess_62cb3dee-3561-43b9-847f-98b0c9b9084a",
+        "timestamp": 1794981633608
+      }
     ]
   }
 }

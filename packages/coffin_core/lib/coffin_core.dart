@@ -53,5 +53,6 @@ export 'src/widgets/crypt_gallery.dart' show CryptGallery;
 export 'src/widgets/flicker_text.dart' show FlickerText;
 export 'src/widgets/fog_background.dart' show FogBackground;
 export 'src/widgets/ghost_loader.dart' show GhostLoader;
+export 'src/widgets/ghost_mood.dart' show GhostMood;
 export 'src/widgets/ghost_painter.dart' show GhostPainter;
 export 'src/widgets/tombstone_card.dart' show TombstoneCard;

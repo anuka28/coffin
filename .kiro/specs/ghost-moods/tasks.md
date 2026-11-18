@@ -10,7 +10,7 @@ Notes that apply to all tasks:
 
 - Edit only files under `packages/coffin_core` (`lib`, `test`, and the "Ghost moods" section of `README.md`), `apps/hauntagotchi` (`lib`, `test`) and `.kiro/specs/ghost-moods`. Never create a file outside the repository, including `/tmp`. Write no scratch files, and use no shell redirection to any file. Do not create files that are not listed in a task.
 - Do not edit `DIARY.md`, `CREDITS.md`, the root `README.md`, any `pubspec.yaml`, `pubspec.lock`, anything under `apps/graveyard`, anything under `tool`, any other spec, `requirements.md`, `design.md` or `.config.kiro` of this spec. Add no package, no asset, no font.
-- Existing tests stay unchanged. The only allowed edit to an existing test is the loader count in `packages/coffin_core/test/widgets/crypt_gallery_test.dart` (design flagged item F1, task 6.1). `widgets_barrel_sources_test.dart`, `ghost_loader_test.dart`, `ghost_painter_test.dart`, `motion_loop_test.dart`, `flicker_text_test.dart`, `fog_background_test.dart` and `apps/hauntagotchi/test/ui/home_screen_a11y_test.dart` must pass without any edit.
+- Existing tests stay unchanged. The only allowed edit to an existing test is the loader count in `packages/coffin_core/test/widgets/crypt_gallery_test.dart` (design flagged item F1, task 6.1), and one approved line in `widgets_barrel_sources_test.dart` for the `GhostMood` export (design flagged item F13; one line added for the GhostMood export (approved by the user)). `ghost_loader_test.dart`, `ghost_painter_test.dart`, `motion_loop_test.dart`, `flicker_text_test.dart`, `fog_background_test.dart` and `apps/hauntagotchi/test/ui/home_screen_a11y_test.dart` must pass without any edit.
 - Apps import only `package:coffin_core/coffin_core.dart`. `coffin_core` never imports an app, and the two apps never import each other. The text `apps/`, `package:hauntagotchi` and `package:graveyard` must not appear in any file under `packages/coffin_core/lib/`, comments included.
 - The pure files under `lib/src/widgets/math/` and `ghost_mood.dart` import no Flutter, `dart:ui`, `dart:math` or `dart:io`, use no `Random`, read no clock, use no `sin`, `cos`, `pow` or `exp` and use no `.hashCode` member access (use `Object.hash` and `Object.hashAll`) and no `listEquals`. They import each other with relative paths only. All doubles come from exact integers and `+ - * /` and comparisons.
 - Every public member in `coffin_core` carries a doc comment. One public class per file, `snake_case.dart`, `final` wherever possible, `flutter_lints` clean. All colors come from the Token_Set (`CoffinColorTokens` through `SpookyTokens`), glows from `CoffinGlow`. No `Color(0x`, `Colors.`, `Color.fromARGB` or `Color.fromRGBO` under `lib/src/widgets/`.
@@ -34,7 +34,7 @@ Notes that apply to all tasks:
     - _Requirements: 23.1, 23.2, 23.4, 23.11_
 
 - [ ] 2. `GhostMood` and the pure mood math
-  - [ ] 2.1 Create `GhostMood` and export it
+  - [x] 2.1 Create `GhostMood` and export it
     - Create `packages/coffin_core/lib/src/widgets/ghost_mood.dart`: `enum GhostMood { thriving, content, hungry, fading, dead, fed, rising }` with a doc comment on the enum and on every value. The enum doc names the five Steady_Moods and the two Reaction_Moods. The file imports nothing from Flutter.
     - Edit `packages/coffin_core/lib/coffin_core.dart`: insert `export 'src/widgets/ghost_mood.dart' show GhostMood;` in sorted order, after the `ghost_loader.dart` line. Add no other export.
     - Create `packages/coffin_core/test/widgets/ghost_mood_test.dart` (VM test, may read files): the seven values in the exact order; every value and the enum have a doc comment (read the source file); the file has no `import 'package:flutter` and no `dart:ui`; the Barrel text contains the exact `show GhostMood` line in sorted position; the Barrel does not mention `mood_traits`, `mood_pose`, `mood_bob`, `mood_blend`, `mood_reaction`, `eye_style`, `mouth_style` or `crypt_gallery_moods`.
@@ -118,7 +118,7 @@ Notes that apply to all tasks:
 
 - [ ] 3. Checkpoint A - Pure math verified on the VM and in Chrome
   - [ ] 3.1 Format, analyze and run the VM tests
-    - In `packages/coffin_core` run `dart format --set-exit-if-changed .` (no changes), `flutter analyze` (zero issues) and `flutter test`. All must pass. Report the total count and the count added since task 1.1. Confirm the existing tests listed in the notes were not edited (`git status --short` shows no modified file under `packages/coffin_core/test/` that existed before, apart from new files). Confirm `widgets_sources_test.dart` passes, which scans the new math files. Fix failures in files this feature created only. Report anything else.
+    - In `packages/coffin_core` run `dart format --set-exit-if-changed .` (no changes), `flutter analyze` (zero issues) and `flutter test`. All must pass. Report the total count and the count added since task 1.1. Confirm the existing tests listed in the notes were not edited (`git status --short` shows no modified file under `packages/coffin_core/test/` that existed before, apart from new files and the approved F13 line in `widgets_barrel_sources_test.dart`). Confirm `widgets_sources_test.dart` passes, which scans the new math files. Fix failures in files this feature created only. Report anything else.
     - _Requirements: 23.3, 23.4, 23.6, 23.8, 14.3_
   - [ ] 3.2 Run the pure tests in Chrome
     - In `packages/coffin_core` run the Chrome command from the notes. First check that Chrome is available. If it is not, REPORT that the Chrome step could not run and why, and do not mark the step passed. If a pinned value of task 2.20 or a property differs in Chrome, STOP and report the exact difference.
@@ -152,7 +152,7 @@ Notes that apply to all tasks:
 
 - [ ] 5. Checkpoint B - Painter and loader verified
   - [ ] 5.1 Format, analyze and run all `coffin_core` tests
-    - In `packages/coffin_core` run `dart format --set-exit-if-changed .`, `flutter analyze` (zero issues) and the full `flutter test`. All must pass. Report the total count and the count added since Checkpoint A. Confirm that no existing test file was modified (`git status --short` lists only new test files under `packages/coffin_core/test/`). Confirm `widgets_sources_test.dart` and `widgets_barrel_sources_test.dart` pass. Run `flutter test` in `apps/hauntagotchi` and confirm `test/ui/home_screen_a11y_test.dart` passes unchanged.
+    - In `packages/coffin_core` run `dart format --set-exit-if-changed .`, `flutter analyze` (zero issues) and the full `flutter test`. All must pass. Report the total count and the count added since Checkpoint A. Confirm that no existing test file was modified (`git status --short` lists only new test files under `packages/coffin_core/test/`, plus the approved F13 line in `widgets_barrel_sources_test.dart`). Confirm `widgets_sources_test.dart` and `widgets_barrel_sources_test.dart` pass. Run `flutter test` in `apps/hauntagotchi` and confirm `test/ui/home_screen_a11y_test.dart` passes unchanged.
     - _Requirements: 23.3, 23.4, 23.6, 23.8, 24.8_
 
 - [ ] 6. Crypt gallery mood section
@@ -164,7 +164,7 @@ Notes that apply to all tasks:
 
 - [ ] 7. Checkpoint C - Gallery verified
   - [ ] 7.1 Format, analyze and run all `coffin_core` tests
-    - In `packages/coffin_core` run `dart format --set-exit-if-changed .`, `flutter analyze` (zero issues) and the full `flutter test`. All must pass. Report the total and the count added since Checkpoint B. Confirm that the only modified existing test file is `test/widgets/crypt_gallery_test.dart` and that its diff is the single count line (`git diff -- packages/coffin_core/test/widgets/crypt_gallery_test.dart`). Confirm `apps/hauntagotchi` tests still pass, because the app compiles the gallery route.
+    - In `packages/coffin_core` run `dart format --set-exit-if-changed .`, `flutter analyze` (zero issues) and the full `flutter test`. All must pass. Report the total and the count added since Checkpoint B. Confirm that the only modified existing test files are `test/widgets/crypt_gallery_test.dart` and, for the approved F13 line, `test/widgets/widgets_barrel_sources_test.dart`; confirm the first and that its diff is the single count line (`git diff -- packages/coffin_core/test/widgets/crypt_gallery_test.dart`). Confirm `apps/hauntagotchi` tests still pass, because the app compiles the gallery route.
     - _Requirements: 23.3, 23.4, 23.6, 23.8, 15.9_
 
 - [ ] 8. Hauntagotchi mood wiring
@@ -227,7 +227,7 @@ Notes that apply to all tasks:
 - Property tests use glados (already a dev dependency). Properties 1, 2, 4, 5, 7, 8, 9 and 11 run 300 times; Properties 3, 6 and 10 run 200 times. Every property file carries a `RunCounter` check.
 - Property mapping: Property 1 in task 2.4; Property 3 in task 2.5; Property 4 in task 2.8; Property 5 in task 2.9; Property 2 in task 2.11; Property 6 in task 2.14; Property 7 in task 2.15; Property 8 in task 2.16; Property 9 in task 2.17; Property 10 in task 2.18; Property 11 in task 2.19.
 - Requirement coverage: 1 (2.1), 2 (4.2 to 4.4), 3 and 4 (2.3 to 2.5, 4.2), 5 (2.3, 2.10, 2.11), 6 (2.3, 2.6, 2.18, 4.2, 4.3), 7 (2.7 to 2.9, 2.14, 4.4), 8 (2.12, 2.16, 2.17, 4.4), 9 (4.4), 10 (4.3), 11 (4.3, 8.3), 12 (2.3 to 2.20), 13 (8.1, 8.3, 8.4), 14 (2.5, 4.2, 11.1), 15 (6.1), 16 (8.2 to 8.4), 17 (8.2 to 8.4), 18 (8.4), 19 (8.2, 8.3), 20 (10.1), 21 (2.2 to 2.20), 22 (4.3 to 4.5, 6.1, 8.2 to 8.4), 23 (1.1, 3.x, 5.1, 7.1, 9.1, 11.x), 24 (4.1, 4.5).
-- Existing files that stay unchanged and must pass: `widgets_barrel_sources_test.dart`, `ghost_loader_test.dart`, `ghost_painter_test.dart`, `motion_loop_test.dart`, `flicker_text_test.dart`, `fog_background_test.dart`, `home_screen_a11y_test.dart`, the Graveyard app tests and the `tool` tests.
+- Exception (F13): `widgets_barrel_sources_test.dart`: one line added for the GhostMood export (approved by the user); it must pass. Existing files that stay unchanged and must pass: `ghost_loader_test.dart`, `ghost_painter_test.dart`, `motion_loop_test.dart`, `flicker_text_test.dart`, `fog_background_test.dart`, `home_screen_a11y_test.dart`, the Graveyard app tests and the `tool` tests.
 - Tasks 2.5, 2.20, 4.2, 11.4 and the notes' HARD STOP list stop the work for the user to decide. Nothing is lowered or edited silently to make a run pass.
 - The workflow ends once these tasks exist. Open `tasks.md` and start tasks from there. No implementation has been started.
 

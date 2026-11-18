@@ -26,7 +26,7 @@ No web research was needed: the feature uses plain Flutter APIs already used in 
    - `packages/coffin_core/test/widgets/ghost_loader_test.dart`: with no mood, one ticker, `bobOffset` moves, size is constant, painter props are body `text`, eyes `background`, glow `primary`. The legacy path stays byte-for-byte the same code.
    - `packages/coffin_core/test/widgets/crypt_gallery_test.dart` line 173 asserts `GhostLoader` count per panel (flagged item F1).
    - `widgets_sources_test.dart` scans `lib/src/widgets/` for color literals and `lib/src/widgets/math/` for `package:flutter`, `dart:ui`, `dart:math`, `dart:io`, seedless `Random` and `.hashCode`. The new pure files obey it (no `dart:math`, no `listEquals`, no `x.hashCode`).
-   - `widgets_barrel_sources_test.dart` checks a list of expected export lines and a list of internal names. It is not edited. A new test covers the new export and the new internal names.
+   - `widgets_barrel_sources_test.dart` checks a list of expected export lines and a list of internal names. It gets one added line for the `GhostMood` export (F13, approved by the user). A new test covers the new export and the new internal names.
 6. **Contrast of the starting opacities fails in daylight.** The body is `primary` `6B3FD4` over `background` `F7F3FC`. Measured with the WCAG formula and 8-bit blending: opacity 0.50 gives 2.23, 0.65 gives 2.95. Requirement 4.4 therefore applies and the table is raised (see "MoodTraits").
 7. **Hauntagotchi.** `HomeController._act` sets `_haunting`, optionally `_welcomeBack`, calls `_notify()` once, then enqueues writes. `toggle` chooses between `h.undo(id)` and `h.complete(id)`. `HomeScreen` is stateful only for the lifecycle observer and builds a `ListView(padding: EdgeInsets.all(16))` inside `SafeArea`. `GhostPanel` is a `StatelessWidget` and `GhostPanel` tests construct it without any reaction argument, so new parameters must be optional.
 
@@ -643,7 +643,7 @@ The feature has pure numeric logic (property tests apply) and a large widget and
 
 ### Unit and fixed-value tests
 
-- `ghost_mood_test.dart`: seven values in order, doc comments present, barrel export has `show GhostMood`, none of the pure names is exported (new test, because `widgets_barrel_sources_test.dart` is not edited).
+- `ghost_mood_test.dart`: seven values in order, doc comments present, barrel export has `show GhostMood`, none of the pure names is exported (new test, in addition to the one approved line in `widgets_barrel_sources_test.dart`, F13).
 - `mood_traits_test.dart`: the table pinned row by row, the constants, `reserveFor` at 24, 64, 96, 256 (20, 22, 24, 34).
 - `mood_pose_test.dart`: `rest` for every mood, value equality, `copyWith`, normalized weights.
 - `mood_blend_test.dart`, `mood_bob_test.dart`, `mood_reaction_test.dart`: edge cases (progress 0, 1, NaN, -1, 2; elapsed 0, negative, 2^40; duration 0).
@@ -699,6 +699,7 @@ All open items are decided. The last column records the decision; none is open.
 | F10 | **Painter has an extra public parameter `pose`.** | Its type is internal and not exported, so apps cannot use it; the documented public parameter is `mood` (2.1). | **Decided: keep.** |
 | F11 | **16.1 versus A4.** A Check_Off on a dead ghost's ritual step succeeds. | The controller publishes no event when the ghost is dead after the Check_Off (16.1, 16.6). The panel guard stays (16.10). | **Decided: controller skips it.** Controller test list updated. |
 | F12 | **Stale doc comment.** The `GhostPainter` doc says "no mood". | Rewritten as part of the edit. The root README and the existing "Widgets" bullet for `GhostLoader` are not touched (20.4); only the new "Ghost moods" section is added to the `coffin_core` README. | **Decided: keep.** |
+| F13 | **`widgets_barrel_sources_test.dart` needs the new export line.** | The test pins the exact list of widget export lines, so the `GhostMood` export cannot land without it. | **Decided: widgets_barrel_sources_test.dart: one line added for the GhostMood export (approved by the user).** Only that line is added; the test title was also reworded to drop "six". |
 
 ## Decisions and rejected alternatives
 
