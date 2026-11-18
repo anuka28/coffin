@@ -16,7 +16,7 @@ import 'operation.dart';
 export 'day_plan.dart';
 export 'operation.dart';
 
-// Pure support code: no dart:io. It also runs in Chrome. Every generated
+// Pure support code: no file or process access. It also runs in Chrome. Every generated
 // integer stays far below 2^53.
 
 /// Integers from [min] inclusive to [max] exclusive.

@@ -254,66 +254,66 @@ Rules for every task:
     - Create `test/ui/home_controller_test.dart` with `FakeClock`, `MemoryRecordRepository` and `ThrowingRecordRepository`: load with no data and with habits only, resume, day change ignoring a tap, save order, failed write and retry, memory fallback, load error and retry.
     - _Requirements: 4.1, 8.6, 8.7, 8.8, 9.1, 11.7, 14.9_
 
-- [ ] 11. Home screen widgets
-  - [ ] 11.1 Implement `HauntCopy`
+- [x] 11. Home screen widgets
+  - [x] 11.1 Implement `HauntCopy`
     - Create `lib/src/ui/haunt_copy.dart` holding every user-facing string (state words, nudge, memory notice, save error, ritual text, welcome back, rejection reasons), short, spooky, kind, with no "failed" and no "your fault".
     - _Requirements: 9.4, 11.6, 12.7_
 
-  - [ ] 11.2 Implement `GhostPanel` and `HabitTile`
+  - [x] 11.2 Implement `GhostPanel` and `HabitTile`
     - Create `ghost_panel.dart` (`GhostLoader` with caption, Health number and bar, state in words plus a per-state icon, Streak line, one semantics label such as `Wisp, health 85 of 100, thriving`) and `habit_tile.dart` (48 by 48 check-off control with the label `<name>, done today` or `<name>, not done yet`, a 48 by 48 menu for Rename and Archive, hover and press states).
     - Use only `CoffinTheme` tokens for color.
     - _Requirements: 10.1, 10.2, 10.3, 10.4, 12.1, 12.2, 12.3, 12.6_
 
-  - [ ] 11.3 Implement `HabitNameDialog` and `ArchiveDialog`
+  - [x] 11.3 Implement `HabitNameDialog` and `ArchiveDialog`
     - Create `habit_name_dialog.dart` (add and rename, keeps typed text, shows the rejection reason) and `archive_dialog.dart` (archives only after the user confirms).
     - _Requirements: 10.5, 10.6, 10.7, 12.1, 12.2_
 
-  - [ ] 11.4 Implement the state panels
+  - [x] 11.4 Implement the state panels
     - Create `empty_habits_panel.dart` (no habit or only archived ones), `resurrection_panel.dart` (names the ghost, ritual in one paragraph, progress such as `1 of 2 candles lit`, Resurrection_Count, and "add a habit" text when none is active), `memory_notice.dart`, `save_error_banner.dart` (Retry) and `load_error_view.dart` (Retry).
     - _Requirements: 6.7, 9.2, 9.3, 9.4, 8.8, 11.1, 11.2, 11.3, 11.7_
 
-  - [ ] 11.5 Implement `HomeScreen`
+  - [x] 11.5 Implement `HomeScreen`
     - Create `home_screen.dart`: `FogBackground`, centered column of max width 560 in a `ListView`, `ListenableBuilder` on the controller, loading `GhostLoader` with a caption, ghost panel, habit list, add control that shows a readable reason when 5 habits exist, the nudge below 3 habits, the dead state that keeps the habit list usable, the welcome-back message, and a `WidgetsBindingObserver` that calls `refresh()` on resume. No moving effect when `MediaQuery.disableAnimations` is true.
     - _Requirements: 1.14, 4.1, 10.1, 10.2, 10.3, 10.4, 10.5, 10.8, 10.9, 10.10, 11.3, 11.4, 11.5, 12.4_
 
-- [ ] 12. Wiring and cleanup
-  - [ ] 12.1 Wire the app and remove the placeholder
+- [x] 12. Wiring and cleanup
+  - [x] 12.1 Wire the app and remove the placeholder
     - Change `lib/src/ui/app_routes.dart` to `buildAppRoutes(HomeController)` with `/` showing `HomeScreen` and `/gallery` unchanged. Make `HauntagotchiApp` take a required `HomeController`, call `load()` in `initState` and `disposeStorage()` in `dispose`. Update `main.dart` to build the controller with `SystemClock` and `StorageOpener(initializer: () => hiveFlutterInitializer('hauntagotchi'))`.
     - Delete `lib/src/ui/placeholder_screen.dart` and `test/ui/placeholder_screen_test.dart`. Update `test/ui/app_routes_test.dart` and `test/ui/gallery_route_test.dart` so the existing tests compile and pass against the Home_Screen. Import only `package:coffin_core/coffin_core.dart` from `coffin_core`.
     - _Requirements: 8.1, 10.1, 10.11, 13.1, 13.3, 13.6_
 
-- [ ] 13. UI tests
-  - [ ] 13.1 Write widget tests for the screen states
+- [x] 13. UI tests
+  - [x] 13.1 Write widget tests for the screen states
     - Create `test/ui/home_screen_test.dart` using `FakeClock` and `MemoryRecordRepository` (never real Hive): loading, empty (no habit and only archived), normal, dead with progress and count, dead with no active habit, welcome back, Memory_Notice shown and hidden, save error banner, load error with retry, nudge below 3 habits.
     - _Requirements: 9.2, 9.3, 11.1, 11.2, 11.3, 11.5, 11.7, 1.14, 14.10_
 
-  - [ ] 13.2 Write widget tests for the interactions
+  - [x] 13.2 Write widget tests for the interactions
     - Create `test/ui/home_screen_actions_test.dart`: check-off and undo update Live_Health, state and Streak; add limit disables the control with a readable reason; invalid name keeps the text and shows the reason; archive needs confirmation; rename; the dead state keeps the habit list usable and resurrects through check-off.
     - _Requirements: 10.3, 10.4, 10.5, 10.6, 10.7, 10.8, 11.4, 14.11_
 
-  - [ ] 13.3 Write widget tests for layout, accessibility and reduced motion
+  - [x] 13.3 Write widget tests for layout, accessibility and reduced motion
     - Create `test/ui/home_screen_a11y_test.dart`: no overflow at 360 px width and text scale 1.5, tap targets of at least 48 by 48, semantic labels (check-off and ghost area), state shown by words and icon, and `disableAnimations` giving the still `GhostLoader` frame.
     - _Requirements: 12.1, 12.2, 12.3, 12.4, 12.5, 12.6, 14.11_
 
-  - [ ] 13.4 Write route tests
+  - [x] 13.4 Write route tests
     - Extend `test/ui/app_routes_test.dart` and `test/ui/gallery_route_test.dart`: `/` shows `HomeScreen`, `/gallery` shows `CryptGallery` and its back control returns to `/`, the not-found page still works.
     - _Requirements: 10.11, 14.12_
 
-  - [ ] 13.5 Write the copy test
+  - [x] 13.5 Write the copy test
     - Create `test/ui/haunt_copy_test.dart`: no string in `HauntCopy` contains "failed" or "your fault".
     - _Requirements: 11.6, 12.7_
 
-- [ ] 14. Source-rule tests
-  - [ ] 14.1 Write source-rule tests for the domain and the test tree
+- [x] 14. Source-rule tests
+  - [x] 14.1 Write source-rule tests for the domain and the test tree
     - Create `test/source_rules/domain_sources_test.dart`: no `package:flutter`, no `dart:io`, no `DateTime.now` under `lib/src/domain`; no `DateTime.now` outside `system_clock.dart`; no `Timer` or `Timer.periodic` anywhere in `lib`; no import of `coffin_core/src`, Graveyard or `dart:io` outside allowed files; no `dart:io` in any file under `test/domain` or `test/data`. This folder is the only place that reads source files with `dart:io`.
     - _Requirements: 2.1, 4.5, 13.1, 13.2, 13.3, 14.1_
 
-  - [ ] 14.2 Write the generator-rules test
+  - [x] 14.2 Write the generator-rules test
     - Create `test/source_rules/generator_rules_test.dart`: none of `any.int`, `any.intInRange`, `any.list`, `any.listWithLengthInRange`, string generators or `uint*` appears under `test/`.
     - _Requirements: 14.8_
 
-- [ ] 15. Final verification
-  - [ ] 15.1 Run the full verification plan
+- [x] 15. Final verification
+  - [x] 15.1 Run the full verification plan
     - In `apps/hauntagotchi`, run `dart format --output=none --set-exit-if-changed .`, `flutter analyze` (zero issues), `flutter test`, and `flutter test --platform chrome test/domain test/data`. Check `grep -rl "dart:io" test/domain test/data` finds nothing.
     - Run `flutter test` in `packages/coffin_core` and in `tool/`, then `flutter test --tags raise-check --run-skipped` in `tool/`.
     - Run `flutter pub get --enforce-lockfile` at the repo root and check `git diff --exit-code -- pubspec.lock`. Check `git status --short` lists only the two steering files, `apps/hauntagotchi/pubspec.yaml`, files under `apps/hauntagotchi/lib` and `apps/hauntagotchi/test`, and `.kiro/specs/hauntagotchi-core`.

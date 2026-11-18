@@ -464,21 +464,30 @@ void main() {
       expect(scanned, greaterThan(0));
     });
 
-    test('apps never reference the storage API', () {
-      final names = RegExp(
-        r'\b(?:StorageOpener|RecordRepository|hiveFlutterInitializer'
-        r'|MemoryRecordRepository)\b',
+    /// Apps may use coffin_core only through its barrel file, so any import
+    /// or export of `package:coffin_core/src/` is reported as `file:line`.
+    test('apps import coffin_core only through package:coffin_core/coffin_core.dart', () {
+      final directive = RegExp(
+        r'''^\s*(?:import|export)\s+['"]package:coffin_core/src/''',
       );
+      final offenders = <String>[];
       var scanned = 0;
-      for (final app in <String>['hauntagotchi', 'graveyard']) {
+      final appsDir = Directory('$repo/apps');
+      expect(appsDir.existsSync(), isTrue, reason: appsDir.path);
+      for (final app in appsDir.listSync().whereType<Directory>()) {
         for (final dir in <String>['lib', 'test']) {
-          for (final f in _dartFiles('$repo/apps/$app/$dir')) {
+          for (final f in _dartFiles('${app.path}/$dir')) {
             scanned++;
-            expect(f.readAsStringSync(), isNot(matches(names)), reason: f.path);
-            expect(names.hasMatch(f.readAsStringSync()), isFalse);
+            final lines = f.readAsLinesSync();
+            for (var i = 0; i < lines.length; i++) {
+              if (directive.hasMatch(lines[i])) {
+                offenders.add('${f.path}:${i + 1}');
+              }
+            }
           }
         }
       }
+      expect(offenders, isEmpty, reason: offenders.join('\n'));
       expect(scanned, greaterThan(0));
     });
   });

@@ -721,6 +721,214 @@
         "chatSessionId": "sess_f886f059-c76d-44d3-bd95-5c9ca67c6703",
         "timestamp": 1794971359448
       }
+    ],
+    "11.1 Implement `HauntCopy`": [
+      {
+        "executionId": "4a852e37-3732-451b-bb15-fbad8927733b",
+        "chatSessionId": "sess_817860eb-3301-4f11-ad44-50935351ac77",
+        "timestamp": 1794971718940
+      },
+      {
+        "executionId": "4a852e37-3732-451b-bb15-fbad8927733b",
+        "chatSessionId": "sess_817860eb-3301-4f11-ad44-50935351ac77",
+        "timestamp": 1794971962258
+      }
+    ],
+    "11.2 Implement `GhostPanel` and `HabitTile`": [
+      {
+        "executionId": "4a852e37-3732-451b-bb15-fbad8927733b",
+        "chatSessionId": "sess_817860eb-3301-4f11-ad44-50935351ac77",
+        "timestamp": 1794971963191
+      },
+      {
+        "executionId": "4a852e37-3732-451b-bb15-fbad8927733b",
+        "chatSessionId": "sess_817860eb-3301-4f11-ad44-50935351ac77",
+        "timestamp": 1794972780996
+      }
+    ],
+    "11.3 Implement `HabitNameDialog` and `ArchiveDialog`": [
+      {
+        "executionId": "4a852e37-3732-451b-bb15-fbad8927733b",
+        "chatSessionId": "sess_817860eb-3301-4f11-ad44-50935351ac77",
+        "timestamp": 1794971964122
+      },
+      {
+        "executionId": "4a852e37-3732-451b-bb15-fbad8927733b",
+        "chatSessionId": "sess_817860eb-3301-4f11-ad44-50935351ac77",
+        "timestamp": 1794972781898
+      }
+    ],
+    "11.4 Implement the state panels": [
+      {
+        "executionId": "4a852e37-3732-451b-bb15-fbad8927733b",
+        "chatSessionId": "sess_817860eb-3301-4f11-ad44-50935351ac77",
+        "timestamp": 1794971964511
+      },
+      {
+        "executionId": "4a852e37-3732-451b-bb15-fbad8927733b",
+        "chatSessionId": "sess_817860eb-3301-4f11-ad44-50935351ac77",
+        "timestamp": 1794972782383
+      }
+    ],
+    "11.5 Implement `HomeScreen`": [
+      {
+        "executionId": "4a852e37-3732-451b-bb15-fbad8927733b",
+        "chatSessionId": "sess_817860eb-3301-4f11-ad44-50935351ac77",
+        "timestamp": 1794972785536
+      },
+      {
+        "executionId": "4a852e37-3732-451b-bb15-fbad8927733b",
+        "chatSessionId": "sess_817860eb-3301-4f11-ad44-50935351ac77",
+        "timestamp": 1794974124087
+      }
+    ],
+    "11. Home screen widgets": [
+      {
+        "executionId": "4a852e37-3732-451b-bb15-fbad8927733b",
+        "chatSessionId": "sess_817860eb-3301-4f11-ad44-50935351ac77",
+        "timestamp": 1794974124131
+      }
+    ],
+    "12.1 Wire the app and remove the placeholder": [
+      {
+        "executionId": "a366997f-3d8e-48be-a764-8b40ce2787d4",
+        "chatSessionId": "sess_8bee01f3-5438-48e7-8d16-4fd09b6b6bb8",
+        "timestamp": 1794974150249
+      },
+      {
+        "executionId": "a366997f-3d8e-48be-a764-8b40ce2787d4",
+        "chatSessionId": "sess_8bee01f3-5438-48e7-8d16-4fd09b6b6bb8",
+        "timestamp": 1794974287001
+      }
+    ],
+    "12. Wiring and cleanup": [
+      {
+        "executionId": "a366997f-3d8e-48be-a764-8b40ce2787d4",
+        "chatSessionId": "sess_8bee01f3-5438-48e7-8d16-4fd09b6b6bb8",
+        "timestamp": 1794974287033
+      }
+    ],
+    "13.1 Write widget tests for the screen states": [
+      {
+        "executionId": "4c499264-449c-4696-a093-1408febd7c4c",
+        "chatSessionId": "sess_4383adcd-b76c-4f7e-96b0-f72cf6e82dee",
+        "timestamp": 1794975404541
+      },
+      {
+        "executionId": "4c499264-449c-4696-a093-1408febd7c4c",
+        "chatSessionId": "sess_4383adcd-b76c-4f7e-96b0-f72cf6e82dee",
+        "timestamp": 1794975508279
+      }
+    ],
+    "13.2 Write widget tests for the interactions": [
+      {
+        "executionId": "3e60ab1e-b4f9-4160-b64b-18170fd4ffc5",
+        "chatSessionId": "sess_39fed526-5c7f-4c43-8c71-b0f198d2aa30",
+        "timestamp": 1794975527382
+      },
+      {
+        "executionId": "3e60ab1e-b4f9-4160-b64b-18170fd4ffc5",
+        "chatSessionId": "sess_39fed526-5c7f-4c43-8c71-b0f198d2aa30",
+        "timestamp": 1794975664536
+      }
+    ],
+    "13.3 Write widget tests for layout, accessibility and reduced motion": [
+      {
+        "executionId": "41722320-d5f7-4d93-8722-e6c5747c545e",
+        "chatSessionId": "sess_003f80d5-c813-4fb6-a323-e1d416f4fd1d",
+        "timestamp": 1794975717604
+      },
+      {
+        "executionId": "41722320-d5f7-4d93-8722-e6c5747c545e",
+        "chatSessionId": "sess_003f80d5-c813-4fb6-a323-e1d416f4fd1d",
+        "timestamp": 1794975832548
+      }
+    ],
+    "13.4 Write route tests": [
+      {
+        "executionId": "ff420a56-47cc-49da-ae86-7a005bd2b366",
+        "chatSessionId": "sess_e5dbbc98-1c24-4eb0-9bd7-0031cdf77be6",
+        "timestamp": 1794975849346
+      },
+      {
+        "executionId": "ff420a56-47cc-49da-ae86-7a005bd2b366",
+        "chatSessionId": "sess_e5dbbc98-1c24-4eb0-9bd7-0031cdf77be6",
+        "timestamp": 1794975887090
+      }
+    ],
+    "13.5 Write the copy test": [
+      {
+        "executionId": "d44c3575-0633-4aa9-89ca-d3733cd80dc3",
+        "chatSessionId": "sess_8385caea-bdfc-499f-8848-f4d35dbc5111",
+        "timestamp": 1794975898639
+      },
+      {
+        "executionId": "d44c3575-0633-4aa9-89ca-d3733cd80dc3",
+        "chatSessionId": "sess_8385caea-bdfc-499f-8848-f4d35dbc5111",
+        "timestamp": 1794975936655
+      }
+    ],
+    "13. UI tests": [
+      {
+        "executionId": "d44c3575-0633-4aa9-89ca-d3733cd80dc3",
+        "chatSessionId": "sess_8385caea-bdfc-499f-8848-f4d35dbc5111",
+        "timestamp": 1794975936703
+      }
+    ],
+    "14.1 Write source-rule tests for the domain and the test tree": [
+      {
+        "executionId": "91c44d84-7065-4280-8a80-406b3476b58a",
+        "chatSessionId": "sess_87d99eae-04f7-4d65-8017-817bd29fc391",
+        "timestamp": 1794975979906
+      },
+      {
+        "executionId": "91c44d84-7065-4280-8a80-406b3476b58a",
+        "chatSessionId": "sess_87d99eae-04f7-4d65-8017-817bd29fc391",
+        "timestamp": 1794976068377
+      }
+    ],
+    "14.2 Write the generator-rules test": [
+      {
+        "executionId": "c529eafc-262b-4a29-8a89-42b5102bf4a4",
+        "chatSessionId": "sess_102ee580-8db9-49d5-895b-34f327d780ac",
+        "timestamp": 1794976079967
+      },
+      {
+        "executionId": "c529eafc-262b-4a29-8a89-42b5102bf4a4",
+        "chatSessionId": "sess_102ee580-8db9-49d5-895b-34f327d780ac",
+        "timestamp": 1794976145030
+      }
+    ],
+    "14. Source-rule tests": [
+      {
+        "executionId": "c529eafc-262b-4a29-8a89-42b5102bf4a4",
+        "chatSessionId": "sess_102ee580-8db9-49d5-895b-34f327d780ac",
+        "timestamp": 1794976145060
+      }
+    ],
+    "15.1 Run the full verification plan": [
+      {
+        "executionId": "c529eafc-262b-4a29-8a89-42b5102bf4a4",
+        "chatSessionId": "sess_102ee580-8db9-49d5-895b-34f327d780ac",
+        "timestamp": 1794976149360
+      },
+      {
+        "executionId": "9c7bcb51-5f1c-4ddf-93d2-30bed82501ad",
+        "chatSessionId": "sess_102ee580-8db9-49d5-895b-34f327d780ac",
+        "timestamp": 1794976517614
+      },
+      {
+        "executionId": "9c7bcb51-5f1c-4ddf-93d2-30bed82501ad",
+        "chatSessionId": "sess_102ee580-8db9-49d5-895b-34f327d780ac",
+        "timestamp": 1794976643968
+      }
+    ],
+    "15. Final verification": [
+      {
+        "executionId": "9c7bcb51-5f1c-4ddf-93d2-30bed82501ad",
+        "chatSessionId": "sess_102ee580-8db9-49d5-895b-34f327d780ac",
+        "timestamp": 1794976644003
+      }
     ]
   }
 }

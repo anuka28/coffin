@@ -3,7 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:hauntagotchi/main.dart';
 import 'package:hauntagotchi/src/ui/app_routes.dart';
-import 'package:hauntagotchi/src/ui/placeholder_screen.dart';
+import 'package:hauntagotchi/src/ui/home_screen.dart';
+
+import '../support/memory_home_controller.dart';
 
 void main() {
   // The gallery has looping widgets, so these tests never use pumpAndSettle.
@@ -19,9 +21,11 @@ void main() {
     await tester.pump(const Duration(milliseconds: 700));
   }
 
+  late GoRouter router;
+
   Future<void> pumpAt(WidgetTester tester, String location) async {
-    final GoRouter router = FogRouter.create(
-      routes: appRoutes,
+    router = FogRouter.create(
+      routes: buildAppRoutes(memoryHomeController()),
       initialLocation: location,
     );
     addTearDown(router.dispose);
@@ -36,12 +40,12 @@ void main() {
 
     expect(find.byType(CryptGallery), findsOneWidget);
     expect(find.byType(NotFoundPage), findsNothing);
-    expect(find.byType(PlaceholderScreen), findsNothing);
+    expect(find.byType(HomeScreen), findsNothing);
 
     await endTest(tester);
   });
 
-  testWidgets('"Back to the crypt" returns to the placeholder', (tester) async {
+  testWidgets('"Back to the crypt" returns to the home screen', (tester) async {
     await pumpAt(tester, '/gallery');
 
     final Finder button = find.text('Back to the crypt');
@@ -50,7 +54,7 @@ void main() {
     await tester.tap(button);
     await advance(tester);
 
-    expect(find.byType(PlaceholderScreen), findsOneWidget);
+    expect(find.byType(HomeScreen), findsOneWidget);
     expect(find.byType(CryptGallery), findsNothing);
 
     await endTest(tester);
@@ -62,7 +66,9 @@ void main() {
     tester.platformDispatcher.defaultRouteNameTestValue = '/gallery';
     addTearDown(tester.platformDispatcher.clearDefaultRouteNameTestValue);
 
-    await tester.pumpWidget(const HauntagotchiApp());
+    await tester.pumpWidget(
+      HauntagotchiApp(controller: memoryHomeController()),
+    );
     await advance(tester);
 
     expect(find.byType(CryptGallery), findsOneWidget);

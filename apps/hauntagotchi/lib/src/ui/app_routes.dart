@@ -1,15 +1,18 @@
 import 'package:coffin_core/coffin_core.dart';
 
-import 'placeholder_screen.dart';
+import 'home_controller.dart';
+import 'home_screen.dart';
 
-/// The routes of Hauntagotchi. The home route shows the placeholder screen.
-/// The `/gallery` route shows the crypt gallery of spooky widgets. Nothing
-/// links to it, so it is reached only by its address.
-final List<AppRoute> appRoutes = <AppRoute>[
+/// Builds the routes of Hauntagotchi around [controller].
+///
+/// The home route shows the [HomeScreen]. The `/gallery` route shows the
+/// crypt gallery of spooky widgets. Nothing links to it, so it is reached
+/// only by its address.
+List<AppRoute> buildAppRoutes(HomeController controller) => <AppRoute>[
   AppRoute(
     path: '/',
     name: 'home',
-    builder: (context, state) => const PlaceholderScreen(),
+    builder: (context, state) => HomeScreen(controller: controller),
   ),
   AppRoute(
     path: '/gallery',
