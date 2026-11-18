@@ -244,13 +244,13 @@ Rules for every task:
     - Create `test/data/haunt_storage_test.dart` with a fake `StorageOpener`: box names, version 1, `isPersistent` from both repositories.
     - _Requirements: 8.1, 9.1_
 
-- [ ] 10. Home controller
-  - [ ] 10.1 Implement `HomeController`, `HomeStatus` and `SaveStatus`
+- [x] 10. Home controller
+  - [x] 10.1 Implement `HomeController`, `HomeStatus` and `SaveStatus`
     - Create `home_status.dart`, `save_status.dart` and `home_controller.dart` in `lib/src/ui` (a `ChangeNotifier`, no package). Include `load`, `refresh`, `addHabit`, `renameHabit`, `archiveHabit`, `toggle`, `retrySave`, `dismissWelcome`, `disposeStorage`, `welcomeBack`, `isPersistent`.
     - Sync with the Clock before every action. If the day changed, notify and ignore that tap. Change memory first, notify, then write changed habits and the ghost, and report saved only after the writes finish. Keep state and show a retry on a failed write. Use no timer. Guard notifications after dispose.
     - _Requirements: 4.1, 4.5, 8.6, 8.7, 8.8, 9.1, 10.10, 11.5, 11.7_
 
-  - [ ] 10.2 Write unit tests for `HomeController`
+  - [x] 10.2 Write unit tests for `HomeController`
     - Create `test/ui/home_controller_test.dart` with `FakeClock`, `MemoryRecordRepository` and `ThrowingRecordRepository`: load with no data and with habits only, resume, day change ignoring a tap, save order, failed write and retry, memory fallback, load error and retry.
     - _Requirements: 4.1, 8.6, 8.7, 8.8, 9.1, 11.7, 14.9_
 

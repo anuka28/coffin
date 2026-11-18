@@ -690,6 +690,37 @@
         "chatSessionId": "sess_821d1ce0-fce7-49a3-8796-2a9672a4a49c",
         "timestamp": 1794970944891
       }
+    ],
+    "10.1 Implement `HomeController`, `HomeStatus` and `SaveStatus`": [
+      {
+        "executionId": "b14a5738-b784-4cbf-948b-c6e9f0bf0681",
+        "chatSessionId": "sess_f886f059-c76d-44d3-bd95-5c9ca67c6703",
+        "timestamp": 1794971142697
+      },
+      {
+        "executionId": "b14a5738-b784-4cbf-948b-c6e9f0bf0681",
+        "chatSessionId": "sess_f886f059-c76d-44d3-bd95-5c9ca67c6703",
+        "timestamp": 1794971258783
+      }
+    ],
+    "10.2 Write unit tests for `HomeController`": [
+      {
+        "executionId": "b14a5738-b784-4cbf-948b-c6e9f0bf0681",
+        "chatSessionId": "sess_f886f059-c76d-44d3-bd95-5c9ca67c6703",
+        "timestamp": 1794971264764
+      },
+      {
+        "executionId": "b14a5738-b784-4cbf-948b-c6e9f0bf0681",
+        "chatSessionId": "sess_f886f059-c76d-44d3-bd95-5c9ca67c6703",
+        "timestamp": 1794971359412
+      }
+    ],
+    "10. Home controller": [
+      {
+        "executionId": "b14a5738-b784-4cbf-948b-c6e9f0bf0681",
+        "chatSessionId": "sess_f886f059-c76d-44d3-bd95-5c9ca67c6703",
+        "timestamp": 1794971359448
+      }
     ]
   }
 }
