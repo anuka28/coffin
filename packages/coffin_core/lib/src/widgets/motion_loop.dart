@@ -24,14 +24,29 @@ mixin MotionLoop<T extends StatefulWidget>
       ? loopController.lastElapsedDuration?.inMilliseconds ?? 0
       : 0;
 
-  @override
-  void didChangeDependencies() {
-    super.didChangeDependencies();
-    if (reducedMotion) {
+  /// Whether the loop should run while motion is allowed.
+  ///
+  /// Defaults to true, so the loop always runs unless motion is reduced.
+  /// Override it to pause the loop, then call [syncLoop] after the answer
+  /// changes.
+  bool get loopWanted => true;
+
+  /// Starts or stops the loop to match [reducedMotion] and [loopWanted].
+  ///
+  /// Stops the loop when motion is reduced or the loop is not wanted. Otherwise
+  /// it starts the loop if it is not already running.
+  void syncLoop() {
+    if (reducedMotion || !loopWanted) {
       loopController.stop();
     } else if (!loopController.isAnimating) {
       loopController.repeat();
     }
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    syncLoop();
   }
 
   @override

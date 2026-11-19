@@ -340,6 +340,73 @@
         "chatSessionId": "sess_f0387f83-8daa-430a-a83e-3ed4eb8efc8e",
         "timestamp": 1794984777067
       }
+    ],
+    "4.1 Add the optional `loopWanted` hook to `MotionLoop`": [
+      {
+        "executionId": "a80532e5-1147-4360-99c8-283e66379643",
+        "chatSessionId": "sess_ebfc2ebe-5ab9-4d37-963f-38b4ffcd5a47",
+        "timestamp": 1794985162084
+      },
+      {
+        "executionId": "a80532e5-1147-4360-99c8-283e66379643",
+        "chatSessionId": "sess_ebfc2ebe-5ab9-4d37-963f-38b4ffcd5a47",
+        "timestamp": 1794985813955
+      }
+    ],
+    "4.2 Add mood and pose drawing to `GhostPainter`, with painter tests": [
+      {
+        "executionId": "a80532e5-1147-4360-99c8-283e66379643",
+        "chatSessionId": "sess_ebfc2ebe-5ab9-4d37-963f-38b4ffcd5a47",
+        "timestamp": 1794985162154
+      },
+      {
+        "executionId": "a80532e5-1147-4360-99c8-283e66379643",
+        "chatSessionId": "sess_ebfc2ebe-5ab9-4d37-963f-38b4ffcd5a47",
+        "timestamp": 1794985814396
+      }
+    ],
+    "4.3 Add the mood path to `GhostLoader`: layout, painting, reduced motion, semantics": [
+      {
+        "executionId": "a80532e5-1147-4360-99c8-283e66379643",
+        "chatSessionId": "sess_ebfc2ebe-5ab9-4d37-963f-38b4ffcd5a47",
+        "timestamp": 1794985822549
+      },
+      {
+        "executionId": "a80532e5-1147-4360-99c8-283e66379643",
+        "chatSessionId": "sess_ebfc2ebe-5ab9-4d37-963f-38b4ffcd5a47",
+        "timestamp": 1794986557679
+      }
+    ],
+    "4.4 Add transitions, reactions and the reaction key to `GhostLoader`": [
+      {
+        "executionId": "a80532e5-1147-4360-99c8-283e66379643",
+        "chatSessionId": "sess_ebfc2ebe-5ab9-4d37-963f-38b4ffcd5a47",
+        "timestamp": 1794986560802
+      },
+      {
+        "executionId": "a80532e5-1147-4360-99c8-283e66379643",
+        "chatSessionId": "sess_ebfc2ebe-5ab9-4d37-963f-38b4ffcd5a47",
+        "timestamp": 1794986899783
+      }
+    ],
+    "4.5 Stop the ticker for a settled `dead` ghost": [
+      {
+        "executionId": "a80532e5-1147-4360-99c8-283e66379643",
+        "chatSessionId": "sess_ebfc2ebe-5ab9-4d37-963f-38b4ffcd5a47",
+        "timestamp": 1794986902875
+      },
+      {
+        "executionId": "a80532e5-1147-4360-99c8-283e66379643",
+        "chatSessionId": "sess_ebfc2ebe-5ab9-4d37-963f-38b4ffcd5a47",
+        "timestamp": 1794987440494
+      }
+    ],
+    "4. Painter and loader": [
+      {
+        "executionId": "a80532e5-1147-4360-99c8-283e66379643",
+        "chatSessionId": "sess_ebfc2ebe-5ab9-4d37-963f-38b4ffcd5a47",
+        "timestamp": 1794987440547
+      }
     ]
   }
 }
