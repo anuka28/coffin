@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../theme/coffin_color_tokens.dart';
 import '../theme/coffin_metrics.dart';
+import 'crypt_gallery_moods.dart';
 import 'flicker_text.dart';
 import 'fog_background.dart';
 import 'ghost_loader.dart';
@@ -58,6 +59,8 @@ class CryptGalleryPanel extends StatelessWidget {
                   const GhostLoader(caption: 'Summoning your ghost…'),
                   const SizedBox(height: 16),
                   const GhostLoader(),
+                  const SizedBox(height: 16),
+                  const CryptGalleryMoods(),
                   const SizedBox(height: 16),
                   const TombstoneCard(
                     title: 'Old Todo App',

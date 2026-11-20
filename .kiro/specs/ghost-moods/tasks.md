@@ -156,15 +156,15 @@ Notes that apply to all tasks:
     - In `packages/coffin_core` run `dart format --set-exit-if-changed .`, `flutter analyze` (zero issues) and the full `flutter test`. All must pass. Report the total count and the count added since Checkpoint A. Confirm that no existing test file was modified (`git status --short` lists only new test files under `packages/coffin_core/test/`, plus the approved F13 line in `widgets_barrel_sources_test.dart`). Confirm `widgets_sources_test.dart` and `widgets_barrel_sources_test.dart` pass. Run `flutter test` in `apps/hauntagotchi` and confirm `test/ui/home_screen_a11y_test.dart` passes unchanged.
     - _Requirements: 23.3, 23.4, 23.6, 23.8, 24.8_
 
-- [ ] 6. Crypt gallery mood section
-  - [ ] 6.1 Add `CryptGalleryMoods` and wire it into `CryptGalleryPanel`
+- [x] 6. Crypt gallery mood section
+  - [x] 6.1 Add `CryptGalleryMoods` and wire it into `CryptGalleryPanel`
     - Create `lib/src/widgets/crypt_gallery_moods.dart` (internal `CryptGalleryMoods`, not exported): a `Semantics(header: true)` title "Seven ways to be haunted" (`titleMedium`), the line "Each ghost wears its mood on its face.", and a `Wrap` (spacing 16, run spacing 16, centered) of seven `SizedBox(width: 96)` items, each `GhostLoader(mood: m, caption: m.name)` in `GhostMood.values` order, with no `onReactionEnd` and no loop of its own. Edit `lib/src/widgets/crypt_gallery_panel.dart` to insert the section after the two existing `GhostLoader` samples. The existing samples, their captions and the `CryptGallery` public API stay unchanged.
     - Edit `packages/coffin_core/test/widgets/crypt_gallery_test.dart` line 173 only (flagged item F1): in `every sample appears in each panel`, change `findsNWidgets(2)` for `GhostLoader` to `findsNWidgets(9)`. No other line of that file changes.
     - Create `test/widgets/crypt_gallery_moods_test.dart`: each panel shows seven mood loaders with the mood name as caption in `GhostMood.values` order, and both panels use the same order; the section title is a semantic header; no overflow and `takeException()` null at widths 320, 360 and 1280, text scales 1.0 and 1.5 and in both themes; under reduced motion each mood shows its Still_Frame and the page has `transientCallbackCount` 0; under normal motion `fed` and `rising` play once and hold (pump past 2200 ms and confirm the final pose equals `rest`); the existing loaders and captions are still present.
     - _Requirements: 15.1, 15.2, 15.3, 15.4, 15.5, 15.6, 15.7, 15.8, 15.9, 22.7_
 
-- [ ] 7. Checkpoint C - Gallery verified
-  - [ ] 7.1 Format, analyze and run all `coffin_core` tests
+- [x] 7. Checkpoint C - Gallery verified
+  - [x] 7.1 Format, analyze and run all `coffin_core` tests
     - In `packages/coffin_core` run `dart format --set-exit-if-changed .`, `flutter analyze` (zero issues) and the full `flutter test`. All must pass. Report the total and the count added since Checkpoint B. Confirm that the only modified existing test files are `test/widgets/crypt_gallery_test.dart` and, for the approved F13 line, `test/widgets/widgets_barrel_sources_test.dart`; confirm the first and that its diff is the single count line (`git diff -- packages/coffin_core/test/widgets/crypt_gallery_test.dart`). Confirm `apps/hauntagotchi` tests still pass, because the app compiles the gallery route.
     - _Requirements: 23.3, 23.4, 23.6, 23.8, 15.9_
 

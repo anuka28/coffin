@@ -170,7 +170,7 @@ void main() {
       for (final Finder panel in <Finder>[_night, _daylight]) {
         Finder inPanel(Finder matching) =>
             find.descendant(of: panel, matching: matching);
-        expect(inPanel(find.byType(GhostLoader)), findsNWidgets(2));
+        expect(inPanel(find.byType(GhostLoader)), findsNWidgets(9));
         expect(inPanel(find.text('Summoning your ghost…')), findsOneWidget);
         expect(inPanel(find.text('Old Todo App')), findsOneWidget);
         expect(inPanel(find.text('Died 214 days ago')), findsOneWidget);

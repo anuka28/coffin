@@ -426,6 +426,44 @@
         "chatSessionId": "sess_ebfc2ebe-5ab9-4d37-963f-38b4ffcd5a47",
         "timestamp": 1795189405002
       }
+    ],
+    "6.1 Add `CryptGalleryMoods` and wire it into `CryptGalleryPanel`": [
+      {
+        "executionId": "06dab015-686c-413c-8ed5-d1aba02821d3",
+        "chatSessionId": "sess_cfe90e53-923a-4e7f-8c69-c56b61bd7ad5",
+        "timestamp": 1795190014269
+      },
+      {
+        "executionId": "06dab015-686c-413c-8ed5-d1aba02821d3",
+        "chatSessionId": "sess_cfe90e53-923a-4e7f-8c69-c56b61bd7ad5",
+        "timestamp": 1795190167646
+      }
+    ],
+    "6. Crypt gallery mood section": [
+      {
+        "executionId": "06dab015-686c-413c-8ed5-d1aba02821d3",
+        "chatSessionId": "sess_cfe90e53-923a-4e7f-8c69-c56b61bd7ad5",
+        "timestamp": 1795190167775
+      }
+    ],
+    "7.1 Format, analyze and run all `coffin_core` tests": [
+      {
+        "executionId": "72286f1c-4412-4a02-815c-6f1433b9c53a",
+        "chatSessionId": "sess_22f75fcf-5831-4e68-93fc-ada77b4dbc2e",
+        "timestamp": 1795190520488
+      },
+      {
+        "executionId": "72286f1c-4412-4a02-815c-6f1433b9c53a",
+        "chatSessionId": "sess_22f75fcf-5831-4e68-93fc-ada77b4dbc2e",
+        "timestamp": 1795190653383
+      }
+    ],
+    "7. Checkpoint C - Gallery verified": [
+      {
+        "executionId": "72286f1c-4412-4a02-815c-6f1433b9c53a",
+        "chatSessionId": "sess_22f75fcf-5831-4e68-93fc-ada77b4dbc2e",
+        "timestamp": 1795190653471
+      }
     ]
   }
 }
