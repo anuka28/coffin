@@ -407,6 +407,25 @@
         "chatSessionId": "sess_ebfc2ebe-5ab9-4d37-963f-38b4ffcd5a47",
         "timestamp": 1794987440547
       }
+    ],
+    "5.1 Format, analyze and run all `coffin_core` tests": [
+      {
+        "executionId": "10097cdf-f14f-4531-8a39-54c068050528",
+        "chatSessionId": "sess_ebfc2ebe-5ab9-4d37-963f-38b4ffcd5a47",
+        "timestamp": 1795189247345
+      },
+      {
+        "executionId": "10097cdf-f14f-4531-8a39-54c068050528",
+        "chatSessionId": "sess_ebfc2ebe-5ab9-4d37-963f-38b4ffcd5a47",
+        "timestamp": 1795189404873
+      }
+    ],
+    "5. Checkpoint B - Painter and loader verified": [
+      {
+        "executionId": "10097cdf-f14f-4531-8a39-54c068050528",
+        "chatSessionId": "sess_ebfc2ebe-5ab9-4d37-963f-38b4ffcd5a47",
+        "timestamp": 1795189405002
+      }
     ]
   }
 }

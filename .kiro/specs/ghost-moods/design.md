@@ -700,6 +700,7 @@ All open items are decided. The last column records the decision; none is open.
 | F11 | **16.1 versus A4.** A Check_Off on a dead ghost's ritual step succeeds. | The controller publishes no event when the ghost is dead after the Check_Off (16.1, 16.6). The panel guard stays (16.10). | **Decided: controller skips it.** Controller test list updated. |
 | F12 | **Stale doc comment.** The `GhostPainter` doc says "no mood". | Rewritten as part of the edit. The root README and the existing "Widgets" bullet for `GhostLoader` are not touched (20.4); only the new "Ghost moods" section is added to the `coffin_core` README. | **Decided: keep.** |
 | F13 | **`widgets_barrel_sources_test.dart` needs the new export line.** | The test pins the exact list of widget export lines, so the `GhostMood` export cannot land without it. | **Decided: widgets_barrel_sources_test.dart: one line added for the GhostMood export (approved by the user).** Only that line is added; the test title was also reworded to drop "six". |
+| F14 | **Restart-blend speed bound (9.11).** The literal bound (1.5 times the average speed of the 200 ms blend) is ill-defined: the new run's target moves during the blend, so the actual pose travels a little faster than a fixed-endpoint blend (measured largest 16 ms step of `scale` on `fed` 0.00729 against 0.00700). | The new run's target moves during the blend, so the literal bound was ill-defined. The average step is taken over the nominal travel, from the interrupted pose to the new run's progress-0 pose, divided by 200 ms and multiplied by 16 ms. The largest 16 ms step of scale, lift and opacity must stay within 1.5 times that average plus the test tolerance of 1e-9. Code and test unchanged. | **Decided: wording changed to match the test** (9.11 reworded). |
 
 ## Decisions and rejected alternatives
 
@@ -727,7 +728,7 @@ All open items are decided. The last column records the decision; none is open.
 | 6 Fixed layout | Fixed layout, `reserveFor`, Property 10, size and pixel tests |
 | 7 Transitions | MoodBlend (amplitude, posture, opacity; no period), GhostLoader state table, Properties 4 to 6 |
 | 8 Reaction moods | MoodReaction, GhostLoader, Properties 8 and 9 |
-| 9 Reaction lifecycle | GhostLoader state table, tick listener, reaction tests; 9.11 speed bound by the 200 ms blend (F5, Property 4) |
+| 9 Reaction lifecycle | GhostLoader state table, tick listener, reaction tests; 9.11 speed bound by the 200 ms blend over its nominal travel (F5, F14, Property 4) |
 | 10 Reduced motion | GhostLoader reduced branch, `rest(mood)` as Still_Frame |
 | 11 Semantics | unchanged wrapper, semantics tests |
 | 12 Pure math, web safety | math folder, scans, Property 11, fixed values in Chrome |

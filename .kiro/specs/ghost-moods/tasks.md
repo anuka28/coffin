@@ -151,8 +151,8 @@ Notes that apply to all tasks:
     - Run the existing `ghost_loader_test.dart`, `crypt_gallery_test.dart` and `motion_loop_test.dart` unchanged. They must pass.
     - _Requirements: 7.8, 9.7, 9.9, 24.1, 24.2, 24.3, 24.4, 24.5, 24.6, 24.9, 24.10, 24.11_
 
-- [ ] 5. Checkpoint B - Painter and loader verified
-  - [ ] 5.1 Format, analyze and run all `coffin_core` tests
+- [x] 5. Checkpoint B - Painter and loader verified
+  - [x] 5.1 Format, analyze and run all `coffin_core` tests
     - In `packages/coffin_core` run `dart format --set-exit-if-changed .`, `flutter analyze` (zero issues) and the full `flutter test`. All must pass. Report the total count and the count added since Checkpoint A. Confirm that no existing test file was modified (`git status --short` lists only new test files under `packages/coffin_core/test/`, plus the approved F13 line in `widgets_barrel_sources_test.dart`). Confirm `widgets_sources_test.dart` and `widgets_barrel_sources_test.dart` pass. Run `flutter test` in `apps/hauntagotchi` and confirm `test/ui/home_screen_a11y_test.dart` passes unchanged.
     - _Requirements: 23.3, 23.4, 23.6, 23.8, 24.8_
 
