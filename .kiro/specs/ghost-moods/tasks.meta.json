@@ -464,6 +464,80 @@
         "chatSessionId": "sess_22f75fcf-5831-4e68-93fc-ada77b4dbc2e",
         "timestamp": 1795190653471
       }
+    ],
+    "8.1 Add `moodFor` with its test": [
+      {
+        "executionId": "8bac512e-d63b-4827-bf85-4497949a801c",
+        "chatSessionId": "sess_88bad9c1-1d05-4c09-9f96-f84fb9644f8f",
+        "timestamp": 1795191299611
+      },
+      {
+        "executionId": "8bac512e-d63b-4827-bf85-4497949a801c",
+        "chatSessionId": "sess_88bad9c1-1d05-4c09-9f96-f84fb9644f8f",
+        "timestamp": 1795191374787
+      }
+    ],
+    "8.2 Add reaction events to `HomeController`, with tests": [
+      {
+        "executionId": "2894a5a0-77cb-4719-ad76-1a326afbc5ed",
+        "chatSessionId": "sess_7c85bf84-5e2e-4266-9aa7-8eeefbdcd85c",
+        "timestamp": 1795191518947
+      },
+      {
+        "executionId": "2894a5a0-77cb-4719-ad76-1a326afbc5ed",
+        "chatSessionId": "sess_7c85bf84-5e2e-4266-9aa7-8eeefbdcd85c",
+        "timestamp": 1795191691836
+      }
+    ],
+    "8.3 Make `GhostPanel` stateful and wire the mood and the reaction": [
+      {
+        "executionId": "e622b581-471c-4d69-bad9-370d11859de3",
+        "chatSessionId": "sess_6d9ba9fc-1870-4ee8-a5ca-30f967843ebc",
+        "timestamp": 1795191763257
+      },
+      {
+        "executionId": "e622b581-471c-4d69-bad9-370d11859de3",
+        "chatSessionId": "sess_6d9ba9fc-1870-4ee8-a5ca-30f967843ebc",
+        "timestamp": 1795191927548
+      }
+    ],
+    "8.4 Wire `HomeScreen` and fix the top edge": [
+      {
+        "executionId": "44e0545c-3170-4a2d-9d2c-2f0c06d18b44",
+        "chatSessionId": "sess_6686aac3-e2b2-4e31-a516-0414310bd60c",
+        "timestamp": 1795191947520
+      },
+      {
+        "executionId": "44e0545c-3170-4a2d-9d2c-2f0c06d18b44",
+        "chatSessionId": "sess_6686aac3-e2b2-4e31-a516-0414310bd60c",
+        "timestamp": 1795192292020
+      }
+    ],
+    "8. Hauntagotchi mood wiring": [
+      {
+        "executionId": "44e0545c-3170-4a2d-9d2c-2f0c06d18b44",
+        "chatSessionId": "sess_6686aac3-e2b2-4e31-a516-0414310bd60c",
+        "timestamp": 1795192292111
+      }
+    ],
+    "9.1 Format, analyze and test both packages": [
+      {
+        "executionId": "79f7d13e-1051-42b7-9d8b-af069fb88055",
+        "chatSessionId": "sess_37ee7995-4347-4d7e-a0bf-420f9c3a6b39",
+        "timestamp": 1795192430579
+      },
+      {
+        "executionId": "79f7d13e-1051-42b7-9d8b-af069fb88055",
+        "chatSessionId": "sess_37ee7995-4347-4d7e-a0bf-420f9c3a6b39",
+        "timestamp": 1795192641422
+      }
+    ],
+    "9. Checkpoint D - Hauntagotchi verified": [
+      {
+        "executionId": "79f7d13e-1051-42b7-9d8b-af069fb88055",
+        "chatSessionId": "sess_37ee7995-4347-4d7e-a0bf-420f9c3a6b39",
+        "timestamp": 1795192641507
+      }
     ]
   }
 }

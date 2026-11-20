@@ -122,10 +122,12 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
       if (welcome != null)
         _WelcomeBack(message: welcome, controller: _controller),
       GhostPanel(
+        key: const ValueKey<String>('ghost-panel'),
         ghostName: haunting.ghost.name,
         health: haunting.liveHealth,
         state: haunting.state,
         streak: haunting.streak,
+        reaction: _controller.reaction,
       ),
       if (dead)
         ResurrectionPanel(
@@ -156,7 +158,7 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
     ];
 
     return ListView(
-      padding: const EdgeInsets.all(16),
+      padding: const EdgeInsets.fromLTRB(16, 24, 16, 16),
       children: <Widget>[
         Center(
           child: ConstrainedBox(

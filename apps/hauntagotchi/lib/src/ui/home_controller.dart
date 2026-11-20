@@ -3,12 +3,15 @@ import 'package:flutter/foundation.dart';
 import '../data/haunt_storage.dart';
 import '../domain/clock.dart';
 import '../domain/ghost.dart';
+import '../domain/ghost_state.dart';
 import '../domain/habit.dart';
 import '../domain/habit_book.dart';
 import '../domain/habit_rejection.dart';
 import '../domain/haunt_result.dart';
 import '../domain/haunting.dart';
 import '../domain/local_day.dart';
+import 'ghost_reaction.dart';
+import 'ghost_reaction_kind.dart';
 import 'home_status.dart';
 import 'save_status.dart';
 
@@ -30,6 +33,8 @@ class HomeController extends ChangeNotifier {
   SaveStatus _saveStatus = SaveStatus.saved;
   bool _isPersistent = true;
   String? _welcomeBack;
+  GhostReaction? _reaction;
+  int _reactionKey = 0;
   bool _disposed = false;
   bool _writeFailed = false;
   int _writesInFlight = 0;
@@ -50,6 +55,12 @@ class HomeController extends ChangeNotifier {
   /// A message welcoming the ghost back, set when a ritual completes and
   /// cleared by [dismissWelcome].
   String? get welcomeBack => _welcomeBack;
+
+  /// The latest ghost reaction event, or null when none happened yet.
+  ///
+  /// Events live in memory only. Each one has a key that is higher than the
+  /// key of the one before, starting at 1 in a new controller.
+  GhostReaction? get reaction => _reaction;
 
   /// Opens storage, reads the records and builds the haunting.
   ///
@@ -112,14 +123,30 @@ class HomeController extends ChangeNotifier {
 
   /// Completes habit [id] for today, or undoes today's completion.
   Future<void> toggle(String id) async {
-    await _act((Haunting h) {
-      for (final Habit habit in h.book.all) {
-        if (habit.id == id && habit.isCompletedOn(h.today)) {
-          return h.undo(id);
+    bool completing = false;
+    await _act(
+      (Haunting h) {
+        for (final Habit habit in h.book.all) {
+          if (habit.id == id && habit.isCompletedOn(h.today)) {
+            return h.undo(id);
+          }
         }
-      }
-      return h.complete(id);
-    });
+        completing = true;
+        return h.complete(id);
+      },
+      reactionFor: (HauntChanged changed) {
+        if (!completing) {
+          return null;
+        }
+        if (changed.resurrected) {
+          return GhostReactionKind.rising;
+        }
+        if (changed.next.state == GhostState.dead) {
+          return null;
+        }
+        return GhostReactionKind.fed;
+      },
+    );
   }
 
   /// Rewrites every record after a failed write.
@@ -186,7 +213,10 @@ class HomeController extends ChangeNotifier {
     return synced.today != current.today;
   }
 
-  Future<HabitRejection?> _act(HauntResult Function(Haunting) action) async {
+  Future<HabitRejection?> _act(
+    HauntResult Function(Haunting) action, {
+    GhostReactionKind? Function(HauntChanged)? reactionFor,
+  }) async {
     final Haunting? current = _haunting;
     if (current == null || _status != HomeStatus.ready) {
       return null;
@@ -204,6 +234,10 @@ class HomeController extends ChangeNotifier {
         _haunting = next;
         if (resurrected) {
           _welcomeBack = _welcomeText(next.ghost.name);
+        }
+        final GhostReactionKind? kind = reactionFor?.call(result);
+        if (kind != null && !_disposed) {
+          _reaction = GhostReaction(kind, ++_reactionKey);
         }
         _notify();
         await _enqueueWrite(
