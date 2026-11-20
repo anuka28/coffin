@@ -538,6 +538,104 @@
         "chatSessionId": "sess_37ee7995-4347-4d7e-a0bf-420f9c3a6b39",
         "timestamp": 1795192641507
       }
+    ],
+    "10.1 Add the \"Ghost moods\" section to the `coffin_core` README": [
+      {
+        "executionId": "69e1b776-883c-4f76-a544-2966158cfe79",
+        "chatSessionId": "sess_fb40b737-965e-42a0-b665-07388ff4a607",
+        "timestamp": 1795193175580
+      },
+      {
+        "executionId": "69e1b776-883c-4f76-a544-2966158cfe79",
+        "chatSessionId": "sess_fb40b737-965e-42a0-b665-07388ff4a607",
+        "timestamp": 1795193218418
+      }
+    ],
+    "10. Documentation": [
+      {
+        "executionId": "69e1b776-883c-4f76-a544-2966158cfe79",
+        "chatSessionId": "sess_fb40b737-965e-42a0-b665-07388ff4a607",
+        "timestamp": 1795193218503
+      }
+    ],
+    "11.1 Format, analyze and test everything": [
+      {
+        "executionId": "3b25c057-6ec6-4ddf-b07b-f31def45d285",
+        "chatSessionId": "sess_19ac5251-5787-4710-b187-86f692ba1cec",
+        "timestamp": 1795193303601
+      },
+      {
+        "executionId": "3b25c057-6ec6-4ddf-b07b-f31def45d285",
+        "chatSessionId": "sess_19ac5251-5787-4710-b187-86f692ba1cec",
+        "timestamp": 1795193524814
+      }
+    ],
+    "11.2 Run the pure tests in Chrome": [
+      {
+        "executionId": "eed32809-24b0-4eb6-a3d8-0b49147ce65d",
+        "chatSessionId": "sess_a8c828c4-dcd7-48c1-a75d-22b8765da2d1",
+        "timestamp": 1795193538717
+      },
+      {
+        "executionId": "eed32809-24b0-4eb6-a3d8-0b49147ce65d",
+        "chatSessionId": "sess_a8c828c4-dcd7-48c1-a75d-22b8765da2d1",
+        "timestamp": 1795193672883
+      }
+    ],
+    "11.3 Build both apps for the web": [
+      {
+        "executionId": "93def95e-3caf-452b-aa56-dda94afb43e6",
+        "chatSessionId": "sess_5c41f11d-1cec-4bde-9121-981b358755c9",
+        "timestamp": 1795193727416
+      },
+      {
+        "executionId": "93def95e-3caf-452b-aa56-dda94afb43e6",
+        "chatSessionId": "sess_5c41f11d-1cec-4bde-9121-981b358755c9",
+        "timestamp": 1795193844531
+      }
+    ],
+    "11.4 Confirm that pubspecs, lockfile, DIARY, graveyard and tool are unchanged": [
+      {
+        "executionId": "0b51ae45-568e-4f45-aec2-a245e6a6c2c8",
+        "chatSessionId": "sess_ea5d90d8-6ae7-4fff-851f-2390297ded66",
+        "timestamp": 1795193856194
+      },
+      {
+        "executionId": "0b51ae45-568e-4f45-aec2-a245e6a6c2c8",
+        "chatSessionId": "sess_ea5d90d8-6ae7-4fff-851f-2390297ded66",
+        "timestamp": 1795193896794
+      }
+    ],
+    "11.5 Confirm scope, secrets and report what was not verified": [
+      {
+        "executionId": "c8cb323a-f971-4ec7-a7fc-943d6e278714",
+        "chatSessionId": "sess_c18d8d77-cf62-4220-8e1e-410ce0a769f4",
+        "timestamp": 1795193964407
+      },
+      {
+        "executionId": "c8cb323a-f971-4ec7-a7fc-943d6e278714",
+        "chatSessionId": "sess_c18d8d77-cf62-4220-8e1e-410ce0a769f4",
+        "timestamp": 1795194016083
+      }
+    ],
+    "11.6 Final checkpoint": [
+      {
+        "executionId": "afdfe797-5d05-4d20-92da-0d97561353c4",
+        "chatSessionId": "sess_5d73754b-2dc0-4d32-91fe-61201b4402dc",
+        "timestamp": 1795194036503
+      },
+      {
+        "executionId": "afdfe797-5d05-4d20-92da-0d97561353c4",
+        "chatSessionId": "sess_5d73754b-2dc0-4d32-91fe-61201b4402dc",
+        "timestamp": 1795194193605
+      }
+    ],
+    "11. Final checkpoint - Full verification": [
+      {
+        "executionId": "afdfe797-5d05-4d20-92da-0d97561353c4",
+        "chatSessionId": "sess_5d73754b-2dc0-4d32-91fe-61201b4402dc",
+        "timestamp": 1795194193737
+      }
     ]
   }
 }

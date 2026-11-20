@@ -164,6 +164,36 @@ AppRoute(
 ),
 ```
 
+## Ghost moods
+
+`GhostLoader` can show how the ghost feels. Pass a `GhostMood`:
+
+- `thriving`, `content`, `hungry`, `fading` and `dead` are steady moods. The ghost holds the pose and keeps bobbing (a `dead` ghost lies still).
+- `fed` and `rising` are reaction moods. They play once and then hold the final pose.
+
+```dart
+GhostLoader(
+  mood: GhostMood.hungry,
+  caption: 'Your ghost is getting hungry…',
+);
+```
+
+A change of mood blends smoothly from the pose on screen. To play a reaction, set `mood` to `fed` or `rising`. The reaction plays once, then `onReactionEnd` is called once. To replay the same reaction, increment `reactionKey` once per event. Rebuilding with the same key plays nothing.
+
+```dart
+GhostLoader(
+  mood: GhostMood.fed,
+  reactionKey: feedCount, // increment once per feeding
+  onReactionEnd: () => setState(() => celebrating = false),
+);
+```
+
+- **No mood.** `mood: null` (the default) is the Legacy_Look: the original ghost, drawn as before. `bobPeriodMs` and `bobAmplitude` apply only to this look. With a mood, the mood sets the bob.
+- **Shape and motion, not color alone.** Moods differ in face, lean, droop and bob speed. Opacity changes too, but it is never the only cue.
+- **Reduced motion.** When `MediaQuery.disableAnimationsOf(context)` is true, every mood shows a still frame and `onReactionEnd` is still called once.
+
+The `CryptGallery` shows all seven moods in both themes.
+
 ## Accessibility and motion
 
 - **Reduced motion.** `GhostLoader`, `FlickerText` and `FogBackground` stop their loops and show a still frame when `MediaQuery.disableAnimationsOf(context)` is true. Fog page transitions also drop to a plain switch.

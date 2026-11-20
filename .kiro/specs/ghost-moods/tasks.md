@@ -193,31 +193,31 @@ Notes that apply to all tasks:
     - In `packages/coffin_core` and `apps/hauntagotchi` run `dart format --set-exit-if-changed .` (no changes), `flutter analyze` (zero issues) and `flutter test`. All must pass. Report both totals and the count added since Checkpoint C. Confirm that `git status --short` shows changes only under `packages/coffin_core/lib`, `packages/coffin_core/test`, `apps/hauntagotchi/lib`, `apps/hauntagotchi/test` and `.kiro/specs/ghost-moods`, and that no existing Hauntagotchi test was modified.
     - _Requirements: 23.1, 23.3, 23.4, 23.6, 23.8_
 
-- [ ] 10. Documentation
-  - [ ] 10.1 Add the "Ghost moods" section to the `coffin_core` README
+- [x] 10. Documentation
+  - [x] 10.1 Add the "Ghost moods" section to the `coffin_core` README
     - Edit `packages/coffin_core/README.md` and add one section "Ghost moods" only. It lists the seven moods, shows a short code example that passes a `GhostMood` to `GhostLoader`, explains the two reaction moods, `reactionKey` and `onReactionEnd`, states that no mood is the Legacy_Look, that moods differ in shape and motion and that reduced motion shows a still frame. It names no package that is not already a dependency. No other line of the README changes. The root `README.md`, `DIARY.md` and `CREDITS.md` are not edited.
     - Confirm with `git diff -- packages/coffin_core/README.md` that the diff is additions inside the new section only, and that `git diff --stat HEAD -- README.md DIARY.md CREDITS.md` is empty.
     - _Requirements: 20.1, 20.2, 20.3, 20.4_
 
-- [ ] 11. Final checkpoint - Full verification
-  - [ ] 11.1 Format, analyze and test everything
+- [x] 11. Final checkpoint - Full verification
+  - [x] 11.1 Format, analyze and test everything
     - At the workspace root run `dart format --set-exit-if-changed .` (no changes). Run `flutter analyze` (zero issues) and `flutter test` in `packages/coffin_core`, `apps/hauntagotchi`, `apps/graveyard` and `tool`. All must be clean and passing. Report the four test counts and compare them with the baseline of task 1.1 (the `apps/graveyard` and `tool` counts must be equal). Fix failures in files this feature created or edited only. Report anything else and leave it alone.
     - _Requirements: 23.3, 23.4, 23.6, 14.4_
-  - [ ] 11.2 Run the pure tests in Chrome
+  - [x] 11.2 Run the pure tests in Chrome
     - Repeat the Chrome command from the notes, adding any pure test file created since task 3.2 (none expected). Report the result, the wall-clock time and what the run does and does not cover. If Chrome cannot start, REPORT that and do not mark the step passed. A differing pinned value is a HARD STOP.
     - _Requirements: 23.9, 21.11_
-  - [ ] 11.3 Build both apps for the web
+  - [x] 11.3 Build both apps for the web
     - Run `flutter build web` in `apps/hauntagotchi` and in `apps/graveyard`, with an explicit timeout of 1800000 ms. Report success or the exact failure. Do not edit the design to work around a failure. Do not leave build output staged or tracked: `git status --short` after the builds must show no `build/` content as a change (the build folders are ignored).
     - _Requirements: 23.10_
-  - [ ] 11.4 Confirm that pubspecs, lockfile, DIARY, graveyard and tool are unchanged
+  - [x] 11.4 Confirm that pubspecs, lockfile, DIARY, graveyard and tool are unchanged
     - Run `git diff --stat HEAD -- pubspec.yaml pubspec.lock DIARY.md apps/graveyard tool` and expect empty output. Also run it for `packages/coffin_core/pubspec.yaml`, `apps/hauntagotchi/pubspec.yaml`, `CREDITS.md` and the root `README.md` and expect empty output. Run `git status --short -- pubspec.yaml pubspec.lock DIARY.md apps/graveyard tool` and expect empty output (no untracked file either). Run `git hash-object` on the six files of task 1.1 and compare with the recorded values. Any difference is a failure: STOP and report. Confirm that no new `dependencies:`, `dev_dependencies:` or `workspace:` entry appeared and that no asset or font was added.
     - _Requirements: 23.2, 23.11, 20.4, 14.4_
-  - [ ] 11.5 Confirm scope, secrets and report what was not verified
+  - [x] 11.5 Confirm scope, secrets and report what was not verified
     - Run `git status --short` and confirm that every changed or new path lies under `packages/coffin_core/lib`, `packages/coffin_core/test`, `packages/coffin_core/README.md`, `apps/hauntagotchi/lib`, `apps/hauntagotchi/test` or `.kiro/specs/ghost-moods`. Confirm that the only edited existing files are `packages/coffin_core/lib/coffin_core.dart`, `lib/src/widgets/ghost_painter.dart`, `ghost_loader.dart`, `motion_loop.dart`, `crypt_gallery_panel.dart`, `packages/coffin_core/README.md`, `packages/coffin_core/test/widgets/crypt_gallery_test.dart` (one line), `apps/hauntagotchi/lib/src/ui/home_controller.dart`, `ghost_panel.dart` and `home_screen.dart`. Confirm nothing was created outside the repository, including `/tmp`, and that no stray or generated file was added.
     - Run a secrets grep over the files this feature added or changed: `http://`, `https://`, `api_key`, `apikey`, `authorization`, `bearer`, `sk-`, `AKIA`, `token`, `secret`, `password`. Report every hit and explain each (for example the source scans' own forbidden-word lists and the design-token word "tokens"), and confirm no real secret or URL.
     - In the final message state plainly what was not verified: the look of the faces, the posture and the copy are subjective and need a human look in a browser (no golden tests exist); the motion feel is only bounded by numbers (speed bounds), not seen; the Chrome run covers only the pure test files with the development compiler, not dart2js release output and not widget tests; screen-reader behavior is checked through the semantics tree only; the web builds were compiled but not opened in a browser; the 8 px extra gap between the resting ghost and its caption (flagged item F6) needs a visual review.
     - _Requirements: 23.1, 23.11, 14.4_
-  - [ ] 11.6 Final checkpoint
+  - [x] 11.6 Final checkpoint
     - Confirm no package was added, the hashes of task 11.4 match the baseline, the test counts of task 11.1 are reported, and every HARD STOP condition of the notes was either not triggered or reported. Ensure all tests pass, ask the user if questions arise.
     - _Requirements: 23.2, 23.4, 23.6, 23.8, 23.9, 23.10_
 
