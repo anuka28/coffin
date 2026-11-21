@@ -63,10 +63,18 @@ List<File> _dartFiles(String dir) {
 
 String _name(File f) => f.uri.pathSegments.last;
 
-const _skippedDirs = {'.dart_tool', 'build', '.git', 'node_modules', '.idea'};
+const _skippedDirs = {
+  '.dart_tool',
+  'build',
+  '.git',
+  'node_modules',
+  '.idea',
+  '.test_tmp',
+};
 
 /// Files under [dir] whose name satisfies [match], skipping generated and
-/// tooling directories.
+/// tooling directories and temporary test folders (which other suites create
+/// and delete concurrently).
 List<File> _walk(Directory dir, bool Function(String name) match) {
   final out = <File>[];
   for (final entity in dir.listSync(followLinks: false)) {
