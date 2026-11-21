@@ -41,6 +41,40 @@
         "chatSessionId": "sess_e8781bf7-036e-405e-829d-84a447727178",
         "timestamp": 1795241551923
       }
+    ],
+    "2.2 `AiFactKeys` and `CleanFacts`": [
+      {
+        "executionId": "4b692c84-9a56-4ccd-b0da-75f9a843a260",
+        "chatSessionId": "sess_7d218d40-2d08-4c2a-93b2-e0fa5887235c",
+        "timestamp": 1795241728462
+      },
+      {
+        "executionId": "4b692c84-9a56-4ccd-b0da-75f9a843a260",
+        "chatSessionId": "sess_7d218d40-2d08-4c2a-93b2-e0fa5887235c",
+        "timestamp": 1795241916122
+      }
+    ],
+    "2.3 `MoodTemplates` and the shipped copy": [
+      {
+        "executionId": "931b08d0-b477-48bc-9517-76cc3efed88c",
+        "chatSessionId": "sess_4be9796a-0102-4218-8f91-64f7ce578314",
+        "timestamp": 1795241955150
+      },
+      {
+        "executionId": "931b08d0-b477-48bc-9517-76cc3efed88c",
+        "chatSessionId": "sess_4be9796a-0102-4218-8f91-64f7ce578314",
+        "timestamp": 1795242874202
+      },
+      {
+        "executionId": "c2ddfce5-b347-4c26-bf9d-51871656cc91",
+        "chatSessionId": "sess_4be9796a-0102-4218-8f91-64f7ce578314",
+        "timestamp": 1795252100116
+      },
+      {
+        "executionId": "c2ddfce5-b347-4c26-bf9d-51871656cc91",
+        "chatSessionId": "sess_4be9796a-0102-4218-8f91-64f7ce578314",
+        "timestamp": 1795252194764
+      }
     ]
   }
 }

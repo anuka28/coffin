@@ -5,7 +5,7 @@ import 'text_rules.dart';
 /// wrong type or fails its rule is `null`. [CleanFacts.from] never yields a
 /// count of 0, but the constructor accepts any value.
 ///
-/// Only the four keys of [AiFactKeys] are read. Every other key is ignored,
+/// Only the six keys of [AiFactKeys] are read. Every other key is ignored,
 /// so its value can never reach a reply.
 final class CleanFacts {
   /// Creates facts from values that are already clean.
@@ -14,6 +14,8 @@ final class CleanFacts {
     this.daysSinceLastCommit,
     this.ghostName,
     this.projectName,
+    this.ghostMood,
+    this.ghostEvent,
   });
 
   /// Cleans the raw [facts] of a request.
@@ -23,6 +25,8 @@ final class CleanFacts {
       daysSinceLastCommit: _count(facts[AiFactKeys.daysSinceLastCommit]),
       ghostName: _name(facts[AiFactKeys.ghostName]),
       projectName: _name(facts[AiFactKeys.projectName]),
+      ghostMood: _oneOf(facts[AiFactKeys.ghostMood], moods),
+      ghostEvent: _oneOf(facts[AiFactKeys.ghostEvent], events),
     );
   }
 
@@ -37,6 +41,29 @@ final class CleanFacts {
 
   /// The cleaned project name. Never empty and never holds a banned word.
   final String? projectName;
+
+  /// The ghost mood, or `null` when missing or not one of [moods].
+  final String? ghostMood;
+
+  /// The ghost event, or `null` when missing or not one of [events].
+  final String? ghostEvent;
+
+  /// The accepted values of the mood fact. The match is exact.
+  static const List<String> moods = <String>[
+    'thriving',
+    'content',
+    'hungry',
+    'fading',
+    'dead',
+  ];
+
+  /// The accepted values of the event fact. The match is exact.
+  static const List<String> events = <String>[
+    'appOpened',
+    'checkedOff',
+    'moodChanged',
+    'resurrected',
+  ];
 
   /// The smallest accepted count. `0`, `0.0` and `-0.0` are missing.
   static const int minCount = 1;
@@ -60,5 +87,10 @@ final class CleanFacts {
     if (cleaned.isEmpty) return null;
     if (TextRules.containsBanned(cleaned)) return null;
     return cleaned;
+  }
+
+  static String? _oneOf(Object? value, List<String> valid) {
+    if (value is! String) return null;
+    return valid.contains(value) ? value : null;
   }
 }
