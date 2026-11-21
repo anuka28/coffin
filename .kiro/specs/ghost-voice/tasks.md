@@ -25,8 +25,8 @@ Notes that apply to all tasks:
 
 ## Tasks
 
-- [ ] 1. Record the baseline
-  - [ ] 1.1 Record the baseline before any edit
+- [x] 1. Record the baseline
+  - [x] 1.1 Record the baseline before any edit
     - Do this first. Run `git status --short` (ignore any `DIARY.md` entry: the user maintains that file) and `git diff --stat HEAD -- pubspec.yaml pubspec.lock CREDITS.md README.md apps/graveyard tool packages/coffin_core/pubspec.yaml apps/hauntagotchi/pubspec.yaml` (it must be empty), and `git hash-object` on `pubspec.yaml`, `pubspec.lock`, `packages/coffin_core/pubspec.yaml`, `apps/hauntagotchi/pubspec.yaml`, `apps/graveyard/pubspec.yaml`. Keep the hashes in your report.
     - If any of those paths already differs from HEAD, STOP and report which one.
     - Run `flutter test` in `packages/coffin_core`, `apps/hauntagotchi`, `apps/graveyard` and `tool`. Report the passing count of each. They must all pass before any edit. If one fails, STOP and report.
@@ -34,7 +34,7 @@ Notes that apply to all tasks:
     - _Requirements: 5.5, 13.1, 13.3, 13.6_
 
 - [ ] 2. coffin_core: mood facts, mood templates, engine
-  - [ ] 2.1 Freeze the legacy output before any engine edit
+  - [x] 2.1 Freeze the legacy output before any engine edit
     - Create `packages/coffin_core/test/ai/legacy_equality_test.dart`. It holds a frozen copy of the current three template sets (the eight `ghostMoodLine` patterns with safe line `Boo. Still here.`, and the `seanceVerdict` and `generic` sets), copied from `lib/src/ai/template_catalog.dart` as it is now, and builds a `TemplateCatalog` from them with the three required arguments only.
     - Pin a baseline table of at least 40 rows: purpose (`ghostMoodLine`, `seanceVerdict`, a custom purpose), facts (none; each existing fact alone; all four; invalid values such as `0`, `-1`, `2.5`, an over-long name, a banned-word name), `maxLength` (16, 40, 80, 200) and seed (0, 1, 7, 42, 4294967295). To get the literal expected texts, first write the test so that it prints each text from `OfflineEngine.standard.compose` (`print` in a throw-away run of this one test file), run `flutter test test/ai/legacy_equality_test.dart`, copy the printed texts and compose paths into the table as literals, remove the `print` lines, and run again. The table is then checked against both the frozen-catalog engine and `OfflineEngine.standard`.
     - Do not touch any file under `lib/`. Record in the report that the baseline came from the unmodified engine (`git status` shows no `lib` change).

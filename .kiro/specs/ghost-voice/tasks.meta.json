@@ -1,0 +1,46 @@
+{
+  "pbtResults": {},
+  "executionHistory": {
+    "1.1 Record the baseline before any edit": [
+      {
+        "executionId": "e7097a21-bb81-4ad5-a70b-7643f0e43f01",
+        "chatSessionId": "sess_c2a74b3f-15c5-4e02-9fda-8ba434c23403",
+        "timestamp": 1795240944051
+      },
+      {
+        "executionId": "e7097a21-bb81-4ad5-a70b-7643f0e43f01",
+        "chatSessionId": "sess_c2a74b3f-15c5-4e02-9fda-8ba434c23403",
+        "timestamp": 1795241050121
+      }
+    ],
+    "1. Record the baseline": [
+      {
+        "executionId": "e7097a21-bb81-4ad5-a70b-7643f0e43f01",
+        "chatSessionId": "sess_c2a74b3f-15c5-4e02-9fda-8ba434c23403",
+        "timestamp": 1795241050212
+      }
+    ],
+    "2.1 Freeze the legacy output before any engine edit": [
+      {
+        "executionId": "70edda6e-782d-4209-ba68-43a43fb09617",
+        "chatSessionId": "sess_e8781bf7-036e-405e-829d-84a447727178",
+        "timestamp": 1795241171053
+      },
+      {
+        "executionId": "70edda6e-782d-4209-ba68-43a43fb09617",
+        "chatSessionId": "sess_e8781bf7-036e-405e-829d-84a447727178",
+        "timestamp": 1795241321739
+      },
+      {
+        "executionId": "6ef7ed3e-3755-4607-a250-ea11cf3d5fe8",
+        "chatSessionId": "sess_e8781bf7-036e-405e-829d-84a447727178",
+        "timestamp": 1795241436425
+      },
+      {
+        "executionId": "6ef7ed3e-3755-4607-a250-ea11cf3d5fe8",
+        "chatSessionId": "sess_e8781bf7-036e-405e-829d-84a447727178",
+        "timestamp": 1795241551923
+      }
+    ]
+  }
+}
