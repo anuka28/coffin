@@ -33,7 +33,7 @@ Notes that apply to all tasks:
     - Confirm `glados`, `flutter_test` and `meta` are already declared in `packages/coffin_core/pubspec.yaml` and `glados` and `flutter_test` in `apps/hauntagotchi/pubspec.yaml`. Add and change nothing. Create no files in this task.
     - _Requirements: 5.5, 13.1, 13.3, 13.6_
 
-- [ ] 2. coffin_core: mood facts, mood templates, engine
+- [x] 2. coffin_core: mood facts, mood templates, engine
   - [x] 2.1 Freeze the legacy output before any engine edit
     - Create `packages/coffin_core/test/ai/legacy_equality_test.dart`. It holds a frozen copy of the current three template sets (the eight `ghostMoodLine` patterns with safe line `Boo. Still here.`, and the `seanceVerdict` and `generic` sets), copied from `lib/src/ai/template_catalog.dart` as it is now, and builds a `TemplateCatalog` from them with the three required arguments only.
     - Pin a baseline table of at least 40 rows: purpose (`ghostMoodLine`, `seanceVerdict`, a custom purpose), facts (none; each existing fact alone; all four; invalid values such as `0`, `-1`, `2.5`, an over-long name, a banned-word name), `maxLength` (16, 40, 80, 200) and seed (0, 1, 7, 42, 4294967295). To get the literal expected texts, first write the test so that it prints each text from `OfflineEngine.standard.compose` (`print` in a throw-away run of this one test file), run `flutter test test/ai/legacy_equality_test.dart`, copy the printed texts and compose paths into the table as literals, remove the `print` lines, and run again. The table is then checked against both the frozen-catalog engine and `OfflineEngine.standard`.
@@ -77,7 +77,7 @@ Notes that apply to all tasks:
   - [x] 2.9 README AI section
     - Edit only the `## AI` section of `packages/coffin_core/README.md`: document `AiFactKeys.ghostMood` and `AiFactKeys.ghostEvent`, the accepted values, the rule that a request without them (or with invalid values) gets the same text as before, a short example request with the two facts, the copy rules (one line, plain characters, warm), and the rule that apps import the AI API only through `package:coffin_core/coffin_core.dart`. Keep every existing line of the section that is still true.
     - _Requirements: 1.1, 1.4, 3.1, 13.4_
-  - [ ] 2.10 Checkpoint A: coffin_core
+  - [x] 2.10 Checkpoint A: coffin_core
     - Run `dart format --set-exit-if-changed`, `flutter analyze` (zero warnings) and the full `flutter test` in `packages/coffin_core`. Report the count.
     - Run the Chrome command in `packages/coffin_core` for `test/ai/mood_facts_test.dart test/ai/mood_templates_test.dart test/ai/mood_engine_test.dart test/ai/mood_engine_property_test.dart test/ai/legacy_equality_test.dart test/ai/legacy_equality_property_test.dart test/ai/support/mood_generators_test.dart`. Report the result. A failure that the VM does not show is a HARD STOP.
     - Run `flutter test` in `apps/graveyard` and `tool`: both pass unchanged. Confirm `git diff --stat` shows no change to any `pubspec.yaml`, `pubspec.lock` or `packages/coffin_core/lib/coffin_core.dart`.
