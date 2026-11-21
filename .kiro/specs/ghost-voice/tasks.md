@@ -69,12 +69,12 @@ Notes that apply to all tasks:
     - Create `packages/coffin_core/test/ai/legacy_equality_property_test.dart` with Property 1: for generated Legacy_Requests (no valid mood, no valid event, any purpose, facts, `maxLength`, seed), `OfflineEngine.standard.compose` equals the engine built from the frozen catalog of task 2.1 (same text, same compose path). The generated requests may carry invalid new-fact values. 300 runs.
     - **Property 1: Legacy equality.**
     - **Validates: Requirements 3.1, 3.2, 3.4, 12.2**
-  - [ ] 2.8 Replace the expired AI guard (design F1)
+  - [x] 2.8 Replace the expired AI guard (design F1)
     - Edit `packages/coffin_core/test/ai/ai_sources_test.dart` only in these places: remove the test "no app file references the AI API"; remove `_aiApiNames` and `_aiNamesIn` and the two self-check lines that use them (the loop over `_aiApiNames` and the `_aiNamesIn('final x = 1;')` line in "app name scan and pubspec scan flag bad samples"); keep the pubspec self-check lines and the test "app pubspecs do not mention the AI layer" unchanged. Add the lasting rule as a new test in the group "apps and pubspecs": every Dart file under `lib` and `test` of every directory in `apps/` (Hauntagotchi and Graveyard) has no line that matches `^\s*(?:import|export)\s+['"]package:coffin_core/src/`; offenders are reported as `file:line`; the scan counts the files and asserts the count is above zero. Model it on the storage rule `apps import coffin_core only through package:coffin_core/coffin_core.dart` in `test/storage/storage_sources_test.dart`.
     - Add a self-check in the group "self-checks": the directive rule flags `import 'package:coffin_core/src/ai/ai_request.dart';` and `export "package:coffin_core/src/x.dart";` and spares `import 'package:coffin_core/coffin_core.dart';`. Put the pattern in one shared constant used by both the rule and the self-check.
     - Run `flutter test test/ai/ai_sources_test.dart` and `flutter analyze` in `packages/coffin_core` (no unused element). List the exact lines removed and added in the report. No other existing test is edited.
     - _Requirements: 5.3, 5.6, 13.2, 13.3_
-  - [ ] 2.9 README AI section
+  - [x] 2.9 README AI section
     - Edit only the `## AI` section of `packages/coffin_core/README.md`: document `AiFactKeys.ghostMood` and `AiFactKeys.ghostEvent`, the accepted values, the rule that a request without them (or with invalid values) gets the same text as before, a short example request with the two facts, the copy rules (one line, plain characters, warm), and the rule that apps import the AI API only through `package:coffin_core/coffin_core.dart`. Keep every existing line of the section that is still true.
     - _Requirements: 1.1, 1.4, 3.1, 13.4_
   - [ ] 2.10 Checkpoint A: coffin_core

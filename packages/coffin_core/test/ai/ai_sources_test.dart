@@ -283,28 +283,11 @@ List<String> _barrelProblems(String source) {
   return problems;
 }
 
-/// AI API names no app file may mention.
-const List<String> _aiApiNames = <String>[
-  'CoffinAI',
-  'OfflineCoffinAI',
-  'FallbackCoffinAI',
-  'AiRequest',
-  'AiReply',
-  'AiPurpose',
-  'ReplySource',
-  'AiFactKeys',
-  'AiTimerFactory',
-  'AiIssue',
-  'AiFallbackError',
-  'AiIssueKind',
-  'AiIssueReporter',
-  'discardAiIssues',
-];
-
-List<String> _aiNamesIn(String text) => <String>[
-  for (final n in _aiApiNames)
-    if (text.contains(n)) n,
-];
+/// A directive that reaches into `package:coffin_core/src/`. Apps may use
+/// coffin_core only through its barrel file.
+final RegExp _coreSrcDirective = RegExp(
+  r'''^\s*(?:import|export)\s+['"]package:coffin_core/src/''',
+);
 
 /// What a pubspec may not say about the AI layer. The apps may describe
 /// themselves with the letters "AI", so the check looks for API names and
@@ -464,18 +447,22 @@ void main() {
   });
 
   group('apps and pubspecs', () {
-    test('no app file references the AI API', () {
+    test('no app file imports or exports package:coffin_core/src/', () {
       final files = <File>[
         for (final sub in const ['lib', 'test'])
           for (final app in Directory('${_repo.path}/apps').listSync())
             if (app is Directory) ..._dartFiles('${app.path}/$sub'),
       ];
-      _assertScanned('apps lib+test', files);
-      final bad = <String>[
-        for (final f in files)
-          if (_aiNamesIn(f.readAsStringSync()).isNotEmpty)
-            '${_rel(f)}: ${_aiNamesIn(f.readAsStringSync())}',
-      ];
+      _assertScanned('apps lib+test directives', files);
+      final bad = <String>[];
+      for (final f in files) {
+        final lines = f.readAsLinesSync();
+        for (var i = 0; i < lines.length; i++) {
+          if (_coreSrcDirective.hasMatch(lines[i])) {
+            bad.add('${_rel(f)}:${i + 1}');
+          }
+        }
+      }
       expect(bad, isEmpty);
     });
 
@@ -680,13 +667,28 @@ void main() {
     });
 
     test('app name scan and pubspec scan flag bad samples', () {
-      for (final n in _aiApiNames) {
-        expect(_aiNamesIn('final x = $n;'), isNotEmpty, reason: n);
-      }
-      expect(_aiNamesIn('final x = 1;'), isEmpty);
       expect(_pubspecAiMention.hasMatch('  coffin_ai: any'), isTrue);
       expect(_pubspecAiMention.hasMatch('uses OfflineCoffinAI'), isTrue);
       expect(_pubspecAiMention.hasMatch('An AI seance scores it'), isFalse);
+    });
+
+    test('core src directive rule flags bad lines and spares the barrel', () {
+      expect(
+        _coreSrcDirective.hasMatch(
+          "import 'package:coffin_core/src/ai/ai_request.dart';",
+        ),
+        isTrue,
+      );
+      expect(
+        _coreSrcDirective.hasMatch('export "package:coffin_core/src/x.dart";'),
+        isTrue,
+      );
+      expect(
+        _coreSrcDirective.hasMatch(
+          "import 'package:coffin_core/coffin_core.dart';",
+        ),
+        isFalse,
+      );
     });
 
     test('dependency parser sees added and removed names', () {

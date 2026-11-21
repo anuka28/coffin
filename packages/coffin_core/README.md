@@ -125,6 +125,35 @@ print('${reply.text} (${reply.source.name})');
 
 Built-in purposes are `AiPurpose.ghostMoodLine` and `AiPurpose.seanceVerdict`. If both implementations fail, `ask` throws `AiFallbackError`.
 
+### Ghost mood and event
+
+For `AiPurpose.ghostMoodLine`, two more facts let the offline text follow how the ghost feels and why the app is asking:
+
+- `AiFactKeys.ghostMood` is the steady mood. Accepted values: `thriving`, `content`, `hungry`, `fading`, `dead`.
+- `AiFactKeys.ghostEvent` is what just happened. Accepted values: `appOpened`, `checkedOff`, `moodChanged`, `resurrected`.
+
+Values are matched exactly (case and spaces count), as strings. Any other value is treated as absent. A request without these facts, or with invalid values, gets the same text as before. An event without a valid mood is ignored.
+
+```dart
+final AiReply reply = await ai.ask(
+  AiRequest(
+    purpose: AiPurpose.ghostMoodLine,
+    facts: <String, Object?>{
+      AiFactKeys.ghostName: 'Boo',
+      AiFactKeys.streakCount: 3,
+      AiFactKeys.ghostMood: 'thriving',
+      AiFactKeys.ghostEvent: 'checkedOff',
+    },
+    maxLength: 80,
+    seed: 7,
+  ),
+);
+```
+
+The shipped mood copy is one line, written in printable ASCII or the ellipsis `…` (no emoji), warm and never shaming, and at most 80 characters. Only `thriving` and `content` lines may mention the streak.
+
+Apps import the AI API only through `package:coffin_core/coffin_core.dart`, never `package:coffin_core/src/`.
+
 **No API keys in client code or in the repo.** If you want a hosted model, put the key behind your own server and have `myRemoteAi` call that.
 
 ## Widgets

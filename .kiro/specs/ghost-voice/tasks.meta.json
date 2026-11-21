@@ -157,6 +157,30 @@
         "chatSessionId": "sess_f6181902-91be-4e95-8e5e-d6cb26671083",
         "timestamp": 1795264434163
       }
+    ],
+    "2.8 Replace the expired AI guard (design F1)": [
+      {
+        "executionId": "914bf255-0c00-4721-9a57-876862ef544e",
+        "chatSessionId": "sess_94cd6a97-b873-4e0e-aa1f-3a52661b8079",
+        "timestamp": 1795264615550
+      },
+      {
+        "executionId": "914bf255-0c00-4721-9a57-876862ef544e",
+        "chatSessionId": "sess_94cd6a97-b873-4e0e-aa1f-3a52661b8079",
+        "timestamp": 1795264663535
+      }
+    ],
+    "2.9 README AI section": [
+      {
+        "executionId": "12c66516-315a-45b2-8b17-b196368a6f99",
+        "chatSessionId": "sess_c7e0bfa2-a765-4fe4-bde5-165fadeebcf0",
+        "timestamp": 1795264700043
+      },
+      {
+        "executionId": "12c66516-315a-45b2-8b17-b196368a6f99",
+        "chatSessionId": "sess_c7e0bfa2-a765-4fe4-bde5-165fadeebcf0",
+        "timestamp": 1795264728909
+      }
     ]
   }
 }
