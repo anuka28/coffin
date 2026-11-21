@@ -1,4 +1,6 @@
 import 'ai_purpose.dart';
+import 'clean_facts.dart';
+import 'mood_templates.dart';
 import 'template_set.dart';
 
 /// The three template sets of the offline generator.
@@ -6,11 +8,12 @@ import 'template_set.dart';
 /// The order of each list is part of the determinism contract: changing the
 /// order, or adding a line, changes the reply for existing seeds.
 final class TemplateCatalog {
-  /// Builds a catalog from three sets.
+  /// Builds a catalog from three sets and, optionally, the mood copy.
   TemplateCatalog({
     required this.ghostMoodLine,
     required this.seanceVerdict,
     required this.generic,
+    this.moodLines,
   });
 
   /// The shipped copy.
@@ -45,6 +48,7 @@ final class TemplateCatalog {
       '{streakCount:day/days} so far. The moon approves.',
       '{daysSinceLastCommit:day/days} on the clock. The fog is patient.',
     ], safeLine: 'Still here.'),
+    moodLines: MoodTemplates.standard,
   );
 
   /// Lines for a ghost mood.
@@ -55,6 +59,10 @@ final class TemplateCatalog {
 
   /// Lines for any other purpose.
   final TemplateSet generic;
+
+  /// The copy for requests that carry a valid ghost mood, or `null` when this
+  /// catalog has none. Without it, every request uses [forPurpose].
+  final MoodTemplates? moodLines;
 
   /// The set for [purpose]: a known identifier gives its own set, anything
   /// else gives [generic].
@@ -67,5 +75,18 @@ final class TemplateCatalog {
       default:
         return generic;
     }
+  }
+
+  /// The set for a request with [purpose] and the cleaned [facts].
+  ///
+  /// A ghost mood line with a valid mood uses the mood copy, narrowed by the
+  /// event when there is one. Every other request gets [forPurpose].
+  TemplateSet setFor(AiPurpose purpose, CleanFacts facts) {
+    final MoodTemplates? moods = moodLines;
+    final String? mood = facts.ghostMood;
+    if (purpose.id == 'ghost_mood_line' && mood != null && moods != null) {
+      return moods.setFor(mood, facts.ghostEvent);
+    }
+    return forPurpose(purpose);
   }
 }

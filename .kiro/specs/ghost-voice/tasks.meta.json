@@ -1,5 +1,14 @@
 {
-  "pbtResults": {},
+  "pbtResults": {
+    "2.6 Write property tests for the mood engine": {
+      "status": "passed",
+      "lastRunTimestamp": 1795264261392
+    },
+    "2.7 Write the property test for legacy equality": {
+      "status": "passed",
+      "lastRunTimestamp": 1795264425461
+    }
+  },
   "executionHistory": {
     "1.1 Record the baseline before any edit": [
       {
@@ -74,6 +83,79 @@
         "executionId": "c2ddfce5-b347-4c26-bf9d-51871656cc91",
         "chatSessionId": "sess_4be9796a-0102-4218-8f91-64f7ce578314",
         "timestamp": 1795252194764
+      }
+    ],
+    "2.4 `TemplateCatalog` and `OfflineEngine`": [
+      {
+        "executionId": "62096315-1b1f-415f-8cfa-e90307ac15b5",
+        "chatSessionId": "sess_8f516848-eaa6-4873-979b-853aebb1b4d6",
+        "timestamp": 1795253220904
+      },
+      {
+        "executionId": "62096315-1b1f-415f-8cfa-e90307ac15b5",
+        "chatSessionId": "sess_8f516848-eaa6-4873-979b-853aebb1b4d6",
+        "timestamp": 1795255604420
+      },
+      {
+        "executionId": "10834453-6f1e-47c8-8a52-b8b6963139b1",
+        "chatSessionId": "sess_871e9e4d-fd79-4d4a-b4f6-7639b0541f3a",
+        "timestamp": 1795255618251
+      },
+      {
+        "executionId": "10834453-6f1e-47c8-8a52-b8b6963139b1",
+        "chatSessionId": "sess_871e9e4d-fd79-4d4a-b4f6-7639b0541f3a",
+        "timestamp": 1795255683463
+      },
+      {
+        "executionId": "0616fbb5-e1c5-4f80-86b4-48d91bd0450f",
+        "chatSessionId": "sess_9b5c0279-6cdc-4a42-ae08-79a1153d2a02",
+        "timestamp": 1795255700974
+      },
+      {
+        "executionId": "aa62aa11-9b98-487e-9876-bb25309b8225",
+        "chatSessionId": "sess_fda30ec3-13b8-4a09-a989-80c90fa8fe66",
+        "timestamp": 1795259186316
+      },
+      {
+        "executionId": "aa62aa11-9b98-487e-9876-bb25309b8225",
+        "chatSessionId": "sess_fda30ec3-13b8-4a09-a989-80c90fa8fe66",
+        "timestamp": 1795259234725
+      }
+    ],
+    "2.5 Mood generators for the property tests": [
+      {
+        "executionId": "6d7b745e-85cd-4ecb-ad07-e833d9b31528",
+        "chatSessionId": "sess_26cd7d0d-6e0e-4fc1-bcb7-dfe24e381ef9",
+        "timestamp": 1795259296860
+      },
+      {
+        "executionId": "6d7b745e-85cd-4ecb-ad07-e833d9b31528",
+        "chatSessionId": "sess_26cd7d0d-6e0e-4fc1-bcb7-dfe24e381ef9",
+        "timestamp": 1795259414666
+      }
+    ],
+    "2.6 Write property tests for the mood engine": [
+      {
+        "executionId": "23773aed-62df-4a4f-b6d4-a609eeb2bd21",
+        "chatSessionId": "sess_e53de420-2980-4773-9a95-85109f61c0ee",
+        "timestamp": 1795259692061
+      },
+      {
+        "executionId": "23773aed-62df-4a4f-b6d4-a609eeb2bd21",
+        "chatSessionId": "sess_e53de420-2980-4773-9a95-85109f61c0ee",
+        "timestamp": 1795264269915
+      }
+    ],
+    "2.7 Write the property test for legacy equality": [
+      {
+        "executionId": "d24c0ccc-0328-403a-8d04-f9b7a82e1878",
+        "chatSessionId": "sess_f6181902-91be-4e95-8e5e-d6cb26671083",
+        "timestamp": 1795264320722
+      },
+      {
+        "executionId": "d24c0ccc-0328-403a-8d04-f9b7a82e1878",
+        "chatSessionId": "sess_f6181902-91be-4e95-8e5e-d6cb26671083",
+        "timestamp": 1795264434163
       }
     ]
   }

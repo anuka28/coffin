@@ -24,10 +24,10 @@ final class OfflineEngine {
 
   /// Writes the text for [request]. Never throws for a constructed request.
   ComposedText compose(AiRequest request) {
-    final TemplateSet set = catalog.forPurpose(request.purpose);
+    final CleanFacts facts = CleanFacts.from(request.facts);
+    final TemplateSet set = catalog.setFor(request.purpose, facts);
     final List<Template> pool = set.templates;
     final int max = request.maxLength;
-    final CleanFacts facts = CleanFacts.from(request.facts);
 
     // Step 1: templates whose count slots all have a fact.
     final List<Template> eligible = <Template>[

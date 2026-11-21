@@ -51,21 +51,21 @@ Notes that apply to all tasks:
     - Create `packages/coffin_core/test/ai/mood_templates_test.dart`: all 20 cells and 5 base sets exist, with the minimum sizes; every template and safe line is printable ASCII or U+2026 only (no emoji), renders to one line with no `\n`, and fits 80 characters with a 40-character name and a streak of 1000000; no rendered line contains a word of `TextRules.bannedWords` or a word of a test-owned list of shame and gore words (include at least: failed, lazy, worthless, abandoned, neglected, guilty, shame, gore, blood, corpse, rotting); count slots appear only in `thriving` and `content`; every count slot is `{streakCount:day/days}`; for every template that holds a count slot, render streaks 1, 2, 3, 10, 1000000 with a name without digits and check each digit run is followed by exactly ` day` for 1 and ` days` for 2 or more, and that `1 days` and `2 day` and a bare number never appear; the constructor throws `StateError` when a mood base set is missing; `setFor` falls back to the base set for an unknown event; the old `ghostMoodLine` patterns do not appear in `MoodTemplates.standard`.
     - Run `flutter test test/ai` in `packages/coffin_core`.
     - _Requirements: 2.1, 2.2, 2.3, 2.4, 2.5, 2.6, 2.7, 4.1, 4.2, 4.3, 4.4, 4.5, 4.6, 4.7, 4.8, 4.9_
-  - [ ] 2.4 `TemplateCatalog` and `OfflineEngine`
+  - [x] 2.4 `TemplateCatalog` and `OfflineEngine`
     - Edit `packages/coffin_core/lib/src/ai/template_catalog.dart`: add the optional `final MoodTemplates? moodLines` constructor argument (default null) with a doc comment, add `setFor(AiPurpose purpose, CleanFacts facts)` as in `design.md`, and pass `MoodTemplates.standard` in `TemplateCatalog.standard`. The three existing sets and `forPurpose` are not changed.
     - Edit `packages/coffin_core/lib/src/ai/offline_engine.dart`: move `final CleanFacts facts = CleanFacts.from(request.facts);` above the set choice and replace `catalog.forPurpose(request.purpose)` by `catalog.setFor(request.purpose, facts)`. Change nothing else in the file.
     - Create `packages/coffin_core/test/ai/mood_engine_test.dart`: a valid mood picks from that mood's templates or safe line (build the allowed text set per mood and event); an event picks from the event subset; a mood without an event uses the base set; an invalid mood or event behaves as absent (same text as the request without it, for several seeds); the streak and the name appear when valid and eligible; a mood request with `maxLength: 16` still gives a non-empty line of at most 16 characters; the same request twice gives the same text; a catalog built without `moodLines` behaves as before; the old ghostMoodLine safe line is still `Boo. Still here.`.
     - Run `flutter test test/ai` in `packages/coffin_core`. The frozen baseline of task 2.1 and every existing AI test pass unchanged. If the baseline differs, HARD STOP.
     - _Requirements: 2.1, 2.6, 2.7, 2.8, 3.1, 3.2, 3.3, 3.5_
-  - [ ] 2.5 Mood generators for the property tests
+  - [x] 2.5 Mood generators for the property tests
     - Create `packages/coffin_core/test/ai/support/mood_generators.dart`: web-safe generators for a mood fact value (valid, invalid and non-string values), an event fact value (same), a streak (absent or 1 to 1000000), a ghost name (absent or built from a fixed alphabet of 1 to 40 characters, no digits) and a mood `AiRequest` (purpose `ghostMoodLine`, `maxLength` 16 to 200, seed 0 to 4294967295). Use the same style as `ai_generators.dart` and import from it without editing it.
     - Create `packages/coffin_core/test/ai/support/mood_generators_test.dart`: each generator yields values in range and covers valid and invalid cases over a few hundred samples.
     - _Requirements: 12.4_
-  - [ ] 2.6 Write property tests for the mood engine
+  - [x] 2.6 Write property tests for the mood engine
     - Create `packages/coffin_core/test/ai/mood_engine_property_test.dart` with Properties 2, 3, 4 and 5 of `design.md`: invalid facts are absent; mood lines are well formed (non-empty, at most `maxLength`, no line break); determinism; mood fit. 300 runs each, with the run counters.
     - **Property 2: Invalid facts are absent.** **Property 3: Mood lines are well formed.** **Property 4: Determinism.** **Property 5: Mood fit.**
     - **Validates: Requirements 1.3, 2.1, 2.6, 2.7, 12.2, 12.3**
-  - [ ] 2.7 Write the property test for legacy equality
+  - [x] 2.7 Write the property test for legacy equality
     - Create `packages/coffin_core/test/ai/legacy_equality_property_test.dart` with Property 1: for generated Legacy_Requests (no valid mood, no valid event, any purpose, facts, `maxLength`, seed), `OfflineEngine.standard.compose` equals the engine built from the frozen catalog of task 2.1 (same text, same compose path). The generated requests may carry invalid new-fact values. 300 runs.
     - **Property 1: Legacy equality.**
     - **Validates: Requirements 3.1, 3.2, 3.4, 12.2**
