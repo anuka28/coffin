@@ -83,35 +83,35 @@ Notes that apply to all tasks:
     - Run `flutter test` in `apps/graveyard` and `tool`: both pass unchanged. Confirm `git diff --stat` shows no change to any `pubspec.yaml`, `pubspec.lock` or `packages/coffin_core/lib/coffin_core.dart`.
     - _Requirements: 3.3, 5.5, 12.8, 13.3_
 
-- [ ] 3. Hauntagotchi domain (pure Dart)
-  - [ ] 3.1 `VoiceTrigger`
+- [x] 3. Hauntagotchi domain (pure Dart)
+  - [x] 3.1 `VoiceTrigger`
     - Create `apps/hauntagotchi/lib/src/domain/voice_trigger.dart`: `enum VoiceTrigger { appOpened, checkedOff, moodChanged, resurrected }` with a doc comment on the enum and each value, stating that the `name` is the Event_Fact value.
     - Create `apps/hauntagotchi/test/domain/voice_trigger_test.dart`: the four values in this order, the four names exactly (they are a contract with `coffin_core`), and that the names equal the accepted event names of `coffin_core` by listing them as literals.
     - _Requirements: 1.4, 6.1_
-  - [ ] 3.2 `VoiceSnapshot` and `VoicePolicy`
+  - [x] 3.2 `VoiceSnapshot` and `VoicePolicy`
     - Create `apps/hauntagotchi/lib/src/domain/voice_snapshot.dart` (immutable, `GhostState? state`, `int checkOffs`, `int resurrections`, `==`, `hashCode` with `Object.hash`, `toString`) and `apps/hauntagotchi/lib/src/domain/voice_policy.dart` with `static VoiceTrigger? decide(VoiceSnapshot? previous, VoiceSnapshot next)` exactly as in `design.md`. Doc-comment both. No Flutter and no `coffin_core` import.
     - Create `apps/hauntagotchi/test/domain/voice_snapshot_test.dart` and `voice_policy_test.dart`: not ready gives null; first ready gives `appOpened`; reload after not ready gives `appOpened`; equal snapshots give null; a rising check-off counter gives `checkedOff` also at the same state; a check-off that leaves a dead ghost dead gives `checkedOff`; a rising resurrection counter gives `resurrected`, also when the check-off counter rose too; a state change alone gives `moodChanged`; a check-off with a state change gives `checkedOff`; a state change from dead to a live state without a counter change gives `moodChanged`; each of the 5 by 5 state pairs without counter change gives `moodChanged` or null by equality.
     - _Requirements: 6.1, 6.2, 6.3, 6.4, 6.5, 6.6, 6.7_
-  - [ ] 3.3 Write property tests for the policy
+  - [x] 3.3 Write property tests for the policy
     - Create `apps/hauntagotchi/test/domain/voice_policy_property_test.dart` with Properties 9 and 10: over generated sequences of snapshots (length 1 to 30, states from the five, counters that never fall), `decide` returns a trigger exactly when the snapshot is the first ready one after a not-ready one or a counter rose or the state changed, and equal consecutive snapshots never trigger; the number of triggers over a sequence equals the number of those transitions; priority is `resurrected`, then `checkedOff`, then `moodChanged`. 300 runs each.
     - **Property 9: Trigger count.** **Property 10: Priority.**
     - **Validates: Requirements 6.6, 6.7, 6.9, 12.2**
-  - [ ] 3.4 `VoiceSeed`
+  - [x] 3.4 `VoiceSeed`
     - Create `apps/hauntagotchi/lib/src/domain/voice_seed.dart` with `VoiceSeed.compute` exactly as in `design.md` (`+`, `*`, `%` only, no bitwise operator, modulus 4294967291, base 1000003, a negative-safe fold). Doc-comment it. No Flutter, no `coffin_core`.
     - Create `apps/hauntagotchi/test/domain/voice_seed_test.dart`: pin at least 8 fixed inputs to fixed outputs (compute them by running the function, then write them as literals, and check them once on the VM and once in Chrome in task 3.8); the result is in `0..4294967290`; negative `epochDay` works and equals the fold; a streak of 0 and a large streak (1000000) work; the enum order is pinned (`GhostState.values`, `VoiceTrigger.values`) because the seed uses `.index`; two check-offs on one day differ only by `completedToday` and give different seeds; the same inputs give the same seed; the source of the file contains no `<<`, `>>`, `>>>`, `&`, `|` or `^` operator (read the file in `test/source_rules`, see task 3.6, not here).
     - _Requirements: 7.1, 7.2, 7.3, 7.4, 7.5, 7.6_
-  - [ ] 3.5 Write property tests for the seed
+  - [x] 3.5 Write property tests for the seed
     - Create `apps/hauntagotchi/test/domain/voice_seed_property_test.dart` with Properties 6, 7 and 8: the seed is in range for generated inputs (`epochDay` from -100000 to 100000, the five states, the four triggers, streak 0 to 1000000, completed 0 to 12); changing exactly one of the five inputs changes the seed for at least 99 percent of generated pairs (assert on the count over the run, not per pair); the same inputs give the same seed. Add a check that the product `h * 1000003` never reaches 2^53 for `h` up to 4294967290. 300 runs each.
     - **Property 6: Seed range and web safety.** **Property 7: Seed sensitivity.** **Property 8: Seed stability.**
     - **Validates: Requirements 7.1, 7.2, 7.3, 7.5, 12.2, 12.4**
-  - [ ] 3.6 Source rule for the domain folder
+  - [x] 3.6 Source rule for the domain folder
     - Create `apps/hauntagotchi/test/source_rules/voice_domain_sources_test.dart` (it may read files with `dart:io`, like the other source-rule tests; find the app root the same way): no file in `lib/src/domain/` contains an import or export of `package:coffin_core`, `package:flutter` or `dart:ui` (comments stripped first); `voice_seed.dart` contains none of the operators `<<`, `>>`, `>>>`, `&`, `|`, `^`, `~` outside comments and strings; the new voice domain files exist and each declares at most one public type; self-checks flag a bad sample and spare a good one for each rule.
     - Do not edit `domain_sources_test.dart`.
     - _Requirements: 7.2, 7.6, 12.1, 13.2_
-  - [ ] 3.7 Checkpoint B: domain
+  - [x] 3.7 Checkpoint B: domain
     - Run `dart format --set-exit-if-changed`, `flutter analyze` (zero warnings) and the full `flutter test` in `apps/hauntagotchi`. Report the count. Run `flutter test` in `packages/coffin_core`: still passes.
     - _Requirements: 12.8_
-  - [ ] 3.8 Chrome run of the pure domain tests
+  - [x] 3.8 Chrome run of the pure domain tests
     - Run the Chrome command in `apps/hauntagotchi` for `test/domain/voice_trigger_test.dart test/domain/voice_snapshot_test.dart test/domain/voice_policy_test.dart test/domain/voice_policy_property_test.dart test/domain/voice_seed_test.dart test/domain/voice_seed_property_test.dart`. The pinned seed values must be identical on the VM and in Chrome. A difference is a HARD STOP.
     - _Requirements: 7.2, 12.4_
 

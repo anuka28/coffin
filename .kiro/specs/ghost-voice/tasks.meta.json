@@ -200,6 +200,109 @@
         "chatSessionId": "sess_d2c8da23-d391-471e-8b16-285aae5fca88",
         "timestamp": 1795277325066
       }
+    ],
+    "3.1 `VoiceTrigger`": [
+      {
+        "executionId": "9539cd78-f188-4610-8027-25b123977bf6",
+        "chatSessionId": "sess_b23aa497-cd0b-484d-80b1-7eef3661c9b4",
+        "timestamp": 1795277521828
+      },
+      {
+        "executionId": "9539cd78-f188-4610-8027-25b123977bf6",
+        "chatSessionId": "sess_b23aa497-cd0b-484d-80b1-7eef3661c9b4",
+        "timestamp": 1795277633210
+      }
+    ],
+    "3.2 `VoiceSnapshot` and `VoicePolicy`": [
+      {
+        "executionId": "27c2f1cd-190a-41ea-8aa8-55519b9d648a",
+        "chatSessionId": "sess_13ef8bf1-7036-4b9b-9852-9d04b2a2e035",
+        "timestamp": 1795277699710
+      },
+      {
+        "executionId": "27c2f1cd-190a-41ea-8aa8-55519b9d648a",
+        "chatSessionId": "sess_13ef8bf1-7036-4b9b-9852-9d04b2a2e035",
+        "timestamp": 1795277857294
+      }
+    ],
+    "3.3 Write property tests for the policy": [
+      {
+        "executionId": "627f7094-3587-4a42-83a2-05b457e4afec",
+        "chatSessionId": "sess_8fb91bc6-c4af-4ce5-a5a7-09c0dc477362",
+        "timestamp": 1795277904744
+      },
+      {
+        "executionId": "627f7094-3587-4a42-83a2-05b457e4afec",
+        "chatSessionId": "sess_8fb91bc6-c4af-4ce5-a5a7-09c0dc477362",
+        "timestamp": 1795278026179
+      }
+    ],
+    "3.4 `VoiceSeed`": [
+      {
+        "executionId": "368c8a1e-5794-43b5-a491-29b48d5f3635",
+        "chatSessionId": "sess_49a26a5c-b987-4833-a15c-b9f42fe1352b",
+        "timestamp": 1795278057452
+      },
+      {
+        "executionId": "368c8a1e-5794-43b5-a491-29b48d5f3635",
+        "chatSessionId": "sess_49a26a5c-b987-4833-a15c-b9f42fe1352b",
+        "timestamp": 1795278155328
+      }
+    ],
+    "3.5 Write property tests for the seed": [
+      {
+        "executionId": "cb630327-5be9-4469-93e2-6b8653b34666",
+        "chatSessionId": "sess_a7446d84-7123-4a13-8aab-7d21ab70e6ee",
+        "timestamp": 1795278193085
+      },
+      {
+        "executionId": "cb630327-5be9-4469-93e2-6b8653b34666",
+        "chatSessionId": "sess_a7446d84-7123-4a13-8aab-7d21ab70e6ee",
+        "timestamp": 1795278364351
+      }
+    ],
+    "3.6 Source rule for the domain folder": [
+      {
+        "executionId": "9886c0ad-0782-4fee-89be-7dbba3592c1d",
+        "chatSessionId": "sess_4902323d-f422-4a4a-b8eb-5d4e0ba7f622",
+        "timestamp": 1795278397958
+      },
+      {
+        "executionId": "9886c0ad-0782-4fee-89be-7dbba3592c1d",
+        "chatSessionId": "sess_4902323d-f422-4a4a-b8eb-5d4e0ba7f622",
+        "timestamp": 1795278480551
+      }
+    ],
+    "3.7 Checkpoint B: domain": [
+      {
+        "executionId": "bd1c39a9-5b43-43fe-983b-bc07d2f25697",
+        "chatSessionId": "sess_b20a61cf-c2a2-4f56-9b8d-909a911352e5",
+        "timestamp": 1795278513329
+      },
+      {
+        "executionId": "bd1c39a9-5b43-43fe-983b-bc07d2f25697",
+        "chatSessionId": "sess_b20a61cf-c2a2-4f56-9b8d-909a911352e5",
+        "timestamp": 1795278619479
+      }
+    ],
+    "3.8 Chrome run of the pure domain tests": [
+      {
+        "executionId": "63479718-8504-475f-a160-9bbe0f233b56",
+        "chatSessionId": "sess_46fa747b-7019-48bf-b017-7fbfa2cb11ee",
+        "timestamp": 1795278647896
+      },
+      {
+        "executionId": "63479718-8504-475f-a160-9bbe0f233b56",
+        "chatSessionId": "sess_46fa747b-7019-48bf-b017-7fbfa2cb11ee",
+        "timestamp": 1795278709745
+      }
+    ],
+    "3. Hauntagotchi domain (pure Dart)": [
+      {
+        "executionId": "63479718-8504-475f-a160-9bbe0f233b56",
+        "chatSessionId": "sess_46fa747b-7019-48bf-b017-7fbfa2cb11ee",
+        "timestamp": 1795278709911
+      }
     ]
   }
 }
