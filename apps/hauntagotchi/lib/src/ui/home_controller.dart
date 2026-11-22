@@ -35,6 +35,8 @@ class HomeController extends ChangeNotifier {
   String? _welcomeBack;
   GhostReaction? _reaction;
   int _reactionKey = 0;
+  int _checkOffs = 0;
+  int _resurrections = 0;
   bool _disposed = false;
   bool _writeFailed = false;
   int _writesInFlight = 0;
@@ -61,6 +63,19 @@ class HomeController extends ChangeNotifier {
   /// Events live in memory only. Each one has a key that is higher than the
   /// key of the one before, starting at 1 in a new controller.
   GhostReaction? get reaction => _reaction;
+
+  /// How many check-offs this controller accepted since it was created.
+  ///
+  /// Undo, add, rename, archive and rejected taps do not count. The value
+  /// rises before the notification of the change. It lives in memory only.
+  int get checkOffCount => _checkOffs;
+
+  /// How many check-offs resurrected the ghost since this controller was
+  /// created.
+  ///
+  /// The value rises before the notification of the change. It lives in
+  /// memory only.
+  int get resurrectionCount => _resurrections;
 
   /// Opens storage, reads the records and builds the haunting.
   ///
@@ -146,6 +161,11 @@ class HomeController extends ChangeNotifier {
         }
         return GhostReactionKind.fed;
       },
+      onChanged: (HauntChanged changed) {
+        if (completing) {
+          _checkOffs++;
+        }
+      },
     );
   }
 
@@ -216,6 +236,7 @@ class HomeController extends ChangeNotifier {
   Future<HabitRejection?> _act(
     HauntResult Function(Haunting) action, {
     GhostReactionKind? Function(HauntChanged)? reactionFor,
+    void Function(HauntChanged)? onChanged,
   }) async {
     final Haunting? current = _haunting;
     if (current == null || _status != HomeStatus.ready) {
@@ -234,11 +255,13 @@ class HomeController extends ChangeNotifier {
         _haunting = next;
         if (resurrected) {
           _welcomeBack = _welcomeText(next.ghost.name);
+          _resurrections++;
         }
         final GhostReactionKind? kind = reactionFor?.call(result);
         if (kind != null && !_disposed) {
           _reaction = GhostReaction(kind, ++_reactionKey);
         }
+        onChanged?.call(result);
         _notify();
         await _enqueueWrite(
           habits: _changedHabits(synced, next),

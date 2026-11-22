@@ -303,6 +303,97 @@
         "chatSessionId": "sess_46fa747b-7019-48bf-b017-7fbfa2cb11ee",
         "timestamp": 1795278709911
       }
+    ],
+    "4.1 Mood mapping and request builder": [
+      {
+        "executionId": "120b1f5c-2ed7-49eb-9ccf-3fdee509d2e3",
+        "chatSessionId": "sess_aae8805c-6a08-401d-b36e-b33e8038ca4f",
+        "timestamp": 1795278791927
+      },
+      {
+        "executionId": "120b1f5c-2ed7-49eb-9ccf-3fdee509d2e3",
+        "chatSessionId": "sess_aae8805c-6a08-401d-b36e-b33e8038ca4f",
+        "timestamp": 1795278908914
+      }
+    ],
+    "4.2 Safe line, labels and the default AI": [
+      {
+        "executionId": "4d004bc8-79ed-4541-813b-46b924dd79ec",
+        "chatSessionId": "sess_a8b59049-6083-4dd1-b4fa-4d8acdc68f99",
+        "timestamp": 1795278931048
+      },
+      {
+        "executionId": "4d004bc8-79ed-4541-813b-46b924dd79ec",
+        "chatSessionId": "sess_a8b59049-6083-4dd1-b4fa-4d8acdc68f99",
+        "timestamp": 1795279047067
+      }
+    ],
+    "4.3 `HomeController` counters": [
+      {
+        "executionId": "3661f7fa-e22b-448d-ad08-66106648452f",
+        "chatSessionId": "sess_c4ad19ad-2014-4864-81ce-57df1c117f2e",
+        "timestamp": 1795279072058
+      },
+      {
+        "executionId": "3661f7fa-e22b-448d-ad08-66106648452f",
+        "chatSessionId": "sess_c4ad19ad-2014-4864-81ce-57df1c117f2e",
+        "timestamp": 1795279192984
+      }
+    ],
+    "4.4 Test support for the voice": [
+      {
+        "executionId": "993133cf-adfe-4a57-88ae-887f85acc163",
+        "chatSessionId": "sess_9a18fc48-7a27-4c99-86c2-314ac36ce4d6",
+        "timestamp": 1795279211602
+      },
+      {
+        "executionId": "993133cf-adfe-4a57-88ae-887f85acc163",
+        "chatSessionId": "sess_9a18fc48-7a27-4c99-86c2-314ac36ce4d6",
+        "timestamp": 1795279340183
+      }
+    ],
+    "4.5 `VoiceController`": [
+      {
+        "executionId": "1fb1e1d6-9593-415b-813b-cfcf48ebb24f",
+        "chatSessionId": "sess_a19b81f6-8c99-43ab-ac10-99d842002369",
+        "timestamp": 1795279363981
+      },
+      {
+        "executionId": "1fb1e1d6-9593-415b-813b-cfcf48ebb24f",
+        "chatSessionId": "sess_a19b81f6-8c99-43ab-ac10-99d842002369",
+        "timestamp": 1795315688139
+      }
+    ],
+    "4.6 Scripted session test": [
+      {
+        "executionId": "f8d97912-4385-4e4a-bfe5-d0f8dcd0afd9",
+        "chatSessionId": "sess_bfbf5e65-bb7f-4b3d-991e-65ebf55171f2",
+        "timestamp": 1795315833931
+      },
+      {
+        "executionId": "f8d97912-4385-4e4a-bfe5-d0f8dcd0afd9",
+        "chatSessionId": "sess_bfbf5e65-bb7f-4b3d-991e-65ebf55171f2",
+        "timestamp": 1795315996493
+      }
+    ],
+    "4.7 Checkpoint C: UI logic": [
+      {
+        "executionId": "effbbbb3-a215-4d0f-b9e7-8950d996c2be",
+        "chatSessionId": "sess_a39a90a5-a5b8-4995-b0da-9acfa4fd85db",
+        "timestamp": 1795316020965
+      },
+      {
+        "executionId": "effbbbb3-a215-4d0f-b9e7-8950d996c2be",
+        "chatSessionId": "sess_a39a90a5-a5b8-4995-b0da-9acfa4fd85db",
+        "timestamp": 1795316135464
+      }
+    ],
+    "4. Hauntagotchi UI logic": [
+      {
+        "executionId": "effbbbb3-a215-4d0f-b9e7-8950d996c2be",
+        "chatSessionId": "sess_a39a90a5-a5b8-4995-b0da-9acfa4fd85db",
+        "timestamp": 1795316135532
+      }
     ]
   }
 }
