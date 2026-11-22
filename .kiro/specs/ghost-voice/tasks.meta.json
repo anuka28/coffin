@@ -394,6 +394,61 @@
         "chatSessionId": "sess_a39a90a5-a5b8-4995-b0da-9acfa4fd85db",
         "timestamp": 1795316135532
       }
+    ],
+    "5.1 `VoicePanel`": [
+      {
+        "executionId": "c52a19b6-30f8-4526-b4fc-91a0a66bc916",
+        "chatSessionId": "sess_08cefa00-2326-4802-b267-ddc16cc3ba6e",
+        "timestamp": 1795316220617
+      },
+      {
+        "executionId": "c52a19b6-30f8-4526-b4fc-91a0a66bc916",
+        "chatSessionId": "sess_08cefa00-2326-4802-b267-ddc16cc3ba6e",
+        "timestamp": 1795318163598
+      }
+    ],
+    "5.2 `HomeScreen` and routes": [
+      {
+        "executionId": "c8575bed-6c0e-44d7-98e7-c93bfa1a75c8",
+        "chatSessionId": "sess_79a23f86-6fc6-44d7-b929-68e9d1585725",
+        "timestamp": 1795318241860
+      },
+      {
+        "executionId": "c8575bed-6c0e-44d7-98e7-c93bfa1a75c8",
+        "chatSessionId": "sess_79a23f86-6fc6-44d7-b929-68e9d1585725",
+        "timestamp": 1795318522444
+      }
+    ],
+    "5.3 `HauntagotchiApp`": [
+      {
+        "executionId": "392dd330-02eb-4bd3-9a22-c0621f113601",
+        "chatSessionId": "sess_cdb67fd2-7a54-4e1d-95ec-d19980349295",
+        "timestamp": 1795318939562
+      },
+      {
+        "executionId": "392dd330-02eb-4bd3-9a22-c0621f113601",
+        "chatSessionId": "sess_cdb67fd2-7a54-4e1d-95ec-d19980349295",
+        "timestamp": 1795355538191
+      }
+    ],
+    "5.4 Checkpoint D: Hauntagotchi": [
+      {
+        "executionId": "e99b1163-b1cd-45a0-87f8-62fe3e6548b1",
+        "chatSessionId": "sess_a4292f59-71b2-4d38-b1f9-70f09e7bc5be",
+        "timestamp": 1795355659658
+      },
+      {
+        "executionId": "e99b1163-b1cd-45a0-87f8-62fe3e6548b1",
+        "chatSessionId": "sess_a4292f59-71b2-4d38-b1f9-70f09e7bc5be",
+        "timestamp": 1795355842439
+      }
+    ],
+    "5. Panel and wiring": [
+      {
+        "executionId": "e99b1163-b1cd-45a0-87f8-62fe3e6548b1",
+        "chatSessionId": "sess_a4292f59-71b2-4d38-b1f9-70f09e7bc5be",
+        "timestamp": 1795355842590
+      }
     ]
   }
 }

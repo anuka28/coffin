@@ -16,6 +16,8 @@ import 'memory_notice.dart';
 import 'resurrection_panel.dart';
 import 'save_error_banner.dart';
 import 'save_status.dart';
+import 'voice_controller.dart';
+import 'voice_panel.dart';
 
 /// The home screen: the ghost, today's habits and the controls around them.
 ///
@@ -25,10 +27,14 @@ import 'save_status.dart';
 /// controller does that.
 class HomeScreen extends StatefulWidget {
   /// Creates the home screen for [controller].
-  const HomeScreen({super.key, required this.controller});
+  const HomeScreen({super.key, required this.controller, this.voice});
 
   /// The controller that owns the game state.
   final HomeController controller;
+
+  /// The ghost's voice. When not null, its line shows under the ghost panel.
+  /// When null, the screen has no voice panel.
+  final VoiceController? voice;
 
   @override
   State<HomeScreen> createState() => _HomeScreenState();
@@ -129,6 +135,8 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
         streak: haunting.streak,
         reaction: _controller.reaction,
       ),
+      if (widget.voice != null)
+        VoicePanel(controller: widget.voice!, ghostName: haunting.ghost.name),
       if (dead)
         ResurrectionPanel(
           ghostName: haunting.ghost.name,

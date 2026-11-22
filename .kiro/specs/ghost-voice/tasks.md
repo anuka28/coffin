@@ -145,23 +145,23 @@ Notes that apply to all tasks:
     - Run `dart format --set-exit-if-changed`, `flutter analyze` (zero warnings) and the full `flutter test` in `apps/hauntagotchi` and in `packages/coffin_core`. Report the counts. The existing Hauntagotchi tests pass unchanged.
     - _Requirements: 12.8, 13.3_
 
-- [ ] 5. Panel and wiring
-  - [ ] 5.1 `VoicePanel`
+- [x] 5. Panel and wiring
+  - [x] 5.1 `VoicePanel`
     - Create `apps/hauntagotchi/lib/src/ui/voice_panel.dart` as in `design.md`: takes the `VoiceController` and the ghost name; `ListenableBuilder`; text `controller.line ?? VoiceCopy.safeLine`; `Semantics(label: VoiceCopy.label(...))` over `ExcludeSemantics(child: Text(...))`, not a live region, not focusable, no tap handler; a `DecoratedBox` with 16 px radius, theme surface container color, a soft glow from the theme primary color at low alpha, 16 px padding, body text style, no `maxLines`, no ellipsis; under `MediaQuery.disableAnimationsOf(context)` it returns the plain `Text` (no `AnimatedSwitcher`, no controller); otherwise an `AnimatedSwitcher` of 450 ms with `Curves.easeInOut` and a `FadeTransition`, keyed by the line, no loop; a state that remembers the last announcement key (initialized from the current value) and calls `SemanticsService.sendAnnouncement(View.of(context), text, Directionality.of(context))` once per new key, only when `MediaQuery.accessibleNavigationOf(context)` is true. No color literal.
     - Create `apps/hauntagotchi/test/ui/voice_panel_test.dart`: shows the line as `Text`; shows the safe line before the first answer; shows the previous line while a new one is pending; one line only; the label with a ghost name and with an empty name; no overflow at widths 320, 360 and 1280 with text scale 1.0 and 2.0 for an 80-character line; a rebuild or a route change does not repeat an announcement; the panel has no tap target and takes no focus.
     - Create `apps/hauntagotchi/test/ui/voice_panel_a11y_test.dart`: with `disableAnimations` there is no `AnimatedSwitcher` below the panel and `tester.hasRunningAnimations` is false after a line change; with motion allowed the change fades once over 300 to 600 ms and then nothing runs; announcements are read from a fake handler on `SystemChannels.accessibility`: over a scripted session of 10 check-offs at most one announcement per check-off, none on open, none on mood change, none when the text is unchanged, none when `accessibleNavigation` is false, and one for a resurrection; contrast of the text on the panel surface is at least 4.5 in the night and the daylight theme (use the contrast helper of the existing Hauntagotchi tests if one exists, otherwise the WCAG formula in the test).
     - _Requirements: 9.4, 10.2, 10.3, 10.4, 10.5, 11.1, 11.2, 11.3, 11.4, 11.5, 11.6, 11.7, 12.5_
-  - [ ] 5.2 `HomeScreen` and routes
+  - [x] 5.2 `HomeScreen` and routes
     - Edit `apps/hauntagotchi/lib/src/ui/home_screen.dart`: add the optional `VoiceController? voice` parameter (doc-commented) and, when it is not null, insert `VoicePanel` directly after `GhostPanel` in `_buildReady`. Edit `apps/hauntagotchi/lib/src/ui/app_routes.dart`: add the same optional parameter to `buildAppRoutes` and pass it to `HomeScreen`. With `voice == null` the screen is built exactly as before.
     - Create `apps/hauntagotchi/test/ui/home_screen_voice_test.dart`: the panel is under the ghost panel and above the habit list (compare vertical positions); no panel without a voice; a check-off updates the line and the habits stay usable while the AI is pending (scripted slow AI), and after a throwing AI; the check-off still saves; a rebuild, a rename, an archive and an add do not change the line or the AI call count; the ghost panel semantics are unchanged (the same labels as in `home_screen_a11y_test.dart`, read once); no overflow at 320, 360 and 1280.
     - Run the existing Hauntagotchi tests: they pass unchanged.
     - _Requirements: 9.1, 10.1, 10.6, 11.7_
-  - [ ] 5.3 `HauntagotchiApp`
+  - [x] 5.3 `HauntagotchiApp`
     - Edit `apps/hauntagotchi/lib/main.dart`: add the optional `CoffinAI? ai` parameter to `HauntagotchiApp` (doc-commented); in `initState` create `VoiceController(home: widget.controller, ai: widget.ai ?? defaultVoiceAi())` before `widget.controller.load()`, pass it to `buildAppRoutes`, and dispose it in `dispose` before the home controller storage. `main()` and the `HomeController` constructor do not change.
     - Create `apps/hauntagotchi/test/ui/app_voice_test.dart`: the app built with a scripted AI shows the opening line after load; a check-off changes the line; the app works with the default AI and with a throwing AI; disposing the app with a request in flight causes no error.
     - Run the existing Hauntagotchi tests, in particular `app_routes_test.dart`. If an existing test breaks because the panel adds a second matching widget, make the smallest edit that restores its meaning, and list in the report the file, the line and the reason (Requirement 10.6). If no test breaks, say so. Any other existing test that fails is a HARD STOP.
     - _Requirements: 5.1, 5.4, 9.1, 9.5, 10.6_
-  - [ ] 5.4 Checkpoint D: Hauntagotchi
+  - [x] 5.4 Checkpoint D: Hauntagotchi
     - Run `dart format --set-exit-if-changed`, `flutter analyze` (zero warnings) and the full `flutter test` in `apps/hauntagotchi`, `packages/coffin_core`, `apps/graveyard` and `tool`. Report the counts. Confirm that the only existing test edits are those of task 2.8 and the list of task 5.3.
     - _Requirements: 12.8, 13.3_
 
