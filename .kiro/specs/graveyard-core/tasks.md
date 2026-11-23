@@ -157,10 +157,10 @@ Rules for every task:
     - **Validates: Requirements 3.4, 3.6, 3.10**
     - Create `test/domain/repo_input_total_property_test.dart`.
 
-- [ ] 5. Parsing the GitHub response
+- [x] 5. Parsing the GitHub response
   - [x] 5.1 Implement the failure types, `RepoResponseParser` and `RateLimitWait`
     - Create `import_failure_kind.dart`, `import_failure.dart` (`resetAt` for `rateLimited` only), `fetched_repo.dart`, `fetch_result.dart` (sealed), `fetch_succeeded.dart`, `fetch_failed.dart`, `repo_response_parser.dart` and `rate_limit_wait.dart`.
-    - Parser rules: `jsonDecode` inside `try` with `on Object`; a non-object body is `malformedResponse`; `pushed_at` must be a string that matches `^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(\.\d+)?(Z|[+-]\d{2}:\d{2})$` and that `DateTime.parse` accepts (a date without time, or a time without `Z` or a numeric offset, is `malformedResponse`); `updated_at` and `created_at` are never read; apply the injected `ZoneConverter` to the UTC instant, then read year, month and day; clamp to Today and to 1970-01-01.
+    - Parser rules: `jsonDecode` inside `try` with `on Object`; a non-object body is `malformedResponse`; `pushed_at` must be a string that matches `^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(\.\d+)?(Z|[+-]\d{2}:\d{2})$` and whose fields are real: year 0001 or later (year 0000 is rejected), month 1-12, a day that exists in that month and year, hour 0-23, minute 0-59, second 0-59 (leap seconds rejected), and an offset that is `Z` or has hours 0-14 and minutes 0-59 (a date without time, or a time without `Z` or a numeric offset, is `malformedResponse`); `updated_at` and `created_at` are never read; apply the injected `ZoneConverter` to the UTC instant, then read year, month and day; clamp to Today and to 1970-01-01.
     - Safety rules: `full_name` is used only when it is a string of 1 to 140 code points after normalisation, otherwise the requested `owner/repo`; `stargazers_count` accepts an integral non-negative `num` (so `12.0` on the VM and `12` on the web give the same result), otherwise 0; every unknown field is ignored.
     - `RateLimitWait.minutes` is `max(1, (ms + 59999) ~/ 60000)`.
     - _Requirements: 4.1, 4.2, 4.3, 4.4, 4.5, 4.6, 4.7, 4.8, 4.9, 4.10, 4.11, 4.12, 4.13, 4.14, 4.15, 4.17, 9.3_
@@ -169,71 +169,71 @@ Rules for every task:
     - Add `anyJsonText`, `anyJsonValue` (depth at most 4), mutators that replace one field with a value of another type (absent, `null`, string, integer, negative integer, boolean, list, object), a `pushedAtBody` builder, and an `anyCorruption` list for the codec to `test/domain/support/grave_generators.dart`.
     - _Requirements: 17.3_
 
-  - [-] 5.3 Write unit tests for `RepoResponseParser` and `RateLimitWait`
+  - [x] 5.3 Write unit tests for `RepoResponseParser` and `RateLimitWait`
     - Create `test/domain/repo_response_parser_test.dart`: the four real repositories at fixed offset +00:00 with the dates, archived flags and star counts of Requirement 4.16, `updated_at` different from `pushed_at` and ignored, the three offset cases of Requirements 4.18, 4.19 and 4.20 (mandatory, with "Died today" through `DeadForFormatter` for the first two), clamps in both directions, every default of Requirements 4.5 to 4.9, `full_name` fallback (empty, non-string, over 140 code points), `pushed_at` without `Z` or offset, `pushed_at` as a date only, and a `12.0` star count.
     - Create `test/domain/rate_limit_wait_test.dart`: 30 s gives 1, 61 s gives 2, a past reset gives 1.
     - _Requirements: 4.1 to 4.21, 9.3_
 
-  - [-] 5.4 Write property test for the local date
+  - [x] 5.4 Write property test for the local date
     - **Property 10: The local date is the instant plus the offset**
     - **Validates: Requirements 4.1, 4.3, 4.17, 4.22**
     - Create `test/domain/local_date_property_test.dart`, comparing against integer arithmetic `floorDiv(seconds + offsetSeconds, 86400)`.
 
-  - [-] 5.5 Write property test for a push made now
+  - [x] 5.5 Write property test for a push made now
     - **Property 11: A push made now reads as "Died today"**
     - **Validates: Requirements 4.18, 4.22**
     - Create `test/domain/died_today_property_test.dart`. It uses `DeadForFormatter` from task 6.1.
 
-  - [-] 5.6 Write property test for clamping
+  - [x] 5.6 Write property test for clamping
     - **Property 12: Clamping keeps the date in range**
     - **Validates: Requirements 4.12, 4.13**
     - Create `test/domain/clamp_property_test.dart`.
 
-  - [-] 5.7 Write property test for optional fields
+  - [x] 5.7 Write property test for optional fields
     - **Property 13: Optional fields default, extra fields are ignored**
     - **Validates: Requirements 4.2, 4.4, 4.5, 4.6, 4.7, 4.8, 4.9, 4.14**
     - Create `test/domain/response_defaults_property_test.dart`.
 
-  - [-] 5.8 Write property test for a missing push date
+  - [x] 5.8 Write property test for a missing push date
     - **Property 14: A body without a usable push date is malformed**
     - **Validates: Requirements 4.2, 4.10, 4.11**
     - Create `test/domain/response_malformed_property_test.dart`.
 
-  - [-] 5.9 Write property test for response parser totality
+  - [x] 5.9 Write property test for response parser totality
     - **Property 15: The response parser is total**
     - **Validates: Requirements 4.15**
     - Create `test/domain/response_total_property_test.dart`, including deeply nested JSON.
 
-  - [-] 5.10 Write property test for the rate-limit wait
+  - [x] 5.10 Write property test for the rate-limit wait
     - **Property 22: The rate-limit wait is rounded up and at least one minute**
     - **Validates: Requirements 9.3**
     - Create `test/domain/rate_limit_wait_property_test.dart`.
 
-- [ ] 6. Dead-for text
+- [x] 6. Dead-for text
   - [x] 6.1 Implement `DeadForUnit`, `DeadFor` and `DeadForFormatter`
     - Create `dead_for_unit.dart` (order: today, days, weeks, months, years), `dead_for.dart` (`between`, `text`) and `dead_for_formatter.dart`, following the design's decision table. Use year, month and day arithmetic only. No `Duration` and no `DateTime` in these files.
     - _Requirements: 5.1, 5.2, 5.3, 5.4, 5.5, 5.6, 5.7, 5.8, 5.9, 5.10_
 
-  - [ ] 6.2 Write unit tests for the dead-for text
+  - [x] 6.2 Write unit tests for the dead-for text
     - Create `test/domain/dead_for_test.dart`: Day_Counts 0, 1, 2, 6, 7, 13, 14, the end of February in a leap year and in a common year, the month-end clamp (2025-01-31 to 2025-02-28 gives "Dead for 1 month", to 2025-02-27 gives "Dead for 3 weeks"), the day before and the day of the first whole month and of the first whole year, a span across 2026-03-08 and 2026-10-25, a death date after Today, and the singular forms.
     - _Requirements: 5.1 to 5.9, 5.13_
 
-  - [ ] 6.3 Write property test for the calendar model
+  - [x] 6.3 Write property test for the calendar model
     - **Property 16: The dead-for text follows the calendar model**
     - **Validates: Requirements 5.1, 5.2, 5.3, 5.4, 5.5, 5.6, 5.7, 5.9**
     - Create `test/domain/dead_for_model_property_test.dart`.
 
-  - [ ] 6.4 Write property test for well-formed text
+  - [x] 6.4 Write property test for well-formed text
     - **Property 17: The dead-for text is never malformed**
     - **Validates: Requirements 5.8, 5.11**
     - Create `test/domain/dead_for_shape_property_test.dart`.
 
-  - [ ] 6.5 Write property test for monotonic age
+  - [x] 6.5 Write property test for monotonic age
     - **Property 18: Waiting one more day never makes the project look younger**
     - **Validates: Requirements 5.12**
     - Create `test/domain/dead_for_monotonic_property_test.dart`.
 
-- [ ] 7. Checkpoint - Domain complete
+- [x] 7. Checkpoint - Domain complete
   - Ensure all tests pass, ask the user if questions arise.
 
 - [ ] 8. Data layer

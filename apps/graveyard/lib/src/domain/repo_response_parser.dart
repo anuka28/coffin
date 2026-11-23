@@ -15,7 +15,8 @@ abstract final class RepoResponseParser {
   static const int _maxFullNameLength = 140;
 
   static final RegExp _pushedAt = RegExp(
-    r'^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(\.\d+)?(Z|[+-]\d{2}:\d{2})$',
+    r'^(\d{4})-(\d{2})-(\d{2})T(\d{2}):(\d{2}):(\d{2})(\.\d+)?'
+    r'(Z|[+-](\d{2}):(\d{2}))$',
   );
 
   static const FetchResult _malformed = FetchFailed(
@@ -37,7 +38,7 @@ abstract final class RepoResponseParser {
       final Object? json = jsonDecode(body);
       if (json is! Map) return _malformed;
       final pushed = json['pushed_at'];
-      if (pushed is! String || !_pushedAt.hasMatch(pushed)) return _malformed;
+      if (pushed is! String || !_isRealTimestamp(pushed)) return _malformed;
       final instant = DateTime.parse(pushed).toUtc();
       var date = CalendarDate.fromDateTime(zone(instant));
       if (date.compareTo(today) > 0) date = today;
@@ -55,6 +56,22 @@ abstract final class RepoResponseParser {
     } on Object {
       return _malformed;
     }
+  }
+
+  /// True when [text] has the timestamp shape and every field is in range.
+  static bool _isRealTimestamp(String text) {
+    final match = _pushedAt.firstMatch(text);
+    if (match == null) return false;
+    int field(int group) => int.parse(match.group(group)!);
+    // tryCreate rejects year 0000 and every impossible month or day.
+    if (CalendarDate.tryCreate(field(1), field(2), field(3)) == null) {
+      return false;
+    }
+    if (field(4) > 23 || field(5) > 59 || field(6) > 59) return false;
+    if (match.group(9) != null) {
+      if (field(9) > 14 || field(10) > 59) return false;
+    }
+    return true;
   }
 
   static String _fullName(Object? value, RepoRef requested) {

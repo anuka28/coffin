@@ -129,6 +129,43 @@ void main() {
     expectMalformed('{"updated_at": "2020-03-04T10:00:00Z"}');
   });
 
+  group('pushed_at fields must be real', () {
+    String body(String pushed) => '{"pushed_at": "$pushed"}';
+
+    test('rejects year 0000', () {
+      expectMalformed(body('0000-06-15T12:00:00Z'));
+    });
+    test('rejects month 13', () {
+      expectMalformed(body('2024-13-10T10:00:00Z'));
+    });
+    test('rejects day 45', () {
+      expectMalformed(body('2024-03-45T10:00:00Z'));
+    });
+    test('rejects 2025-02-29', () {
+      expectMalformed(body('2025-02-29T10:00:00Z'));
+    });
+    test('accepts 2024-02-29', () {
+      final r = ok(body('2024-02-29T10:00:00Z')).repo;
+      expect(r.dateOfDeath, CalendarDate(2024, 2, 29));
+    });
+    test('rejects hour 24', () {
+      expectMalformed(body('2024-03-10T24:00:00Z'));
+    });
+    test('rejects minute 60', () {
+      expectMalformed(body('2024-03-10T10:60:00Z'));
+    });
+    test('rejects second 60', () {
+      expectMalformed(body('2024-03-10T10:00:60Z'));
+    });
+    test('rejects offset +15:00', () {
+      expectMalformed(body('2024-03-10T10:00:00+15:00'));
+    });
+    test('accepts offset +14:00 and rejects minute 60 of an offset', () {
+      expect(parse(body('2024-03-10T10:00:00+14:00')), isA<FetchSucceeded>());
+      expectMalformed(body('2024-03-10T10:00:00+05:60'));
+    });
+  });
+
   test('non-object and broken bodies are malformed', () {
     expectMalformed('[]');
     expectMalformed('"x"');

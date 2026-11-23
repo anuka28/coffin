@@ -57,9 +57,16 @@
       "lastRunTimestamp": 1795438102704
     },
     "5.8 Write property test for a missing push date": {
-      "status": "failed",
-      "failingExample": "pushed_at = '2024-13-45T99:99:99Z' (month 13, day 45, hour 99): RepoResponseParser.parse returns FetchSucceeded instead of FetchFailed(malformedResponse). Glados: [null, 2024-02-29T12:00:00Z, 6] after 88 inputs, shrunk 3 times.",
-      "lastRunTimestamp": 1795438134916
+      "status": "passed",
+      "lastRunTimestamp": 1795441454170
+    },
+    "6.5 Write property test for monotonic age": {
+      "status": "passed",
+      "lastRunTimestamp": 1795441530787
+    },
+    "6.4 Write property test for well-formed text": {
+      "status": "passed",
+      "lastRunTimestamp": 1795441553336
     }
   },
   "executionHistory": {
@@ -478,6 +485,11 @@
         "executionId": "3b7a96e4-4865-4d29-9f99-b4aa60f62034",
         "chatSessionId": "sess_7f0eb806-66c3-41a4-b0bc-6bb03d453381",
         "timestamp": 1795437942872
+      },
+      {
+        "executionId": "795e2750-658d-4b4a-95bf-937a844770d5",
+        "chatSessionId": "sess_7f0eb806-66c3-41a4-b0bc-6bb03d453381",
+        "timestamp": 1795441246265
       }
     ],
     "5.4 Write property test for the local date": [
@@ -485,6 +497,11 @@
         "executionId": "3b7a96e4-4865-4d29-9f99-b4aa60f62034",
         "chatSessionId": "sess_7f0eb806-66c3-41a4-b0bc-6bb03d453381",
         "timestamp": 1795437942919
+      },
+      {
+        "executionId": "795e2750-658d-4b4a-95bf-937a844770d5",
+        "chatSessionId": "sess_7f0eb806-66c3-41a4-b0bc-6bb03d453381",
+        "timestamp": 1795441246335
       }
     ],
     "5.5 Write property test for a push made now": [
@@ -492,6 +509,11 @@
         "executionId": "3b7a96e4-4865-4d29-9f99-b4aa60f62034",
         "chatSessionId": "sess_7f0eb806-66c3-41a4-b0bc-6bb03d453381",
         "timestamp": 1795437943384
+      },
+      {
+        "executionId": "795e2750-658d-4b4a-95bf-937a844770d5",
+        "chatSessionId": "sess_7f0eb806-66c3-41a4-b0bc-6bb03d453381",
+        "timestamp": 1795441246399
       }
     ],
     "5.6 Write property test for clamping": [
@@ -499,6 +521,11 @@
         "executionId": "3b7a96e4-4865-4d29-9f99-b4aa60f62034",
         "chatSessionId": "sess_7f0eb806-66c3-41a4-b0bc-6bb03d453381",
         "timestamp": 1795437944186
+      },
+      {
+        "executionId": "795e2750-658d-4b4a-95bf-937a844770d5",
+        "chatSessionId": "sess_7f0eb806-66c3-41a4-b0bc-6bb03d453381",
+        "timestamp": 1795441247216
       }
     ],
     "5.7 Write property test for optional fields": [
@@ -506,6 +533,11 @@
         "executionId": "3b7a96e4-4865-4d29-9f99-b4aa60f62034",
         "chatSessionId": "sess_7f0eb806-66c3-41a4-b0bc-6bb03d453381",
         "timestamp": 1795437944869
+      },
+      {
+        "executionId": "795e2750-658d-4b4a-95bf-937a844770d5",
+        "chatSessionId": "sess_7f0eb806-66c3-41a4-b0bc-6bb03d453381",
+        "timestamp": 1795441247566
       }
     ],
     "5.8 Write property test for a missing push date": [
@@ -513,6 +545,11 @@
         "executionId": "3b7a96e4-4865-4d29-9f99-b4aa60f62034",
         "chatSessionId": "sess_7f0eb806-66c3-41a4-b0bc-6bb03d453381",
         "timestamp": 1795438057349
+      },
+      {
+        "executionId": "795e2750-658d-4b4a-95bf-937a844770d5",
+        "chatSessionId": "sess_7f0eb806-66c3-41a4-b0bc-6bb03d453381",
+        "timestamp": 1795441465702
       }
     ],
     "5.9 Write property test for response parser totality": [
@@ -520,6 +557,16 @@
         "executionId": "3b7a96e4-4865-4d29-9f99-b4aa60f62034",
         "chatSessionId": "sess_7f0eb806-66c3-41a4-b0bc-6bb03d453381",
         "timestamp": 1795438058235
+      },
+      {
+        "executionId": "795e2750-658d-4b4a-95bf-937a844770d5",
+        "chatSessionId": "sess_7f0eb806-66c3-41a4-b0bc-6bb03d453381",
+        "timestamp": 1795441263906
+      },
+      {
+        "executionId": "795e2750-658d-4b4a-95bf-937a844770d5",
+        "chatSessionId": "sess_7f0eb806-66c3-41a4-b0bc-6bb03d453381",
+        "timestamp": 1795441595914
       }
     ],
     "5.10 Write property test for the rate-limit wait": [
@@ -527,6 +574,90 @@
         "executionId": "3b7a96e4-4865-4d29-9f99-b4aa60f62034",
         "chatSessionId": "sess_7f0eb806-66c3-41a4-b0bc-6bb03d453381",
         "timestamp": 1795438058840
+      },
+      {
+        "executionId": "795e2750-658d-4b4a-95bf-937a844770d5",
+        "chatSessionId": "sess_7f0eb806-66c3-41a4-b0bc-6bb03d453381",
+        "timestamp": 1795441263953
+      },
+      {
+        "executionId": "795e2750-658d-4b4a-95bf-937a844770d5",
+        "chatSessionId": "sess_7f0eb806-66c3-41a4-b0bc-6bb03d453381",
+        "timestamp": 1795441595561
+      }
+    ],
+    "6.2 Write unit tests for the dead-for text": [
+      {
+        "executionId": "795e2750-658d-4b4a-95bf-937a844770d5",
+        "chatSessionId": "sess_7f0eb806-66c3-41a4-b0bc-6bb03d453381",
+        "timestamp": 1795441470992
+      },
+      {
+        "executionId": "795e2750-658d-4b4a-95bf-937a844770d5",
+        "chatSessionId": "sess_7f0eb806-66c3-41a4-b0bc-6bb03d453381",
+        "timestamp": 1795441586952
+      }
+    ],
+    "6.3 Write property test for the calendar model": [
+      {
+        "executionId": "795e2750-658d-4b4a-95bf-937a844770d5",
+        "chatSessionId": "sess_7f0eb806-66c3-41a4-b0bc-6bb03d453381",
+        "timestamp": 1795441472184
+      },
+      {
+        "executionId": "795e2750-658d-4b4a-95bf-937a844770d5",
+        "chatSessionId": "sess_7f0eb806-66c3-41a4-b0bc-6bb03d453381",
+        "timestamp": 1795441587729
+      }
+    ],
+    "6.4 Write property test for well-formed text": [
+      {
+        "executionId": "795e2750-658d-4b4a-95bf-937a844770d5",
+        "chatSessionId": "sess_7f0eb806-66c3-41a4-b0bc-6bb03d453381",
+        "timestamp": 1795441472985
+      },
+      {
+        "executionId": "795e2750-658d-4b4a-95bf-937a844770d5",
+        "chatSessionId": "sess_7f0eb806-66c3-41a4-b0bc-6bb03d453381",
+        "timestamp": 1795441588717
+      }
+    ],
+    "6.5 Write property test for monotonic age": [
+      {
+        "executionId": "795e2750-658d-4b4a-95bf-937a844770d5",
+        "chatSessionId": "sess_7f0eb806-66c3-41a4-b0bc-6bb03d453381",
+        "timestamp": 1795441473598
+      },
+      {
+        "executionId": "795e2750-658d-4b4a-95bf-937a844770d5",
+        "chatSessionId": "sess_7f0eb806-66c3-41a4-b0bc-6bb03d453381",
+        "timestamp": 1795441589132
+      }
+    ],
+    "6. Dead-for text": [
+      {
+        "executionId": "795e2750-658d-4b4a-95bf-937a844770d5",
+        "chatSessionId": "sess_7f0eb806-66c3-41a4-b0bc-6bb03d453381",
+        "timestamp": 1795441589170
+      }
+    ],
+    "5. Parsing the GitHub response": [
+      {
+        "executionId": "795e2750-658d-4b4a-95bf-937a844770d5",
+        "chatSessionId": "sess_7f0eb806-66c3-41a4-b0bc-6bb03d453381",
+        "timestamp": 1795441595948
+      }
+    ],
+    "7. Checkpoint - Domain complete": [
+      {
+        "executionId": "7a337e7d-be07-4360-ad7a-baac48d6fd8b",
+        "chatSessionId": "sess_7f0eb806-66c3-41a4-b0bc-6bb03d453381",
+        "timestamp": 1795441706954
+      },
+      {
+        "executionId": "7a337e7d-be07-4360-ad7a-baac48d6fd8b",
+        "chatSessionId": "sess_7f0eb806-66c3-41a4-b0bc-6bb03d453381",
+        "timestamp": 1795441802270
       }
     ]
   }

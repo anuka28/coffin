@@ -332,7 +332,7 @@ abstract final class RepoResponseParser {
 ```
 
 1. `jsonDecode(body)` inside `try`. Anything but a `Map<String, Object?>` gives `FetchFailed(malformedResponse)`. Any thrown object (including a stack overflow on deeply nested input) is caught with `on Object`.
-2. `pushed_at` must be a `String` that matches `^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(\.\d+)?(Z|[+-]\d{2}:\d{2})$` and that `DateTime.parse` accepts. Otherwise `malformedResponse`. `updated_at` and `created_at` are never read.
+2. `pushed_at` must be a `String` that matches `^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(\.\d+)?(Z|[+-]\d{2}:\d{2})$` and whose fields are real: year 0001 or later (year 0000 is rejected), month 1-12, a day that exists in that month and year, hour 0-23, minute 0-59, second 0-59 (leap seconds rejected), and an offset that is `Z` or has hours 0-14 and minutes 0-59. Otherwise `malformedResponse`. `updated_at` and `created_at` are never read.
 3. `local = zone(parsed.toUtc())`. `raw = CalendarDate.fromDateTime(local)`.
 4. Clamp: `raw > today` gives `today` (clock skew). `raw < CalendarDate.earliest` gives `earliest`.
 5. `RepoInfo`: `full_name` if a non-empty string of at most 140 code points after normalisation, else `'${requested.owner}/${requested.repo}'`. `html_url` if a string. `description` if a string. `archived` if a `bool`, else false. `stargazers_count` if an `int` of 0 or more, else 0. Unknown fields are ignored. A JSON number such as `12.0` is a `double` on the VM and an `int` in JavaScript, so the parser accepts a `num` that is integral (`n == n.truncate()`) and non-negative, and converts it to `int`. This keeps the VM and the web run identical.
@@ -834,7 +834,7 @@ Reflection on the first draft merged overlapping criteria. For example, the indi
 
 ### Property 17: The dead-for text is never malformed
 
-*For any* pair of dates, the text is not empty, equals the text of a second call with the same arguments, does not contain `0 days`, `1 days`, `1 weeks`, `1 months`, `1 years` or a `-`, and always has the shape `Died today` or `Dead for {positive integer} {unit}` with the unit singular exactly when the number is 1.
+*For any* pair of dates, the text is not empty, equals the text of a second call with the same arguments, does not contain `0 days`, `1 days`, `1 weeks`, `1 months`, `1 years` or a `-`, where each of those number phrases is matched as a whole number (so `Dead for 51 years` is allowed and `Dead for 1 years` is not), and always has the shape `Died today` or `Dead for {positive integer} {unit}` with the unit singular exactly when the number is 1.
 
 **Validates: Requirements 5.8, 5.11**
 
