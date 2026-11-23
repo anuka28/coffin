@@ -449,6 +449,49 @@
         "chatSessionId": "sess_a4292f59-71b2-4d38-b1f9-70f09e7bc5be",
         "timestamp": 1795355842590
       }
+    ],
+    "6.1 Web build": [
+      {
+        "executionId": "5f4144b7-24a2-4579-8a5f-97f5d47a7ab7",
+        "chatSessionId": "sess_89b79066-20b0-4c84-b010-0344a77c37b4",
+        "timestamp": 1795416020310
+      },
+      {
+        "executionId": "5f4144b7-24a2-4579-8a5f-97f5d47a7ab7",
+        "chatSessionId": "sess_89b79066-20b0-4c84-b010-0344a77c37b4",
+        "timestamp": 1795416089674
+      }
+    ],
+    "6.2 Scope, secrets and hygiene": [
+      {
+        "executionId": "1bcebed5-cd4f-4a17-92cf-3f2be79b9f17",
+        "chatSessionId": "sess_891d3af8-fc01-419e-aeea-69184c9c0d51",
+        "timestamp": 1795416120058
+      },
+      {
+        "executionId": "1bcebed5-cd4f-4a17-92cf-3f2be79b9f17",
+        "chatSessionId": "sess_891d3af8-fc01-419e-aeea-69184c9c0d51",
+        "timestamp": 1795416206783
+      }
+    ],
+    "6.3 Final test run": [
+      {
+        "executionId": "1eb64d90-89ff-4cfd-bcef-dc88897347a5",
+        "chatSessionId": "sess_a362c1bc-50fa-4c38-889b-5206beba5d14",
+        "timestamp": 1795416245940
+      },
+      {
+        "executionId": "1eb64d90-89ff-4cfd-bcef-dc88897347a5",
+        "chatSessionId": "sess_a362c1bc-50fa-4c38-889b-5206beba5d14",
+        "timestamp": 1795416549459
+      }
+    ],
+    "6. Final verification": [
+      {
+        "executionId": "1eb64d90-89ff-4cfd-bcef-dc88897347a5",
+        "chatSessionId": "sess_a362c1bc-50fa-4c38-889b-5206beba5d14",
+        "timestamp": 1795416549563
+      }
     ]
   }
 }

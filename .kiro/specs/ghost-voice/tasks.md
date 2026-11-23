@@ -165,14 +165,14 @@ Notes that apply to all tasks:
     - Run `dart format --set-exit-if-changed`, `flutter analyze` (zero warnings) and the full `flutter test` in `apps/hauntagotchi`, `packages/coffin_core`, `apps/graveyard` and `tool`. Report the counts. Confirm that the only existing test edits are those of task 2.8 and the list of task 5.3.
     - _Requirements: 12.8, 13.3_
 
-- [ ] 6. Final verification
-  - [ ] 6.1 Web build
+- [x] 6. Final verification
+  - [x] 6.1 Web build
     - Run `flutter build web` in `apps/hauntagotchi` (explicit timeout 1800000 ms). It must succeed. Report the result. Confirm with `git status --short` that no build output is tracked or newly untracked outside the ignored `build/` folders.
     - _Requirements: 5.2, 13.6_
-  - [ ] 6.2 Scope, secrets and hygiene
+  - [x] 6.2 Scope, secrets and hygiene
     - Run `git status --short` and `git diff --stat` (ignore any `DIARY.md` entry: the user maintains that file) and check that every other changed or new file is in the allowed list of Requirement 13.1 (`packages/coffin_core/lib/src/ai`, `packages/coffin_core/test/ai`, `packages/coffin_core/README.md`, `apps/hauntagotchi/lib`, `apps/hauntagotchi/test`, `.kiro/specs/ghost-voice`). Run `git diff --exit-code` on every `pubspec.yaml`, `pubspec.lock`, `CREDITS.md`, `apps/graveyard`, `tool` and the barrel `packages/coffin_core/lib/coffin_core.dart`; compare the `git hash-object` values with the task 1.1 report.
     - Search the changed files for `http://`, `https://`, `api_key`, `apikey`, `bearer` and `authorization` (case-insensitive). The only allowed hits are none. Search the new and changed files under `lib/` for non-ASCII characters in mood copy (other than U+2026) and report none. Confirm no file was created outside the repository, including `/tmp`.
     - _Requirements: 4.8, 5.2, 5.5, 13.1, 13.2, 13.6_
-  - [ ] 6.3 Final test run
+  - [x] 6.3 Final test run
     - Run, with explicit timeouts, `dart format --set-exit-if-changed`, `flutter analyze` and the full `flutter test` in `packages/coffin_core`, `apps/hauntagotchi`, `apps/graveyard` and `tool`, and the Chrome commands of tasks 2.10 and 3.8 once more. Report the passing count of each against the baseline of task 1.1 and list the counts of new tests. Do not mark this task done unless all pass. Report any remaining finding verbatim instead of editing a test to hide it.
     - _Requirements: 12.7, 12.8, 13.3, 13.7_
