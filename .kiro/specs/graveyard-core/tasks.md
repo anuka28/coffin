@@ -330,54 +330,54 @@ Rules for every task:
     - Delete `lib/src/ui/placeholder_screen.dart` and `test/ui/placeholder_screen_test.dart`. Update `test/ui/app_routes_test.dart` so it compiles and passes against the new routes.
     - _Requirements: 10.1, 12.1, 12.16, 15.1, 15.6, 15.7_
 
-- [ ] 14. Screen tests
-  - [ ] 14.1 Write widget tests for the screen states
+- [x] 14. Screen tests
+  - [x] 14.1 Write widget tests for the screen states
     - Create `test/ui/graveyard_screen_test.dart` using `FakeClock`, `FakeGitHubClient` and `MemoryRecordRepository<Grave>`: loading (caption and the "Loading graves" label), empty with both invitation buttons, list, load error with retry, Memory_Notice shown and hidden, save error banner with the tombstones still visible, retry of a save.
     - _Requirements: 11.2, 11.3, 12.15, 13.1, 13.2, 13.3, 13.4, 13.5, 14.12, 17.7_
 
-  - [ ] 14.2 Write widget tests for adding and importing
+  - [x] 14.2 Write widget tests for adding and importing
     - Create `test/ui/add_import_test.dart`: add by hand, each by-hand rejection shown under the field with the text kept, the date picker bounds, import from the `FakeGitHubClient`, a parse problem starting no request, each import failure message with the typed text kept and "Try again" and the by-hand option still usable, the failure message as a live region, the double-submit guard (disabled submit and one request), closing the sheet during an import adding nothing, and the duplicate message with the text kept.
     - _Requirements: 6.12, 8.1 to 8.9, 9.1 to 9.12, 12.9, 12.10, 12.11, 17.8_
 
-  - [ ] 14.3 Write widget tests for delete, sort and "Died today"
+  - [x] 14.3 Write widget tests for delete, sort and "Died today"
     - Create `test/ui/delete_and_order_test.dart`: the delete confirmation names the grave, confirm removes it from the list and the repository, cancel leaves the list unchanged, the sort order after an add, and the `flutter/flutter` import reading "Died today" with a `FixedOffsetZone` and a `FakeClock` on the same instant.
     - _Requirements: 4.18, 6.1, 12.12, 12.13, 12.14, 12.18, 17.8_
 
-  - [ ] 14.4 Write widget tests for `GraveTile`
+  - [x] 14.4 Write widget tests for `GraveTile`
     - Create `test/ui/grave_tile_test.dart`: the semantic label for a manual and for a GitHub grave (name, Dead_For_Text, source, full untruncated description, archived), the description limited to 3 lines with an ellipsis, "Archived" shown in words, and Markdown and `:atom:` shortcodes shown as plain text.
     - _Requirements: 12.5, 12.6, 12.7, 12.8, 14.3, 14.10, 14.11_
 
-  - [ ] 14.5 Write widget tests for layout, accessibility and reduced motion
+  - [x] 14.5 Write widget tests for layout, accessibility and reduced motion
     - Create `test/ui/layout_test.dart`: no overflow exception at 320 and 360 px width, at text scale 1.0 and 1.5, in the states list, empty, loading, error and the add sheet with a failure message; tap targets of at least 48 by 48; semantic labels on every control; the epitaph hidden above text scale 1.2 and shown below it; Enter submits and Escape closes the sheet and the delete dialog without changing the list; focus moves into the delete dialog and returns to the delete button after it closes; hover and press states; `disableAnimations` giving the still `GhostLoader` frame.
     - _Requirements: 14.1 to 14.12, 17.9_
 
-  - [ ] 14.6 Write the copy test
+  - [x] 14.6 Write the copy test
     - Create `test/ui/graveyard_copy_test.dart`: no string in `GraveyardCopy` contains "failed", "invalid" or "your fault", one distinct message per `ImportFailureKind`, no raw status code, no exception text, and the rate-limit message shows the minutes from `RateLimitWait` (never less than 1).
     - _Requirements: 9.1 to 9.10, 13.6, 13.7_
 
-  - [ ] 14.7 Write route tests
+  - [x] 14.7 Write route tests
     - Extend `test/ui/app_routes_test.dart`: `/` shows `GraveyardScreen`, there is one route named `home`, an unknown location shows `NotFoundPage`, and its button returns to the screen.
     - _Requirements: 12.16, 17.10_
 
-- [ ] 15. Source-rule tests
-  - [ ] 15.1 Write source-rule tests for the domain
+- [x] 15. Source-rule tests
+  - [x] 15.1 Write source-rule tests for the domain
     - Create `test/source_rules/domain_sources_test.dart`: no `package:flutter`, `dart:io`, `dart:html`, `package:http` or `package:hive_ce` under `lib/src/domain`; no `DateTime.now` outside `system_clock.dart`; no `Duration` in the date-count files (`calendar_date.dart`, `dead_for.dart`, `dead_for_formatter.dart`); no `Timer` outside `http_github_client.dart`. This folder is the only place that reads source files with `dart:io`.
     - _Requirements: 1.1, 1.3, 5.10, 15.2, 17.11_
 
-  - [ ] 15.2 Write source-rule tests for HTTP and secrets
+  - [x] 15.2 Write source-rule tests for HTTP and secrets
     - Create `test/source_rules/http_rules_test.dart`: `package:http` imported only by `http_github_client.dart`; no `Authorization`; `api.github.com` appears once, in that file; no `ghp_`, `github_pat_` or `token` in `lib/`.
     - _Requirements: 7.4, 15.4, 16.8, 17.11_
 
-  - [ ] 15.3 Write source-rule tests for imports
+  - [x] 15.3 Write source-rule tests for imports
     - Create `test/source_rules/import_rules_test.dart`: no import of `coffin_core/src`; no import of Hauntagotchi; `ui` files import no Hive and not `data/http_github_client.dart`; no state-management package in `apps/graveyard/pubspec.yaml`.
     - _Requirements: 15.1, 15.3, 15.6, 17.11_
 
-  - [ ] 15.4 Write the generator-rules test
+  - [x] 15.4 Write the generator-rules test
     - Create `test/source_rules/generator_rules_test.dart`: none of `any.int`, `any.intInRange`, `any.list`, `any.listWithLengthInRange`, string generators or `uint*` appears under `test/`, and no file under `test/domain` or `test/data` contains `dart:io`.
     - _Requirements: 17.2, 17.3_
 
-- [ ] 16. Deploy workflow
-  - [ ] 16.1 Add Graveyard analyze and test steps to `deploy-web.yml`
+- [x] 16. Deploy workflow
+  - [x] 16.1 Add Graveyard analyze and test steps to `deploy-web.yml`
     - First run `git diff --exit-code -- .github/workflows/deploy-web.yml`. If it shows changes the feature did not make, stop and ask the user.
     - Read `.github/workflows/deploy-web.yml`. In the `build` job, the current order is: "Test hauntagotchi" (`working-directory: apps/hauntagotchi`, `run: flutter test`), then "Build hauntagotchi", then "Build graveyard". Insert the two steps after the blank line that follows the "Test hauntagotchi" step and before `- name: Build hauntagotchi`, with the same 6-space step indent and one blank line between steps:
 
@@ -396,8 +396,8 @@ Rules for every task:
     - Diff review (required, paste the output into the task report): `git diff -U0 -- .github/workflows/deploy-web.yml` shows exactly one hunk with only added lines and no removed line, `git diff --numstat -- .github/workflows/deploy-web.yml` reports 8 added and 0 removed lines, the hunk starts right after the "Test hauntagotchi" `run: flutter test` line and its blank line, and the first line after the hunk is `- name: Build hauntagotchi`. Check the step names appear in the order Test hauntagotchi, Analyze graveyard, Test graveyard, Build hauntagotchi, Build graveyard.
     - _Requirements: 16.1, 16.7_
 
-- [ ] 17. Final verification
-  - [ ] 17.1 Run the full verification plan
+- [x] 17. Final verification
+  - [x] 17.1 Run the full verification plan
     - In `apps/graveyard`, run `dart format --output=none --set-exit-if-changed .`, `flutter analyze` (zero issues), `flutter test`, and `flutter test --platform chrome test/domain test/data`. Check `grep -rl "dart:io" test/domain test/data` finds nothing and `grep -rniE "ghp_|github_pat_|authorization" lib` finds nothing.
     - Run `flutter test` in `apps/hauntagotchi`, in `packages/coffin_core` and in `tool/` (template integrity, raiser and repo-guard tests, with nothing else editing `apps/`), then `flutter test --tags raise-check --run-skipped` in `tool/`. All must pass unchanged.
     - Run `flutter pub get --enforce-lockfile` at the repo root and check `git diff -U0 -- pubspec.lock` still equals the diff reported in task 1.2 (only the `http` entry).

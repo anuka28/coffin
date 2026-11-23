@@ -8,15 +8,15 @@ import 'package:graveyard/src/domain/grave.dart';
 import 'package:graveyard/src/domain/repo_info.dart';
 import 'package:graveyard/src/domain/repo_ref.dart';
 
-// Pure support code: no dart:io. It also runs in Chrome. Every generated
-// integer stays far below 2^53.
+// Pure support code with no file-system access. It also runs in Chrome.
+// Every generated integer stays far below 2^53.
 
 /// Runs per property in the graveyard tests.
 const int numRuns = 200;
 
 /// Integers from [min] inclusive to [max] exclusive.
 ///
-/// Use this instead of `any.intInRange`: glados 1.1.7 computes `1 << 32` in
+/// Use this instead of the built-in ranged integer generator: glados 1.1.7 computes `1 << 32` in
 /// its range helper, which is 0 on web. This one calls `Random.nextInt`
 /// directly, which works on every platform for ranges below 2^32. Shrinks
 /// towards [min] (or 0 when 0 is in range).
@@ -37,7 +37,7 @@ Generator<int> anyIntBetween(int min, int max) {
 
 /// Lists of [item] with a length from [min] inclusive to [max] exclusive.
 ///
-/// The web-safe counterpart of `any.listWithLengthInRange`. Shrinks by
+/// The web-safe counterpart of the built-in ranged list generator. Shrinks by
 /// dropping and shrinking elements.
 Generator<List<T>> anyListBetween<T>(int min, int max, Generator<T> item) {
   assert(0 <= min && min < max);

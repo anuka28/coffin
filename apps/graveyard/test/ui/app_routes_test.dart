@@ -37,6 +37,12 @@ void main() {
     expect(h.controller.status.name, 'ready');
   });
 
+  testWidgets('/ shows the graveyard screen', (tester) async {
+    await pumpAt(tester, '/');
+    expect(find.byType(GraveyardScreen), findsOneWidget);
+    expect(find.byType(NotFoundPage), findsNothing);
+  });
+
   testWidgets('the home route is the only declared route', (tester) async {
     final ControllerHarness h = ControllerHarness();
     addTearDown(h.dispose);

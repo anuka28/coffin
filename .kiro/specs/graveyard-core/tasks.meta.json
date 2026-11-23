@@ -978,6 +978,190 @@
         "chatSessionId": "sess_eb732348-ec52-43eb-95d1-61f39976f90d",
         "timestamp": 1795446217568
       }
+    ],
+    "14.1 Write widget tests for the screen states": [
+      {
+        "executionId": "8ba70c9e-07ea-4b4e-94dd-4d8957cbc4d3",
+        "chatSessionId": "sess_e703ed35-1d26-413f-9bdd-3ae45af5dd16",
+        "timestamp": 1795447402769
+      },
+      {
+        "executionId": "8ba70c9e-07ea-4b4e-94dd-4d8957cbc4d3",
+        "chatSessionId": "sess_e703ed35-1d26-413f-9bdd-3ae45af5dd16",
+        "timestamp": 1795447477853
+      }
+    ],
+    "14.2 Write widget tests for adding and importing": [
+      {
+        "executionId": "94847e22-5e9c-470f-971b-da58b09f9897",
+        "chatSessionId": "sess_331921d9-ab5d-40d5-b4fd-622fd5bd51ef",
+        "timestamp": 1795447543729
+      },
+      {
+        "executionId": "94847e22-5e9c-470f-971b-da58b09f9897",
+        "chatSessionId": "sess_331921d9-ab5d-40d5-b4fd-622fd5bd51ef",
+        "timestamp": 1795447689724
+      }
+    ],
+    "14.3 Write widget tests for delete, sort and \"Died today\"": [
+      {
+        "executionId": "55500c46-14c7-40b1-8885-f410e6a7708a",
+        "chatSessionId": "sess_6960bf2d-73ef-457b-933f-34e7579e5690",
+        "timestamp": 1795447813844
+      },
+      {
+        "executionId": "55500c46-14c7-40b1-8885-f410e6a7708a",
+        "chatSessionId": "sess_6960bf2d-73ef-457b-933f-34e7579e5690",
+        "timestamp": 1795447924220
+      }
+    ],
+    "14.4 Write widget tests for `GraveTile`": [
+      {
+        "executionId": "87d1694d-cf17-44fa-9395-f3c757098179",
+        "chatSessionId": "sess_d2931347-ccb5-4149-8e46-51c9e82e3c1b",
+        "timestamp": 1795447966824
+      },
+      {
+        "executionId": "87d1694d-cf17-44fa-9395-f3c757098179",
+        "chatSessionId": "sess_d2931347-ccb5-4149-8e46-51c9e82e3c1b",
+        "timestamp": 1795448052791
+      }
+    ],
+    "14.5 Write widget tests for layout, accessibility and reduced motion": [
+      {
+        "executionId": "6509ecb0-4e60-45f8-ac0f-c0d33976765a",
+        "chatSessionId": "sess_6fd2ac43-0b18-4a89-8748-38297db201d2",
+        "timestamp": 1795448088166
+      },
+      {
+        "executionId": "6509ecb0-4e60-45f8-ac0f-c0d33976765a",
+        "chatSessionId": "sess_6fd2ac43-0b18-4a89-8748-38297db201d2",
+        "timestamp": 1795448689734
+      }
+    ],
+    "14.6 Write the copy test": [
+      {
+        "executionId": "8311c235-003a-40b9-8614-25a2f278750f",
+        "chatSessionId": "sess_ce90824c-78f9-4948-a359-5505a68f8596",
+        "timestamp": 1795448731652
+      },
+      {
+        "executionId": "8311c235-003a-40b9-8614-25a2f278750f",
+        "chatSessionId": "sess_ce90824c-78f9-4948-a359-5505a68f8596",
+        "timestamp": 1795448791888
+      }
+    ],
+    "14.7 Write route tests": [
+      {
+        "executionId": "b2889682-baee-4675-a9d3-492259805a28",
+        "chatSessionId": "sess_d3c903b3-d36d-4da8-a5f1-ba039c94fcda",
+        "timestamp": 1795448859230
+      },
+      {
+        "executionId": "b2889682-baee-4675-a9d3-492259805a28",
+        "chatSessionId": "sess_d3c903b3-d36d-4da8-a5f1-ba039c94fcda",
+        "timestamp": 1795448911335
+      }
+    ],
+    "14. Screen tests": [
+      {
+        "executionId": "b2889682-baee-4675-a9d3-492259805a28",
+        "chatSessionId": "sess_d3c903b3-d36d-4da8-a5f1-ba039c94fcda",
+        "timestamp": 1795448911399
+      }
+    ],
+    "15.1 Write source-rule tests for the domain": [
+      {
+        "executionId": "64f1a6fe-79db-44d4-95ff-b00f88978cf7",
+        "chatSessionId": "sess_7f1fd27c-04b6-4a45-9d39-19e33d5a3b75",
+        "timestamp": 1795448978617
+      },
+      {
+        "executionId": "64f1a6fe-79db-44d4-95ff-b00f88978cf7",
+        "chatSessionId": "sess_7f1fd27c-04b6-4a45-9d39-19e33d5a3b75",
+        "timestamp": 1795449065069
+      }
+    ],
+    "15.2 Write source-rule tests for HTTP and secrets": [
+      {
+        "executionId": "7b15a063-d4fa-4e9f-99aa-38540f707ce0",
+        "chatSessionId": "sess_0dfa9af3-ae0f-4a3b-bfb4-8b1b6bdf3e59",
+        "timestamp": 1795449095848
+      },
+      {
+        "executionId": "7b15a063-d4fa-4e9f-99aa-38540f707ce0",
+        "chatSessionId": "sess_0dfa9af3-ae0f-4a3b-bfb4-8b1b6bdf3e59",
+        "timestamp": 1795449176469
+      }
+    ],
+    "15.3 Write source-rule tests for imports": [
+      {
+        "executionId": "eb43fa53-a174-4664-90d1-62346f810c90",
+        "chatSessionId": "sess_90287a07-d5a3-4e84-848a-ee6f381898ef",
+        "timestamp": 1795449245586
+      },
+      {
+        "executionId": "eb43fa53-a174-4664-90d1-62346f810c90",
+        "chatSessionId": "sess_90287a07-d5a3-4e84-848a-ee6f381898ef",
+        "timestamp": 1795449799065
+      }
+    ],
+    "15.4 Write the generator-rules test": [
+      {
+        "executionId": "397a0466-ba44-493f-9e95-581f16b4c7ff",
+        "chatSessionId": "sess_90cfbeb0-a305-4162-90a8-dcf7762131f2",
+        "timestamp": 1795449823819
+      },
+      {
+        "executionId": "397a0466-ba44-493f-9e95-581f16b4c7ff",
+        "chatSessionId": "sess_90cfbeb0-a305-4162-90a8-dcf7762131f2",
+        "timestamp": 1795449910353
+      }
+    ],
+    "15. Source-rule tests": [
+      {
+        "executionId": "397a0466-ba44-493f-9e95-581f16b4c7ff",
+        "chatSessionId": "sess_90cfbeb0-a305-4162-90a8-dcf7762131f2",
+        "timestamp": 1795449910402
+      }
+    ],
+    "16.1 Add Graveyard analyze and test steps to `deploy-web.yml`": [
+      {
+        "executionId": "1e3cd608-6f69-4120-a961-e84c001c9a10",
+        "chatSessionId": "sess_fde59d00-3e32-4fff-a2fb-f0b7a729882d",
+        "timestamp": 1795449989886
+      },
+      {
+        "executionId": "1e3cd608-6f69-4120-a961-e84c001c9a10",
+        "chatSessionId": "sess_fde59d00-3e32-4fff-a2fb-f0b7a729882d",
+        "timestamp": 1795450017735
+      }
+    ],
+    "16. Deploy workflow": [
+      {
+        "executionId": "1e3cd608-6f69-4120-a961-e84c001c9a10",
+        "chatSessionId": "sess_fde59d00-3e32-4fff-a2fb-f0b7a729882d",
+        "timestamp": 1795450017838
+      }
+    ],
+    "17.1 Run the full verification plan": [
+      {
+        "executionId": "3c709fb3-43f1-4b56-9d6a-233d8927f26b",
+        "chatSessionId": "sess_43fcf6ec-5782-457b-80e8-cb5c6bbb3845",
+        "timestamp": 1795450063415
+      },
+      {
+        "executionId": "3c709fb3-43f1-4b56-9d6a-233d8927f26b",
+        "chatSessionId": "sess_43fcf6ec-5782-457b-80e8-cb5c6bbb3845",
+        "timestamp": 1795451281291
+      }
+    ],
+    "17. Final verification": [
+      {
+        "executionId": "3c709fb3-43f1-4b56-9d6a-233d8927f26b",
+        "chatSessionId": "sess_43fcf6ec-5782-457b-80e8-cb5c6bbb3845",
+        "timestamp": 1795451281334
+      }
     ]
   }
 }

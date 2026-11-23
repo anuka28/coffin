@@ -91,9 +91,12 @@ class GraveTile extends StatelessWidget {
               child: Row(
                 mainAxisSize: MainAxisSize.min,
                 children: <Widget>[
-                  Text(
-                    GraveyardCopy.stars(repo.stars, archived: repo.archived),
-                    style: textTheme.bodySmall,
+                  Flexible(
+                    child: Text(
+                      GraveyardCopy.stars(repo.stars, archived: repo.archived),
+                      textAlign: TextAlign.center,
+                      style: textTheme.bodySmall,
+                    ),
                   ),
                   const SizedBox(width: 4),
                   ExcludeSemantics(

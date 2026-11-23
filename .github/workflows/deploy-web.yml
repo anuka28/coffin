@@ -41,6 +41,14 @@ jobs:
         working-directory: apps/hauntagotchi
         run: flutter test
 
+      - name: Analyze graveyard
+        working-directory: apps/graveyard
+        run: flutter analyze
+
+      - name: Test graveyard
+        working-directory: apps/graveyard
+        run: flutter test
+
       - name: Build hauntagotchi
         working-directory: apps/hauntagotchi
         run: flutter build web --release --base-href /coffin/hauntagotchi/

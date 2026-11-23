@@ -3,6 +3,7 @@ import 'package:graveyard/src/domain/calendar_date.dart';
 import 'package:graveyard/src/domain/grave_rejection.dart';
 import 'package:graveyard/src/domain/import_failure.dart';
 import 'package:graveyard/src/domain/import_failure_kind.dart';
+import 'package:graveyard/src/domain/rate_limit_wait.dart';
 import 'package:graveyard/src/domain/repo_parse_problem.dart';
 import 'package:graveyard/src/ui/graveyard_copy.dart';
 
@@ -107,6 +108,10 @@ void main() {
       ),
     ];
     for (final s in strings) {
+      final lower = s.toLowerCase();
+      for (final banned in ['failed', 'invalid', 'your fault']) {
+        expect(lower, isNot(contains(banned)), reason: s);
+      }
       for (final rune in s.runes) {
         final ok =
             (rune >= 0x20 && rune <= 0x7E) || rune == 0x2026 || rune == 0x2013;
@@ -149,7 +154,34 @@ void main() {
       now: now,
     );
     expect(msg(Duration.zero), contains('about 1 minute.'));
+    expect(msg(const Duration(minutes: -10)), contains('about 1 minute.'));
     expect(msg(const Duration(seconds: 61)), contains('about 2 minutes.'));
+    for (final minutes in [1, 2, 7, 59, 120]) {
+      final wait = RateLimitWait.minutes(
+        resetAt: now.add(Duration(minutes: minutes)),
+        now: now,
+      );
+      expect(wait, minutes);
+      expect(msg(Duration(minutes: minutes)), contains('about $wait minute'));
+    }
+  });
+
+  test('rate limit without a reset moment shows no number', () {
+    final m = GraveyardCopy.importFailure(
+      ImportFailure(ImportFailureKind.rateLimited),
+      now: now,
+    );
+    expect(RegExp(r'\d').hasMatch(m), isFalse, reason: m);
+  });
+
+  test('import messages show no exception text or status code', () {
+    for (final k in ImportFailureKind.values) {
+      final m = GraveyardCopy.importFailure(ImportFailure(k), now: now);
+      expect(m, isNot(contains('Exception')), reason: m);
+      expect(m, isNot(contains('Error')), reason: m);
+      expect(m, isNot(contains('Instance of')), reason: m);
+      expect(RegExp(r'\d{3}').hasMatch(m), isFalse, reason: m);
+    }
   });
 
   test('date line uses English month names', () {

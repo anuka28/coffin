@@ -89,6 +89,8 @@ void main() {
     expect(find.text(GraveyardCopy.emptyTitle), findsOneWidget);
     expect(find.text(GraveyardCopy.emptyBody), findsOneWidget);
     expect(find.text(GraveyardCopy.addButton), findsOneWidget);
+    expect(find.byKey(const ValueKey<String>('empty-bury')), findsOneWidget);
+    expect(find.byKey(const ValueKey<String>('empty-import')), findsOneWidget);
 
     await tester.tap(find.byKey(const ValueKey<String>('empty-import')));
     await tester.pumpAndSettle();
