@@ -67,6 +67,18 @@
     "6.4 Write property test for well-formed text": {
       "status": "passed",
       "lastRunTimestamp": 1795441553336
+    },
+    "8.4 Write property test for the codec round trip": {
+      "status": "passed",
+      "lastRunTimestamp": 1795442596676
+    },
+    "8.5 Write property test for unknown and missing fields": {
+      "status": "passed",
+      "lastRunTimestamp": 1795442677494
+    },
+    "8.6 Write property test for corrupt records": {
+      "status": "passed",
+      "lastRunTimestamp": 1795442740115
     }
   },
   "executionHistory": {
@@ -658,6 +670,164 @@
         "executionId": "7a337e7d-be07-4360-ad7a-baac48d6fd8b",
         "chatSessionId": "sess_7f0eb806-66c3-41a4-b0bc-6bb03d453381",
         "timestamp": 1795441802270
+      }
+    ],
+    "8.1 Implement `SystemClock` and `GraveCodec`": [
+      {
+        "executionId": "1d2d1edc-f52d-4c40-946f-c872b1b738e2",
+        "chatSessionId": "sess_ec4e7caf-fe1e-4ff6-b6c1-cdb4b718485b",
+        "timestamp": 1795442190451
+      },
+      {
+        "executionId": "1d2d1edc-f52d-4c40-946f-c872b1b738e2",
+        "chatSessionId": "sess_ec4e7caf-fe1e-4ff6-b6c1-cdb4b718485b",
+        "timestamp": 1795442259678
+      }
+    ],
+    "8.3 Write unit tests for `GraveCodec`": [
+      {
+        "executionId": "1d2d1edc-f52d-4c40-946f-c872b1b738e2",
+        "chatSessionId": "sess_ec4e7caf-fe1e-4ff6-b6c1-cdb4b718485b",
+        "timestamp": 1795442270712
+      },
+      {
+        "executionId": "1d2d1edc-f52d-4c40-946f-c872b1b738e2",
+        "chatSessionId": "sess_ec4e7caf-fe1e-4ff6-b6c1-cdb4b718485b",
+        "timestamp": 1795442349140
+      }
+    ],
+    "8.2 Implement `GraveStorage`": [
+      {
+        "executionId": "62e39f6a-3826-4e8a-93d5-bcb5242b2063",
+        "chatSessionId": "sess_0bc2e1e0-31a5-4284-941e-ebe49d61c2f0",
+        "timestamp": 1795442366856
+      },
+      {
+        "executionId": "62e39f6a-3826-4e8a-93d5-bcb5242b2063",
+        "chatSessionId": "sess_0bc2e1e0-31a5-4284-941e-ebe49d61c2f0",
+        "timestamp": 1795442427661
+      }
+    ],
+    "8.7 Write unit tests for `GraveStorage`": [
+      {
+        "executionId": "62e39f6a-3826-4e8a-93d5-bcb5242b2063",
+        "chatSessionId": "sess_0bc2e1e0-31a5-4284-941e-ebe49d61c2f0",
+        "timestamp": 1795442438276
+      },
+      {
+        "executionId": "62e39f6a-3826-4e8a-93d5-bcb5242b2063",
+        "chatSessionId": "sess_0bc2e1e0-31a5-4284-941e-ebe49d61c2f0",
+        "timestamp": 1795442544125
+      }
+    ],
+    "8.4 Write property test for the codec round trip": [
+      {
+        "executionId": "8462d033-5e78-4110-8b32-ab51f8d90889",
+        "chatSessionId": "sess_63d7f832-420f-45b9-8bb8-13e739c0e23d",
+        "timestamp": 1795442555626
+      },
+      {
+        "executionId": "8462d033-5e78-4110-8b32-ab51f8d90889",
+        "chatSessionId": "sess_63d7f832-420f-45b9-8bb8-13e739c0e23d",
+        "timestamp": 1795442604658
+      }
+    ],
+    "8.5 Write property test for unknown and missing fields": [
+      {
+        "executionId": "e2bf8582-2f87-4562-bf7e-db52bb212d1d",
+        "chatSessionId": "sess_09370a75-bc94-4ffc-8c7e-7ff9bab9d494",
+        "timestamp": 1795442633245
+      },
+      {
+        "executionId": "e2bf8582-2f87-4562-bf7e-db52bb212d1d",
+        "chatSessionId": "sess_09370a75-bc94-4ffc-8c7e-7ff9bab9d494",
+        "timestamp": 1795442686123
+      }
+    ],
+    "8.6 Write property test for corrupt records": [
+      {
+        "executionId": "47deca96-d282-48ec-a971-51427e4befdc",
+        "chatSessionId": "sess_af0275cf-a727-40ea-8531-f708f2a08d9d",
+        "timestamp": 1795442697845
+      },
+      {
+        "executionId": "47deca96-d282-48ec-a971-51427e4befdc",
+        "chatSessionId": "sess_af0275cf-a727-40ea-8531-f708f2a08d9d",
+        "timestamp": 1795442747426
+      }
+    ],
+    "8.8 Create the failing repository test double": [
+      {
+        "executionId": "dd70c1c0-e9a9-4a1c-9e60-35a94eebd656",
+        "chatSessionId": "sess_984b3599-5b8a-4abf-bd12-c7d99ca39145",
+        "timestamp": 1795442767838
+      },
+      {
+        "executionId": "dd70c1c0-e9a9-4a1c-9e60-35a94eebd656",
+        "chatSessionId": "sess_984b3599-5b8a-4abf-bd12-c7d99ca39145",
+        "timestamp": 1795442849145
+      }
+    ],
+    "8. Data layer": [
+      {
+        "executionId": "dd70c1c0-e9a9-4a1c-9e60-35a94eebd656",
+        "chatSessionId": "sess_984b3599-5b8a-4abf-bd12-c7d99ca39145",
+        "timestamp": 1795442849223
+      }
+    ],
+    "9.1 Implement `GitHubClient` and `HttpGitHubClient`": [
+      {
+        "executionId": "fd1c772b-ec7f-4e0f-80ed-de2cf1086157",
+        "chatSessionId": "sess_20ac192b-bcb5-4d3a-a130-e463ab102511",
+        "timestamp": 1795442865418
+      },
+      {
+        "executionId": "fd1c772b-ec7f-4e0f-80ed-de2cf1086157",
+        "chatSessionId": "sess_20ac192b-bcb5-4d3a-a130-e463ab102511",
+        "timestamp": 1795442972355
+      }
+    ],
+    "9.3 Write `MockClient` tests for `HttpGitHubClient`": [
+      {
+        "executionId": "fd1c772b-ec7f-4e0f-80ed-de2cf1086157",
+        "chatSessionId": "sess_20ac192b-bcb5-4d3a-a130-e463ab102511",
+        "timestamp": 1795442978673
+      },
+      {
+        "executionId": "fd1c772b-ec7f-4e0f-80ed-de2cf1086157",
+        "chatSessionId": "sess_20ac192b-bcb5-4d3a-a130-e463ab102511",
+        "timestamp": 1795443058371
+      }
+    ],
+    "9.2 Create `FakeGitHubClient`": [
+      {
+        "executionId": "19f57ede-765c-4a78-940a-4882b2d556bf",
+        "chatSessionId": "sess_8c7d6c4b-d9e8-4482-81a1-3bc3ce98eb59",
+        "timestamp": 1795443069940
+      },
+      {
+        "executionId": "19f57ede-765c-4a78-940a-4882b2d556bf",
+        "chatSessionId": "sess_8c7d6c4b-d9e8-4482-81a1-3bc3ce98eb59",
+        "timestamp": 1795443456358
+      }
+    ],
+    "9. GitHub client": [
+      {
+        "executionId": "19f57ede-765c-4a78-940a-4882b2d556bf",
+        "chatSessionId": "sess_8c7d6c4b-d9e8-4482-81a1-3bc3ce98eb59",
+        "timestamp": 1795443456420
+      }
+    ],
+    "10. Checkpoint - Data layer and client complete": [
+      {
+        "executionId": "79a7694d-a7b2-4e97-b82b-04f5dfb7836e",
+        "chatSessionId": "sess_7c573f81-c77a-476a-831e-b231d81bfcf3",
+        "timestamp": 1795443509105
+      },
+      {
+        "executionId": "79a7694d-a7b2-4e97-b82b-04f5dfb7836e",
+        "chatSessionId": "sess_7c573f81-c77a-476a-831e-b231d81bfcf3",
+        "timestamp": 1795443615334
       }
     ]
   }

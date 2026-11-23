@@ -236,57 +236,57 @@ Rules for every task:
 - [x] 7. Checkpoint - Domain complete
   - Ensure all tests pass, ask the user if questions arise.
 
-- [ ] 8. Data layer
-  - [ ] 8.1 Implement `SystemClock` and `GraveCodec`
+- [x] 8. Data layer
+  - [x] 8.1 Implement `SystemClock` and `GraveCodec`
     - Create `lib/src/data/system_clock.dart` (the only `DateTime.now()` call) and `grave_codec.dart` implementing `RecordCodec<Grave>`. Encode only JSON-safe values with a fixed key order and the date as `YYYY-MM-DD`; a manual grave has no `repo` key. Decode with the design's rules table: throw `FormatException` for a missing or invalid id (`KeyValidator`), a name that is empty or over 80 code points after normalisation, a malformed or impossible date, an unknown source, or a wrong type; default the optional `repo` fields; ignore unknown keys.
     - Remove `lib/src/data/.gitkeep`.
     - _Requirements: 1.1, 10.2, 10.3, 10.4, 10.5, 10.6_
 
-  - [ ] 8.2 Implement `GraveStorage`
+  - [x] 8.2 Implement `GraveStorage`
     - Create `grave_storage.dart` with `boxName` `graveyard_graves`, `currentVersion` 1, `subDirectory` `graveyard`, `open(StorageOpener)` and `memory()` (a `MemoryRecordRepository<Grave>` with `isPersistent` false).
     - _Requirements: 10.1, 10.12, 11.1_
 
-  - [ ] 8.3 Write unit tests for `GraveCodec`
+  - [x] 8.3 Write unit tests for `GraveCodec`
     - Create `test/data/grave_codec_test.dart`: the exact key sets for both shapes, every failure of Requirement 10.6, every tolerance of Requirements 10.4 and 10.5, `repo.full_name` falling back to the grave's name, and a stored date before 1970 accepted. No `dart:io` import.
     - _Requirements: 10.2, 10.4, 10.5, 10.6_
 
-  - [ ] 8.4 Write property test for the codec round trip
+  - [x] 8.4 Write property test for the codec round trip
     - **Property 23: Grave codec round trip**
     - **Validates: Requirements 10.2, 10.3**
     - Create `test/data/grave_codec_round_trip_property_test.dart`, including a trip through `jsonEncode` and `jsonDecode`.
 
-  - [ ] 8.5 Write property test for unknown and missing fields
+  - [x] 8.5 Write property test for unknown and missing fields
     - **Property 24: The codec ignores unknown fields and fills missing optional ones**
     - **Validates: Requirements 10.4, 10.5**
     - Create `test/data/grave_codec_tolerance_property_test.dart`.
 
-  - [ ] 8.6 Write property test for corrupt records
+  - [x] 8.6 Write property test for corrupt records
     - **Property 25: Corrupt records are rejected**
     - **Validates: Requirements 10.6**
     - Create `test/data/grave_codec_corruption_property_test.dart`.
 
-  - [ ] 8.7 Write unit tests for `GraveStorage`
+  - [x] 8.7 Write unit tests for `GraveStorage`
     - Create `test/data/grave_storage_test.dart` with a fake `StorageOpener`: box name, version 1, sub directory `graveyard`, `isPersistent` taken from the opener, and a corrupt seed entry in `MemoryRecordRepository` skipped while the readable entries load.
     - _Requirements: 10.1, 10.7, 10.12_
 
-  - [ ] 8.8 Create the failing repository test double
+  - [x] 8.8 Create the failing repository test double
     - Create `test/support/throwing_record_repository.dart` (`ThrowingRecordRepository` implementing `RecordRepository<Grave>`, throwing on `put`, `delete` or `getAll` on demand). It does not import `dart:io`.
     - _Requirements: 10.10, 10.11_
 
-- [ ] 9. GitHub client
-  - [ ] 9.1 Implement `GitHubClient` and `HttpGitHubClient`
+- [x] 9. GitHub client
+  - [x] 9.1 Implement `GitHubClient` and `HttpGitHubClient`
     - Create `lib/src/data/github_client.dart` (`fetch(RepoRef, {required CalendarDate today})`, never throws) and `http_github_client.dart` (the only file that imports `package:http` and the only file with an `api.github.com` URL). One GET to `https://api.github.com/repos/{owner}/{repo}` built with `pathSegments`, only the header `Accept: application/vnd.github+json`, no `Authorization`, no `User-Agent`, no other header. Request timeout of 10 seconds through an injectable `TimeoutTimerFactory`; a late response is dropped. Map 200 to the parser, 404 to `notFoundOrPrivate`, 429 or 403 with `x-ratelimit-remaining: 0` or `retry-after` to `rateLimited` (`Retry-After` wins over `x-ratelimit-reset`, with the design's bounds), anything else to `unexpectedStatus`, every thrown error to `offline`, and a last `catch (Object)` around the whole method.
     - _Requirements: 7.1, 7.2, 7.3, 7.4, 7.5, 7.6, 7.7, 7.8, 7.9, 7.10, 7.11, 7.12, 7.13, 7.14, 7.15, 7.16, 15.4_
 
-  - [ ] 9.2 Create `FakeGitHubClient`
+  - [x] 9.2 Create `FakeGitHubClient`
     - Create `test/support/fake_github_client.dart`: scripted results, records every call (ref and today), and can hold a result open with a `Completer`. Results use `FixedOffsetZone`, so no widget test depends on the machine's time zone. No network call.
     - _Requirements: 7.17, 17.7_
 
-  - [ ] 9.3 Write `MockClient` tests for `HttpGitHubClient`
+  - [x] 9.3 Write `MockClient` tests for `HttpGitHubClient`
     - Create `test/data/http_github_client_test.dart`: exactly one GET to the exact URL, `Accept` set, no `Authorization`, percent-encoding of the path, statuses 200, 404, 429, 403 with and without `x-ratelimit-remaining: 0` and `Retry-After`, 301, 500, `Retry-After` and `x-ratelimit-reset` with and without a readable value (and both together), `ClientException` and any other exception giving `offline`, a malformed 200 body giving `malformedResponse`, the timeout with a manual timer and a request that never completes (no test waits 10 real seconds), and a late response after the timeout dropped. No `dart:io` import.
     - _Requirements: 7.1 to 7.19, 17.6_
 
-- [ ] 10. Checkpoint - Data layer and client complete
+- [x] 10. Checkpoint - Data layer and client complete
   - Ensure all tests pass, ask the user if questions arise. Also run `flutter test --platform chrome test/domain test/data` in `apps/graveyard`; it must pass.
 
 - [ ] 11. Controller
