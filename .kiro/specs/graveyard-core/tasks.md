@@ -19,7 +19,7 @@ Rules for every task:
 
 ## Tasks
 
-- [ ] 1. Dependencies and lock (first change of the feature)
+- [x] 1. Dependencies and lock (first change of the feature)
   - [x] 1.1 Add `http` and `glados` to the Graveyard pubspec
     - In `apps/graveyard/pubspec.yaml`, add exactly `http: 1.6.0` (no caret, no range) as the last line under `dependencies`, and exactly `glados: 1.1.7` under `dev_dependencies` after `flutter_lints`. Touch no other pubspec.
     - Check `git diff -U0 -- apps/graveyard/pubspec.yaml` shows exactly two added lines and nothing removed.
@@ -36,7 +36,7 @@ Rules for every task:
     - Run `git diff -U0 -- pubspec.lock` again and check it is identical to the diff reported in 1.2.
     - _Requirements: 16.4_
 
-  - [ ] 1.4 Add the `http` entry to `CREDITS.md`
+  - [x] 1.4 Add the `http` entry to `CREDITS.md`
     - Add a `## Packages` heading and one `### http` entry in the existing entry style (author "The Dart project authors", used for the GitHub import, license BSD 3-Clause, links to the pub.dev package page and to the license text), exactly as written in the design's "Dependency and lock change plan".
     - Check the license URL answers (for example with `curl -sI`) before finishing. Change no existing line.
     - Check `git diff -U0 -- CREDITS.md` shows only the added heading and the `http` entry.

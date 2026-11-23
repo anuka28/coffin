@@ -42,3 +42,14 @@ Third-party assets bundled with Coffin. Every asset here has a license that allo
 - **Note:** same files as in apps/hauntagotchi/web
 - **Source files:**
   - License: https://raw.githubusercontent.com/flutter/flutter/master/LICENSE
+
+## Packages
+
+### http
+
+- **Author:** The Dart project authors
+- **Used for:** the GitHub repository import in Graveyard (one GET request)
+- **License:** BSD 3-Clause
+- **Source files:**
+  - Package: https://pub.dev/packages/http
+  - License: https://raw.githubusercontent.com/dart-lang/http/master/pkgs/http/LICENSE
