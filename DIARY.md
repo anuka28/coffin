@@ -222,3 +222,10 @@ A few lines per day: what I asked Kiro, what worked, what didn't, what I learned
 - In the app: "Wisp floats over to welcome you." under the ghost on open, and a new line with each tick. 🎥 Recorded.
 - Verified myself, one suite at a time: coffin_core **1,637** (+96), Hauntagotchi **603** (+158), Graveyard 8, tool 91 + raise-check (the one "skipped" tool test is the raise-check, which passes when run); analyze clean; the only pre-existing test edited in the whole spec is the approved AI guard; pubspecs and lockfile byte-identical to before; no URLs, keys or emoji in the added code; the web build works.
 - Credits: roughly 2–7 per task; the spec itself (requirements, design, tasks plus reviews) was the larger share.
+
+## Day 14 · Nov 23, 2026 — live on the web
+- **Deployed both apps to GitHub Pages**: https://anuka28.github.io/coffin/ (landing page), `/hauntagotchi/` and `/graveyard/`. Kiro (vibe mode) wrote one workflow: on every push to `main` it installs the pinned Flutter 3.47.9, runs `pub get --enforce-lockfile`, **analyze + the full coffin_core and Hauntagotchi test suites, and only deploys if they pass**, then builds both apps with their own base paths and a small self-contained landing page. Only the built-in GitHub token; no secrets.
+- Turned Pages on myself (Settings → Pages → Source: GitHub Actions); creating public resources is my job, not the agent's.
+- The first run went green: build 3m54s, deploy 10s, all three URLs answering. Two earlier decisions paid off: hash URLs (`/#/gallery`) need no server tricks on Pages, and back on Day 6 each app got its own storage folder exactly so two apps on one site can't clash.
+- I checked the workflow before pushing: tightest permissions per job, and the embedded landing-page HTML parses with its end marker in the right place (the usual way these files break).
+- Checked on my iPhone: the layout fits a phone screen cleanly, ticking works, and after closing and reopening the tab the habit was still ticked and Wisp greeted me with "Wisp is glowing. 1 day in a row." That's the app-open line, so saving works on the live site.
