@@ -83,6 +83,16 @@ abstract final class HauntCopy {
   static const String emptyInvitation =
       'Add your first habit and give your ghost something to look forward to.';
 
+  /// Heading of the short "how it works" block in the empty state.
+  static const String howItWorksTitle = 'How it works';
+
+  /// The three plain lines that explain the game to a first-time visitor.
+  static const List<String> howItWorksLines = <String>[
+    'Tick a habit each day and your ghost glows.',
+    'Skip a day and it fades a little.',
+    'Even a ghost that fades away can come back with a small ritual.',
+  ];
+
   /// Label of the add-habit button.
   static const String addHabit = 'Add a habit';
 

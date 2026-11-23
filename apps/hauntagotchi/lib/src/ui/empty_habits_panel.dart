@@ -43,6 +43,8 @@ class EmptyHabitsPanel extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 20),
+            const _HowItWorks(),
+            const SizedBox(height: 20),
             ConstrainedBox(
               constraints: const BoxConstraints(
                 minWidth: CoffinMetrics.minTapTarget,
@@ -61,6 +63,39 @@ class EmptyHabitsPanel extends StatelessWidget {
           ],
         ),
       ),
+    );
+  }
+}
+
+/// The short "how it works" block: a heading and three plain lines.
+class _HowItWorks extends StatelessWidget {
+  const _HowItWorks();
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    final scheme = theme.colorScheme;
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Semantics(
+          container: true,
+          header: true,
+          child: Text(
+            HauntCopy.howItWorksTitle,
+            style: theme.textTheme.titleMedium,
+          ),
+        ),
+        for (final line in HauntCopy.howItWorksLines) ...[
+          const SizedBox(height: 8),
+          Text(
+            line,
+            style: theme.textTheme.bodyMedium?.copyWith(
+              color: scheme.onSurfaceVariant,
+            ),
+          ),
+        ],
+      ],
     );
   }
 }
