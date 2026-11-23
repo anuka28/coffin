@@ -829,6 +829,155 @@
         "chatSessionId": "sess_7c573f81-c77a-476a-831e-b231d81bfcf3",
         "timestamp": 1795443615334
       }
+    ],
+    "11.1 Implement the controller state types": [
+      {
+        "executionId": "0a2bd1c4-7774-462f-a509-0c3a802e60e6",
+        "chatSessionId": "sess_40d8b75b-acb2-4c9d-b0b2-76b6deac6c69",
+        "timestamp": 1795443717504
+      },
+      {
+        "executionId": "0a2bd1c4-7774-462f-a509-0c3a802e60e6",
+        "chatSessionId": "sess_40d8b75b-acb2-4c9d-b0b2-76b6deac6c69",
+        "timestamp": 1795443779552
+      },
+      {
+        "executionId": "0a2bd1c4-7774-462f-a509-0c3a802e60e6",
+        "chatSessionId": "sess_40d8b75b-acb2-4c9d-b0b2-76b6deac6c69",
+        "timestamp": 1795443791449
+      },
+      {
+        "executionId": "0a2bd1c4-7774-462f-a509-0c3a802e60e6",
+        "chatSessionId": "sess_40d8b75b-acb2-4c9d-b0b2-76b6deac6c69",
+        "timestamp": 1795443930220
+      }
+    ],
+    "12.1 Implement `GraveyardCopy`": [
+      {
+        "executionId": "1fb3e65f-8214-401e-8c4b-f121ff56eaa7",
+        "chatSessionId": "sess_eb732348-ec52-43eb-95d1-61f39976f90d",
+        "timestamp": 1795444029699
+      },
+      {
+        "executionId": "1fb3e65f-8214-401e-8c4b-f121ff56eaa7",
+        "chatSessionId": "sess_eb732348-ec52-43eb-95d1-61f39976f90d",
+        "timestamp": 1795444119152
+      },
+      {
+        "executionId": "94d89b44-b002-43c9-9a32-929f7bd77263",
+        "chatSessionId": "sess_eb732348-ec52-43eb-95d1-61f39976f90d",
+        "timestamp": 1795444285847
+      },
+      {
+        "executionId": "94d89b44-b002-43c9-9a32-929f7bd77263",
+        "chatSessionId": "sess_eb732348-ec52-43eb-95d1-61f39976f90d",
+        "timestamp": 1795444376417
+      }
+    ],
+    "11.2 Implement `GraveListController`": [
+      {
+        "executionId": "94d89b44-b002-43c9-9a32-929f7bd77263",
+        "chatSessionId": "sess_eb732348-ec52-43eb-95d1-61f39976f90d",
+        "timestamp": 1795444382075
+      },
+      {
+        "executionId": "94d89b44-b002-43c9-9a32-929f7bd77263",
+        "chatSessionId": "sess_eb732348-ec52-43eb-95d1-61f39976f90d",
+        "timestamp": 1795444566745
+      }
+    ],
+    "11.3 Write unit tests for `GraveListController`": [
+      {
+        "executionId": "94d89b44-b002-43c9-9a32-929f7bd77263",
+        "chatSessionId": "sess_eb732348-ec52-43eb-95d1-61f39976f90d",
+        "timestamp": 1795444574927
+      },
+      {
+        "executionId": "94d89b44-b002-43c9-9a32-929f7bd77263",
+        "chatSessionId": "sess_eb732348-ec52-43eb-95d1-61f39976f90d",
+        "timestamp": 1795444853094
+      }
+    ],
+    "11. Controller": [
+      {
+        "executionId": "94d89b44-b002-43c9-9a32-929f7bd77263",
+        "chatSessionId": "sess_eb732348-ec52-43eb-95d1-61f39976f90d",
+        "timestamp": 1795444853158
+      }
+    ],
+    "12.2 Implement `GraveTile`": [
+      {
+        "executionId": "94d89b44-b002-43c9-9a32-929f7bd77263",
+        "chatSessionId": "sess_eb732348-ec52-43eb-95d1-61f39976f90d",
+        "timestamp": 1795444856110
+      },
+      {
+        "executionId": "94d89b44-b002-43c9-9a32-929f7bd77263",
+        "chatSessionId": "sess_eb732348-ec52-43eb-95d1-61f39976f90d",
+        "timestamp": 1795444965310
+      }
+    ],
+    "12.3 Implement the add sheet and its forms": [
+      {
+        "executionId": "94d89b44-b002-43c9-9a32-929f7bd77263",
+        "chatSessionId": "sess_eb732348-ec52-43eb-95d1-61f39976f90d",
+        "timestamp": 1795444968409
+      },
+      {
+        "executionId": "94d89b44-b002-43c9-9a32-929f7bd77263",
+        "chatSessionId": "sess_eb732348-ec52-43eb-95d1-61f39976f90d",
+        "timestamp": 1795445726702
+      }
+    ],
+    "12.4 Implement the dialog and the state panels": [
+      {
+        "executionId": "94d89b44-b002-43c9-9a32-929f7bd77263",
+        "chatSessionId": "sess_eb732348-ec52-43eb-95d1-61f39976f90d",
+        "timestamp": 1795445729733
+      },
+      {
+        "executionId": "94d89b44-b002-43c9-9a32-929f7bd77263",
+        "chatSessionId": "sess_eb732348-ec52-43eb-95d1-61f39976f90d",
+        "timestamp": 1795445941084
+      }
+    ],
+    "12.5 Implement `GraveyardScreen`": [
+      {
+        "executionId": "94d89b44-b002-43c9-9a32-929f7bd77263",
+        "chatSessionId": "sess_eb732348-ec52-43eb-95d1-61f39976f90d",
+        "timestamp": 1795445944401
+      },
+      {
+        "executionId": "94d89b44-b002-43c9-9a32-929f7bd77263",
+        "chatSessionId": "sess_eb732348-ec52-43eb-95d1-61f39976f90d",
+        "timestamp": 1795446119716
+      }
+    ],
+    "12. Graveyard screen widgets": [
+      {
+        "executionId": "94d89b44-b002-43c9-9a32-929f7bd77263",
+        "chatSessionId": "sess_eb732348-ec52-43eb-95d1-61f39976f90d",
+        "timestamp": 1795446119767
+      }
+    ],
+    "13.1 Wire the app and remove the placeholder": [
+      {
+        "executionId": "94d89b44-b002-43c9-9a32-929f7bd77263",
+        "chatSessionId": "sess_eb732348-ec52-43eb-95d1-61f39976f90d",
+        "timestamp": 1795446123119
+      },
+      {
+        "executionId": "94d89b44-b002-43c9-9a32-929f7bd77263",
+        "chatSessionId": "sess_eb732348-ec52-43eb-95d1-61f39976f90d",
+        "timestamp": 1795446217495
+      }
+    ],
+    "13. Wiring and cleanup": [
+      {
+        "executionId": "94d89b44-b002-43c9-9a32-929f7bd77263",
+        "chatSessionId": "sess_eb732348-ec52-43eb-95d1-61f39976f90d",
+        "timestamp": 1795446217568
+      }
     ]
   }
 }

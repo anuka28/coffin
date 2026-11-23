@@ -1,16 +1,33 @@
 import 'package:coffin_core/coffin_core.dart';
 import 'package:flutter/material.dart';
 
+import 'src/data/grave_storage.dart';
+import 'src/data/http_github_client.dart';
+import 'src/data/system_clock.dart';
 import 'src/ui/app_routes.dart';
+import 'src/ui/grave_list_controller.dart';
 
 void main() {
-  runApp(const GraveyardApp());
+  const SystemClock clock = SystemClock();
+  final GraveListController controller = GraveListController(
+    clock: clock,
+    github: HttpGitHubClient(clock: clock),
+    openStorage: () => GraveStorage.open(
+      StorageOpener(
+        initializer: () => hiveFlutterInitializer(GraveStorage.subDirectory),
+      ),
+    ),
+  );
+  runApp(GraveyardApp(controller: controller));
 }
 
 /// Root widget of the Graveyard app.
 class GraveyardApp extends StatefulWidget {
-  /// Creates the app root.
-  const GraveyardApp({super.key});
+  /// Creates the app root around [controller].
+  const GraveyardApp({super.key, required this.controller});
+
+  /// The controller that owns the graves and their storage.
+  final GraveListController controller;
 
   @override
   State<GraveyardApp> createState() => _GraveyardAppState();
@@ -18,11 +35,19 @@ class GraveyardApp extends StatefulWidget {
 
 class _GraveyardAppState extends State<GraveyardApp> {
   // Built once so rebuilds and hot reloads do not reset navigation.
-  late final GoRouter _router = FogRouter.create(routes: appRoutes);
+  late final GoRouter _router;
+
+  @override
+  void initState() {
+    super.initState();
+    _router = FogRouter.create(routes: buildAppRoutes(widget.controller));
+    widget.controller.load();
+  }
 
   @override
   void dispose() {
     _router.dispose();
+    widget.controller.disposeStorage();
     super.dispose();
   }
 

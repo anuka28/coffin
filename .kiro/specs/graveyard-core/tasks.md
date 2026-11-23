@@ -289,43 +289,43 @@ Rules for every task:
 - [x] 10. Checkpoint - Data layer and client complete
   - Ensure all tests pass, ask the user if questions arise. Also run `flutter test --platform chrome test/domain test/data` in `apps/graveyard`; it must pass.
 
-- [ ] 11. Controller
-  - [ ] 11.1 Implement the controller state types
+- [x] 11. Controller
+  - [x] 11.1 Implement the controller state types
     - Create in `lib/src/ui`: `grave_list_status.dart` (loading, ready, loadError), `save_status.dart` (saved, saving, saveError), `import_state.dart` (sealed), `import_idle.dart`, `import_running.dart`, `import_input_rejected.dart`, `import_fetch_failed.dart`, `import_duplicate_found.dart` and `import_succeeded.dart`.
     - _Requirements: 8.2, 8.5, 8.6, 8.7_
 
-  - [ ] 11.2 Implement `GraveListController`
+  - [x] 11.2 Implement `GraveListController`
     - Create `grave_list_controller.dart` (a `ChangeNotifier`, no package): `load` (also the retry), `refreshToday`, `addManual`, `startImport`, `cancelImport`, `deleteGrave`, `retrySave`, `disposeStorage`, `dispose`, plus `graves` (sorted, unmodifiable), `status`, `saveStatus`, `isPersistent`, `importState`, `clock` and `today`.
     - Follow the design rules: Today read from the Clock at each add and import; one in-flight import with a generation counter so a result after `cancelImport` or `dispose` is dropped; duplicate check against the list as it is when the result arrives; change memory first, notify, then write through one ordered write chain; report saved only after the writes finish; keep state and the pending ids on a failed write and repeat them in `retrySave`; every notification goes through `_notify()`, which does nothing after disposal; `disposeStorage` swallows a `StateError`; no timer.
     - _Requirements: 2.1, 2.10, 6.8, 6.9, 8.2, 8.3, 8.5, 8.6, 8.7, 8.8, 8.9, 8.10, 8.11, 8.12, 10.8, 10.9, 10.10, 10.11, 11.1, 12.14, 12.17_
 
-  - [ ] 11.3 Write unit tests for `GraveListController`
+  - [x] 11.3 Write unit tests for `GraveListController`
     - Create `test/support/controller_harness.dart` (builds a controller from `FakeClock`, `FakeGitHubClient` and a `MemoryRecordRepository<Grave>` with the real `GraveCodec`) and `test/ui/grave_list_controller_test.dart`: load with no data, with data and with a corrupt entry; sort after an add; by-hand add and every rejection leaving the list unchanged; import success, each failure, input rejected without a request, duplicate; a long imported name cut to 79 characters plus `…` while `full_name` stays whole; double submit starting one request; `cancelImport` and dispose with a late result dropped and no notification after dispose; Today read at each add; write order; failed write then retry; failed load then retry; memory fallback; delete.
     - _Requirements: 2.1, 2.10, 6.8, 6.9, 8.1 to 8.12, 10.7 to 10.11, 11.1, 17.5_
 
-- [ ] 12. Graveyard screen widgets
-  - [ ] 12.1 Implement `GraveyardCopy`
+- [x] 12. Graveyard screen widgets
+  - [x] 12.1 Implement `GraveyardCopy`
     - Create `lib/src/ui/graveyard_copy.dart` holding every user-facing string, exactly the messages of the design's error taxonomy, short, spooky and kind, with no "failed", "invalid" or "your fault", no exception text and no raw status code, and the date line with English month names and no `intl` package.
     - _Requirements: 9.1 to 9.10, 12.4, 13.6, 13.7_
 
-  - [ ] 12.2 Implement `GraveTile`
-    - Create `grave_tile.dart`: `TombstoneCard` with the name as the title, the date line, the Dead_For_Text in the body, and the epitaph shown only while `textScaler.scale(1) <= 1.2`. A GitHub grave shows `full_name`, the star glyph and count, "Archived" in words, and the description as plain `Text` with `maxLines: 3` and an ellipsis; a manual grave shows "Buried by hand.". One `Semantics(container: true)` label with the name, the Dead_For_Text, the source, and the full description and archived state; the card is excluded from semantics. A delete button below the card (48 by 48, label `Delete <name>`, hover and press states).
+  - [x] 12.2 Implement `GraveTile`
+    - Create `grave_tile.dart`: `TombstoneCard` with the name as the title, the date line, the Dead_For_Text in the body, and the epitaph shown only while `textScaler.scale(1) <= 1.2`. A GitHub grave shows `full_name`, the star count as count text plus an `Icons.star` icon wrapped in `ExcludeSemantics` (no "★" glyph), "Archived" in words, and the description as plain `Text` with `maxLines: 3` and an ellipsis; a manual grave shows "Buried by hand.". One `Semantics(container: true)` label with the name, the Dead_For_Text, the source, and the full description and archived state; the card is excluded from semantics. A delete button below the card (48 by 48, label `Delete <name>`, hover and press states).
     - _Requirements: 12.2, 12.3, 12.4, 12.5, 12.6, 12.7, 12.8, 14.1, 14.2, 14.3, 14.10, 14.11_
 
-  - [ ] 12.3 Implement the add sheet and its forms
+  - [x] 12.3 Implement the add sheet and its forms
     - Create `add_mode.dart`, `add_grave_sheet.dart` (modal bottom sheet, `isScrollControlled`, `useSafeArea`, keyboard padding, a `SegmentedButton<AddMode>` of at least 48 by 48; `showAddGraveSheet` calls `cancelImport()` when the sheet closes for any reason; Escape closes it through `CallbackShortcuts`), `bury_by_hand_form.dart` (name field, date field that opens `showDatePicker` with `firstDate` 1970-01-01 and `lastDate` Today, Enter submits, rejection reason under the field, text kept) and `import_form.dart` (one field, Enter submits, `GhostLoader` with a caption and a disabled submit while running, the failure message in a `liveRegion`, a "Try again" button, text kept, field, selector and close always enabled).
     - _Requirements: 8.1, 8.2, 8.4, 8.7, 9.11, 9.12, 12.9, 12.10, 12.11, 14.5_
 
-  - [ ] 12.4 Implement the dialog and the state panels
+  - [x] 12.4 Implement the dialog and the state panels
     - Create `delete_grave_dialog.dart` (`AlertDialog` naming the grave, "Keep it" with `autofocus: true` and "Delete", `Semantics(scopesRoute: true, namesRoute: true, label: 'Delete <name>?')`, Escape closes it), `empty_graveyard_panel.dart` (invitation naming both ways and one button for each, opening the sheet on that option), `memory_notice.dart`, `save_error_banner.dart` (Try again) and `load_error_view.dart` (Try again).
     - _Requirements: 10.10, 10.11, 11.2, 11.4, 12.12, 12.13, 13.1, 13.2, 13.3, 13.5, 14.4, 14.5_
 
-  - [ ] 12.5 Implement `GraveyardScreen`
+  - [x] 12.5 Implement `GraveyardScreen`
     - Create `graveyard_screen.dart`: `Scaffold` over `FogBackground`, a centered column of max width 560 in a scrolling list with 16 px side padding and 96 bottom padding, `ListenableBuilder` on the controller, the loading `GhostLoader` with a caption inside `Semantics(label: 'Loading graves')`, the state table of the design (loading, loadError, empty, list, Memory_Notice, save banner), an extended `FloatingActionButton` that opens the sheet, the delete flow through the dialog, and a `WidgetsBindingObserver` that calls `refreshToday()` on resume. No moving effect when `MediaQuery.disableAnimations` is true. Color only from `CoffinTheme` tokens.
     - _Requirements: 12.1, 12.12, 12.13, 12.14, 12.15, 12.17, 12.18, 13.1, 13.2, 13.3, 13.4, 14.1, 14.6, 14.8, 14.9, 14.12_
 
-- [ ] 13. Wiring and cleanup
-  - [ ] 13.1 Wire the app and remove the placeholder
+- [x] 13. Wiring and cleanup
+  - [x] 13.1 Wire the app and remove the placeholder
     - Change `lib/src/ui/app_routes.dart` to `buildAppRoutes(GraveListController)` with the single route `/` named `home` showing `GraveyardScreen`. Make `GraveyardApp` take a required `GraveListController`, call `load()` in `initState` and `disposeStorage()` in `dispose`, and keep `CoffinTheme.dark()` and `FogRouter`. Update `lib/main.dart` to build `SystemClock`, `HttpGitHubClient(clock: clock)` and the controller with `StorageOpener(initializer: () => hiveFlutterInitializer(GraveStorage.subDirectory))`.
     - Delete `lib/src/ui/placeholder_screen.dart` and `test/ui/placeholder_screen_test.dart`. Update `test/ui/app_routes_test.dart` so it compiles and passes against the new routes.
     - _Requirements: 10.1, 12.1, 12.16, 15.1, 15.6, 15.7_

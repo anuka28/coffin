@@ -1,12 +1,13 @@
 import 'package:coffin_core/coffin_core.dart';
 
-import 'placeholder_screen.dart';
+import 'grave_list_controller.dart';
+import 'graveyard_screen.dart';
 
-/// The routes of Graveyard. The home route shows the placeholder screen.
-final List<AppRoute> appRoutes = <AppRoute>[
+/// Builds the routes of Graveyard. The home route shows the graveyard screen.
+List<AppRoute> buildAppRoutes(GraveListController controller) => <AppRoute>[
   AppRoute(
     path: '/',
     name: 'home',
-    builder: (context, state) => const PlaceholderScreen(),
+    builder: (context, state) => GraveyardScreen(controller: controller),
   ),
 ];
