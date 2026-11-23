@@ -1,0 +1,49 @@
+import 'package:coffin_core/coffin_core.dart';
+import 'package:flutter/material.dart';
+
+/// The starter home screen of Bone Shop.
+///
+/// Replace it with your own first screen.
+class HomeScreen extends StatelessWidget {
+  /// Creates the home screen.
+  const HomeScreen({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    final textTheme = Theme.of(context).textTheme;
+    return Scaffold(
+      body: FogBackground(
+        child: SafeArea(
+          child: Center(
+            child: SingleChildScrollView(
+              padding: const EdgeInsets.all(24),
+              child: ConstrainedBox(
+                constraints: const BoxConstraints(maxWidth: 480),
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    const GhostLoader(caption: 'Something stirs…'),
+                    const SizedBox(height: 32),
+                    TombstoneCard(
+                      title: 'Bone Shop',
+                      epitaph: 'RISEN',
+                      semanticLabel:
+                          'Bone Shop is empty. Edit '
+                          'lib/src/ui/app_routes.dart to add a screen.',
+                      child: Text(
+                        'Nothing lives here yet. Edit '
+                        'lib/src/ui/app_routes.dart and wake something up.',
+                        style: textTheme.bodyLarge,
+                        textAlign: TextAlign.center,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}
