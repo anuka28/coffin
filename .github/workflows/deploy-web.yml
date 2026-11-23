@@ -1,0 +1,140 @@
+name: Deploy web
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: subosito/flutter-action@v2
+        with:
+          channel: stable
+          flutter-version: '3.47.9'
+
+      - name: Install dependencies (lockfile must not change)
+        run: flutter pub get --enforce-lockfile
+
+      - name: Analyze coffin_core
+        working-directory: packages/coffin_core
+        run: flutter analyze
+
+      - name: Test coffin_core
+        working-directory: packages/coffin_core
+        run: flutter test
+
+      - name: Analyze hauntagotchi
+        working-directory: apps/hauntagotchi
+        run: flutter analyze
+
+      - name: Test hauntagotchi
+        working-directory: apps/hauntagotchi
+        run: flutter test
+
+      - name: Build hauntagotchi
+        working-directory: apps/hauntagotchi
+        run: flutter build web --release --base-href /coffin/hauntagotchi/
+
+      - name: Build graveyard
+        working-directory: apps/graveyard
+        run: flutter build web --release --base-href /coffin/graveyard/
+
+      - name: Assemble site
+        run: |
+          mkdir -p site
+          cp -r apps/hauntagotchi/build/web site/hauntagotchi
+          cp -r apps/graveyard/build/web site/graveyard
+          touch site/.nojekyll
+          cat > site/index.html <<'HTML'
+          <!doctype html>
+          <html lang="en">
+          <head>
+            <meta charset="utf-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1">
+            <title>Coffin</title>
+            <style>
+              :root { color-scheme: dark; }
+              * { box-sizing: border-box; }
+              body {
+                margin: 0;
+                min-height: 100vh;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                padding: 24px;
+                background: radial-gradient(ellipse at top, #241C33 0%, #0E0B16 65%);
+                color: #EDE6F5;
+                font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+                line-height: 1.5;
+              }
+              main { width: 100%; max-width: 480px; text-align: center; }
+              h1 {
+                margin: 0 0 12px;
+                font-size: 3rem;
+                letter-spacing: 0.04em;
+                color: #EDE6F5;
+                text-shadow: 0 0 24px #9B6BFF;
+              }
+              p { margin: 0 0 32px; font-size: 1.125rem; color: #9A90AB; }
+              nav { display: flex; flex-direction: column; gap: 16px; }
+              a {
+                display: block;
+                min-height: 48px;
+                padding: 14px 24px;
+                border: 2px solid #9B6BFF;
+                border-radius: 16px;
+                background: #1A1525;
+                color: #EDE6F5;
+                font-size: 1.125rem;
+                font-weight: 600;
+                text-decoration: none;
+                transition: background 0.4s ease-in-out, box-shadow 0.4s ease-in-out;
+              }
+              a:hover, a:focus-visible {
+                background: #241C33;
+                box-shadow: 0 0 20px #9B6BFF;
+              }
+              a:focus-visible { outline: 3px solid #FF8A3D; outline-offset: 3px; }
+              a:active { background: #9B6BFF; color: #0E0B16; }
+              @media (prefers-reduced-motion: reduce) { a { transition: none; } }
+            </style>
+          </head>
+          <body>
+            <main>
+              <h1>Coffin</h1>
+              <p>A Flutter starter kit that raises apps from the dead.</p>
+              <nav>
+                <a href="hauntagotchi/">Hauntagotchi</a>
+                <a href="graveyard/">Graveyard</a>
+              </nav>
+            </main>
+          </body>
+          </html>
+          HTML
+
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: site
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4
