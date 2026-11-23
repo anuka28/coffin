@@ -1,5 +1,67 @@
 {
-  "pbtResults": {},
+  "pbtResults": {
+    "2.7 Write property test for calendar day counts across daylight saving": {
+      "status": "passed",
+      "lastRunTimestamp": 1795436481008
+    },
+    "2.8 Write property test for time of day": {
+      "status": "passed",
+      "lastRunTimestamp": 1795436851427
+    },
+    "2.9 Write property test for name normalisation": {
+      "status": "passed",
+      "lastRunTimestamp": 1795436913574
+    },
+    "3.8 Write property test for sort confluence": {
+      "status": "passed",
+      "lastRunTimestamp": 1795437395423
+    },
+    "3.5 Write property test for manual validation": {
+      "status": "passed",
+      "lastRunTimestamp": 1795437402082
+    },
+    "3.9 Write property test for duplicates": {
+      "status": "passed",
+      "lastRunTimestamp": 1795437424437
+    },
+    "4.4 Write property test for the repository reference round trip": {
+      "status": "passed",
+      "lastRunTimestamp": 1795437676303
+    },
+    "4.5 Write property test for optional URL parts": {
+      "status": "passed",
+      "lastRunTimestamp": 1795437684411
+    },
+    "4.6 Write property test for parser totality": {
+      "status": "passed",
+      "lastRunTimestamp": 1795437689908
+    },
+    "5.4 Write property test for the local date": {
+      "status": "passed",
+      "lastRunTimestamp": 1795438025205
+    },
+    "5.5 Write property test for a push made now": {
+      "status": "passed",
+      "lastRunTimestamp": 1795438028176
+    },
+    "5.7 Write property test for optional fields": {
+      "status": "passed",
+      "lastRunTimestamp": 1795438044843
+    },
+    "5.6 Write property test for clamping": {
+      "status": "passed",
+      "lastRunTimestamp": 1795438046364
+    },
+    "5.10 Write property test for the rate-limit wait": {
+      "status": "passed",
+      "lastRunTimestamp": 1795438102704
+    },
+    "5.8 Write property test for a missing push date": {
+      "status": "failed",
+      "failingExample": "pushed_at = '2024-13-45T99:99:99Z' (month 13, day 45, hour 99): RepoResponseParser.parse returns FetchSucceeded instead of FetchFailed(malformedResponse). Glados: [null, 2024-02-29T12:00:00Z, 6] after 88 inputs, shrunk 3 times.",
+      "lastRunTimestamp": 1795438134916
+    }
+  },
   "executionHistory": {
     "1.1 Add `http` and `glados` to the Graveyard pubspec": [
       {
@@ -54,6 +116,417 @@
         "executionId": "b47a1b63-29e8-4a4e-b0c5-a28f01a05938",
         "chatSessionId": "sess_ac7114ab-187d-4759-bbf1-70e928fd1624",
         "timestamp": 1795435531271
+      }
+    ],
+    "2.1 Implement `CalendarDate`, `Clock` and `ZoneConverter` in `lib/src/domain`": [
+      {
+        "executionId": "7cfe9031-9ae8-48cf-abb2-bf16e01f420f",
+        "chatSessionId": "sess_14b6b3e1-a8c1-468a-a9e3-774756374094",
+        "timestamp": 1795435566776
+      },
+      {
+        "executionId": "7cfe9031-9ae8-48cf-abb2-bf16e01f420f",
+        "chatSessionId": "sess_14b6b3e1-a8c1-468a-a9e3-774756374094",
+        "timestamp": 1795435649339
+      }
+    ],
+    "2.2 Implement `NameRules`": [
+      {
+        "executionId": "24c4435f-b161-4641-b978-9287f84b6627",
+        "chatSessionId": "sess_bb76d712-2547-4a04-bcc1-955312c0f368",
+        "timestamp": 1795435767741
+      },
+      {
+        "executionId": "24c4435f-b161-4641-b978-9287f84b6627",
+        "chatSessionId": "sess_bb76d712-2547-4a04-bcc1-955312c0f368",
+        "timestamp": 1795435800359
+      },
+      {
+        "executionId": "24c4435f-b161-4641-b978-9287f84b6627",
+        "chatSessionId": "sess_bb76d712-2547-4a04-bcc1-955312c0f368",
+        "timestamp": 1795435811071
+      },
+      {
+        "executionId": "24c4435f-b161-4641-b978-9287f84b6627",
+        "chatSessionId": "sess_bb76d712-2547-4a04-bcc1-955312c0f368",
+        "timestamp": 1795435890334
+      }
+    ],
+    "2.3 Create web-safe test generators (base set)": [
+      {
+        "executionId": "144d5e9a-da9f-48df-8e84-3fb2905f00f0",
+        "chatSessionId": "sess_eeb3f1d2-4096-4277-bceb-ad3fe02c7de2",
+        "timestamp": 1795435956688
+      },
+      {
+        "executionId": "144d5e9a-da9f-48df-8e84-3fb2905f00f0",
+        "chatSessionId": "sess_eeb3f1d2-4096-4277-bceb-ad3fe02c7de2",
+        "timestamp": 1795436050769
+      }
+    ],
+    "2.4 Create the clock and zone test doubles": [
+      {
+        "executionId": "6932d28a-0766-4918-b66d-0c761dcad76c",
+        "chatSessionId": "sess_d00d6558-fc52-4a6b-8152-1fc0cbcddff1",
+        "timestamp": 1795436076688
+      },
+      {
+        "executionId": "6932d28a-0766-4918-b66d-0c761dcad76c",
+        "chatSessionId": "sess_d00d6558-fc52-4a6b-8152-1fc0cbcddff1",
+        "timestamp": 1795436117250
+      }
+    ],
+    "2.5 Write unit tests for `CalendarDate` and `NameRules`": [
+      {
+        "executionId": "0d3de1c8-892c-402d-b79c-6d14f3236361",
+        "chatSessionId": "sess_1a4f973b-ecd0-4658-aec3-35eab2acafcc",
+        "timestamp": 1795436156702
+      },
+      {
+        "executionId": "0d3de1c8-892c-402d-b79c-6d14f3236361",
+        "chatSessionId": "sess_1a4f973b-ecd0-4658-aec3-35eab2acafcc",
+        "timestamp": 1795436217499
+      }
+    ],
+    "2.6 Write property test for the calendar date round trip": [
+      {
+        "executionId": "54575d55-178a-4f78-a1a0-0711d05a3c00",
+        "chatSessionId": "sess_36f3a597-9e2f-447d-873f-27d77f978fe5",
+        "timestamp": 1795436231779
+      },
+      {
+        "executionId": "54575d55-178a-4f78-a1a0-0711d05a3c00",
+        "chatSessionId": "sess_36f3a597-9e2f-447d-873f-27d77f978fe5",
+        "timestamp": 1795436308887
+      }
+    ],
+    "2.7 Write property test for calendar day counts across daylight saving": [
+      {
+        "executionId": "7f39e260-3af3-4544-a96b-5d24dae8b8da",
+        "chatSessionId": "sess_7a290f74-fc16-4eab-8888-e92d9e6c1348",
+        "timestamp": 1795436420564
+      },
+      {
+        "executionId": "7f39e260-3af3-4544-a96b-5d24dae8b8da",
+        "chatSessionId": "sess_7a290f74-fc16-4eab-8888-e92d9e6c1348",
+        "timestamp": 1795436490020
+      }
+    ],
+    "6.1 Implement `DeadForUnit`, `DeadFor` and `DeadForFormatter`": [
+      {
+        "executionId": "3b7a96e4-4865-4d29-9f99-b4aa60f62034",
+        "chatSessionId": "sess_7f0eb806-66c3-41a4-b0bc-6bb03d453381",
+        "timestamp": 1795436678096
+      },
+      {
+        "executionId": "3b7a96e4-4865-4d29-9f99-b4aa60f62034",
+        "chatSessionId": "sess_7f0eb806-66c3-41a4-b0bc-6bb03d453381",
+        "timestamp": 1795436755308
+      }
+    ],
+    "2.8 Write property test for time of day": [
+      {
+        "executionId": "3b7a96e4-4865-4d29-9f99-b4aa60f62034",
+        "chatSessionId": "sess_7f0eb806-66c3-41a4-b0bc-6bb03d453381",
+        "timestamp": 1795436755808
+      },
+      {
+        "executionId": "3b7a96e4-4865-4d29-9f99-b4aa60f62034",
+        "chatSessionId": "sess_7f0eb806-66c3-41a4-b0bc-6bb03d453381",
+        "timestamp": 1795436863382
+      }
+    ],
+    "2.9 Write property test for name normalisation": [
+      {
+        "executionId": "3b7a96e4-4865-4d29-9f99-b4aa60f62034",
+        "chatSessionId": "sess_7f0eb806-66c3-41a4-b0bc-6bb03d453381",
+        "timestamp": 1795436869162
+      },
+      {
+        "executionId": "3b7a96e4-4865-4d29-9f99-b4aa60f62034",
+        "chatSessionId": "sess_7f0eb806-66c3-41a4-b0bc-6bb03d453381",
+        "timestamp": 1795436921029
+      }
+    ],
+    "2. Calendar dates, clock, zone and name rules": [
+      {
+        "executionId": "3b7a96e4-4865-4d29-9f99-b4aa60f62034",
+        "chatSessionId": "sess_7f0eb806-66c3-41a4-b0bc-6bb03d453381",
+        "timestamp": 1795436921136
+      }
+    ],
+    "3.1 Implement the grave model, `GraveRules` and `GraveIds`": [
+      {
+        "executionId": "3b7a96e4-4865-4d29-9f99-b4aa60f62034",
+        "chatSessionId": "sess_7f0eb806-66c3-41a4-b0bc-6bb03d453381",
+        "timestamp": 1795436925947
+      },
+      {
+        "executionId": "3b7a96e4-4865-4d29-9f99-b4aa60f62034",
+        "chatSessionId": "sess_7f0eb806-66c3-41a4-b0bc-6bb03d453381",
+        "timestamp": 1795437092710
+      }
+    ],
+    "3.2 Implement `GraveSorter` and `DuplicateRules`": [
+      {
+        "executionId": "3b7a96e4-4865-4d29-9f99-b4aa60f62034",
+        "chatSessionId": "sess_7f0eb806-66c3-41a4-b0bc-6bb03d453381",
+        "timestamp": 1795437097199
+      },
+      {
+        "executionId": "3b7a96e4-4865-4d29-9f99-b4aa60f62034",
+        "chatSessionId": "sess_7f0eb806-66c3-41a4-b0bc-6bb03d453381",
+        "timestamp": 1795437194462
+      }
+    ],
+    "3.3 Extend the test generators with graves": [
+      {
+        "executionId": "3b7a96e4-4865-4d29-9f99-b4aa60f62034",
+        "chatSessionId": "sess_7f0eb806-66c3-41a4-b0bc-6bb03d453381",
+        "timestamp": 1795437198610
+      },
+      {
+        "executionId": "3b7a96e4-4865-4d29-9f99-b4aa60f62034",
+        "chatSessionId": "sess_7f0eb806-66c3-41a4-b0bc-6bb03d453381",
+        "timestamp": 1795437260660
+      }
+    ],
+    "3.4 Write unit tests for grave rules, ids, sorting and duplicates": [
+      {
+        "executionId": "3b7a96e4-4865-4d29-9f99-b4aa60f62034",
+        "chatSessionId": "sess_7f0eb806-66c3-41a4-b0bc-6bb03d453381",
+        "timestamp": 1795437265055
+      },
+      {
+        "executionId": "3b7a96e4-4865-4d29-9f99-b4aa60f62034",
+        "chatSessionId": "sess_7f0eb806-66c3-41a4-b0bc-6bb03d453381",
+        "timestamp": 1795437342962
+      }
+    ],
+    "3.5 Write property test for manual validation": [
+      {
+        "executionId": "3b7a96e4-4865-4d29-9f99-b4aa60f62034",
+        "chatSessionId": "sess_7f0eb806-66c3-41a4-b0bc-6bb03d453381",
+        "timestamp": 1795437347992
+      },
+      {
+        "executionId": "3b7a96e4-4865-4d29-9f99-b4aa60f62034",
+        "chatSessionId": "sess_7f0eb806-66c3-41a4-b0bc-6bb03d453381",
+        "timestamp": 1795437443556
+      }
+    ],
+    "3.6 Write property test for generated ids": [
+      {
+        "executionId": "3b7a96e4-4865-4d29-9f99-b4aa60f62034",
+        "chatSessionId": "sess_7f0eb806-66c3-41a4-b0bc-6bb03d453381",
+        "timestamp": 1795437348086
+      },
+      {
+        "executionId": "3b7a96e4-4865-4d29-9f99-b4aa60f62034",
+        "chatSessionId": "sess_7f0eb806-66c3-41a4-b0bc-6bb03d453381",
+        "timestamp": 1795437444160
+      }
+    ],
+    "3.7 Write property test for sorting": [
+      {
+        "executionId": "3b7a96e4-4865-4d29-9f99-b4aa60f62034",
+        "chatSessionId": "sess_7f0eb806-66c3-41a4-b0bc-6bb03d453381",
+        "timestamp": 1795437348879
+      },
+      {
+        "executionId": "3b7a96e4-4865-4d29-9f99-b4aa60f62034",
+        "chatSessionId": "sess_7f0eb806-66c3-41a4-b0bc-6bb03d453381",
+        "timestamp": 1795437444672
+      }
+    ],
+    "3.8 Write property test for sort confluence": [
+      {
+        "executionId": "3b7a96e4-4865-4d29-9f99-b4aa60f62034",
+        "chatSessionId": "sess_7f0eb806-66c3-41a4-b0bc-6bb03d453381",
+        "timestamp": 1795437349692
+      },
+      {
+        "executionId": "3b7a96e4-4865-4d29-9f99-b4aa60f62034",
+        "chatSessionId": "sess_7f0eb806-66c3-41a4-b0bc-6bb03d453381",
+        "timestamp": 1795437445679
+      }
+    ],
+    "3.9 Write property test for duplicates": [
+      {
+        "executionId": "3b7a96e4-4865-4d29-9f99-b4aa60f62034",
+        "chatSessionId": "sess_7f0eb806-66c3-41a4-b0bc-6bb03d453381",
+        "timestamp": 1795437350304
+      },
+      {
+        "executionId": "3b7a96e4-4865-4d29-9f99-b4aa60f62034",
+        "chatSessionId": "sess_7f0eb806-66c3-41a4-b0bc-6bb03d453381",
+        "timestamp": 1795437446139
+      }
+    ],
+    "3. Graves, manual rules, sorting and duplicates": [
+      {
+        "executionId": "3b7a96e4-4865-4d29-9f99-b4aa60f62034",
+        "chatSessionId": "sess_7f0eb806-66c3-41a4-b0bc-6bb03d453381",
+        "timestamp": 1795437446172
+      }
+    ],
+    "4.1 Implement `RepoRef` and `RepoInputParser`": [
+      {
+        "executionId": "3b7a96e4-4865-4d29-9f99-b4aa60f62034",
+        "chatSessionId": "sess_7f0eb806-66c3-41a4-b0bc-6bb03d453381",
+        "timestamp": 1795437451829
+      },
+      {
+        "executionId": "3b7a96e4-4865-4d29-9f99-b4aa60f62034",
+        "chatSessionId": "sess_7f0eb806-66c3-41a4-b0bc-6bb03d453381",
+        "timestamp": 1795437529256
+      }
+    ],
+    "4.2 Extend the test generators with repository references": [
+      {
+        "executionId": "3b7a96e4-4865-4d29-9f99-b4aa60f62034",
+        "chatSessionId": "sess_7f0eb806-66c3-41a4-b0bc-6bb03d453381",
+        "timestamp": 1795437534773
+      },
+      {
+        "executionId": "3b7a96e4-4865-4d29-9f99-b4aa60f62034",
+        "chatSessionId": "sess_7f0eb806-66c3-41a4-b0bc-6bb03d453381",
+        "timestamp": 1795437615955
+      }
+    ],
+    "4.3 Write unit tests for `RepoInputParser`": [
+      {
+        "executionId": "3b7a96e4-4865-4d29-9f99-b4aa60f62034",
+        "chatSessionId": "sess_7f0eb806-66c3-41a4-b0bc-6bb03d453381",
+        "timestamp": 1795437620690
+      },
+      {
+        "executionId": "3b7a96e4-4865-4d29-9f99-b4aa60f62034",
+        "chatSessionId": "sess_7f0eb806-66c3-41a4-b0bc-6bb03d453381",
+        "timestamp": 1795437713344
+      }
+    ],
+    "4.4 Write property test for the repository reference round trip": [
+      {
+        "executionId": "3b7a96e4-4865-4d29-9f99-b4aa60f62034",
+        "chatSessionId": "sess_7f0eb806-66c3-41a4-b0bc-6bb03d453381",
+        "timestamp": 1795437620773
+      },
+      {
+        "executionId": "3b7a96e4-4865-4d29-9f99-b4aa60f62034",
+        "chatSessionId": "sess_7f0eb806-66c3-41a4-b0bc-6bb03d453381",
+        "timestamp": 1795437714135
+      }
+    ],
+    "4.5 Write property test for optional URL parts": [
+      {
+        "executionId": "3b7a96e4-4865-4d29-9f99-b4aa60f62034",
+        "chatSessionId": "sess_7f0eb806-66c3-41a4-b0bc-6bb03d453381",
+        "timestamp": 1795437621584
+      },
+      {
+        "executionId": "3b7a96e4-4865-4d29-9f99-b4aa60f62034",
+        "chatSessionId": "sess_7f0eb806-66c3-41a4-b0bc-6bb03d453381",
+        "timestamp": 1795437714932
+      }
+    ],
+    "4.6 Write property test for parser totality": [
+      {
+        "executionId": "3b7a96e4-4865-4d29-9f99-b4aa60f62034",
+        "chatSessionId": "sess_7f0eb806-66c3-41a4-b0bc-6bb03d453381",
+        "timestamp": 1795437622088
+      },
+      {
+        "executionId": "3b7a96e4-4865-4d29-9f99-b4aa60f62034",
+        "chatSessionId": "sess_7f0eb806-66c3-41a4-b0bc-6bb03d453381",
+        "timestamp": 1795437715466
+      }
+    ],
+    "4. Parsing `owner/repo` and GitHub URLs": [
+      {
+        "executionId": "3b7a96e4-4865-4d29-9f99-b4aa60f62034",
+        "chatSessionId": "sess_7f0eb806-66c3-41a4-b0bc-6bb03d453381",
+        "timestamp": 1795437715500
+      }
+    ],
+    "5.1 Implement the failure types, `RepoResponseParser` and `RateLimitWait`": [
+      {
+        "executionId": "3b7a96e4-4865-4d29-9f99-b4aa60f62034",
+        "chatSessionId": "sess_7f0eb806-66c3-41a4-b0bc-6bb03d453381",
+        "timestamp": 1795437719608
+      },
+      {
+        "executionId": "3b7a96e4-4865-4d29-9f99-b4aa60f62034",
+        "chatSessionId": "sess_7f0eb806-66c3-41a4-b0bc-6bb03d453381",
+        "timestamp": 1795437849969
+      }
+    ],
+    "5.2 Extend the test generators with JSON": [
+      {
+        "executionId": "3b7a96e4-4865-4d29-9f99-b4aa60f62034",
+        "chatSessionId": "sess_7f0eb806-66c3-41a4-b0bc-6bb03d453381",
+        "timestamp": 1795437854652
+      },
+      {
+        "executionId": "3b7a96e4-4865-4d29-9f99-b4aa60f62034",
+        "chatSessionId": "sess_7f0eb806-66c3-41a4-b0bc-6bb03d453381",
+        "timestamp": 1795437937317
+      }
+    ],
+    "5.3 Write unit tests for `RepoResponseParser` and `RateLimitWait`": [
+      {
+        "executionId": "3b7a96e4-4865-4d29-9f99-b4aa60f62034",
+        "chatSessionId": "sess_7f0eb806-66c3-41a4-b0bc-6bb03d453381",
+        "timestamp": 1795437942872
+      }
+    ],
+    "5.4 Write property test for the local date": [
+      {
+        "executionId": "3b7a96e4-4865-4d29-9f99-b4aa60f62034",
+        "chatSessionId": "sess_7f0eb806-66c3-41a4-b0bc-6bb03d453381",
+        "timestamp": 1795437942919
+      }
+    ],
+    "5.5 Write property test for a push made now": [
+      {
+        "executionId": "3b7a96e4-4865-4d29-9f99-b4aa60f62034",
+        "chatSessionId": "sess_7f0eb806-66c3-41a4-b0bc-6bb03d453381",
+        "timestamp": 1795437943384
+      }
+    ],
+    "5.6 Write property test for clamping": [
+      {
+        "executionId": "3b7a96e4-4865-4d29-9f99-b4aa60f62034",
+        "chatSessionId": "sess_7f0eb806-66c3-41a4-b0bc-6bb03d453381",
+        "timestamp": 1795437944186
+      }
+    ],
+    "5.7 Write property test for optional fields": [
+      {
+        "executionId": "3b7a96e4-4865-4d29-9f99-b4aa60f62034",
+        "chatSessionId": "sess_7f0eb806-66c3-41a4-b0bc-6bb03d453381",
+        "timestamp": 1795437944869
+      }
+    ],
+    "5.8 Write property test for a missing push date": [
+      {
+        "executionId": "3b7a96e4-4865-4d29-9f99-b4aa60f62034",
+        "chatSessionId": "sess_7f0eb806-66c3-41a4-b0bc-6bb03d453381",
+        "timestamp": 1795438057349
+      }
+    ],
+    "5.9 Write property test for response parser totality": [
+      {
+        "executionId": "3b7a96e4-4865-4d29-9f99-b4aa60f62034",
+        "chatSessionId": "sess_7f0eb806-66c3-41a4-b0bc-6bb03d453381",
+        "timestamp": 1795438058235
+      }
+    ],
+    "5.10 Write property test for the rate-limit wait": [
+      {
+        "executionId": "3b7a96e4-4865-4d29-9f99-b4aa60f62034",
+        "chatSessionId": "sess_7f0eb806-66c3-41a4-b0bc-6bb03d453381",
+        "timestamp": 1795438058840
       }
     ]
   }

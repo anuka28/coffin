@@ -42,174 +42,175 @@ Rules for every task:
     - Check `git diff -U0 -- CREDITS.md` shows only the added heading and the `http` entry.
     - _Requirements: 16.1, 16.6_
 
-- [ ] 2. Calendar dates, clock, zone and name rules
-  - [ ] 2.1 Implement `CalendarDate`, `Clock` and `ZoneConverter` in `lib/src/domain`
+- [x] 2. Calendar dates, clock, zone and name rules
+  - [x] 2.1 Implement `CalendarDate`, `Clock` and `ZoneConverter` in `lib/src/domain`
     - Create `calendar_date.dart` (integer civil-calendar `epochDay`/`fromEpochDay`, `tryCreate`, `fromDateTime` reading year, month and day only, strict `tryParse`, `toIso`, `earliest`, `daysInMonth`, `isLastDayOfMonth`, `addDays`, `addMonthsClamped`, `daysUntil`, `wholeMonthsUntil`, `Comparable`, value equality, no `Duration`).
     - Create `clock.dart` (`abstract interface class Clock { DateTime now(); }`) and `zone_converter.dart` (`typedef ZoneConverter` and the default `localZone` that calls `toLocal()`).
     - Remove `lib/src/domain/.gitkeep`.
     - _Requirements: 1.1, 1.2, 1.3, 1.4, 1.6, 1.7, 4.3, 5.7_
 
-  - [ ] 2.2 Implement `NameRules`
+  - [x] 2.2 Implement `NameRules`
     - Create `name_rules.dart` with `maxLength` 80, `normalize` (trim and collapse every whitespace run to one space), `length` (code points), `keyOf` (normalised, lower-cased) and `forRepo`: the normalised `full_name` when it has at most 80 code points, otherwise the first 79 code points of the repo segment (or of the whole text when there is no slash) followed by `…`.
     - _Requirements: 2.3, 2.11, 2.12, 6.13, 8.5_
 
-  - [ ] 2.3 Create web-safe test generators (base set)
+  - [x] 2.3 Create web-safe test generators (base set)
     - Create `test/domain/support/grave_generators.dart` with `anyIntBetween`, `anyListBetween` (built on `any.simple` and `Random.nextInt`), a `RunCounter`, `anyCalendarDate` (epoch days 0 to 47482 plus fixed edge days: leap days, month and year ends, 2026-03-08, 2026-03-29, 2026-10-25, 2026-11-01), `anyInstantSeconds`, `anyOffsetMinutes` (index 0 to 52 mapped to -720 + 30 * index) and `anyProjectName` (ASCII, accents, CJK, an emoji, tabs, newlines, runs of spaces, 0 to 90 code points).
     - Keep every generated integer far below 2^53.
     - _Requirements: 17.3_
 
-  - [ ] 2.4 Create the clock and zone test doubles
+  - [x] 2.4 Create the clock and zone test doubles
     - Create `test/support/fake_clock.dart` (`FakeClock` whose local time the test sets) and `test/support/fixed_offset_zone.dart` (`FixedOffsetZone(Duration offset)` whose `call` returns `utc.add(offset)`). Neither imports `dart:io`.
     - _Requirements: 1.7, 4.17_
 
-  - [ ] 2.5 Write unit tests for `CalendarDate` and `NameRules`
+  - [x] 2.5 Write unit tests for `CalendarDate` and `NameRules`
     - Create `test/domain/calendar_date_test.dart` and `test/domain/name_rules_test.dart`: leap years, month ends, strict `tryParse` (wrong shape, month 13, 2025-02-30), year bounds, negative `addDays`, `wholeMonthsUntil` clamp cases, trimming and collapsing, code-point counting at 80 and 81, and `forRepo` at 80 and 81 code points, with and without a slash.
+    - Also create `test/domain/zone_converter_test.dart`: `localZone` keeps `millisecondsSinceEpoch` unchanged and returns a non-UTC `DateTime` for a few UTC inputs, without asserting any specific local time.
     - _Requirements: 1.3, 1.4, 1.6, 2.3, 2.7, 5.7, 8.5_
 
-  - [ ] 2.6 Write property test for the calendar date round trip
+  - [x] 2.6 Write property test for the calendar date round trip
     - **Property 1: Calendar date round trip**
     - **Validates: Requirements 1.6**
     - Create `test/domain/calendar_date_round_trip_property_test.dart`.
 
-  - [ ] 2.7 Write property test for calendar day counts across daylight saving
+  - [x] 2.7 Write property test for calendar day counts across daylight saving
     - **Property 2: Day counts are calendar days, also across daylight saving**
     - **Validates: Requirements 1.3, 1.4**
     - Create `test/domain/calendar_arithmetic_property_test.dart`; `n` from 0 to 800, including the four daylight saving dates.
 
-  - [ ] 2.8 Write property test for time of day
+  - [x] 2.8 Write property test for time of day
     - **Property 3: Time of day does not change Today or the text**
     - **Validates: Requirements 1.2, 1.5**
     - Create `test/domain/time_of_day_property_test.dart`. It uses `DeadForFormatter` from task 6.1, so schedule it after that task.
 
-  - [ ] 2.9 Write property test for name normalisation
+  - [x] 2.9 Write property test for name normalisation
     - **Property 4: Name normalisation is idempotent and well formed**
     - **Validates: Requirements 2.12**
     - Create `test/domain/name_normalisation_property_test.dart`.
 
-- [ ] 3. Graves, manual rules, sorting and duplicates
-  - [ ] 3.1 Implement the grave model, `GraveRules` and `GraveIds`
+- [x] 3. Graves, manual rules, sorting and duplicates
+  - [x] 3.1 Implement the grave model, `GraveRules` and `GraveIds`
     - Create `grave_source.dart`, `repo_info.dart`, `grave.dart` (`Grave.manual`, `Grave.github`, value equality), `grave_rejection.dart`, `manual_grave_check.dart` (sealed), `manual_grave_accepted.dart`, `manual_grave_rejected.dart`, `grave_rules.dart` (`checkManual` over name and date parts, checks in the order: empty name, name over 80, date missing, date not real, before 1970-01-01, after Today) and `grave_ids.dart` (`next` gives the smallest unused `gN`).
     - _Requirements: 2.1, 2.2, 2.3, 2.4, 2.5, 2.6, 2.7, 2.8, 2.9, 2.11, 12.5_
 
-  - [ ] 3.2 Implement `GraveSorter` and `DuplicateRules`
+  - [x] 3.2 Implement `GraveSorter` and `DuplicateRules`
     - Create `grave_sorter.dart` (new list; date descending, then lower-cased name, then id) and `duplicate_rules.dart` (GitHub against GitHub by `full_name` key, manual against manual by name key and date, never across sources).
     - _Requirements: 6.1, 6.2, 6.3, 6.8, 6.9, 6.10, 6.11, 6.13_
 
-  - [ ] 3.3 Extend the test generators with graves
+  - [x] 3.3 Extend the test generators with graves
     - Add `anyGrave` and `anyGraveList` (0 to 12 graves, small id numbers, colliding dates, names that differ only in letter case, GitHub graves with descriptions of Markdown, emoji shortcodes and 2,000-character text) to `test/domain/support/grave_generators.dart`.
     - _Requirements: 17.3_
 
-  - [ ] 3.4 Write unit tests for grave rules, ids, sorting and duplicates
+  - [x] 3.4 Write unit tests for grave rules, ids, sorting and duplicates
     - Create `test/domain/grave_rules_test.dart` (each criterion of Requirement 2 with named examples, Today and 1970-01-01 accepted, 2025-02-30 rejected and never shifted), `test/domain/grave_ids_test.dart`, `test/domain/grave_sorter_test.dart` (ties by name and id, input not mutated) and `test/domain/duplicate_rules_test.dart` (each rule of Requirement 6 with examples).
     - _Requirements: 2.1 to 2.9, 6.1 to 6.3, 6.8 to 6.11_
 
-  - [ ] 3.5 Write property test for manual validation
+  - [x] 3.5 Write property test for manual validation
     - **Property 5: Manual validation matches its rules**
     - **Validates: Requirements 2.2, 2.3, 2.4, 2.5, 2.6, 2.7, 2.8, 2.9**
     - Create `test/domain/grave_rules_property_test.dart` with a model that applies the rules in order.
 
-  - [ ] 3.6 Write property test for generated ids
+  - [x] 3.6 Write property test for generated ids
     - **Property 6: Generated grave ids are unique**
     - **Validates: Requirements 2.1**
     - Create `test/domain/grave_ids_property_test.dart`.
 
-  - [ ] 3.7 Write property test for sorting
+  - [x] 3.7 Write property test for sorting
     - **Property 19: Sorting orders, keeps, and does not mutate**
     - **Validates: Requirements 6.1, 6.2, 6.3, 6.4, 6.5, 6.7**
     - Create `test/domain/grave_sorter_property_test.dart`.
 
-  - [ ] 3.8 Write property test for sort confluence
+  - [x] 3.8 Write property test for sort confluence
     - **Property 20: Sorting does not depend on the input order**
     - **Validates: Requirements 6.6**
     - Create `test/domain/grave_sorter_order_property_test.dart`.
 
-  - [ ] 3.9 Write property test for duplicates
+  - [x] 3.9 Write property test for duplicates
     - **Property 21: Duplicate rules**
     - **Validates: Requirements 6.8, 6.9, 6.10, 6.11, 6.13**
     - Create `test/domain/duplicate_rules_property_test.dart`.
 
-- [ ] 4. Parsing `owner/repo` and GitHub URLs
-  - [ ] 4.1 Implement `RepoRef` and `RepoInputParser`
+- [x] 4. Parsing `owner/repo` and GitHub URLs
+  - [x] 4.1 Implement `RepoRef` and `RepoInputParser`
     - Create `repo_ref.dart` (`isValidOwner`, `isValidRepo` including the rule that a Repo_Name may not end in `.git` in any letter case, `toString` as `owner/repo`), `repo_parse_problem.dart`, `repo_parse_result.dart` (sealed), `repo_parsed.dart`, `repo_parse_failed.dart` and `repo_input_parser.dart`, following the design algorithm: trim, cut at `?` and `#`, scheme `http` or `https` only, host `github.com` or `www.github.com`, first two path segments, strip one `.git`, reject `.` and `..`, keep letter case, never throw and never decode percent escapes.
     - _Requirements: 3.1, 3.2, 3.3, 3.4, 3.5, 3.6, 3.7, 3.8, 3.9, 3.10_
 
-  - [ ] 4.2 Extend the test generators with repository references
+  - [x] 4.2 Extend the test generators with repository references
     - Add `anyRepoRef` (owner of 1 to 39 characters, repo of 1 to 100 characters, never `.`, `..` or ending in `.git`), `anyUrlDecoration` (scheme, host case, whitespace, trailing slash, `.git`, extra segments, query, fragment) and `anyUrlText` (text assembled from URL fragments and arbitrary code points) to `test/domain/support/grave_generators.dart`.
     - _Requirements: 17.3_
 
-  - [ ] 4.3 Write unit tests for `RepoInputParser`
+  - [x] 4.3 Write unit tests for `RepoInputParser`
     - Create `test/domain/repo_input_parser_test.dart`: the four inputs of Requirement 3.8, each failure kind, `.`, `..`, `repo.git`, `repo.GIT`, a repo that is only `.git`, `github.com` alone, `example.com/a/b`, `ftp://github.com/a/b`, owner with a leading hyphen, owner over 39 characters, repo over 100 characters, empty and whitespace-only input, and letter case kept.
     - _Requirements: 3.1 to 3.10_
 
-  - [ ] 4.4 Write property test for the repository reference round trip
+  - [x] 4.4 Write property test for the repository reference round trip
     - **Property 7: Repo reference round trip**
     - **Validates: Requirements 3.1, 3.9, 3.11**
     - Create `test/domain/repo_ref_round_trip_property_test.dart`.
 
-  - [ ] 4.5 Write property test for optional URL parts
+  - [x] 4.5 Write property test for optional URL parts
     - **Property 8: Optional URL parts do not change the reference**
     - **Validates: Requirements 3.2, 3.3, 3.9, 3.12**
     - Create `test/domain/repo_input_decoration_property_test.dart`.
 
-  - [ ] 4.6 Write property test for parser totality
+  - [x] 4.6 Write property test for parser totality
     - **Property 9: The input parser is total and only returns valid references**
     - **Validates: Requirements 3.4, 3.6, 3.10**
     - Create `test/domain/repo_input_total_property_test.dart`.
 
 - [ ] 5. Parsing the GitHub response
-  - [ ] 5.1 Implement the failure types, `RepoResponseParser` and `RateLimitWait`
+  - [x] 5.1 Implement the failure types, `RepoResponseParser` and `RateLimitWait`
     - Create `import_failure_kind.dart`, `import_failure.dart` (`resetAt` for `rateLimited` only), `fetched_repo.dart`, `fetch_result.dart` (sealed), `fetch_succeeded.dart`, `fetch_failed.dart`, `repo_response_parser.dart` and `rate_limit_wait.dart`.
     - Parser rules: `jsonDecode` inside `try` with `on Object`; a non-object body is `malformedResponse`; `pushed_at` must be a string that matches `^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(\.\d+)?(Z|[+-]\d{2}:\d{2})$` and that `DateTime.parse` accepts (a date without time, or a time without `Z` or a numeric offset, is `malformedResponse`); `updated_at` and `created_at` are never read; apply the injected `ZoneConverter` to the UTC instant, then read year, month and day; clamp to Today and to 1970-01-01.
     - Safety rules: `full_name` is used only when it is a string of 1 to 140 code points after normalisation, otherwise the requested `owner/repo`; `stargazers_count` accepts an integral non-negative `num` (so `12.0` on the VM and `12` on the web give the same result), otherwise 0; every unknown field is ignored.
     - `RateLimitWait.minutes` is `max(1, (ms + 59999) ~/ 60000)`.
     - _Requirements: 4.1, 4.2, 4.3, 4.4, 4.5, 4.6, 4.7, 4.8, 4.9, 4.10, 4.11, 4.12, 4.13, 4.14, 4.15, 4.17, 9.3_
 
-  - [ ] 5.2 Extend the test generators with JSON
+  - [x] 5.2 Extend the test generators with JSON
     - Add `anyJsonText`, `anyJsonValue` (depth at most 4), mutators that replace one field with a value of another type (absent, `null`, string, integer, negative integer, boolean, list, object), a `pushedAtBody` builder, and an `anyCorruption` list for the codec to `test/domain/support/grave_generators.dart`.
     - _Requirements: 17.3_
 
-  - [ ] 5.3 Write unit tests for `RepoResponseParser` and `RateLimitWait`
+  - [-] 5.3 Write unit tests for `RepoResponseParser` and `RateLimitWait`
     - Create `test/domain/repo_response_parser_test.dart`: the four real repositories at fixed offset +00:00 with the dates, archived flags and star counts of Requirement 4.16, `updated_at` different from `pushed_at` and ignored, the three offset cases of Requirements 4.18, 4.19 and 4.20 (mandatory, with "Died today" through `DeadForFormatter` for the first two), clamps in both directions, every default of Requirements 4.5 to 4.9, `full_name` fallback (empty, non-string, over 140 code points), `pushed_at` without `Z` or offset, `pushed_at` as a date only, and a `12.0` star count.
     - Create `test/domain/rate_limit_wait_test.dart`: 30 s gives 1, 61 s gives 2, a past reset gives 1.
     - _Requirements: 4.1 to 4.21, 9.3_
 
-  - [ ] 5.4 Write property test for the local date
+  - [-] 5.4 Write property test for the local date
     - **Property 10: The local date is the instant plus the offset**
     - **Validates: Requirements 4.1, 4.3, 4.17, 4.22**
     - Create `test/domain/local_date_property_test.dart`, comparing against integer arithmetic `floorDiv(seconds + offsetSeconds, 86400)`.
 
-  - [ ] 5.5 Write property test for a push made now
+  - [-] 5.5 Write property test for a push made now
     - **Property 11: A push made now reads as "Died today"**
     - **Validates: Requirements 4.18, 4.22**
     - Create `test/domain/died_today_property_test.dart`. It uses `DeadForFormatter` from task 6.1.
 
-  - [ ] 5.6 Write property test for clamping
+  - [-] 5.6 Write property test for clamping
     - **Property 12: Clamping keeps the date in range**
     - **Validates: Requirements 4.12, 4.13**
     - Create `test/domain/clamp_property_test.dart`.
 
-  - [ ] 5.7 Write property test for optional fields
+  - [-] 5.7 Write property test for optional fields
     - **Property 13: Optional fields default, extra fields are ignored**
     - **Validates: Requirements 4.2, 4.4, 4.5, 4.6, 4.7, 4.8, 4.9, 4.14**
     - Create `test/domain/response_defaults_property_test.dart`.
 
-  - [ ] 5.8 Write property test for a missing push date
+  - [-] 5.8 Write property test for a missing push date
     - **Property 14: A body without a usable push date is malformed**
     - **Validates: Requirements 4.2, 4.10, 4.11**
     - Create `test/domain/response_malformed_property_test.dart`.
 
-  - [ ] 5.9 Write property test for response parser totality
+  - [-] 5.9 Write property test for response parser totality
     - **Property 15: The response parser is total**
     - **Validates: Requirements 4.15**
     - Create `test/domain/response_total_property_test.dart`, including deeply nested JSON.
 
-  - [ ] 5.10 Write property test for the rate-limit wait
+  - [-] 5.10 Write property test for the rate-limit wait
     - **Property 22: The rate-limit wait is rounded up and at least one minute**
     - **Validates: Requirements 9.3**
     - Create `test/domain/rate_limit_wait_property_test.dart`.
 
 - [ ] 6. Dead-for text
-  - [ ] 6.1 Implement `DeadForUnit`, `DeadFor` and `DeadForFormatter`
+  - [x] 6.1 Implement `DeadForUnit`, `DeadFor` and `DeadForFormatter`
     - Create `dead_for_unit.dart` (order: today, days, weeks, months, years), `dead_for.dart` (`between`, `text`) and `dead_for_formatter.dart`, following the design's decision table. Use year, month and day arithmetic only. No `Duration` and no `DateTime` in these files.
     - _Requirements: 5.1, 5.2, 5.3, 5.4, 5.5, 5.6, 5.7, 5.8, 5.9, 5.10_
 
