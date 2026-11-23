@@ -20,18 +20,18 @@ Rules for every task:
 ## Tasks
 
 - [ ] 1. Dependencies and lock (first change of the feature)
-  - [ ] 1.1 Add `http` and `glados` to the Graveyard pubspec
+  - [x] 1.1 Add `http` and `glados` to the Graveyard pubspec
     - In `apps/graveyard/pubspec.yaml`, add exactly `http: 1.6.0` (no caret, no range) as the last line under `dependencies`, and exactly `glados: 1.1.7` under `dev_dependencies` after `flutter_lints`. Touch no other pubspec.
     - Check `git diff -U0 -- apps/graveyard/pubspec.yaml` shows exactly two added lines and nothing removed.
     - _Requirements: 16.1, 16.5_
 
-  - [ ] 1.2 Run a plain `flutter pub get` and report the exact lock diff
+  - [x] 1.2 Run a plain `flutter pub get` and report the exact lock diff
     - Run `flutter pub get` once at the repo root. Do not use `--enforce-lockfile` here, because it fails by design while the lock must change.
     - Run `git diff -U0 -- pubspec.lock` and paste the full output into the task report. Name each package the lock gained, with its version (expected: `http` 1.6.0 only, one entry placed before `http_parser`).
     - If the diff holds anything beyond the one `http` entry (another package, a version change, a removed line), stop and ask the user. Do not continue and do not edit the lock by hand.
     - _Requirements: 16.1, 16.4_
 
-  - [ ] 1.3 Re-run with `--enforce-lockfile` and check the lock is stable
+  - [x] 1.3 Re-run with `--enforce-lockfile` and check the lock is stable
     - Run `flutter pub get --enforce-lockfile` at the repo root. It must succeed.
     - Run `git diff -U0 -- pubspec.lock` again and check it is identical to the diff reported in 1.2.
     - _Requirements: 16.4_

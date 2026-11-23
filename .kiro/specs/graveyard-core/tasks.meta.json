@@ -1,0 +1,41 @@
+{
+  "pbtResults": {},
+  "executionHistory": {
+    "1.1 Add `http` and `glados` to the Graveyard pubspec": [
+      {
+        "executionId": "cc7927f6-efce-43bb-8fb9-918ee5e1d54d",
+        "chatSessionId": "sess_1b5b69e7-9a8c-4618-beca-4b7c21d31b88",
+        "timestamp": 1795435211406
+      },
+      {
+        "executionId": "cc7927f6-efce-43bb-8fb9-918ee5e1d54d",
+        "chatSessionId": "sess_1b5b69e7-9a8c-4618-beca-4b7c21d31b88",
+        "timestamp": 1795435239409
+      }
+    ],
+    "1.2 Run a plain `flutter pub get` and report the exact lock diff": [
+      {
+        "executionId": "a5951235-4eb8-4394-a5cc-b02e2f8e12c0",
+        "chatSessionId": "sess_f816de3f-4875-4d24-8216-2b47d1c14fa3",
+        "timestamp": 1795435271821
+      },
+      {
+        "executionId": "a5951235-4eb8-4394-a5cc-b02e2f8e12c0",
+        "chatSessionId": "sess_f816de3f-4875-4d24-8216-2b47d1c14fa3",
+        "timestamp": 1795435295958
+      }
+    ],
+    "1.3 Re-run with `--enforce-lockfile` and check the lock is stable": [
+      {
+        "executionId": "cbaa1c85-ace6-416b-8e70-c6fcc6ba92f7",
+        "chatSessionId": "sess_9749cc85-78f2-49da-8e8e-dc354d9a20fc",
+        "timestamp": 1795435378880
+      },
+      {
+        "executionId": "cbaa1c85-ace6-416b-8e70-c6fcc6ba92f7",
+        "chatSessionId": "sess_9749cc85-78f2-49da-8e8e-dc354d9a20fc",
+        "timestamp": 1795435398579
+      }
+    ]
+  }
+}
