@@ -348,21 +348,23 @@ void main() {
   });
 
   group('epitaph and text scale', () {
-    testWidgets('shown at scale 1.0 and 1.2, hidden above 1.2', (tester) async {
+    testWidgets('shown once at every text scale, never wrapping', (
+      tester,
+    ) async {
       final ControllerHarness h = _harness(
         seed: _seed(<Grave>[
           _manual('g3', 'Fresh one', CalendarDate(2026, 5, 10)),
         ]),
       );
-      final Finder epitaph = find.text(GraveyardCopy.epitaph('Died today'));
+      final Finder epitaph = find.text(GraveyardCopy.epitaph);
       await _pump(tester, h);
       expect(epitaph, findsOneWidget);
       await _pump(tester, h, textScale: 1.2);
       expect(epitaph, findsOneWidget);
       await _pump(tester, h, textScale: 1.25);
-      expect(epitaph, findsNothing);
+      expect(epitaph, findsOneWidget);
       await _pump(tester, h, textScale: 1.5);
-      expect(epitaph, findsNothing);
+      expect(epitaph, findsOneWidget);
       expect(find.text('Fresh one'), findsOneWidget);
     });
   });

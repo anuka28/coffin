@@ -4,6 +4,8 @@ import '../domain/import_failure.dart';
 import '../domain/import_failure_kind.dart';
 import '../domain/rate_limit_wait.dart';
 import '../domain/repo_parse_problem.dart';
+import '../domain/scene/description_cleaner.dart';
+import '../domain/scene/thousands_formatter.dart';
 
 /// Every user-facing string of Graveyard, in one place.
 ///
@@ -112,10 +114,8 @@ abstract final class GraveyardCopy {
   static String dateLine(CalendarDate dateOfDeath) =>
       'Died ${date(dateOfDeath)}';
 
-  /// The engraved epitaph, built from the Dead_For_Text.
-  ///
-  /// [deadForText] is `Died today`, `Dead for 3 weeks`, and so on.
-  static String epitaph(String deadForText) => '$deadForText. Rest easy.';
+  /// The engraved epitaph, the same on every tombstone.
+  static const String epitaph = 'R.I.P.';
 
   // ----------------------------------------------------------- Tombstones
 
@@ -126,7 +126,7 @@ abstract final class GraveyardCopy {
   ///
   /// It has no star glyph. The tile shows an `Icons.star` next to it.
   static String stars(int count, {required bool archived}) =>
-      '$count${archived ? ', Archived' : ''}';
+      '${ThousandsFormatter.format(count)}${archived ? ', Archived' : ''}';
 
   /// Semantic label of a by-hand tombstone.
   static String manualGraveLabel({
@@ -143,11 +143,14 @@ abstract final class GraveyardCopy {
     required bool archived,
     String? description,
   }) {
-    final hasDescription = description != null && description.isNotEmpty;
+    final cleaned = description == null
+        ? ''
+        : DescriptionCleaner.clean(description);
     return '$name. $deadForText. From GitHub, $fullName, '
-        '$stars ${stars == 1 ? 'star' : 'stars'}'
+        '${ThousandsFormatter.format(stars)} '
+        "${stars == 1 ? 'star' : 'stars'}"
         '${archived ? ', archived' : ''}.'
-        '${hasDescription ? ' Description: $description' : ''}';
+        '${cleaned.isNotEmpty ? ' Description: $cleaned' : ''}';
   }
 
   /// Label of the delete button of one tombstone.

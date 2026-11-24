@@ -48,7 +48,7 @@ Future<void> _pump(WidgetTester tester, ControllerHarness h) async {
 Future<void> _tapDelete(WidgetTester tester, String id) async {
   await tester.tap(
     find.descendant(
-      of: find.byKey(ValueKey<String>('grave-$id')),
+      of: find.byKey(ValueKey<String>(id)),
       matching: find.text(GraveyardCopy.delete),
     ),
   );
@@ -86,8 +86,8 @@ void main() {
       await tester.tap(find.byKey(const ValueKey<String>('delete-confirm')));
       await tester.pumpAndSettle();
 
-      expect(find.byKey(const ValueKey<String>('grave-g1')), findsNothing);
-      expect(find.byKey(const ValueKey<String>('grave-g2')), findsOneWidget);
+      expect(find.byKey(const ValueKey<String>('g1')), findsNothing);
+      expect(find.byKey(const ValueKey<String>('g2')), findsOneWidget);
       expect(find.text('Alpha'), findsNothing);
       expect(h.controller.graves.map((Grave g) => g.id), <String>['g2']);
       expect(_storedIds(await h.repository.getAll()), <String>['g2']);
@@ -104,8 +104,8 @@ void main() {
       await tester.pumpAndSettle();
 
       expect(find.text(GraveyardCopy.deleteTitle('Alpha')), findsNothing);
-      expect(find.byKey(const ValueKey<String>('grave-g1')), findsOneWidget);
-      expect(find.byKey(const ValueKey<String>('grave-g2')), findsOneWidget);
+      expect(find.byKey(const ValueKey<String>('g1')), findsOneWidget);
+      expect(find.byKey(const ValueKey<String>('g2')), findsOneWidget);
       expect(h.controller.graves, hasLength(2));
       expect(_storedIds(await h.repository.getAll()), <String>['g1', 'g2']);
     });

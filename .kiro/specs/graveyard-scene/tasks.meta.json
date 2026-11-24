@@ -734,6 +734,250 @@
         "chatSessionId": "sess_9f7b119b-61cc-4fc9-8acd-d8c5079a5f5f",
         "timestamp": 1795515082789
       }
+    ],
+    "10.1 Update `GraveyardCopy`": [
+      {
+        "executionId": "d3a584fb-ee3d-42a6-ab60-70746fbadf00",
+        "chatSessionId": "sess_5d31d419-743a-4d9d-9145-6a320fcdc6b0",
+        "timestamp": 1795515314223
+      },
+      {
+        "executionId": "d3a584fb-ee3d-42a6-ab60-70746fbadf00",
+        "chatSessionId": "sess_5d31d419-743a-4d9d-9145-6a320fcdc6b0",
+        "timestamp": 1795515447097
+      }
+    ],
+    "10.2 Update the copy tests": [
+      {
+        "executionId": "679d2c4f-508d-490b-bd32-a3c5c10f9432",
+        "chatSessionId": "sess_d24ec0b9-e374-4edc-9bc1-15dcd9e3dd05",
+        "timestamp": 1795515516598
+      },
+      {
+        "executionId": "679d2c4f-508d-490b-bd32-a3c5c10f9432",
+        "chatSessionId": "sess_d24ec0b9-e374-4edc-9bc1-15dcd9e3dd05",
+        "timestamp": 1795515574163
+      }
+    ],
+    "10. Copy": [
+      {
+        "executionId": "679d2c4f-508d-490b-bd32-a3c5c10f9432",
+        "chatSessionId": "sess_d24ec0b9-e374-4edc-9bc1-15dcd9e3dd05",
+        "timestamp": 1795515574196
+      }
+    ],
+    "11.1 Implement `NightSkyPainter` and `GroundPainter`": [
+      {
+        "executionId": "55c5ea01-54d4-44bc-86a4-108cf3cb925f",
+        "chatSessionId": "sess_1b1be8e7-3829-4f31-858b-c360e4496109",
+        "timestamp": 1795515622444
+      },
+      {
+        "executionId": "55c5ea01-54d4-44bc-86a4-108cf3cb925f",
+        "chatSessionId": "sess_1b1be8e7-3829-4f31-858b-c360e4496109",
+        "timestamp": 1795515829599
+      }
+    ],
+    "11.3 Implement `CrackPainter`": [
+      {
+        "executionId": "55c5ea01-54d4-44bc-86a4-108cf3cb925f",
+        "chatSessionId": "sess_1b1be8e7-3829-4f31-858b-c360e4496109",
+        "timestamp": 1795515631062
+      },
+      {
+        "executionId": "55c5ea01-54d4-44bc-86a4-108cf3cb925f",
+        "chatSessionId": "sess_1b1be8e7-3829-4f31-858b-c360e4496109",
+        "timestamp": 1795515829672
+      }
+    ],
+    "11.2 Implement `ArchEpitaph`": [
+      {
+        "executionId": "55c5ea01-54d4-44bc-86a4-108cf3cb925f",
+        "chatSessionId": "sess_1b1be8e7-3829-4f31-858b-c360e4496109",
+        "timestamp": 1795515835462
+      },
+      {
+        "executionId": "55c5ea01-54d4-44bc-86a4-108cf3cb925f",
+        "chatSessionId": "sess_1b1be8e7-3829-4f31-858b-c360e4496109",
+        "timestamp": 1795515995831
+      }
+    ],
+    "11.4 Write unit tests for the painters": [
+      {
+        "executionId": "55c5ea01-54d4-44bc-86a4-108cf3cb925f",
+        "chatSessionId": "sess_1b1be8e7-3829-4f31-858b-c360e4496109",
+        "timestamp": 1795515835509
+      },
+      {
+        "executionId": "55c5ea01-54d4-44bc-86a4-108cf3cb925f",
+        "chatSessionId": "sess_1b1be8e7-3829-4f31-858b-c360e4496109",
+        "timestamp": 1795515996259
+      }
+    ],
+    "11. Painters and tombstone parts": [
+      {
+        "executionId": "55c5ea01-54d4-44bc-86a4-108cf3cb925f",
+        "chatSessionId": "sess_1b1be8e7-3829-4f31-858b-c360e4496109",
+        "timestamp": 1795515996291
+      }
+    ],
+    "12.1 Implement `GraveTombstone`": [
+      {
+        "executionId": "640805ee-c857-4dfe-9bfb-ba56003b26b0",
+        "chatSessionId": "sess_78b421f9-f417-4c80-9652-7f5cc424d9ac",
+        "timestamp": 1795516116690
+      },
+      {
+        "executionId": "640805ee-c857-4dfe-9bfb-ba56003b26b0",
+        "chatSessionId": "sess_78b421f9-f417-4c80-9652-7f5cc424d9ac",
+        "timestamp": 1795516379406
+      }
+    ],
+    "12.2 Implement `GraveyardScene`": [
+      {
+        "executionId": "640805ee-c857-4dfe-9bfb-ba56003b26b0",
+        "chatSessionId": "sess_78b421f9-f417-4c80-9652-7f5cc424d9ac",
+        "timestamp": 1795516380008
+      },
+      {
+        "executionId": "640805ee-c857-4dfe-9bfb-ba56003b26b0",
+        "chatSessionId": "sess_78b421f9-f417-4c80-9652-7f5cc424d9ac",
+        "timestamp": 1795516981518
+      }
+    ],
+    "12.3 Wire the screen and replace the old tile": [
+      {
+        "executionId": "640805ee-c857-4dfe-9bfb-ba56003b26b0",
+        "chatSessionId": "sess_78b421f9-f417-4c80-9652-7f5cc424d9ac",
+        "timestamp": 1795516982141
+      },
+      {
+        "executionId": "640805ee-c857-4dfe-9bfb-ba56003b26b0",
+        "chatSessionId": "sess_78b421f9-f417-4c80-9652-7f5cc424d9ac",
+        "timestamp": 1795520414658
+      },
+      {
+        "executionId": "0c10ee24-d7e4-459c-8694-80440d80e3b3",
+        "chatSessionId": "sess_78b421f9-f417-4c80-9652-7f5cc424d9ac",
+        "timestamp": 1795521737798
+      },
+      {
+        "executionId": "0c10ee24-d7e4-459c-8694-80440d80e3b3",
+        "chatSessionId": "sess_78b421f9-f417-4c80-9652-7f5cc424d9ac",
+        "timestamp": 1795522019068
+      }
+    ],
+    "12. Tombstone, scene and screen": [
+      {
+        "executionId": "640805ee-c857-4dfe-9bfb-ba56003b26b0",
+        "chatSessionId": "sess_78b421f9-f417-4c80-9652-7f5cc424d9ac",
+        "timestamp": 1795520414750
+      }
+    ],
+    "13.1 Write widget tests for `GraveTombstone` content": [
+      {
+        "executionId": "47659649-fa36-46b6-8dbc-0cc019f3b80b",
+        "chatSessionId": "sess_78b421f9-f417-4c80-9652-7f5cc424d9ac",
+        "timestamp": 1795520632915
+      },
+      {
+        "executionId": "47659649-fa36-46b6-8dbc-0cc019f3b80b",
+        "chatSessionId": "sess_78b421f9-f417-4c80-9652-7f5cc424d9ac",
+        "timestamp": 1795521580380
+      }
+    ],
+    "13.2 Write widget tests for the epitaph fit": [
+      {
+        "executionId": "47659649-fa36-46b6-8dbc-0cc019f3b80b",
+        "chatSessionId": "sess_78b421f9-f417-4c80-9652-7f5cc424d9ac",
+        "timestamp": 1795520632999
+      },
+      {
+        "executionId": "47659649-fa36-46b6-8dbc-0cc019f3b80b",
+        "chatSessionId": "sess_78b421f9-f417-4c80-9652-7f5cc424d9ac",
+        "timestamp": 1795521580465
+      }
+    ],
+    "13.3 Write widget tests for cracks": [
+      {
+        "executionId": "47659649-fa36-46b6-8dbc-0cc019f3b80b",
+        "chatSessionId": "sess_78b421f9-f417-4c80-9652-7f5cc424d9ac",
+        "timestamp": 1795520633098
+      },
+      {
+        "executionId": "47659649-fa36-46b6-8dbc-0cc019f3b80b",
+        "chatSessionId": "sess_78b421f9-f417-4c80-9652-7f5cc424d9ac",
+        "timestamp": 1795521580518
+      }
+    ],
+    "13.4 Write widget tests for tilt, fade and contrast": [
+      {
+        "executionId": "47659649-fa36-46b6-8dbc-0cc019f3b80b",
+        "chatSessionId": "sess_78b421f9-f417-4c80-9652-7f5cc424d9ac",
+        "timestamp": 1795520633145
+      },
+      {
+        "executionId": "47659649-fa36-46b6-8dbc-0cc019f3b80b",
+        "chatSessionId": "sess_78b421f9-f417-4c80-9652-7f5cc424d9ac",
+        "timestamp": 1795521580580
+      }
+    ],
+    "13.5 Write widget tests for the scene": [
+      {
+        "executionId": "47659649-fa36-46b6-8dbc-0cc019f3b80b",
+        "chatSessionId": "sess_78b421f9-f417-4c80-9652-7f5cc424d9ac",
+        "timestamp": 1795520633512
+      },
+      {
+        "executionId": "47659649-fa36-46b6-8dbc-0cc019f3b80b",
+        "chatSessionId": "sess_78b421f9-f417-4c80-9652-7f5cc424d9ac",
+        "timestamp": 1795521581106
+      }
+    ],
+    "13. Widget tests": [
+      {
+        "executionId": "47659649-fa36-46b6-8dbc-0cc019f3b80b",
+        "chatSessionId": "sess_78b421f9-f417-4c80-9652-7f5cc424d9ac",
+        "timestamp": 1795521581151
+      }
+    ],
+    "14.1 Write source-rule tests for the scene": [
+      {
+        "executionId": "47659649-fa36-46b6-8dbc-0cc019f3b80b",
+        "chatSessionId": "sess_78b421f9-f417-4c80-9652-7f5cc424d9ac",
+        "timestamp": 1795521581614
+      },
+      {
+        "executionId": "47659649-fa36-46b6-8dbc-0cc019f3b80b",
+        "chatSessionId": "sess_78b421f9-f417-4c80-9652-7f5cc424d9ac",
+        "timestamp": 1795521642816
+      }
+    ],
+    "14. Source-rule tests": [
+      {
+        "executionId": "47659649-fa36-46b6-8dbc-0cc019f3b80b",
+        "chatSessionId": "sess_78b421f9-f417-4c80-9652-7f5cc424d9ac",
+        "timestamp": 1795521642871
+      }
+    ],
+    "15.1 Run the full verification plan": [
+      {
+        "executionId": "a12f14b1-f27b-4b30-8a84-6d4f01648ce5",
+        "chatSessionId": "sess_cd505bff-3b59-44e0-9853-ce6d2dde5b00",
+        "timestamp": 1795522127480
+      },
+      {
+        "executionId": "a12f14b1-f27b-4b30-8a84-6d4f01648ce5",
+        "chatSessionId": "sess_cd505bff-3b59-44e0-9853-ce6d2dde5b00",
+        "timestamp": 1795522435815
+      }
+    ],
+    "15. Final verification": [
+      {
+        "executionId": "a12f14b1-f27b-4b30-8a84-6d4f01648ce5",
+        "chatSessionId": "sess_cd505bff-3b59-44e0-9853-ce6d2dde5b00",
+        "timestamp": 1795522435867
+      }
     ]
   }
 }

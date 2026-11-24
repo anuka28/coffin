@@ -254,74 +254,74 @@ Rules for every task:
 - [x] 9. Checkpoint - Scene math complete
   - Ensure all tests pass, ask the user if questions arise. Also run `flutter test --platform chrome test/domain test/data` in `apps/graveyard`; it must pass, so the hash, the random numbers and the cracks are equal on the VM and on the web.
 
-- [ ] 10. Copy
-  - [ ] 10.1 Update `GraveyardCopy`
+- [x] 10. Copy
+  - [x] 10.1 Update `GraveyardCopy`
     - In `lib/src/ui/graveyard_copy.dart`: make `epitaph` the constant `"R.I.P."` (no longer a function of the dead-for text), format the star count with `ThousandsFormatter` (both the visible star line and the semantic label, keeping "1 star" and "stars"), and clean the description with `DescriptionCleaner` in the semantic label. Add any new visible string here (none is required). Update `lib/src/ui/grave_tile.dart` and `test/ui/grave_tile_test.dart` only as far as needed to compile and pass; both are replaced in task 12.3.
     - _Requirements: 9.5, 10.2, 11.12, 12.8, 12.9, 14.1, 14.2, 14.3_
 
-  - [ ] 10.2 Update the copy tests
+  - [x] 10.2 Update the copy tests
     - Update `test/ui/graveyard_copy_test.dart`: the epitaph is "R.I.P." and does not contain the dead-for text, the star line shows "60,681" for 60681, the label shows the thousands separators and the cleaned description, the singular "1 star" and the plural stay, and no string contains "failed", "invalid" or "your fault".
     - _Requirements: 9.5, 11.12, 12.8, 12.9, 14.1, 14.2, 14.4_
 
-- [ ] 11. Painters and tombstone parts
-  - [ ] 11.1 Implement `NightSkyPainter` and `GroundPainter`
+- [x] 11. Painters and tombstone parts
+  - [x] 11.1 Implement `NightSkyPainter` and `GroundPainter`
     - Create `lib/src/ui/night_sky_painter.dart` (vertical gradient from the `background` token to the `surface` token, one Moon with a blurred glow in the upper third, the stars from `StarField` with `Twinkle` opacity, or a fixed opacity of 0.8 when motion is reduced, repainted by the Twinkle controller as its `repaint` listenable) and `lib/src/ui/ground_painter.dart` (a strip from a token color with a soft edge). Colors derive from `CoffinColorTokens`. No image, no package, no hard-coded color outside token blends.
     - _Requirements: 1.1, 1.2, 1.7, 1.8, 1.9, 1.10, 2.1, 6.2, 13.1, 13.7_
 
-  - [ ] 11.2 Implement `ArchEpitaph`
+  - [x] 11.2 Implement `ArchEpitaph`
     - Create `lib/src/ui/arch_epitaph.dart`: paints `GraveyardCopy.epitaph` ("R.I.P.") positioned by `ArchFit` inside the `archRise` 140 arch, measures the text with `TextPainter` at the scaled font size, shrinks down to 12 px, then truncates on one line with an ellipsis, never wraps, and is wrapped in `ExcludeSemantics`. It exposes its rectangle for the crack keep-out.
     - _Requirements: 9.1, 9.2, 9.4, 9.5, 9.6, 9.8, 9.9, 13.2, 15.5_
 
-  - [ ] 11.3 Implement `CrackPainter`
+  - [x] 11.3 Implement `CrackPainter`
     - Create `lib/src/ui/crack_painter.dart`: draws each crack as one `Path` of line segments with `PaintingStyle.stroke`, round caps and joins, the given color and stroke width of 1.5. No controller, no ticker, no listenable. `shouldRepaint` compares the crack lists by value, the color and the stroke width. The color is passed in (the `background` token at 70% alpha), so the painter has no hard-coded color.
     - _Requirements: 7.23, 7.24, 7.25, 7.26, 13.7, 15.5_
 
-  - [ ] 11.4 Write unit tests for the painters
+  - [x] 11.4 Write unit tests for the painters
     - Create `test/ui/night_sky_painter_test.dart`, `test/ui/ground_painter_test.dart` and `test/ui/crack_painter_test.dart`: each paints into a `PictureRecorder` canvas without an exception for a normal, a tiny (1 by 1) and a zero size; `shouldRepaint` is false for equal inputs and true for a different crack list, color or stroke width; the night sky paints no star for an empty star list; the crack painter paints nothing for an empty crack list.
     - _Requirements: 1.8, 1.10, 7.23, 7.25, 7.26_
 
-- [ ] 12. Tombstone, scene and screen
-  - [ ] 12.1 Implement `GraveTombstone`
+- [x] 12. Tombstone, scene and screen
+  - [x] 12.1 Implement `GraveTombstone`
     - Create `lib/src/ui/grave_tombstone.dart` (the successor of `GraveTile`): a `Stack` with the fade halo behind `TombstoneCard(showEpitaph: false)`, the `ArchEpitaph` and, for a Day_Count above 1825, the crack layer exactly as in the design (`Positioned.fill`, `IgnorePointer`, `ExcludeSemantics`, `LayoutBuilder`, `RepaintBoundary`, `CustomPaint` with the key `cracks-<id>`), the whole `Stack` inside `Transform.rotate` around the base center and the rise `Transform.translate` plus `Opacity`. The texts come from `TombstoneFacts`, the description from `DescriptionCleaner` (3 lines, ellipsis, no line when empty), the stars from `ThousandsFormatter`, "Archived" in words, "Buried by hand." for a manual grave, and one `Semantics(container: true)` label. The delete button keeps a 48 by 48 target, its label, and hover, press and focus states, and lies below the stone. The Day_Count comes from `DeadFor.between` and Today passed in. Keep-out areas: the content box and the epitaph rectangle.
     - _Requirements: 5.1, 5.2, 5.4, 5.9, 7.2, 7.10, 7.12, 7.13, 7.14, 7.22, 7.23, 7.24, 7.25, 7.26, 8.2, 8.6, 8.7, 9.9, 10.1, 10.2, 10.3, 10.4, 10.6, 10.7, 10.8, 11.6, 11.12, 11.13, 12.8, 13.2, 13.3, 13.5, 13.8_
 
-  - [ ] 12.2 Implement `GraveyardScene`
+  - [x] 12.2 Implement `GraveyardScene`
     - Create `lib/src/ui/graveyard_scene.dart`: a non-scrolling background `Stack` (the sky painter in its own `RepaintBoundary`, the ground painter, the `FogBackground` above them), the scrolling rows on top placed by `SceneLayout` (one column below 720, 2 to 4 at 720 and above, centered short rows, margin of `tombstoneWidth * sin(3 degrees)`), one Twinkle controller through the `MotionLoop` style of `coffin_core` that stops when `MediaQuery.disableAnimations` is true, one Rise controller per new tombstone created from `NewGraveIds.diff` in `didUpdateWidget` (the previous ids are seeded from the first list, so loaded and retried graves never rise), disposed once when the Rise ends, when the grave is removed or on dispose, and the Still_Scene when motion is reduced. It recomputes the Weathering and the cracks when Today changes, without replaying a Rise. Colors only from tokens. It reads no clock.
     - _Requirements: 1.1, 1.10, 2.5, 2.6, 2.7, 3.1, 3.2, 3.3, 3.4, 4.1, 4.2, 4.7, 4.8, 4.9, 4.10, 4.11, 4.12, 5.1, 5.4, 5.5, 5.6, 5.7, 5.8, 5.10, 5.11, 6.1, 6.2, 6.3, 6.4, 6.5, 6.6, 6.7, 7.10, 7.11, 7.27, 13.1, 13.4, 13.9, 13.10_
 
-  - [ ] 12.3 Wire the screen and replace the old tile
+  - [x] 12.3 Wire the screen and replace the old tile
     - Edit `lib/src/ui/graveyard_screen.dart` to host `GraveyardScene` instead of the `ListView` of `GraveTile`, keeping the loading, load error, empty, Memory_Notice and save-error states (drawn over the sky and fog), the add control above the scene, and the delete flow. Delete `lib/src/ui/grave_tile.dart` and `test/ui/grave_tile_test.dart`. Update `graveyard_screen_test.dart`, `layout_test.dart`, `delete_and_order_test.dart`, `add_import_test.dart`, `state_panels_test.dart` and any other test that finds `GraveTile` or the repeated texts, so each expects the single text and the new structure.
     - _Requirements: 4.7, 10.9, 13.6, 13.9, 13.10, 13.11, 16.9_
 
-- [ ] 13. Widget tests
-  - [ ] 13.1 Write widget tests for `GraveTombstone` content
+- [x] 13. Widget tests
+  - [x] 13.1 Write widget tests for `GraveTombstone` content
     - Create `test/ui/grave_tombstone_test.dart`: the Dead_For_Text once in the body and `owner/repo` once for `atom/atom`, the different-name case showing the full name once as a source line, the cleaned description ("The hackable text editor"), no empty gap for an empty cleaned description, "60,681", "Archived" in words, "Buried by hand.", the semantic labels for a manual and a GitHub grave (cleaned description, no cracks mentioned), the description limited to 3 lines, the 48 by 48 delete target and its label, hover and press states, in the dark and the daylight theme.
     - _Requirements: 10.1, 10.3, 10.4, 10.5, 10.6, 10.7, 10.8, 11.4, 11.6, 11.12, 11.13, 12.8, 12.9, 13.3, 16.6_
 
-  - [ ] 13.2 Write widget tests for the epitaph fit
+  - [x] 13.2 Write widget tests for the epitaph fit
     - Create `test/ui/arch_epitaph_test.dart`: "R.I.P." at the widths 240, 270 and 300 and the text scales 1.0, 1.5 and 2.0 is fully inside the arch region and not clipped (`tester.getRect` against a geometric check that mirrors `ArchFit`), never loses its first or last character, is not exposed as a semantic node, and rotates with a tilted tombstone.
     - _Requirements: 9.1, 9.5, 9.6, 9.7, 9.8, 9.9, 16.6_
 
-  - [ ] 13.3 Write widget tests for cracks
+  - [x] 13.3 Write widget tests for cracks
     - Create `test/ui/tombstone_cracks_test.dart`: a grave of 1826 days has a `CustomPaint` with the key `cracks-<id>` and 1 to 3 cracks, a grave of 1825 days has none; at the widths 240, 270 and 300 and the text scales 1.0, 1.5 and 2.0 the bounds of every painted crack, expanded by 0.75, do not intersect the rect of any rendered text (title, date line, Dead_For_Text, description and Epitaph); the same cracks after a rebuild and after a resize; the same cracks with `disableAnimations` true and false, with no frame scheduled by the painter; no semantics node for the crack layer and no mention in the label; the painter color equals the `background` token in the dark and the daylight theme; the delete control keeps its 48 by 48 target and is hit-testable; `refreshToday` across the threshold adds the cracks and plays no Rise.
     - _Requirements: 7.15, 7.16, 7.20, 7.22, 7.23, 7.24, 7.25, 7.26, 7.27, 8.9, 8.10, 13.3, 16.6_
 
-  - [ ] 13.4 Write widget tests for tilt, fade and contrast
+  - [x] 13.4 Write widget tests for tilt, fade and contrast
     - Create `test/ui/tombstone_weathering_test.dart`: a ten-year-old grave is tilted by at most 3 degrees and has a fade halo, a fresh grave has neither, the tilt is the same after a rebuild, the base stays on the ground, and the rendered text and stone colors of a fresh and of a ten-year-old grave keep a `WcagContrast.ratio` of at least 3.0 in the dark and the daylight theme, with and without cracks.
     - _Requirements: 7.2, 7.5, 7.6, 7.12, 7.13, 8.1, 8.2, 8.3, 8.6, 16.6, 16.8_
 
-  - [ ] 13.5 Write widget tests for the scene
+  - [x] 13.5 Write widget tests for the scene
     - Create `test/ui/graveyard_scene_test.dart`: the states empty, loading, list, load error, Memory_Notice and save error render over the sky and fog without overflow at the widths 320, 360, 768 and 1280 and the text scales 1.0 and 1.5; one column at 360 and 2 to 4 columns at 768 and 1280; the Rise on an added grave and none on loaded graves, on a retried load, or when another grave is deleted; two quick adds rise independently; the Still_Scene with `disableAnimations` true has no running animation after the first frame, draws the cracks and every tombstone at rest; motion turning off mid-Rise or mid-Twinkle does not throw; the order of semantic nodes follows the order of the graves; the sky, moon, stars, ground and fog add no semantic node; disposal during a Rise does not throw.
     - _Requirements: 1.8, 3.4, 4.1, 4.2, 4.10, 5.1, 5.4, 5.5, 5.6, 5.7, 5.8, 5.10, 6.1, 6.2, 6.4, 6.5, 6.6, 6.8, 13.1, 13.2, 13.9, 13.10, 16.6, 16.7_
 
-- [ ] 14. Source-rule tests
-  - [ ] 14.1 Write source-rule tests for the scene
+- [x] 14. Source-rule tests
+  - [x] 14.1 Write source-rule tests for the scene
     - Create `test/source_rules/scene_sources_test.dart`: no file under `lib/src/domain/scene` reads `String.hashCode` (the rule matches uses, not overrides: it bans a `.hashCode` member access such as `id.hashCode`, and allows the declaration `int get hashCode => Object.hash(...)` in value classes), and none contains `package:flutter`, `dart:ui`, `dart:io`, `dart:html` or `DateTime.now`; `crack_generator.dart`, `stable_hash.dart` and `stable_random.dart` do not import `dart:math`; the scene and tombstone files under `lib/src/ui` contain no `Color(0x` and no `Colors.` (colors come from tokens); no file under `lib` imports `coffin_core/src` or Hauntagotchi; and the `grave_tile.dart` file no longer exists. This folder is the only place that reads source files with `dart:io`.
     - Write the hashing rule as a function over source text that strips comments and string literals, then flags the regex `\.hashCode\b` (a member access) and does not flag `get hashCode`. Add a self-check in the same file that runs the function on two inline snippets: one allowed (`int get hashCode => Object.hash(a, b);`, must produce no violation) and one banned (`final seed = id.hashCode;`, must produce a violation).
     - _Requirements: 7.18, 7.25, 13.7, 15.3, 15.4, 15.5, 15.8_
 
-- [ ] 15. Final verification
-  - [ ] 15.1 Run the full verification plan
+- [x] 15. Final verification
+  - [x] 15.1 Run the full verification plan
     - In `apps/graveyard`, run `dart format --output=none --set-exit-if-changed .`, `flutter analyze` (zero issues), `flutter test`, and `flutter test --platform chrome test/domain test/data`. Check `grep -rl "dart:io" test/domain test/data` finds nothing.
     - Run `flutter test` in `apps/hauntagotchi`, in `packages/coffin_core` and in `tool/`, then `flutter test --tags raise-check --run-skipped` in `tool/`. All must pass unchanged.
     - Run `flutter pub get --enforce-lockfile` at the repo root, then check `git diff --exit-code -- pubspec.lock` exits 0 (no new package, so no lockfile change).

@@ -28,7 +28,7 @@ void main() {
     GraveyardCopy.emptyBody,
     GraveyardCopy.emptyTitle,
     GraveyardCopy.deleteBody,
-    GraveyardCopy.epitaph('Dead for 3 weeks'),
+    GraveyardCopy.epitaph,
     GraveyardCopy.dateLine(CalendarDate(2023, 1, 3)),
   ];
 
@@ -138,6 +138,29 @@ void main() {
     );
     expect(label(1), contains('1 star.'));
     expect(label(12), contains('12 stars'));
+  });
+
+  test('the epitaph is R.I.P. and has no dead-for text', () {
+    expect(GraveyardCopy.epitaph, 'R.I.P.');
+    expect(GraveyardCopy.epitaph, isNot(contains('Dead for')));
+    expect(GraveyardCopy.epitaph, isNot(contains('Died')));
+  });
+
+  test('star line and label use thousands separators', () {
+    expect(GraveyardCopy.stars(60681, archived: false), '60,681');
+    expect(GraveyardCopy.stars(60681, archived: true), '60,681, Archived');
+    final label = GraveyardCopy.githubGraveLabel(
+      name: 'Atom',
+      deadForText: 'Dead for 3 years',
+      fullName: 'atom/atom',
+      stars: 60681,
+      archived: false,
+      description: 'The :hammer: hackable text editor',
+    );
+    expect(label, contains('60,681 stars'));
+    expect(label, isNot(contains('60681')));
+    expect(label, contains('The hackable text editor'));
+    expect(label, isNot(contains(':hammer:')));
   });
 
   test('every import failure has a distinct message', () {

@@ -260,3 +260,15 @@ A few lines per day: what I asked Kiro, what worked, what didn't, what I learned
   - The "Died today" screen test uses the cross-midnight case: 23:30 UTC is already 01:30 the next day at +2:00, and the app still reads "Died today". The time-zone fix, proven at screen level.
   - Graveyard's analyze and tests now run in the deploy workflow too, so a failing Graveyard test blocks the deploy.
   - Verified myself: Graveyard **495** tests (299 also in Chrome), Hauntagotchi 607, coffin_core 1,637, tool 91 + raise-check; analyze clean everywhere; the only lockfile change in the whole spec is the one `http` entry; no token or authorization strings in the app.
+
+## Day 16 · Nov 24, 2026 — the graveyard at night
+- **Twelfth spec: `graveyard-scene`.** Graveyard stopped being a list: a night sky with a moon and softly twinkling stars, coffin_core's fog drifting over the ground, tombstones standing in rows (one column on phones, up to four on wide screens), each new grave rising gently from the ground once. Old graves weather: they lean a little (up to 3°), and graves dead for more than five years get thin cracks near the base, generated from the grave's id so the same grave always looks the same, and never touching any text. Reduced motion gives a complete still scene.
+- It also fixed what I saw on the live site: the epitaph was clipped by the arch (now "R.I.P.", fitted inside the curve at every width and text size), facts were shown twice, GitHub emoji codes like `:atom:` showed raw, and star counts had no separators ("60,683").
+- Kept coffin_core's `TombstoneCard` and wrapped it rather than copying it: the apps being built *from* the kit is the Skeleton Crew story.
+- Bugs and gaps caught along the way:
+  - Chrome prints `1.0` as `1`, so one test passed on the computer and failed in the browser. Running the domain tests in Chrome is what found it.
+  - Kiro flagged that a planned "never use `String.hashCode`" source rule would also have banned the normal `hashCode` overrides that value classes need; the rule now matches uses, not the word.
+  - **The very first grave never rose**: going from the empty graveyard to one grave rebuilt the scene, which then treated that grave as already there. That's exactly the demo moment, so it had to be fixed. Also fixed: the save-error banner could squash the scene to 0 px at large text on a small phone, and screen readers read all the stones and then all the Delete buttons (now stone 1, Delete 1, …).
+  - A puzzling "animation still running" turned out to be the test setup (a fresh theme per pump), not the app.
+  - Kiro wrote a scratch test file to `/tmp` again; I removed it and repeated the rule.
+- Verified myself: Graveyard **816** tests (451 also in Chrome), Hauntagotchi 607, coffin_core 1,637, tool 91 + raise-check; analyze clean; no package added, lockfile unchanged.

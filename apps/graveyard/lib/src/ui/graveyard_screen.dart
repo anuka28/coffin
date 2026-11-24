@@ -10,8 +10,8 @@ import 'delete_grave_dialog.dart';
 import 'empty_graveyard_panel.dart';
 import 'grave_list_controller.dart';
 import 'grave_list_status.dart';
-import 'grave_tile.dart';
 import 'graveyard_copy.dart';
+import 'graveyard_scene.dart';
 import 'load_error_view.dart';
 import 'memory_notice.dart';
 import 'save_error_banner.dart';
@@ -34,7 +34,6 @@ class _GraveyardScreenState extends State<GraveyardScreen>
     with WidgetsBindingObserver {
   static const double _maxWidth = 560;
   static const double _sidePadding = 16;
-  static const double _bottomPadding = 96;
 
   @override
   void initState() {
@@ -81,7 +80,9 @@ class _GraveyardScreenState extends State<GraveyardScreen>
                   label: const Text(GraveyardCopy.addButton),
                 )
               : null,
-          body: FogBackground(child: SafeArea(child: _body(context, c))),
+          body: c.status == GraveListStatus.loading
+              ? FogBackground(child: SafeArea(child: _body(context, c)))
+              : _body(context, c),
         );
       },
     );
@@ -139,28 +140,31 @@ class _GraveyardScreenState extends State<GraveyardScreen>
             onImport: () => _openSheet(AddMode.importFromGitHub),
           ),
         );
-      } else {
-        final today = c.today;
-        for (final Grave grave in graves) {
-          children.add(
-            Padding(
-              key: ValueKey<String>('grave-${grave.id}'),
-              padding: const EdgeInsets.only(bottom: 16),
-              child: Center(
-                child: GraveTile(
-                  grave: grave,
-                  today: today,
-                  onDelete: () => _delete(grave),
-                ),
-              ),
-            ),
-          );
-        }
       }
     }
-    return ListView(
-      padding: EdgeInsets.fromLTRB(side, 0, side, _bottomPadding),
-      children: children,
+    // One scene for every non-loading state, at one place in the tree, so a
+    // grave added to an empty graveyard rises. The title, notices, banners
+    // and panels scroll inside it, above the rows. Loading drops the scene,
+    // so graves of the first or of a retried load never rise.
+    //
+    // The key tells the load error scene from the ready scene. A retried load
+    // may go from error to ready within one frame, with no loading frame in
+    // between, and its graves must still not rise.
+    return GraveyardScene(
+      key: ValueKey<bool>(c.status == GraveListStatus.loadError),
+      graves: c.status == GraveListStatus.loadError ? const <Grave>[] : graves,
+      today: c.today,
+      onDelete: _delete,
+      header: SafeArea(
+        bottom: false,
+        child: Padding(
+          padding: EdgeInsets.fromLTRB(side, 0, side, 0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: children,
+          ),
+        ),
+      ),
     );
   }
 }
