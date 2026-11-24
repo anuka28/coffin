@@ -1,0 +1,739 @@
+{
+  "pbtResults": {
+    "2.7 Write property test for twinkle range": {
+      "status": "passed",
+      "lastRunTimestamp": 1795511911061
+    },
+    "2.6 Write property test for the star count": {
+      "status": "passed",
+      "lastRunTimestamp": 1795511912275
+    },
+    "2.5 Write property test for stars inside the sky and outside the moon": {
+      "status": "passed",
+      "lastRunTimestamp": 1795511917570
+    },
+    "2.8 Write property test for twinkle periodicity": {
+      "status": "passed",
+      "lastRunTimestamp": 1795511965637
+    },
+    "3.7 Write property test for layout order": {
+      "status": "passed",
+      "lastRunTimestamp": 1795512118331
+    },
+    "3.8 Write property test for layout injectivity": {
+      "status": "passed",
+      "lastRunTimestamp": 1795512157169
+    },
+    "4.8 Write property test for weathering determinism": {
+      "status": "passed",
+      "lastRunTimestamp": 1795512429002
+    },
+    "6.5 Write property test for whole-word shortcode removal": {
+      "status": "passed",
+      "lastRunTimestamp": 1795512816064
+    },
+    "6.6 Write property test for cleaner idempotence": {
+      "status": "passed",
+      "lastRunTimestamp": 1795512819004
+    },
+    "6.8 Write property test for the thousands round trip": {
+      "status": "passed",
+      "lastRunTimestamp": 1795512917879
+    },
+    "6.9 Write property test for thousands grouping": {
+      "status": "passed",
+      "lastRunTimestamp": 1795512924473
+    },
+    "7.4 Write property test for cracks": {
+      "status": "passed",
+      "lastRunTimestamp": 1795514600489
+    },
+    "8.3 Write property test for visible fragments": {
+      "status": "passed",
+      "lastRunTimestamp": 1795514736638
+    }
+  },
+  "executionHistory": {
+    "1.1 Implement `StableHash` and `StableRandom`": [
+      {
+        "executionId": "2ac0476e-9bd4-48c0-af3d-0eed7b6da49b",
+        "chatSessionId": "sess_6337343b-4bc3-4cdc-9002-c44a2dc59441",
+        "timestamp": 1795511612589
+      },
+      {
+        "executionId": "2ac0476e-9bd4-48c0-af3d-0eed7b6da49b",
+        "chatSessionId": "sess_6337343b-4bc3-4cdc-9002-c44a2dc59441",
+        "timestamp": 1795511655937
+      }
+    ],
+    "1.2 Write unit tests for `StableHash` and `StableRandom`": [
+      {
+        "executionId": "2ac0476e-9bd4-48c0-af3d-0eed7b6da49b",
+        "chatSessionId": "sess_6337343b-4bc3-4cdc-9002-c44a2dc59441",
+        "timestamp": 1795511661705
+      },
+      {
+        "executionId": "2ac0476e-9bd4-48c0-af3d-0eed7b6da49b",
+        "chatSessionId": "sess_6337343b-4bc3-4cdc-9002-c44a2dc59441",
+        "timestamp": 1795511731082
+      }
+    ],
+    "1. Stable hash and stable random": [
+      {
+        "executionId": "2ac0476e-9bd4-48c0-af3d-0eed7b6da49b",
+        "chatSessionId": "sess_6337343b-4bc3-4cdc-9002-c44a2dc59441",
+        "timestamp": 1795511731113
+      }
+    ],
+    "2. Night sky math": [
+      {
+        "executionId": "63666585-efeb-463a-93a0-fcc4be4ad638",
+        "chatSessionId": "sess_21d78498-25c9-40a6-bd1c-67c99d689543",
+        "timestamp": 1795511791145
+      },
+      {
+        "executionId": "63666585-efeb-463a-93a0-fcc4be4ad638",
+        "chatSessionId": "sess_21d78498-25c9-40a6-bd1c-67c99d689543",
+        "timestamp": 1795511974393
+      }
+    ],
+    "2.1 Implement `Star`, `StarField` and `Twinkle`": [
+      {
+        "executionId": "63666585-efeb-463a-93a0-fcc4be4ad638",
+        "chatSessionId": "sess_21d78498-25c9-40a6-bd1c-67c99d689543",
+        "timestamp": 1795511796426
+      },
+      {
+        "executionId": "63666585-efeb-463a-93a0-fcc4be4ad638",
+        "chatSessionId": "sess_21d78498-25c9-40a6-bd1c-67c99d689543",
+        "timestamp": 1795511858015
+      }
+    ],
+    "2.2 Extend the test generators with scene sizes, widths and id lists": [
+      {
+        "executionId": "63666585-efeb-463a-93a0-fcc4be4ad638",
+        "chatSessionId": "sess_21d78498-25c9-40a6-bd1c-67c99d689543",
+        "timestamp": 1795511796460
+      },
+      {
+        "executionId": "63666585-efeb-463a-93a0-fcc4be4ad638",
+        "chatSessionId": "sess_21d78498-25c9-40a6-bd1c-67c99d689543",
+        "timestamp": 1795511858444
+      }
+    ],
+    "2.3 Write unit tests for `StarField` and `Twinkle`": [
+      {
+        "executionId": "63666585-efeb-463a-93a0-fcc4be4ad638",
+        "chatSessionId": "sess_21d78498-25c9-40a6-bd1c-67c99d689543",
+        "timestamp": 1795511865288
+      },
+      {
+        "executionId": "63666585-efeb-463a-93a0-fcc4be4ad638",
+        "chatSessionId": "sess_21d78498-25c9-40a6-bd1c-67c99d689543",
+        "timestamp": 1795511931279
+      }
+    ],
+    "2.4 Write property test for star field determinism": [
+      {
+        "executionId": "63666585-efeb-463a-93a0-fcc4be4ad638",
+        "chatSessionId": "sess_21d78498-25c9-40a6-bd1c-67c99d689543",
+        "timestamp": 1795511865344
+      },
+      {
+        "executionId": "63666585-efeb-463a-93a0-fcc4be4ad638",
+        "chatSessionId": "sess_21d78498-25c9-40a6-bd1c-67c99d689543",
+        "timestamp": 1795511931856
+      }
+    ],
+    "2.5 Write property test for stars inside the sky and outside the moon": [
+      {
+        "executionId": "63666585-efeb-463a-93a0-fcc4be4ad638",
+        "chatSessionId": "sess_21d78498-25c9-40a6-bd1c-67c99d689543",
+        "timestamp": 1795511865371
+      },
+      {
+        "executionId": "63666585-efeb-463a-93a0-fcc4be4ad638",
+        "chatSessionId": "sess_21d78498-25c9-40a6-bd1c-67c99d689543",
+        "timestamp": 1795511932656
+      }
+    ],
+    "2.6 Write property test for the star count": [
+      {
+        "executionId": "63666585-efeb-463a-93a0-fcc4be4ad638",
+        "chatSessionId": "sess_21d78498-25c9-40a6-bd1c-67c99d689543",
+        "timestamp": 1795511865807
+      },
+      {
+        "executionId": "63666585-efeb-463a-93a0-fcc4be4ad638",
+        "chatSessionId": "sess_21d78498-25c9-40a6-bd1c-67c99d689543",
+        "timestamp": 1795511933488
+      }
+    ],
+    "2.7 Write property test for twinkle range": [
+      {
+        "executionId": "63666585-efeb-463a-93a0-fcc4be4ad638",
+        "chatSessionId": "sess_21d78498-25c9-40a6-bd1c-67c99d689543",
+        "timestamp": 1795511866173
+      },
+      {
+        "executionId": "63666585-efeb-463a-93a0-fcc4be4ad638",
+        "chatSessionId": "sess_21d78498-25c9-40a6-bd1c-67c99d689543",
+        "timestamp": 1795511934254
+      }
+    ],
+    "2.8 Write property test for twinkle periodicity": [
+      {
+        "executionId": "63666585-efeb-463a-93a0-fcc4be4ad638",
+        "chatSessionId": "sess_21d78498-25c9-40a6-bd1c-67c99d689543",
+        "timestamp": 1795511935055
+      },
+      {
+        "executionId": "63666585-efeb-463a-93a0-fcc4be4ad638",
+        "chatSessionId": "sess_21d78498-25c9-40a6-bd1c-67c99d689543",
+        "timestamp": 1795511974363
+      }
+    ],
+    "2.9 Write property test for twinkle smoothness": [
+      {
+        "executionId": "63666585-efeb-463a-93a0-fcc4be4ad638",
+        "chatSessionId": "sess_21d78498-25c9-40a6-bd1c-67c99d689543",
+        "timestamp": 1795511935524
+      },
+      {
+        "executionId": "63666585-efeb-463a-93a0-fcc4be4ad638",
+        "chatSessionId": "sess_21d78498-25c9-40a6-bd1c-67c99d689543",
+        "timestamp": 1795511973198
+      }
+    ],
+    "3.1 Implement `SceneCell` and `SceneLayout`": [
+      {
+        "executionId": "defc44bf-2d72-4390-90e4-4f4a5ddc8400",
+        "chatSessionId": "sess_dbc18e03-9663-4f3d-86fb-1387f8ed3256",
+        "timestamp": 1795512007191
+      },
+      {
+        "executionId": "defc44bf-2d72-4390-90e4-4f4a5ddc8400",
+        "chatSessionId": "sess_dbc18e03-9663-4f3d-86fb-1387f8ed3256",
+        "timestamp": 1795512065397
+      }
+    ],
+    "3.2 Implement `NewGraveIds`": [
+      {
+        "executionId": "defc44bf-2d72-4390-90e4-4f4a5ddc8400",
+        "chatSessionId": "sess_dbc18e03-9663-4f3d-86fb-1387f8ed3256",
+        "timestamp": 1795512007628
+      },
+      {
+        "executionId": "defc44bf-2d72-4390-90e4-4f4a5ddc8400",
+        "chatSessionId": "sess_dbc18e03-9663-4f3d-86fb-1387f8ed3256",
+        "timestamp": 1795512064635
+      }
+    ],
+    "3.3 Write unit tests for `SceneLayout`": [
+      {
+        "executionId": "defc44bf-2d72-4390-90e4-4f4a5ddc8400",
+        "chatSessionId": "sess_dbc18e03-9663-4f3d-86fb-1387f8ed3256",
+        "timestamp": 1795512066304
+      },
+      {
+        "executionId": "defc44bf-2d72-4390-90e4-4f4a5ddc8400",
+        "chatSessionId": "sess_dbc18e03-9663-4f3d-86fb-1387f8ed3256",
+        "timestamp": 1795512125787
+      }
+    ],
+    "3.4 Write unit tests for `NewGraveIds`": [
+      {
+        "executionId": "defc44bf-2d72-4390-90e4-4f4a5ddc8400",
+        "chatSessionId": "sess_dbc18e03-9663-4f3d-86fb-1387f8ed3256",
+        "timestamp": 1795512067003
+      },
+      {
+        "executionId": "defc44bf-2d72-4390-90e4-4f4a5ddc8400",
+        "chatSessionId": "sess_dbc18e03-9663-4f3d-86fb-1387f8ed3256",
+        "timestamp": 1795512126589
+      }
+    ],
+    "3.5 Write property test for column bounds": [
+      {
+        "executionId": "defc44bf-2d72-4390-90e4-4f4a5ddc8400",
+        "chatSessionId": "sess_dbc18e03-9663-4f3d-86fb-1387f8ed3256",
+        "timestamp": 1795512067822
+      },
+      {
+        "executionId": "defc44bf-2d72-4390-90e4-4f4a5ddc8400",
+        "chatSessionId": "sess_dbc18e03-9663-4f3d-86fb-1387f8ed3256",
+        "timestamp": 1795512127394
+      }
+    ],
+    "3.6 Write property test for the row width": [
+      {
+        "executionId": "defc44bf-2d72-4390-90e4-4f4a5ddc8400",
+        "chatSessionId": "sess_dbc18e03-9663-4f3d-86fb-1387f8ed3256",
+        "timestamp": 1795512068601
+      },
+      {
+        "executionId": "defc44bf-2d72-4390-90e4-4f4a5ddc8400",
+        "chatSessionId": "sess_dbc18e03-9663-4f3d-86fb-1387f8ed3256",
+        "timestamp": 1795512128188
+      }
+    ],
+    "3.7 Write property test for layout order": [
+      {
+        "executionId": "defc44bf-2d72-4390-90e4-4f4a5ddc8400",
+        "chatSessionId": "sess_dbc18e03-9663-4f3d-86fb-1387f8ed3256",
+        "timestamp": 1795512069190
+      },
+      {
+        "executionId": "defc44bf-2d72-4390-90e4-4f4a5ddc8400",
+        "chatSessionId": "sess_dbc18e03-9663-4f3d-86fb-1387f8ed3256",
+        "timestamp": 1795512129004
+      }
+    ],
+    "3.8 Write property test for layout injectivity": [
+      {
+        "executionId": "defc44bf-2d72-4390-90e4-4f4a5ddc8400",
+        "chatSessionId": "sess_dbc18e03-9663-4f3d-86fb-1387f8ed3256",
+        "timestamp": 1795512129793
+      },
+      {
+        "executionId": "defc44bf-2d72-4390-90e4-4f4a5ddc8400",
+        "chatSessionId": "sess_dbc18e03-9663-4f3d-86fb-1387f8ed3256",
+        "timestamp": 1795512165810
+      }
+    ],
+    "3.9 Write property test for the new-grave diff": [
+      {
+        "executionId": "defc44bf-2d72-4390-90e4-4f4a5ddc8400",
+        "chatSessionId": "sess_dbc18e03-9663-4f3d-86fb-1387f8ed3256",
+        "timestamp": 1795512130321
+      },
+      {
+        "executionId": "defc44bf-2d72-4390-90e4-4f4a5ddc8400",
+        "chatSessionId": "sess_dbc18e03-9663-4f3d-86fb-1387f8ed3256",
+        "timestamp": 1795512166673
+      }
+    ],
+    "3. Layout and new graves": [
+      {
+        "executionId": "defc44bf-2d72-4390-90e4-4f4a5ddc8400",
+        "chatSessionId": "sess_dbc18e03-9663-4f3d-86fb-1387f8ed3256",
+        "timestamp": 1795512166704
+      }
+    ],
+    "4.1 Implement `WeatheringResult`, `Weathering` and `RiseProgress`": [
+      {
+        "executionId": "359dfab1-fa87-4970-aae9-c1b8bcd1e82b",
+        "chatSessionId": "sess_9f7b119b-61cc-4fc9-8acd-d8c5079a5f5f",
+        "timestamp": 1795512224463
+      },
+      {
+        "executionId": "359dfab1-fa87-4970-aae9-c1b8bcd1e82b",
+        "chatSessionId": "sess_9f7b119b-61cc-4fc9-8acd-d8c5079a5f5f",
+        "timestamp": 1795512312567
+      }
+    ],
+    "4.2 Extend the test generators with day counts, ids, arch inputs, descriptions and counts": [
+      {
+        "executionId": "359dfab1-fa87-4970-aae9-c1b8bcd1e82b",
+        "chatSessionId": "sess_9f7b119b-61cc-4fc9-8acd-d8c5079a5f5f",
+        "timestamp": 1795512224495
+      },
+      {
+        "executionId": "359dfab1-fa87-4970-aae9-c1b8bcd1e82b",
+        "chatSessionId": "sess_9f7b119b-61cc-4fc9-8acd-d8c5079a5f5f",
+        "timestamp": 1795512312593
+      }
+    ],
+    "4.3 Write unit tests for `Weathering` and `RiseProgress`": [
+      {
+        "executionId": "359dfab1-fa87-4970-aae9-c1b8bcd1e82b",
+        "chatSessionId": "sess_9f7b119b-61cc-4fc9-8acd-d8c5079a5f5f",
+        "timestamp": 1795512318118
+      },
+      {
+        "executionId": "359dfab1-fa87-4970-aae9-c1b8bcd1e82b",
+        "chatSessionId": "sess_9f7b119b-61cc-4fc9-8acd-d8c5079a5f5f",
+        "timestamp": 1795512395652
+      }
+    ],
+    "4.4 Write the contrast table unit test": [
+      {
+        "executionId": "359dfab1-fa87-4970-aae9-c1b8bcd1e82b",
+        "chatSessionId": "sess_9f7b119b-61cc-4fc9-8acd-d8c5079a5f5f",
+        "timestamp": 1795512318160
+      },
+      {
+        "executionId": "359dfab1-fa87-4970-aae9-c1b8bcd1e82b",
+        "chatSessionId": "sess_9f7b119b-61cc-4fc9-8acd-d8c5079a5f5f",
+        "timestamp": 1795512396378
+      }
+    ],
+    "4.5 Write property test for rise progress": [
+      {
+        "executionId": "359dfab1-fa87-4970-aae9-c1b8bcd1e82b",
+        "chatSessionId": "sess_9f7b119b-61cc-4fc9-8acd-d8c5079a5f5f",
+        "timestamp": 1795512318820
+      },
+      {
+        "executionId": "359dfab1-fa87-4970-aae9-c1b8bcd1e82b",
+        "chatSessionId": "sess_9f7b119b-61cc-4fc9-8acd-d8c5079a5f5f",
+        "timestamp": 1795512397177
+      }
+    ],
+    "4.6 Write property test for the weathering level": [
+      {
+        "executionId": "359dfab1-fa87-4970-aae9-c1b8bcd1e82b",
+        "chatSessionId": "sess_9f7b119b-61cc-4fc9-8acd-d8c5079a5f5f",
+        "timestamp": 1795512319603
+      },
+      {
+        "executionId": "359dfab1-fa87-4970-aae9-c1b8bcd1e82b",
+        "chatSessionId": "sess_9f7b119b-61cc-4fc9-8acd-d8c5079a5f5f",
+        "timestamp": 1795512398009
+      }
+    ],
+    "4.7 Write property test for tilt and fade limits": [
+      {
+        "executionId": "359dfab1-fa87-4970-aae9-c1b8bcd1e82b",
+        "chatSessionId": "sess_9f7b119b-61cc-4fc9-8acd-d8c5079a5f5f",
+        "timestamp": 1795512320017
+      },
+      {
+        "executionId": "359dfab1-fa87-4970-aae9-c1b8bcd1e82b",
+        "chatSessionId": "sess_9f7b119b-61cc-4fc9-8acd-d8c5079a5f5f",
+        "timestamp": 1795512398468
+      }
+    ],
+    "4.8 Write property test for weathering determinism": [
+      {
+        "executionId": "359dfab1-fa87-4970-aae9-c1b8bcd1e82b",
+        "chatSessionId": "sess_9f7b119b-61cc-4fc9-8acd-d8c5079a5f5f",
+        "timestamp": 1795512399277
+      },
+      {
+        "executionId": "359dfab1-fa87-4970-aae9-c1b8bcd1e82b",
+        "chatSessionId": "sess_9f7b119b-61cc-4fc9-8acd-d8c5079a5f5f",
+        "timestamp": 1795512469687
+      }
+    ],
+    "4.9 Write property test for weathered contrast": [
+      {
+        "executionId": "359dfab1-fa87-4970-aae9-c1b8bcd1e82b",
+        "chatSessionId": "sess_9f7b119b-61cc-4fc9-8acd-d8c5079a5f5f",
+        "timestamp": 1795512399868
+      },
+      {
+        "executionId": "359dfab1-fa87-4970-aae9-c1b8bcd1e82b",
+        "chatSessionId": "sess_9f7b119b-61cc-4fc9-8acd-d8c5079a5f5f",
+        "timestamp": 1795512470250
+      }
+    ],
+    "4. Weathering and rise": [
+      {
+        "executionId": "359dfab1-fa87-4970-aae9-c1b8bcd1e82b",
+        "chatSessionId": "sess_9f7b119b-61cc-4fc9-8acd-d8c5079a5f5f",
+        "timestamp": 1795512470277
+      }
+    ],
+    "5.1 Implement `ArchFitResult` and `ArchFit`": [
+      {
+        "executionId": "647502b3-f061-484f-82be-35948c95ac1f",
+        "chatSessionId": "sess_9f7b119b-61cc-4fc9-8acd-d8c5079a5f5f",
+        "timestamp": 1795512549102
+      },
+      {
+        "executionId": "647502b3-f061-484f-82be-35948c95ac1f",
+        "chatSessionId": "sess_9f7b119b-61cc-4fc9-8acd-d8c5079a5f5f",
+        "timestamp": 1795512606755
+      }
+    ],
+    "5.2 Write unit tests for `ArchFit`": [
+      {
+        "executionId": "647502b3-f061-484f-82be-35948c95ac1f",
+        "chatSessionId": "sess_9f7b119b-61cc-4fc9-8acd-d8c5079a5f5f",
+        "timestamp": 1795512613612
+      },
+      {
+        "executionId": "647502b3-f061-484f-82be-35948c95ac1f",
+        "chatSessionId": "sess_9f7b119b-61cc-4fc9-8acd-d8c5079a5f5f",
+        "timestamp": 1795512719879
+      }
+    ],
+    "5.3 Write property test for arch fit containment": [
+      {
+        "executionId": "647502b3-f061-484f-82be-35948c95ac1f",
+        "chatSessionId": "sess_9f7b119b-61cc-4fc9-8acd-d8c5079a5f5f",
+        "timestamp": 1795512614145
+      },
+      {
+        "executionId": "647502b3-f061-484f-82be-35948c95ac1f",
+        "chatSessionId": "sess_9f7b119b-61cc-4fc9-8acd-d8c5079a5f5f",
+        "timestamp": 1795512720660
+      }
+    ],
+    "5. Arch fit": [
+      {
+        "executionId": "647502b3-f061-484f-82be-35948c95ac1f",
+        "chatSessionId": "sess_9f7b119b-61cc-4fc9-8acd-d8c5079a5f5f",
+        "timestamp": 1795512720694
+      }
+    ],
+    "6.1 Implement `DescriptionCleaner`": [
+      {
+        "executionId": "647502b3-f061-484f-82be-35948c95ac1f",
+        "chatSessionId": "sess_9f7b119b-61cc-4fc9-8acd-d8c5079a5f5f",
+        "timestamp": 1795512730963
+      },
+      {
+        "executionId": "647502b3-f061-484f-82be-35948c95ac1f",
+        "chatSessionId": "sess_9f7b119b-61cc-4fc9-8acd-d8c5079a5f5f",
+        "timestamp": 1795512769409
+      }
+    ],
+    "6.2 Implement `ThousandsFormatter`": [
+      {
+        "executionId": "647502b3-f061-484f-82be-35948c95ac1f",
+        "chatSessionId": "sess_9f7b119b-61cc-4fc9-8acd-d8c5079a5f5f",
+        "timestamp": 1795512731420
+      },
+      {
+        "executionId": "647502b3-f061-484f-82be-35948c95ac1f",
+        "chatSessionId": "sess_9f7b119b-61cc-4fc9-8acd-d8c5079a5f5f",
+        "timestamp": 1795512769446
+      }
+    ],
+    "6.3 Write unit tests for `DescriptionCleaner`": [
+      {
+        "executionId": "647502b3-f061-484f-82be-35948c95ac1f",
+        "chatSessionId": "sess_9f7b119b-61cc-4fc9-8acd-d8c5079a5f5f",
+        "timestamp": 1795512772990
+      },
+      {
+        "executionId": "647502b3-f061-484f-82be-35948c95ac1f",
+        "chatSessionId": "sess_9f7b119b-61cc-4fc9-8acd-d8c5079a5f5f",
+        "timestamp": 1795512885357
+      }
+    ],
+    "6.4 Write unit tests for `ThousandsFormatter`": [
+      {
+        "executionId": "647502b3-f061-484f-82be-35948c95ac1f",
+        "chatSessionId": "sess_9f7b119b-61cc-4fc9-8acd-d8c5079a5f5f",
+        "timestamp": 1795512773754
+      },
+      {
+        "executionId": "647502b3-f061-484f-82be-35948c95ac1f",
+        "chatSessionId": "sess_9f7b119b-61cc-4fc9-8acd-d8c5079a5f5f",
+        "timestamp": 1795512886161
+      }
+    ],
+    "6.5 Write property test for whole-word shortcode removal": [
+      {
+        "executionId": "647502b3-f061-484f-82be-35948c95ac1f",
+        "chatSessionId": "sess_9f7b119b-61cc-4fc9-8acd-d8c5079a5f5f",
+        "timestamp": 1795512774578
+      },
+      {
+        "executionId": "647502b3-f061-484f-82be-35948c95ac1f",
+        "chatSessionId": "sess_9f7b119b-61cc-4fc9-8acd-d8c5079a5f5f",
+        "timestamp": 1795512886965
+      }
+    ],
+    "6.6 Write property test for cleaner idempotence": [
+      {
+        "executionId": "647502b3-f061-484f-82be-35948c95ac1f",
+        "chatSessionId": "sess_9f7b119b-61cc-4fc9-8acd-d8c5079a5f5f",
+        "timestamp": 1795512775352
+      },
+      {
+        "executionId": "647502b3-f061-484f-82be-35948c95ac1f",
+        "chatSessionId": "sess_9f7b119b-61cc-4fc9-8acd-d8c5079a5f5f",
+        "timestamp": 1795512887767
+      }
+    ],
+    "6.7 Write property test for shortcode-free text": [
+      {
+        "executionId": "647502b3-f061-484f-82be-35948c95ac1f",
+        "chatSessionId": "sess_9f7b119b-61cc-4fc9-8acd-d8c5079a5f5f",
+        "timestamp": 1795512775924
+      },
+      {
+        "executionId": "647502b3-f061-484f-82be-35948c95ac1f",
+        "chatSessionId": "sess_9f7b119b-61cc-4fc9-8acd-d8c5079a5f5f",
+        "timestamp": 1795512888595
+      }
+    ],
+    "6.8 Write property test for the thousands round trip": [
+      {
+        "executionId": "647502b3-f061-484f-82be-35948c95ac1f",
+        "chatSessionId": "sess_9f7b119b-61cc-4fc9-8acd-d8c5079a5f5f",
+        "timestamp": 1795512889371
+      },
+      {
+        "executionId": "647502b3-f061-484f-82be-35948c95ac1f",
+        "chatSessionId": "sess_9f7b119b-61cc-4fc9-8acd-d8c5079a5f5f",
+        "timestamp": 1795512933558
+      }
+    ],
+    "6.9 Write property test for thousands grouping": [
+      {
+        "executionId": "647502b3-f061-484f-82be-35948c95ac1f",
+        "chatSessionId": "sess_9f7b119b-61cc-4fc9-8acd-d8c5079a5f5f",
+        "timestamp": 1795512890193
+      },
+      {
+        "executionId": "647502b3-f061-484f-82be-35948c95ac1f",
+        "chatSessionId": "sess_9f7b119b-61cc-4fc9-8acd-d8c5079a5f5f",
+        "timestamp": 1795512934247
+      }
+    ],
+    "6.10 Write property test for thousands characters": [
+      {
+        "executionId": "647502b3-f061-484f-82be-35948c95ac1f",
+        "chatSessionId": "sess_9f7b119b-61cc-4fc9-8acd-d8c5079a5f5f",
+        "timestamp": 1795512890767
+      },
+      {
+        "executionId": "647502b3-f061-484f-82be-35948c95ac1f",
+        "chatSessionId": "sess_9f7b119b-61cc-4fc9-8acd-d8c5079a5f5f",
+        "timestamp": 1795512934819
+      }
+    ],
+    "6. Description cleaner and thousands formatter": [
+      {
+        "executionId": "647502b3-f061-484f-82be-35948c95ac1f",
+        "chatSessionId": "sess_9f7b119b-61cc-4fc9-8acd-d8c5079a5f5f",
+        "timestamp": 1795512934855
+      }
+    ],
+    "7.1 Implement `KeepOutRect`, `CrackPoint`, `Crack` and `CrackGenerator`": [
+      {
+        "executionId": "647502b3-f061-484f-82be-35948c95ac1f",
+        "chatSessionId": "sess_9f7b119b-61cc-4fc9-8acd-d8c5079a5f5f",
+        "timestamp": 1795512944134
+      },
+      {
+        "executionId": "647502b3-f061-484f-82be-35948c95ac1f",
+        "chatSessionId": "sess_9f7b119b-61cc-4fc9-8acd-d8c5079a5f5f",
+        "timestamp": 1795512997359
+      }
+    ],
+    "7.2 Extend the test generators with crack inputs": [
+      {
+        "executionId": "647502b3-f061-484f-82be-35948c95ac1f",
+        "chatSessionId": "sess_9f7b119b-61cc-4fc9-8acd-d8c5079a5f5f",
+        "timestamp": 1795512944182
+      },
+      {
+        "executionId": "647502b3-f061-484f-82be-35948c95ac1f",
+        "chatSessionId": "sess_9f7b119b-61cc-4fc9-8acd-d8c5079a5f5f",
+        "timestamp": 1795512949444
+      },
+      {
+        "executionId": "647502b3-f061-484f-82be-35948c95ac1f",
+        "chatSessionId": "sess_9f7b119b-61cc-4fc9-8acd-d8c5079a5f5f",
+        "timestamp": 1795513000910
+      },
+      {
+        "executionId": "647502b3-f061-484f-82be-35948c95ac1f",
+        "chatSessionId": "sess_9f7b119b-61cc-4fc9-8acd-d8c5079a5f5f",
+        "timestamp": 1795514541169
+      },
+      {
+        "executionId": "560ba1b3-3df7-42cd-94b4-ac6d71e56e68",
+        "chatSessionId": "sess_92ad93d6-be85-4da9-9074-9c441dcbeeb7",
+        "timestamp": 1795515093304
+      },
+      {
+        "executionId": "560ba1b3-3df7-42cd-94b4-ac6d71e56e68",
+        "chatSessionId": "sess_92ad93d6-be85-4da9-9074-9c441dcbeeb7",
+        "timestamp": 1795515165310
+      }
+    ],
+    "7.3 Write unit tests for `CrackGenerator`": [
+      {
+        "executionId": "647502b3-f061-484f-82be-35948c95ac1f",
+        "chatSessionId": "sess_9f7b119b-61cc-4fc9-8acd-d8c5079a5f5f",
+        "timestamp": 1795514544578
+      },
+      {
+        "executionId": "647502b3-f061-484f-82be-35948c95ac1f",
+        "chatSessionId": "sess_9f7b119b-61cc-4fc9-8acd-d8c5079a5f5f",
+        "timestamp": 1795514636979
+      }
+    ],
+    "7.4 Write property test for cracks": [
+      {
+        "executionId": "647502b3-f061-484f-82be-35948c95ac1f",
+        "chatSessionId": "sess_9f7b119b-61cc-4fc9-8acd-d8c5079a5f5f",
+        "timestamp": 1795514545095
+      },
+      {
+        "executionId": "647502b3-f061-484f-82be-35948c95ac1f",
+        "chatSessionId": "sess_9f7b119b-61cc-4fc9-8acd-d8c5079a5f5f",
+        "timestamp": 1795514637558
+      }
+    ],
+    "7. Cracks": [
+      {
+        "executionId": "647502b3-f061-484f-82be-35948c95ac1f",
+        "chatSessionId": "sess_9f7b119b-61cc-4fc9-8acd-d8c5079a5f5f",
+        "timestamp": 1795514637590
+      }
+    ],
+    "8.1 Implement `TombstoneFragmentKind`, `TombstoneFragment` and `TombstoneFacts`": [
+      {
+        "executionId": "647502b3-f061-484f-82be-35948c95ac1f",
+        "chatSessionId": "sess_9f7b119b-61cc-4fc9-8acd-d8c5079a5f5f",
+        "timestamp": 1795514645940
+      },
+      {
+        "executionId": "647502b3-f061-484f-82be-35948c95ac1f",
+        "chatSessionId": "sess_9f7b119b-61cc-4fc9-8acd-d8c5079a5f5f",
+        "timestamp": 1795514693520
+      }
+    ],
+    "8.2 Write unit tests for `TombstoneFacts`": [
+      {
+        "executionId": "647502b3-f061-484f-82be-35948c95ac1f",
+        "chatSessionId": "sess_9f7b119b-61cc-4fc9-8acd-d8c5079a5f5f",
+        "timestamp": 1795514696948
+      },
+      {
+        "executionId": "647502b3-f061-484f-82be-35948c95ac1f",
+        "chatSessionId": "sess_9f7b119b-61cc-4fc9-8acd-d8c5079a5f5f",
+        "timestamp": 1795514751476
+      }
+    ],
+    "8.3 Write property test for visible fragments": [
+      {
+        "executionId": "647502b3-f061-484f-82be-35948c95ac1f",
+        "chatSessionId": "sess_9f7b119b-61cc-4fc9-8acd-d8c5079a5f5f",
+        "timestamp": 1795514697638
+      },
+      {
+        "executionId": "647502b3-f061-484f-82be-35948c95ac1f",
+        "chatSessionId": "sess_9f7b119b-61cc-4fc9-8acd-d8c5079a5f5f",
+        "timestamp": 1795514750756
+      }
+    ],
+    "8. Tombstone facts": [
+      {
+        "executionId": "647502b3-f061-484f-82be-35948c95ac1f",
+        "chatSessionId": "sess_9f7b119b-61cc-4fc9-8acd-d8c5079a5f5f",
+        "timestamp": 1795514751507
+      }
+    ],
+    "9. Checkpoint - Scene math complete": [
+      {
+        "executionId": "647502b3-f061-484f-82be-35948c95ac1f",
+        "chatSessionId": "sess_9f7b119b-61cc-4fc9-8acd-d8c5079a5f5f",
+        "timestamp": 1795514756391
+      },
+      {
+        "executionId": "647502b3-f061-484f-82be-35948c95ac1f",
+        "chatSessionId": "sess_9f7b119b-61cc-4fc9-8acd-d8c5079a5f5f",
+        "timestamp": 1795515082789
+      }
+    ]
+  }
+}

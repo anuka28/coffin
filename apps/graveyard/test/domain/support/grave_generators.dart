@@ -1,12 +1,14 @@
 import 'dart:convert';
 import 'dart:math' as math;
 
+import 'package:coffin_core/coffin_core.dart' show CoffinColorTokens;
 import 'package:flutter_test/flutter_test.dart' show expect, equals, isPositive;
 import 'package:glados/glados.dart' hide expect, group, test;
 import 'package:graveyard/src/domain/calendar_date.dart';
 import 'package:graveyard/src/domain/grave.dart';
 import 'package:graveyard/src/domain/repo_info.dart';
 import 'package:graveyard/src/domain/repo_ref.dart';
+import 'package:graveyard/src/domain/scene/keep_out_rect.dart';
 
 // Pure support code with no file-system access. It also runs in Chrome.
 // Every generated integer stays far below 2^53.
@@ -805,3 +807,546 @@ final List<Corruption> anyCorruption = <Corruption>[
     _set('$key as object', key, <String, Object?>{'x': 1}),
   ],
 ];
+
+/// Doubles from [min] to [max] inclusive in steps of 0.001: an integer in
+/// thousandths divided by 1000. Web-safe. Shrinks towards [min] (or 0 when 0
+/// is in range).
+Generator<double> anyDoubleBetween(double min, double max) {
+  final int lo = (min * 1000).round();
+  final int hi = (max * 1000).round();
+  assert(lo <= hi && hi - lo < 0xFFFFFFFF);
+  final int target = lo <= 0 && hi >= 0 ? 0 : lo;
+  return any.simple<double>(
+    generate: (math.Random random, int size) =>
+        (lo + random.nextInt(hi - lo + 1)) / 1000,
+    shrink: (double v) sync* {
+      final int t = (v * 1000).round();
+      if (t > target) {
+        yield (target + (t - target) ~/ 2) / 1000;
+      } else if (t < target) {
+        yield (target - (target - t) ~/ 2) / 1000;
+      }
+    },
+  );
+}
+
+/// Seeds from 0 to 2147483646. Shrinks towards 0.
+Generator<int> get anySeed => anyIntBetween(0, 2147483647);
+
+/// A scene size in logical pixels.
+final class SceneSize {
+  /// Creates a size.
+  const SceneSize(this.width, this.height);
+
+  /// Width, 1 or more.
+  final int width;
+
+  /// Height, 1 or more.
+  final int height;
+
+  @override
+  bool operator ==(Object other) =>
+      other is SceneSize && other.width == width && other.height == height;
+
+  @override
+  int get hashCode => Object.hash(width, height);
+
+  @override
+  String toString() => 'SceneSize(${width}x$height)';
+}
+
+/// Scene sizes: width 1 to 2000 and height 1 to 4000, with 1 by 1 and
+/// 320 by 640 drawn about one time in five. Shrinks towards 1 by 1.
+Generator<SceneSize> get anySceneSize => any.simple<SceneSize>(
+  generate: (math.Random random, int size) {
+    switch (random.nextInt(10)) {
+      case 0:
+        return const SceneSize(1, 1);
+      case 1:
+        return const SceneSize(320, 640);
+      default:
+        return SceneSize(1 + random.nextInt(2000), 1 + random.nextInt(4000));
+    }
+  },
+  shrink: (SceneSize s) sync* {
+    if (s.width > 1 || s.height > 1) {
+      yield SceneSize(1 + (s.width - 1) ~/ 2, 1 + (s.height - 1) ~/ 2);
+    }
+  },
+);
+
+/// The inputs of one twinkle opacity reading.
+final class TwinkleInput {
+  /// Creates an input.
+  const TwinkleInput({
+    required this.phaseMs,
+    required this.periodMs,
+    required this.elapsedMs,
+  });
+
+  /// Phase offset, 0 up to but not including [periodMs].
+  final int phaseMs;
+
+  /// Period, 3000 to 8000.
+  final int periodMs;
+
+  /// Elapsed time, 0 to 10^9.
+  final int elapsedMs;
+
+  @override
+  bool operator ==(Object other) =>
+      other is TwinkleInput &&
+      other.phaseMs == phaseMs &&
+      other.periodMs == periodMs &&
+      other.elapsedMs == elapsedMs;
+
+  @override
+  int get hashCode => Object.hash(phaseMs, periodMs, elapsedMs);
+
+  @override
+  String toString() =>
+      'TwinkleInput(phase: $phaseMs, period: $periodMs, elapsed: $elapsedMs)';
+}
+
+/// Twinkle inputs: a period from 3000 to 8000, a phase from 0 to the period
+/// minus 1, and an elapsed time from 0 to 10^9. Shrinks towards 0 elapsed and
+/// phase.
+Generator<TwinkleInput> get anyTwinkleInput => any.simple<TwinkleInput>(
+  generate: (math.Random random, int size) {
+    final int period = 3000 + random.nextInt(5001);
+    return TwinkleInput(
+      phaseMs: random.nextInt(period),
+      periodMs: period,
+      elapsedMs: random.nextInt(1000000001),
+    );
+  },
+  shrink: (TwinkleInput t) sync* {
+    if (t.elapsedMs > 0 || t.phaseMs > 0) {
+      yield TwinkleInput(
+        phaseMs: t.phaseMs ~/ 2,
+        periodMs: t.periodMs,
+        elapsedMs: t.elapsedMs ~/ 2,
+      );
+    }
+  },
+);
+
+/// Edge widths around the layout breakpoints and limits.
+const List<int> _edgeWidths = <int>[319, 320, 719, 720, 1000, 1280, 4096];
+
+/// Available widths: 1 to 4096, with the edges 319, 320, 719, 720, 1000,
+/// 1280 and 4096 drawn about one time in four. Shrinks towards 1.
+Generator<int> get anyAvailableWidth => any.simple<int>(
+  generate: (math.Random random, int size) => random.nextInt(4) == 0
+      ? _edgeWidths[random.nextInt(_edgeWidths.length)]
+      : 1 + random.nextInt(4096),
+  shrink: (int w) sync* {
+    if (w > 1) {
+      yield 1 + (w - 1) ~/ 2;
+    }
+  },
+);
+
+/// Text scales from 1.0 to 2.0 in steps of 0.05. Shrinks towards 1.0.
+Generator<double> get anyTextScale => any.simple<double>(
+  generate: (math.Random random, int size) => (20 + random.nextInt(21)) / 20,
+  shrink: (double s) sync* {
+    final int step = (s * 20).round() - 20;
+    if (step > 0) {
+      yield (20 + step ~/ 2) / 20;
+    }
+  },
+);
+
+/// Column counts from 1 to 4. Shrinks towards 1.
+Generator<int> get anyColumnCount => anyIntBetween(1, 5);
+
+/// Grave counts from 0 to 60. Shrinks towards 0.
+Generator<int> get anyGraveCount => anyIntBetween(0, 61);
+
+/// The 15 ids [anyIdList] draws from.
+final List<String> idPool = List<String>.unmodifiable(<String>[
+  for (int i = 1; i <= 15; i++) 'g$i',
+]);
+
+/// Lists of 0 to 12 distinct ids from [idPool], in any order. Shrinks by
+/// dropping ids.
+Generator<List<String>> get anyIdList => any.simple<List<String>>(
+  generate: (math.Random random, int size) {
+    final List<String> pool = List<String>.of(idPool);
+    // Fisher-Yates shuffle with the generator's own random source.
+    for (int i = pool.length - 1; i > 0; i--) {
+      final int j = random.nextInt(i + 1);
+      final String tmp = pool[i];
+      pool[i] = pool[j];
+      pool[j] = tmp;
+    }
+    return pool.sublist(0, random.nextInt(13));
+  },
+  shrink: (List<String> list) sync* {
+    if (list.isNotEmpty) {
+      yield list.sublist(0, list.length ~/ 2);
+      yield list.sublist(1);
+    }
+  },
+);
+
+/// Fixed day counts on the weathering and crack boundaries.
+const List<int> _edgeDayCounts = <int>[
+  0,
+  1,
+  1824,
+  1825,
+  1826,
+  3649,
+  3650,
+  3651,
+];
+
+/// Day counts from -5 to 4000, with the edge days 0, 1, 1824, 1825, 1826,
+/// 3649, 3650 and 3651 drawn about one time in four. Shrinks towards 0.
+Generator<int> get anyDayCount => any.simple<int>(
+  generate: (math.Random random, int size) => random.nextInt(4) == 0
+      ? _edgeDayCounts[random.nextInt(_edgeDayCounts.length)]
+      : -5 + random.nextInt(4006),
+  shrink: (int d) sync* {
+    if (d > 0) {
+      yield d ~/ 2;
+    } else if (d < 0) {
+      yield 0;
+    }
+  },
+);
+
+/// Ids that are not `g1` to `g99`: non-ASCII, a single space, 200 characters.
+final List<String> _oddGraveIds = List<String>.unmodifiable(<String>[
+  'g\u00e9',
+  '\u5e55\u8d1d',
+  'g\u{1F47B}',
+  '\u00e9\u00f1\u00fc',
+  ' ',
+  'g' * 200,
+]);
+
+/// Grave ids: `g1` to `g99`, plus now and then a non-ASCII id, an id of one
+/// space or an id of 200 characters. Shrinks towards `g1`.
+Generator<String> get anyGraveId => any.simple<String>(
+  generate: (math.Random random, int size) => random.nextInt(5) == 0
+      ? _oddGraveIds[random.nextInt(_oddGraveIds.length)]
+      : 'g${1 + random.nextInt(99)}',
+  shrink: (String id) sync* {
+    if (id != 'g1') {
+      yield 'g1';
+    }
+  },
+);
+
+/// Theme tokens: index 0 maps to [CoffinColorTokens.night], index 1 to
+/// [CoffinColorTokens.daylight]. Shrinks towards night.
+Generator<CoffinColorTokens> get anyThemeTokens =>
+    any.simple<CoffinColorTokens>(
+      generate: (math.Random random, int size) => random.nextBool()
+          ? CoffinColorTokens.daylight
+          : CoffinColorTokens.night,
+      shrink: (CoffinColorTokens t) sync* {
+        if (!identical(t, CoffinColorTokens.night)) {
+          yield CoffinColorTokens.night;
+        }
+      },
+    );
+
+/// The inputs of one epitaph fit into an arch.
+final class ArchInput {
+  /// Creates an input.
+  const ArchInput({
+    required this.archWidth,
+    required this.archRise,
+    required this.lineHeight,
+    required this.textWidth,
+  });
+
+  /// Arch width, 120 to 300.
+  final int archWidth;
+
+  /// Arch rise, 60 to 200.
+  final int archRise;
+
+  /// Line height, 8 to 60.
+  final int lineHeight;
+
+  /// Text width, 1 to [archWidth].
+  final int textWidth;
+
+  @override
+  bool operator ==(Object other) =>
+      other is ArchInput &&
+      other.archWidth == archWidth &&
+      other.archRise == archRise &&
+      other.lineHeight == lineHeight &&
+      other.textWidth == textWidth;
+
+  @override
+  int get hashCode => Object.hash(archWidth, archRise, lineHeight, textWidth);
+
+  @override
+  String toString() =>
+      'ArchInput(width: $archWidth, rise: $archRise, '
+      'line: $lineHeight, text: $textWidth)';
+}
+
+/// Arch inputs: width 120 to 300, rise 60 to 200, line height 8 to 60 and a
+/// text width from 1 to the arch width. Shrinks towards the smallest values.
+Generator<ArchInput> get anyArchInput => any.simple<ArchInput>(
+  generate: (math.Random random, int size) {
+    final int width = 120 + random.nextInt(181);
+    return ArchInput(
+      archWidth: width,
+      archRise: 60 + random.nextInt(141),
+      lineHeight: 8 + random.nextInt(53),
+      textWidth: 1 + random.nextInt(width),
+    );
+  },
+  shrink: (ArchInput a) sync* {
+    if (a.archRise > 60 || a.lineHeight > 8 || a.textWidth > 1) {
+      yield ArchInput(
+        archWidth: a.archWidth,
+        archRise: 60 + (a.archRise - 60) ~/ 2,
+        lineHeight: 8 + (a.lineHeight - 8) ~/ 2,
+        textWidth: 1 + (a.textWidth - 1) ~/ 2,
+      );
+    }
+  },
+);
+
+const List<String> _descriptionPieces = <String>[
+  ':ghost:',
+  ':skull:',
+  ':jack_o_lantern:',
+  ':+1:',
+  ':100:',
+  ':not_a_code',
+  '12:30',
+  '09:05:59',
+  'localhost:8080',
+  ':3000',
+  ':',
+  '::',
+  ': :',
+  'a:b',
+  ' ',
+  '   ',
+  '\t',
+  '\n',
+  '\n\n  \n',
+  '\u{1F47B}',
+  '\u{1F480}\u{1F383}',
+  '\u2764\uFE0F',
+  '\u{1F468}\u200D\u{1F469}\u200D\u{1F467}',
+  'caf\u00e9',
+  '\u4e2d\u6587',
+  'plain words',
+  'Haunted project',
+];
+
+/// Descriptions of 0 to 2,000 characters built from shortcodes (`:ghost:`,
+/// `:+1:`, `:100:`), times, ports, runs of whitespace, Unicode emoji, lone
+/// colons and plain words. Shrinks by halving.
+Generator<String> get anyDescription => any.simple<String>(
+  generate: (math.Random random, int size) {
+    final int limit = random.nextInt(8) == 0 ? 2000 : 1 + random.nextInt(120);
+    final StringBuffer out = StringBuffer();
+    while (out.length < limit) {
+      out.write(_descriptionPieces[random.nextInt(_descriptionPieces.length)]);
+    }
+    final List<int> runes = out.toString().runes.toList();
+    final int count = random.nextInt(8) == 0 ? runes.length : limit;
+    // Cut at a rune boundary, then keep it within 2,000 UTF-16 units.
+    var text = String.fromCharCodes(
+      runes.sublist(0, count < runes.length ? count : runes.length),
+    );
+    while (text.length > 2000) {
+      final List<int> r = text.runes.toList();
+      text = String.fromCharCodes(r.sublist(0, r.length - 1));
+    }
+    return text;
+  },
+  shrink: (String text) sync* {
+    final List<int> runes = text.runes.toList();
+    if (runes.isNotEmpty) {
+      yield String.fromCharCodes(runes.sublist(0, runes.length ~/ 2));
+    }
+  },
+);
+
+const List<String> _dateLines = <String>[
+  'Died 29 Feb 2024',
+  'Died 1 Jan 1970',
+  'Died 31 Dec 2099',
+  '2024-02-29',
+  'Rest in peace since 2026',
+  '\u00e9t\u00e9 2024',
+  '\u4e2d\u6587 2024',
+  '\u{1F47B} 2024-03-01',
+  ' ',
+  'x',
+];
+
+/// Date-line texts: short date texts, some with non-ASCII characters, one
+/// single space and one single character, with now and then a long line.
+/// Shrinks towards `x`.
+Generator<String> get anyDateLine => any.simple<String>(
+  generate: (math.Random random, int size) {
+    final String base = _dateLines[random.nextInt(_dateLines.length)];
+    return random.nextInt(10) == 0
+        ? List<String>.filled(1 + random.nextInt(30), base).join(' ')
+        : base;
+  },
+  shrink: (String line) sync* {
+    if (line != 'x') {
+      yield 'x';
+    }
+  },
+);
+
+/// Fixed non-negative integers drawn on their own.
+const List<int> _edgeNonNegativeInts = <int>[
+  0,
+  7,
+  999,
+  1000,
+  60683,
+  181478,
+  1234567,
+];
+
+/// Non-negative integers from 0 to 2^53 - 1, built from a high half of 21
+/// bits and a low half of 32 bits (so no draw needs a range above 2^32), with
+/// 0, 7, 999, 1000, 60683, 181478 and 1234567 drawn about one time in four.
+/// Shrinks towards 0.
+Generator<int> get anyNonNegativeInt => any.simple<int>(
+  generate: (math.Random random, int size) {
+    if (random.nextInt(4) == 0) {
+      return _edgeNonNegativeInts[random.nextInt(_edgeNonNegativeInts.length)];
+    }
+    final int high = random.nextInt(1 << 21);
+    final int low = random.nextInt(4294967296);
+    return high * 4294967296 + low;
+  },
+  shrink: (int n) sync* {
+    if (n > 0) {
+      yield n ~/ 2;
+    }
+  },
+);
+
+/// The inputs of one crack generation, with the keep-out list the tombstone
+/// builds.
+final class CrackInput {
+  /// Creates an input.
+  const CrackInput({
+    required this.stoneWidth,
+    required this.stoneHeight,
+    required this.dayCount,
+    required this.graveId,
+    required this.keepOut,
+  });
+
+  /// Stone width, 240 to 300.
+  final int stoneWidth;
+
+  /// Stone height, 260 to 900.
+  final int stoneHeight;
+
+  /// Days since the grave died.
+  final int dayCount;
+
+  /// Grave id.
+  final String graveId;
+
+  /// The content box and the epitaph rectangle.
+  final List<KeepOutRect> keepOut;
+
+  @override
+  bool operator ==(Object other) =>
+      other is CrackInput &&
+      other.stoneWidth == stoneWidth &&
+      other.stoneHeight == stoneHeight &&
+      other.dayCount == dayCount &&
+      other.graveId == graveId &&
+      other.keepOut.length == keepOut.length &&
+      <bool>[
+        for (int i = 0; i < keepOut.length; i++) other.keepOut[i] == keepOut[i],
+      ].every((bool same) => same);
+
+  @override
+  int get hashCode =>
+      Object.hash(stoneWidth, stoneHeight, dayCount, graveId, keepOut.length);
+
+  @override
+  String toString() =>
+      'CrackInput(${stoneWidth}x$stoneHeight, days: $dayCount, '
+      'id: $graveId, keepOut: $keepOut)';
+}
+
+/// Arch rise of the tombstone card: the epitaph lies within it.
+const int _crackArchRise = 140;
+
+/// Crack inputs: stone width 240 to 300, stone height 260 to 900, a day count
+/// from [anyDayCount], a grave id from [anyGraveId], and the keep-out list as
+/// the tombstone builds it: the content box `(20, 0, width - 20, height - 20)`
+/// and an epitaph rectangle inside the arch (top 56 to 80, 20 to 44 high,
+/// 40 to 120 wide, centered, bottom at most 140). Shrinks towards the
+/// smallest stone, keeping the day count and the id.
+Generator<CrackInput> get anyCrackInput => any.simple<CrackInput>(
+  generate: (math.Random random, int size) {
+    final int width = 240 + random.nextInt(61);
+    final int height = 260 + random.nextInt(641);
+    final int dayCount = anyDayCount(random, size).value;
+    final String graveId = anyGraveId(random, size).value;
+    final int top = 56 + random.nextInt(25);
+    final int bottom = math.min(top + 20 + random.nextInt(25), _crackArchRise);
+    final int epitaphWidth = 40 + random.nextInt(81);
+    final double left = (width - epitaphWidth) / 2;
+    return CrackInput(
+      stoneWidth: width,
+      stoneHeight: height,
+      dayCount: dayCount,
+      graveId: graveId,
+      keepOut: <KeepOutRect>[
+        KeepOutRect(
+          left: 20,
+          top: 0,
+          right: (width - 20).toDouble(),
+          bottom: (height - 20).toDouble(),
+        ),
+        KeepOutRect(
+          left: left,
+          top: top.toDouble(),
+          right: left + epitaphWidth,
+          bottom: bottom.toDouble(),
+        ),
+      ],
+    );
+  },
+  shrink: (CrackInput c) sync* {
+    if (c.stoneWidth > 240 || c.stoneHeight > 260) {
+      final int w = 240 + (c.stoneWidth - 240) ~/ 2;
+      final int h = 260 + (c.stoneHeight - 260) ~/ 2;
+      yield CrackInput(
+        stoneWidth: w,
+        stoneHeight: h,
+        dayCount: c.dayCount,
+        graveId: c.graveId,
+        keepOut: <KeepOutRect>[
+          KeepOutRect(
+            left: 20,
+            top: 0,
+            right: (w - 20).toDouble(),
+            bottom: (h - 20).toDouble(),
+          ),
+          c.keepOut[1],
+        ],
+      );
+    }
+  },
+);
