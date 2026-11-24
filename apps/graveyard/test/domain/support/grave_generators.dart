@@ -6,9 +6,11 @@ import 'package:flutter_test/flutter_test.dart' show expect, equals, isPositive;
 import 'package:glados/glados.dart' hide expect, group, test;
 import 'package:graveyard/src/domain/calendar_date.dart';
 import 'package:graveyard/src/domain/grave.dart';
+import 'package:graveyard/src/domain/name_rules.dart';
 import 'package:graveyard/src/domain/repo_info.dart';
 import 'package:graveyard/src/domain/repo_ref.dart';
 import 'package:graveyard/src/domain/scene/keep_out_rect.dart';
+import 'package:graveyard/src/domain/seance/seance_facts.dart';
 
 // Pure support code with no file-system access. It also runs in Chrome.
 // Every generated integer stays far below 2^53.
@@ -1347,6 +1349,133 @@ Generator<CrackInput> get anyCrackInput => any.simple<CrackInput>(
           c.keepOut[1],
         ],
       );
+    }
+  },
+);
+
+/// Day counts on the séance band edges.
+const List<int> _seanceEdgeDays = <int>[
+  0, 30, 31, 90, 91, 180, 181, 365, 366, 730, 731, 1095, 1096, 1825, 1826, //
+  3650, 3651,
+];
+
+/// Star counts on the séance band edges and two real-world values.
+const List<int> _seanceEdgeStars = <int>[0, 1, 511, 1023, 2000, 60680, 181400];
+
+int _dayCountFrom(math.Random random, int size) => random.nextInt(4) == 0
+    ? _seanceEdgeDays[random.nextInt(_seanceEdgeDays.length)]
+    : anyIntBetween(0, 20001)(random, size).value;
+
+int _starsFrom(math.Random random, int size) => random.nextInt(4) == 0
+    ? _seanceEdgeStars[random.nextInt(_seanceEdgeStars.length)]
+    : anyIntBetween(0, 1048577)(random, size).value;
+
+bool _flag(math.Random random, int size) =>
+    anyIntBetween(0, 2)(random, size).value == 1;
+
+Iterable<SeanceFacts> _shrinkFacts(SeanceFacts f) sync* {
+  if (f.dayCount > 0 || f.stars > 0) {
+    yield SeanceFacts(
+      dayCount: f.dayCount ~/ 2,
+      archived: f.archived,
+      stars: f.stars ~/ 2,
+      hasDescription: f.hasDescription,
+      manual: f.manual,
+    );
+  }
+}
+
+/// Séance facts of any grave: a day count from 0 to 20000 (the band edges 0,
+/// 30, 31, 90, 91, 180, 181, 365, 366, 730, 731, 1095, 1096, 1825, 1826, 3650
+/// and 3651 drawn about one time in four), stars from 0 to 1048576 (with 0,
+/// 1, 511, 1023, 2000, 60680 and 181400 drawn about one time in four) and
+/// random flags. A manual fact has no archive flag, no stars and no
+/// description. Shrinks towards 0 days and 0 stars.
+Generator<SeanceFacts> get anySeanceFacts => any.simple<SeanceFacts>(
+  generate: (math.Random random, int size) {
+    final int dayCount = _dayCountFrom(random, size);
+    final int stars = _starsFrom(random, size);
+    final bool archived = _flag(random, size);
+    final bool hasDescription = _flag(random, size);
+    final bool manual = _flag(random, size);
+    return SeanceFacts(
+      dayCount: dayCount,
+      archived: manual ? false : archived,
+      stars: manual ? 0 : stars,
+      hasDescription: manual ? false : hasDescription,
+      manual: manual,
+    );
+  },
+  shrink: _shrinkFacts,
+);
+
+/// Séance facts of a manual grave: any day count as in [anySeanceFacts],
+/// `manual` true, `archived` false, 0 stars and a random `hasDescription`
+/// (which a real manual grave never has, but the scorer must ignore).
+Generator<SeanceFacts> get anyManualFacts => any.simple<SeanceFacts>(
+  generate: (math.Random random, int size) => SeanceFacts(
+    dayCount: _dayCountFrom(random, size),
+    archived: false,
+    stars: 0,
+    hasDescription: _flag(random, size),
+    manual: true,
+  ),
+  shrink: _shrinkFacts,
+);
+
+/// Scores from 0 to 100 with the edges 0, 39, 40, 69, 70 and 100 drawn about
+/// one time in four. Shrinks towards 0.
+Generator<int> get anyScore => any.simple<int>(
+  generate: (math.Random random, int size) => random.nextInt(4) == 0
+      ? const <int>[0, 39, 40, 69, 70, 100][random.nextInt(6)]
+      : random.nextInt(101),
+  shrink: (int v) sync* {
+    if (v > 0) {
+      yield v ~/ 2;
+    }
+  },
+);
+
+/// A valid grave name from [raw]: normalised, cut to 80 code points, and
+/// never empty (an empty result becomes `a`).
+String _validGraveName(String raw) {
+  final String normalized = NameRules.normalize(raw);
+  final String cut = String.fromCharCodes(normalized.runes.take(80));
+  final String name = NameRules.normalize(cut);
+  return name.isEmpty ? 'a' : name;
+}
+
+/// Graves for the séance request tests: a grave from [anyGrave] with a name
+/// drawn from [anyProjectName], normalised to 1 to 80 code points (spaces,
+/// accents and emoji appear). Shrinks towards a one-code-point name.
+Generator<Grave> get anyGraveWithSource => any.simple<Grave>(
+  generate: (math.Random random, int size) {
+    final Grave base = anyGrave(random, size).value;
+    final String name = _validGraveName(anyProjectName(random, size).value);
+    final RepoInfo? repo = base.repo;
+    return repo == null
+        ? Grave.manual(id: base.id, name: name, dateOfDeath: base.dateOfDeath)
+        : Grave.github(
+            id: base.id,
+            name: name,
+            dateOfDeath: base.dateOfDeath,
+            repo: repo,
+          );
+  },
+  shrink: (Grave g) sync* {
+    final List<int> runes = g.name.runes.toList();
+    if (runes.length > 1) {
+      final String name = _validGraveName(
+        String.fromCharCodes(runes.sublist(0, runes.length ~/ 2)),
+      );
+      yield g.repo == null
+          ? Grave.manual(id: g.id, name: name, dateOfDeath: g.dateOfDeath)
+          : Grave.github(
+              id: g.id,
+              name: name,
+              dateOfDeath: g.dateOfDeath,
+              repo: g.repo!,
+            );
     }
   },
 );

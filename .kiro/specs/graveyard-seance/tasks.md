@@ -21,105 +21,105 @@ Rules for every task:
 
 ## Tasks
 
-- [ ] 1. Seance copy
-  - [ ] 1.1 Add the Seance_Copy to `GraveyardCopy`
+- [x] 1. Seance copy
+  - [x] 1.1 Add the Seance_Copy to `GraveyardCopy`
     - In `lib/src/ui/graveyard_copy.dart` add: `seanceControlText` ("Hold a séance"), `seanceControlLabel(name)` ("Hold a séance for <name>"), `revivalBandLabel(RevivalBand)` ("Restless", "Stirring", "Ready to rise"), `revivalScoreLabel(score, band)` ("Revival score <n> out of 100, <band>"), `revivalStepLabel(k, total, text)` ("Step <k> of 3: <text>"), `seanceRouteName(name)` ("Séance for <name>"), `closeSeanceLabel` ("Close séance"), `seanceThinkingCaption`, `safeVerdictLine` (one sentence, at most 140 characters, no Grave name), the seven step constants `stepForkRepository`, `stepWriteDownPurpose`, `stepUpdateDependencies`, `stepSkimReadme`, `stepFixOneThing`, `stepAskAFriend`, `stepAddOneTest` with the exact texts of the design (each at most 48 characters, imperative, kind), and `revivalStepText(RevivalStepKind kind)`, an exhaustive `switch` expression with no default branch that maps each kind to its constant.
     - Use only Allowed_Characters, no emoji, no time-of-day word, none of "failed", "invalid" or "your fault". `graveyard_copy.dart` imports `revival_band.dart` and `revival_step_kind.dart` (UI to Domain, the allowed direction), both created in task 2.1, before this task. No Flutter import in `graveyard_copy.dart`.
     - _Requirements: 1.1, 1.3, 3.4, 4.9, 4.10, 6.2, 9.1, 10.1, 10.2, 10.4, 12.1, 12.2, 12.3, 12.4, 12.5, 12.6_
 
-  - [ ] 1.2 Write the copy tests
+  - [x] 1.2 Write the copy tests
     - Extend `test/ui/graveyard_copy_test.dart`: every Seance_Copy string and every output of the label functions (for a few fixed names and all three bands) uses only Allowed_Characters, contains no emoji, no time-of-day word ("morning", "afternoon", "evening", "night", "midnight", "dawn", "dusk"), none of "failed", "invalid", "your fault", no exception text and no raw status code; `safeVerdictLine` is one sentence of at most 140 characters, has no `{` and no Grave name token; every `step*` constant has at most 48 characters; for every value of `RevivalStepKind.values`, `revivalStepText(kind)` is non-empty, has at most 48 characters, uses only Allowed_Characters and no emoji, and no two kinds share the same text (the mapping is total and injective); the exact label forms of Requirements 1.3, 10.1, 10.2 and 10.4 are pinned.
     - _Requirements: 12.1, 12.2, 12.3, 12.4, 12.5, 12.6, 14.15_
 
-- [ ] 2. Séance rules (Domain)
-  - [ ] 2.1 Implement `SeanceFacts`, `RevivalBand` and `RevivalStepKind`
+- [x] 2. Séance rules (Domain)
+  - [x] 2.1 Implement `SeanceFacts`, `RevivalBand` and `RevivalStepKind`
     - Create `lib/src/domain/seance/seance_facts.dart` (immutable, value equality; `dayCount`, `archived`, `stars`, `hasDescription`, `manual`; `SeanceFacts.of({grave, today})` reads only the source, `repo` fields, `dateOfDeath.daysUntil(today)` clamped to 0, and `DescriptionCleaner.clean` of the description; a manual Grave gives `archived false`, `stars 0`, `hasDescription false`; never reads the id or the name) and `lib/src/domain/seance/revival_band.dart` (`restless`, `stirring`, `readyToRise`; `forScore(int)` clamps to 0..100 first, then 0..39, 40..69, 70..100) and `lib/src/domain/seance/revival_step_kind.dart` (the pure enum `RevivalStepKind` with the values `forkRepository`, `writeDownPurpose`, `updateDependencies`, `skimReadme`, `fixOneThing`, `askAFriend`, `addOneTest`, each doc-commented, carrying no text).
     - _Requirements: 2.2, 2.3, 2.9, 2.10, 3.1, 3.2, 13.1, 13.2_
 
-  - [ ] 2.2 Implement `RevivalSteps`, `SeanceResult` and `SeanceRules`
+  - [x] 2.2 Implement `RevivalSteps`, `SeanceResult` and `SeanceRules`
     - Create `revival_steps.dart` (`RevivalSteps` with the const `generalKinds` list `skimReadme`, `fixOneThing`, `askAFriend`, `addOneTest` in that order, and `choose(facts)` returning a `List<RevivalStepKind>`: condition kinds in the fixed priority order archived (`forkRepository`), manual (`writeDownPurpose`), old (`updateDependencies` when `dayCount > 365`), `take(3)`, then fill from `generalKinds` in order skipping kinds already chosen, so the result always has three distinct kinds), `seance_result.dart` (`score`, `band`, `steps` as three `RevivalStepKind` values, value equality that compares the kinds in order) and `seance_rules.dart` (`evaluate(SeanceFacts)`: age staircase 70/66/56/46/34/24/14/6/0 at the edges 30/90/180/365/730/1095/1825/3650, star points `0` for `stars <= 0` else `min(10, (stars + 1).bitLength)`, Remembered_Bonus `+6` when `hasDescription || manual`, archived penalty `-25`, sum clamped to 0..100, band from `RevivalBand.forScore`) in `lib/src/domain/seance`.
     - Integer arithmetic only, no `dart:math`, no `DateTime.now()`, no randomness. These files import nothing from `lib/src/ui`, no Flutter, no `dart:ui` and no `package:coffin_core`, and hold no step text. The existing Domain source rules must pass without any change to their allow-list.
     - _Requirements: 2.1, 2.2, 2.3, 2.4, 2.5, 2.6, 2.7, 2.8, 2.10, 2.11, 3.1, 4.1, 4.2, 4.3, 4.4, 4.5, 4.6, 4.7, 4.8, 13.1, 13.2_
 
-- [ ] 3. Test generators
-  - [ ] 3.1 Extend the generators with séance facts
-    - Add to `test/domain/support/grave_generators.dart`: `anySeanceFacts` (`dayCount` from `anyIntBetween(0, 20000)` with the fixed edges 0, 30, 31, 90, 91, 180, 181, 365, 366, 730, 731, 1095, 1096, 1825, 1826, 3650, 3651 folded in; `stars` from `anyIntBetween(0, 1048576)` with the fixed values 0, 1, 511, 1023, 2000, 60680 and 181400 folded in; `archived`, `hasDescription` and `manual` from `anyIntBetween(0, 1)` mapped to a bool; a manual fact forces `archived false`, `stars 0`, `hasDescription false`), `anyManualFacts` (`manual true`, `archived false`, `stars 0`, `hasDescription` random), `anyScore` (0 to 100 plus the edges 0, 39, 40, 69, 70, 100) and `anyGraveWithSource` for the request tests (a Grave from the existing generators with a name of 1 to 40 characters).
+- [x] 3. Test generators
+  - [x] 3.1 Extend the generators with séance facts
+    - Add to `test/domain/support/grave_generators.dart`: `anySeanceFacts` (`dayCount` from `anyIntBetween(0, 20000)` with the fixed edges 0, 30, 31, 90, 91, 180, 181, 365, 366, 730, 731, 1095, 1096, 1825, 1826, 3650, 3651 folded in; `stars` from `anyIntBetween(0, 1048576)` with the fixed values 0, 1, 511, 1023, 2000, 60680 and 181400 folded in; `archived`, `hasDescription` and `manual` from `anyIntBetween(0, 1)` mapped to a bool; a manual fact forces `archived false`, `stars 0`, `hasDescription false`), `anyManualFacts` (`manual true`, `archived false`, `stars 0`, `hasDescription` random), `anyScore` (0 to 100 plus the edges 0, 39, 40, 69, 70, 100) and `anyGraveWithSource` for the request tests (a Grave from the existing generators with a name from `anyProjectName`, normalised to 1 to 80 code points).
     - Keep every generated integer far below 2^53 and add no `dart:io` import.
     - _Requirements: 14.2, 14.11_
 
-- [ ] 4. Unit tests for the rules
-  - [ ] 4.1 Write unit tests for `SeanceFacts`
+- [x] 4. Unit tests for the rules
+  - [x] 4.1 Write unit tests for `SeanceFacts`
     - Create `test/domain/seance/seance_facts_test.dart`: a manual Grave gives `archived false`, `stars 0`, `hasDescription false`, `manual true`; a GitHub Grave with no description gives `hasDescription false`; a GitHub Grave whose description cleans to empty (only a shortcode, only whitespace) gives `hasDescription false`; a GitHub Grave with a real description gives `true`; a future date of death gives `dayCount 0`; a date of death equal to Today gives 0; facts do not change when only the id or the name changes.
     - _Requirements: 2.2, 2.9, 7.4_
 
-  - [ ] 4.2 Write unit tests for `SeanceRules`
+  - [x] 4.2 Write unit tests for `SeanceRules`
     - Create `test/domain/seance/seance_rules_test.dart`: the age-point boundaries at the Day_Counts 0, 30, 31, 90, 91, 180, 181, 365, 366, 730, 731, 1095, 1096, 1825, 1826, 3650 and 3651; `stars 0` gives 0 star points, `stars 1` gives 2, `stars 511` gives 10, `stars 1023` and above give exactly 10; the Remembered_Bonus is 6 for a manual Grave with `hasDescription` true or false and for a described GitHub Grave and 0 for an undescribed GitHub Grave; the archived penalty is 25; the raw maximum 86 stays at 86; an archived Grave dead 4,015 days with no bonus clamps to 0; the same facts give an equal result twice; the largest `stars` below 2^53 does not throw.
     - _Requirements: 2.1, 2.4, 2.5, 2.6, 2.7, 2.8, 2.9, 2.10, 2.11, 14.1_
 
-  - [ ] 4.3 Write unit tests for `RevivalBand`
+  - [x] 4.3 Write unit tests for `RevivalBand`
     - Create `test/domain/seance/revival_band_test.dart`: the band edges 0, 39, 40, 69, 70 and 100 map to Restless, Restless, Stirring, Stirring, Ready to rise, Ready to rise; a score below 0 and one above 100 are clamped and do not throw.
     - _Requirements: 3.1, 14.1, 14.9_
 
-  - [ ] 4.4 Write unit tests for `RevivalSteps`
+  - [x] 4.4 Write unit tests for `RevivalSteps`
     - Create `test/domain/seance/revival_steps_test.dart`: zero conditions give the first three `generalKinds` in order; archived only, manual only and old only each give that kind first followed by the fill in order; archived and manual, archived and old, manual and old; all three conditions give `forkRepository`, `writeDownPurpose`, `updateDependencies` in that priority order; `dayCount` 365 does not trigger `updateDependencies` and 366 does; every result has three distinct kinds; two calls give equal lists.
     - _Requirements: 4.1, 4.2, 4.3, 4.4, 4.5, 4.6, 4.7, 4.8, 14.1_
 
-  - [ ] 4.5 Write the worked examples test
+  - [x] 4.5 Write the worked examples test
     - Create `test/domain/seance/worked_examples_test.dart` with all eight rows of the design table, each building the `SeanceFacts` shown (manual rows: `manual true`, `archived false`, `stars 0`, `hasDescription false`) and asserting that `SeanceRules.evaluate` returns the exact score, the exact band and the exact three `RevivalStepKind` values in order (the text of each kind is checked in the copy test, so this Domain test imports nothing from `ui`): row 1 (10 stars, described, 30 days: 80, Ready to rise), row 2 (182 days: 56, Stirring), row 3 (manual, 60 days: 72, Ready to rise), row 4 (manual, 4,015 days: 6, Restless), row 5 (181,400 stars, 0 days: 86, Ready to rise), row 6 (`atom/atom`, archived, 1,095 days: 15, Restless), row 7 (`mojombo/grit`, 1,095 days, 2,000 stars: 40, Stirring) and row 8 (`octocat/Hello-World`, no description, 4,000 stars, 730 days: 44, Stirring). Also check the stability rows: 28 to 31 days stay Ready to rise for row 1, 180 to 184 days stay Stirring for row 2, and 59 to 62 days stay Ready to rise for row 3.
     - _Requirements: 2.1, 2.5, 3.1, 4.4, 4.5, 4.6, 4.7, 14.1_
 
-- [ ] 5. Property tests for the rules
-  - [ ] 5.1 Write property test for score range
+- [x] 5. Property tests for the rules
+  - [x] 5.1 Write property test for score range
     - **Property 1: Revival_Score stays in range**
     - **Validates: Requirements 2.1, 2.10, 14.4**
     - Create `test/domain/seance/seance_score_range_property_test.dart` over `anySeanceFacts`.
 
-  - [ ] 5.2 Write property test for determinism
+  - [x] 5.2 Write property test for determinism
     - **Property 2: Evaluation is deterministic**
     - **Validates: Requirements 2.4, 7.4, 14.5**
     - Create `test/domain/seance/seance_determinism_property_test.dart`.
 
-  - [ ] 5.3 Write property test for age monotonicity
+  - [x] 5.3 Write property test for age monotonicity
     - **Property 3: Older death never scores higher**
     - **Validates: Requirements 2.5, 14.6**
     - Create `test/domain/seance/seance_age_property_test.dart` over a facts value and two Day_Counts.
 
-  - [ ] 5.4 Write property test for the archived penalty
+  - [x] 5.4 Write property test for the archived penalty
     - **Property 4: Archived never scores higher**
     - **Validates: Requirements 2.6, 14.7**
     - Create `test/domain/seance/seance_archived_property_test.dart`.
 
-  - [ ] 5.5 Write property test for stars
+  - [x] 5.5 Write property test for stars
     - **Property 5: More stars never scores lower**
     - **Validates: Requirements 2.7**
     - Create `test/domain/seance/seance_stars_property_test.dart`.
 
-  - [ ] 5.6 Write property test for the description
+  - [x] 5.6 Write property test for the description
     - **Property 6: A description never scores lower**
     - **Validates: Requirements 2.8**
     - Create `test/domain/seance/seance_description_property_test.dart`.
 
-  - [ ] 5.7 Write property test for the steps
+  - [x] 5.7 Write property test for the steps
     - **Property 7: Exactly three distinct steps**
     - **Validates: Requirements 4.1, 4.2, 14.8**
     - Create `test/domain/seance/revival_steps_count_property_test.dart`: `RevivalSteps.choose` returns exactly three pairwise distinct `RevivalStepKind` values, and `SeanceRules.evaluate(facts).steps` equals it.
 
-  - [ ] 5.8 Write property test for the band
+  - [x] 5.8 Write property test for the band
     - **Property 8: Revival_Band is total and monotonic**
     - **Validates: Requirements 3.2, 3.3, 14.9**
     - Create `test/domain/seance/revival_band_property_test.dart` over `anyScore` pairs.
 
-  - [ ] 5.9 Write the per-kind step text test
+  - [x] 5.9 Write the per-kind step text test
     - **Property 9: Revival_Step text obeys the copy rules for every kind**
     - **Validates: Requirements 4.9, 12.6, 14.10**
     - Create `test/ui/revival_step_text_test.dart` (it reads `GraveyardCopy`, so it lives with the UI tests, not under `test/domain`): iterate `RevivalStepKind.values` (a finite enum, so no generator is needed) and assert that `GraveyardCopy.revivalStepText(kind)` is non-empty, has at most 48 characters and only Allowed_Characters, and that no two kinds share the same text. `RevivalSteps.choose` returns only kinds, so this covers the text of every step any facts can produce.
 
-  - [ ] 5.10 Write property test for manual graves
+  - [x] 5.10 Write property test for manual graves
     - **Property 11: Manual graves get the Remembered_Bonus and can reach every band**
     - **Validates: Requirements 2.1, 2.8, 3.1, 4.6**
     - Create `test/domain/seance/seance_manual_property_test.dart` over `anyManualFacts`: the score equals `clamp(agePoints + 6)`, equals the score of a described, non-archived, 0-star GitHub fact set of the same Day_Count, and does not differ between `hasDescription` true and false. Add the three pinned examples (60, 365 and 4,015 days) in the same file.
 
-- [ ] 6. Checkpoint - Rules complete
+- [x] 6. Checkpoint - Rules complete
   - Ensure all tests pass, ask the user if questions arise. Also run `flutter test --platform chrome test/domain test/data` in `apps/graveyard`; it must pass, so the score is equal on the VM and on the web.
 
 - [ ] 7. Verdict request and Seance_Ai

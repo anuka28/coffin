@@ -1,0 +1,339 @@
+{
+  "pbtResults": {
+    "5.4 Write property test for the archived penalty": {
+      "status": "passed",
+      "lastRunTimestamp": 1795531888322
+    },
+    "5.5 Write property test for stars": {
+      "status": "passed",
+      "lastRunTimestamp": 1795531890883
+    },
+    "5.2 Write property test for determinism": {
+      "status": "passed",
+      "lastRunTimestamp": 1795531914724
+    },
+    "5.1 Write property test for score range": {
+      "status": "passed",
+      "lastRunTimestamp": 1795531933491
+    },
+    "5.3 Write property test for age monotonicity": {
+      "status": "passed",
+      "lastRunTimestamp": 1795531944809
+    },
+    "5.6 Write property test for the description": {
+      "status": "passed",
+      "lastRunTimestamp": 1795532051414
+    },
+    "5.8 Write property test for the band": {
+      "status": "passed",
+      "lastRunTimestamp": 1795532066463
+    },
+    "5.10 Write property test for manual graves": {
+      "status": "passed",
+      "lastRunTimestamp": 1795532513936
+    },
+    "5.7 Write property test for the steps": {
+      "status": "passed",
+      "lastRunTimestamp": 1795532547688
+    }
+  },
+  "executionHistory": {
+    "2.1 Implement `SeanceFacts`, `RevivalBand` and `RevivalStepKind`": [
+      {
+        "executionId": "9e2097ee-a328-4e34-98cb-96f8613199fb",
+        "chatSessionId": "sess_f33da0d9-39af-4978-aa7c-770026778a75",
+        "timestamp": 1795528541119
+      },
+      {
+        "executionId": "9e2097ee-a328-4e34-98cb-96f8613199fb",
+        "chatSessionId": "sess_f33da0d9-39af-4978-aa7c-770026778a75",
+        "timestamp": 1795528664225
+      }
+    ],
+    "1.1 Add the Seance_Copy to `GraveyardCopy`": [
+      {
+        "executionId": "9e2097ee-a328-4e34-98cb-96f8613199fb",
+        "chatSessionId": "sess_f33da0d9-39af-4978-aa7c-770026778a75",
+        "timestamp": 1795528664671
+      },
+      {
+        "executionId": "9e2097ee-a328-4e34-98cb-96f8613199fb",
+        "chatSessionId": "sess_f33da0d9-39af-4978-aa7c-770026778a75",
+        "timestamp": 1795528840580
+      }
+    ],
+    "1.2 Write the copy tests": [
+      {
+        "executionId": "9e2097ee-a328-4e34-98cb-96f8613199fb",
+        "chatSessionId": "sess_f33da0d9-39af-4978-aa7c-770026778a75",
+        "timestamp": 1795528841018
+      },
+      {
+        "executionId": "9e2097ee-a328-4e34-98cb-96f8613199fb",
+        "chatSessionId": "sess_f33da0d9-39af-4978-aa7c-770026778a75",
+        "timestamp": 1795531012875
+      }
+    ],
+    "4.1 Write unit tests for `SeanceFacts`": [
+      {
+        "executionId": "9e2097ee-a328-4e34-98cb-96f8613199fb",
+        "chatSessionId": "sess_f33da0d9-39af-4978-aa7c-770026778a75",
+        "timestamp": 1795528846532
+      },
+      {
+        "executionId": "9e2097ee-a328-4e34-98cb-96f8613199fb",
+        "chatSessionId": "sess_f33da0d9-39af-4978-aa7c-770026778a75",
+        "timestamp": 1795531013500
+      }
+    ],
+    "4.3 Write unit tests for `RevivalBand`": [
+      {
+        "executionId": "9e2097ee-a328-4e34-98cb-96f8613199fb",
+        "chatSessionId": "sess_f33da0d9-39af-4978-aa7c-770026778a75",
+        "timestamp": 1795528846625
+      },
+      {
+        "executionId": "9e2097ee-a328-4e34-98cb-96f8613199fb",
+        "chatSessionId": "sess_f33da0d9-39af-4978-aa7c-770026778a75",
+        "timestamp": 1795531014161
+      }
+    ],
+    "1. Seance copy": [
+      {
+        "executionId": "9e2097ee-a328-4e34-98cb-96f8613199fb",
+        "chatSessionId": "sess_f33da0d9-39af-4978-aa7c-770026778a75",
+        "timestamp": 1795531012962
+      }
+    ],
+    "2.2 Implement `RevivalSteps`, `SeanceResult` and `SeanceRules`": [
+      {
+        "executionId": "d890ce99-ece1-4ab5-af18-e0688a7a0fa3",
+        "chatSessionId": "sess_b850f111-6438-4791-8152-a817af63c813",
+        "timestamp": 1795531066390
+      },
+      {
+        "executionId": "d890ce99-ece1-4ab5-af18-e0688a7a0fa3",
+        "chatSessionId": "sess_b850f111-6438-4791-8152-a817af63c813",
+        "timestamp": 1795531155747
+      }
+    ],
+    "2. Séance rules (Domain)": [
+      {
+        "executionId": "d890ce99-ece1-4ab5-af18-e0688a7a0fa3",
+        "chatSessionId": "sess_b850f111-6438-4791-8152-a817af63c813",
+        "timestamp": 1795531155788
+      }
+    ],
+    "3.1 Extend the generators with séance facts": [
+      {
+        "executionId": "da4e28bf-0834-4920-84b9-d3a6071c9850",
+        "chatSessionId": "sess_a7874478-5bbf-4617-b8fe-f4dfb45183eb",
+        "timestamp": 1795531331107
+      },
+      {
+        "executionId": "da4e28bf-0834-4920-84b9-d3a6071c9850",
+        "chatSessionId": "sess_a7874478-5bbf-4617-b8fe-f4dfb45183eb",
+        "timestamp": 1795531428444
+      },
+      {
+        "executionId": "c7eea710-b420-46ae-b393-b39e199ac901",
+        "chatSessionId": "sess_a7874478-5bbf-4617-b8fe-f4dfb45183eb",
+        "timestamp": 1795531513271
+      },
+      {
+        "executionId": "c7eea710-b420-46ae-b393-b39e199ac901",
+        "chatSessionId": "sess_a7874478-5bbf-4617-b8fe-f4dfb45183eb",
+        "timestamp": 1795531617758
+      }
+    ],
+    "3. Test generators": [
+      {
+        "executionId": "da4e28bf-0834-4920-84b9-d3a6071c9850",
+        "chatSessionId": "sess_a7874478-5bbf-4617-b8fe-f4dfb45183eb",
+        "timestamp": 1795531428490
+      }
+    ],
+    "4.2 Write unit tests for `SeanceRules`": [
+      {
+        "executionId": "c7eea710-b420-46ae-b393-b39e199ac901",
+        "chatSessionId": "sess_a7874478-5bbf-4617-b8fe-f4dfb45183eb",
+        "timestamp": 1795531626596
+      },
+      {
+        "executionId": "c7eea710-b420-46ae-b393-b39e199ac901",
+        "chatSessionId": "sess_a7874478-5bbf-4617-b8fe-f4dfb45183eb",
+        "timestamp": 1795531733687
+      }
+    ],
+    "4.4 Write unit tests for `RevivalSteps`": [
+      {
+        "executionId": "c7eea710-b420-46ae-b393-b39e199ac901",
+        "chatSessionId": "sess_a7874478-5bbf-4617-b8fe-f4dfb45183eb",
+        "timestamp": 1795531626654
+      },
+      {
+        "executionId": "c7eea710-b420-46ae-b393-b39e199ac901",
+        "chatSessionId": "sess_a7874478-5bbf-4617-b8fe-f4dfb45183eb",
+        "timestamp": 1795531733735
+      }
+    ],
+    "4.5 Write the worked examples test": [
+      {
+        "executionId": "c7eea710-b420-46ae-b393-b39e199ac901",
+        "chatSessionId": "sess_a7874478-5bbf-4617-b8fe-f4dfb45183eb",
+        "timestamp": 1795531626690
+      },
+      {
+        "executionId": "c7eea710-b420-46ae-b393-b39e199ac901",
+        "chatSessionId": "sess_a7874478-5bbf-4617-b8fe-f4dfb45183eb",
+        "timestamp": 1795531733790
+      }
+    ],
+    "4. Unit tests for the rules": [
+      {
+        "executionId": "c7eea710-b420-46ae-b393-b39e199ac901",
+        "chatSessionId": "sess_a7874478-5bbf-4617-b8fe-f4dfb45183eb",
+        "timestamp": 1795531733875
+      }
+    ],
+    "5.1 Write property test for score range": [
+      {
+        "executionId": "c7eea710-b420-46ae-b393-b39e199ac901",
+        "chatSessionId": "sess_a7874478-5bbf-4617-b8fe-f4dfb45183eb",
+        "timestamp": 1795531739834
+      },
+      {
+        "executionId": "c7eea710-b420-46ae-b393-b39e199ac901",
+        "chatSessionId": "sess_a7874478-5bbf-4617-b8fe-f4dfb45183eb",
+        "timestamp": 1795531954913
+      }
+    ],
+    "5.2 Write property test for determinism": [
+      {
+        "executionId": "c7eea710-b420-46ae-b393-b39e199ac901",
+        "chatSessionId": "sess_a7874478-5bbf-4617-b8fe-f4dfb45183eb",
+        "timestamp": 1795531739891
+      },
+      {
+        "executionId": "c7eea710-b420-46ae-b393-b39e199ac901",
+        "chatSessionId": "sess_a7874478-5bbf-4617-b8fe-f4dfb45183eb",
+        "timestamp": 1795531955014
+      }
+    ],
+    "5.3 Write property test for age monotonicity": [
+      {
+        "executionId": "c7eea710-b420-46ae-b393-b39e199ac901",
+        "chatSessionId": "sess_a7874478-5bbf-4617-b8fe-f4dfb45183eb",
+        "timestamp": 1795531739927
+      },
+      {
+        "executionId": "c7eea710-b420-46ae-b393-b39e199ac901",
+        "chatSessionId": "sess_a7874478-5bbf-4617-b8fe-f4dfb45183eb",
+        "timestamp": 1795531955887
+      }
+    ],
+    "5.4 Write property test for the archived penalty": [
+      {
+        "executionId": "c7eea710-b420-46ae-b393-b39e199ac901",
+        "chatSessionId": "sess_a7874478-5bbf-4617-b8fe-f4dfb45183eb",
+        "timestamp": 1795531740077
+      },
+      {
+        "executionId": "c7eea710-b420-46ae-b393-b39e199ac901",
+        "chatSessionId": "sess_a7874478-5bbf-4617-b8fe-f4dfb45183eb",
+        "timestamp": 1795531956628
+      }
+    ],
+    "5.5 Write property test for stars": [
+      {
+        "executionId": "c7eea710-b420-46ae-b393-b39e199ac901",
+        "chatSessionId": "sess_a7874478-5bbf-4617-b8fe-f4dfb45183eb",
+        "timestamp": 1795531740435
+      },
+      {
+        "executionId": "c7eea710-b420-46ae-b393-b39e199ac901",
+        "chatSessionId": "sess_a7874478-5bbf-4617-b8fe-f4dfb45183eb",
+        "timestamp": 1795531957243
+      }
+    ],
+    "5.6 Write property test for the description": [
+      {
+        "executionId": "c7eea710-b420-46ae-b393-b39e199ac901",
+        "chatSessionId": "sess_a7874478-5bbf-4617-b8fe-f4dfb45183eb",
+        "timestamp": 1795531961113
+      },
+      {
+        "executionId": "c7eea710-b420-46ae-b393-b39e199ac901",
+        "chatSessionId": "sess_a7874478-5bbf-4617-b8fe-f4dfb45183eb",
+        "timestamp": 1795532556889
+      }
+    ],
+    "5.7 Write property test for the steps": [
+      {
+        "executionId": "c7eea710-b420-46ae-b393-b39e199ac901",
+        "chatSessionId": "sess_a7874478-5bbf-4617-b8fe-f4dfb45183eb",
+        "timestamp": 1795531961662
+      },
+      {
+        "executionId": "c7eea710-b420-46ae-b393-b39e199ac901",
+        "chatSessionId": "sess_a7874478-5bbf-4617-b8fe-f4dfb45183eb",
+        "timestamp": 1795532557323
+      }
+    ],
+    "5.8 Write property test for the band": [
+      {
+        "executionId": "c7eea710-b420-46ae-b393-b39e199ac901",
+        "chatSessionId": "sess_a7874478-5bbf-4617-b8fe-f4dfb45183eb",
+        "timestamp": 1795531962718
+      },
+      {
+        "executionId": "c7eea710-b420-46ae-b393-b39e199ac901",
+        "chatSessionId": "sess_a7874478-5bbf-4617-b8fe-f4dfb45183eb",
+        "timestamp": 1795532558417
+      }
+    ],
+    "5.9 Write the per-kind step text test": [
+      {
+        "executionId": "c7eea710-b420-46ae-b393-b39e199ac901",
+        "chatSessionId": "sess_a7874478-5bbf-4617-b8fe-f4dfb45183eb",
+        "timestamp": 1795531963349
+      },
+      {
+        "executionId": "c7eea710-b420-46ae-b393-b39e199ac901",
+        "chatSessionId": "sess_a7874478-5bbf-4617-b8fe-f4dfb45183eb",
+        "timestamp": 1795532558895
+      }
+    ],
+    "5.10 Write property test for manual graves": [
+      {
+        "executionId": "c7eea710-b420-46ae-b393-b39e199ac901",
+        "chatSessionId": "sess_a7874478-5bbf-4617-b8fe-f4dfb45183eb",
+        "timestamp": 1795531963976
+      },
+      {
+        "executionId": "c7eea710-b420-46ae-b393-b39e199ac901",
+        "chatSessionId": "sess_a7874478-5bbf-4617-b8fe-f4dfb45183eb",
+        "timestamp": 1795532559600
+      }
+    ],
+    "5. Property tests for the rules": [
+      {
+        "executionId": "c7eea710-b420-46ae-b393-b39e199ac901",
+        "chatSessionId": "sess_a7874478-5bbf-4617-b8fe-f4dfb45183eb",
+        "timestamp": 1795532559628
+      }
+    ],
+    "6. Checkpoint - Rules complete": [
+      {
+        "executionId": "c7eea710-b420-46ae-b393-b39e199ac901",
+        "chatSessionId": "sess_a7874478-5bbf-4617-b8fe-f4dfb45183eb",
+        "timestamp": 1795532564142
+      },
+      {
+        "executionId": "c7eea710-b420-46ae-b393-b39e199ac901",
+        "chatSessionId": "sess_a7874478-5bbf-4617-b8fe-f4dfb45183eb",
+        "timestamp": 1795532795270
+      }
+    ]
+  }
+}

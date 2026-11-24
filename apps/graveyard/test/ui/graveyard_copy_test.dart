@@ -4,6 +4,8 @@ import 'package:graveyard/src/domain/grave_rejection.dart';
 import 'package:graveyard/src/domain/import_failure.dart';
 import 'package:graveyard/src/domain/import_failure_kind.dart';
 import 'package:graveyard/src/domain/rate_limit_wait.dart';
+import 'package:graveyard/src/domain/seance/revival_band.dart';
+import 'package:graveyard/src/domain/seance/revival_step_kind.dart';
 import 'package:graveyard/src/domain/repo_parse_problem.dart';
 import 'package:graveyard/src/ui/graveyard_copy.dart';
 
@@ -210,5 +212,134 @@ void main() {
   test('date line uses English month names', () {
     expect(GraveyardCopy.dateLine(CalendarDate(2023, 1, 3)), 'Died 3 Jan 2023');
     expect(GraveyardCopy.date(CalendarDate(2026, 12, 31)), '31 Dec 2026');
+  });
+
+  group('Seance_Copy', () {
+    const names = ['Ghost', 'Atom', 'A very long project name'];
+    final steps = <String>[
+      GraveyardCopy.stepForkRepository,
+      GraveyardCopy.stepWriteDownPurpose,
+      GraveyardCopy.stepUpdateDependencies,
+      GraveyardCopy.stepSkimReadme,
+      GraveyardCopy.stepFixOneThing,
+      GraveyardCopy.stepAskAFriend,
+      GraveyardCopy.stepAddOneTest,
+    ];
+    final seanceStrings = <String>[
+      GraveyardCopy.seanceControlText,
+      GraveyardCopy.closeSeanceLabel,
+      GraveyardCopy.seanceThinkingCaption,
+      GraveyardCopy.safeVerdictLine,
+      ...steps,
+      for (final k in RevivalStepKind.values) GraveyardCopy.revivalStepText(k),
+      for (final b in RevivalBand.values) GraveyardCopy.revivalBandLabel(b),
+      for (final n in names) ...[
+        GraveyardCopy.seanceControlLabel(n),
+        GraveyardCopy.seanceRouteName(n),
+        for (final b in RevivalBand.values)
+          for (final score in [0, 39, 40, 69, 70, 100])
+            GraveyardCopy.revivalScoreLabel(score, b),
+      ],
+      for (var k = 1; k <= 3; k++)
+        for (final kind in RevivalStepKind.values)
+          GraveyardCopy.revivalStepLabel(
+            k,
+            3,
+            GraveyardCopy.revivalStepText(kind),
+          ),
+    ];
+
+    bool allowed(int r) => (r >= 0x20 && r <= 0x7E) || r == 0xE9 || r == 0x2026;
+
+    void expectClean(String s) {
+      for (final r in s.runes) {
+        expect(
+          allowed(r),
+          isTrue,
+          reason:
+              'U+${r.toRadixString(16).toUpperCase().padLeft(4, '0')} in "$s"',
+        );
+      }
+      final lower = s.toLowerCase();
+      for (final word in [
+        'morning',
+        'afternoon',
+        'evening',
+        'night',
+        'midnight',
+        'dawn',
+        'dusk',
+        'failed',
+        'invalid',
+        'your fault',
+        'exception',
+        'error',
+        'instance of',
+      ]) {
+        expect(lower, isNot(contains(word)), reason: s);
+      }
+      expect(RegExp(r'\b[45]\d\d\b').hasMatch(s), isFalse, reason: s);
+    }
+
+    test('every string uses only allowed characters and no banned words', () {
+      for (final s in seanceStrings) {
+        expect(s, isNotEmpty);
+        expectClean(s);
+      }
+    });
+
+    test('safeVerdictLine is one short sentence with no placeholder', () {
+      final line = GraveyardCopy.safeVerdictLine;
+      expect(line.length, lessThanOrEqualTo(140));
+      expect(line, isNot(contains('{')));
+      expect(line, isNot(contains('}')));
+      expect(line, isNot(contains(r'$')));
+      expect(line, isNot(contains('%')));
+      expect(line.trim(), line);
+      expect(RegExp(r'[.!?]').allMatches(line).length, 1);
+      expect(line.endsWith('.'), isTrue);
+    });
+
+    test('every step constant has at most 48 characters', () {
+      for (final s in steps) {
+        expect(s.length, lessThanOrEqualTo(48), reason: s);
+      }
+    });
+
+    test('revivalStepText is total, short and injective', () {
+      final texts = <String>{};
+      for (final kind in RevivalStepKind.values) {
+        final text = GraveyardCopy.revivalStepText(kind);
+        expect(text, isNotEmpty, reason: '$kind');
+        expect(text.length, lessThanOrEqualTo(48), reason: text);
+        expectClean(text);
+        texts.add(text);
+      }
+      expect(texts.length, RevivalStepKind.values.length);
+    });
+
+    test('label forms are pinned', () {
+      expect(
+        GraveyardCopy.seanceControlLabel('Ghost'),
+        'Hold a séance for Ghost',
+      );
+      expect(GraveyardCopy.seanceRouteName('Ghost'), 'Séance for Ghost');
+      expect(
+        GraveyardCopy.revivalScoreLabel(72, RevivalBand.readyToRise),
+        'Revival score 72 out of 100, Ready to rise',
+      );
+      expect(
+        GraveyardCopy.revivalScoreLabel(5, RevivalBand.restless),
+        'Revival score 5 out of 100, Restless',
+      );
+      expect(
+        GraveyardCopy.revivalScoreLabel(40, RevivalBand.stirring),
+        'Revival score 40 out of 100, Stirring',
+      );
+      expect(
+        GraveyardCopy.revivalStepLabel(2, 3, 'Do a thing'),
+        'Step 2 of 3: Do a thing',
+      );
+    });
   });
 }

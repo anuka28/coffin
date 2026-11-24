@@ -6,6 +6,8 @@ import '../domain/rate_limit_wait.dart';
 import '../domain/repo_parse_problem.dart';
 import '../domain/scene/description_cleaner.dart';
 import '../domain/scene/thousands_formatter.dart';
+import '../domain/seance/revival_band.dart';
+import '../domain/seance/revival_step_kind.dart';
 
 /// Every user-facing string of Graveyard, in one place.
 ///
@@ -237,4 +239,77 @@ abstract final class GraveyardCopy {
 
   /// Button that deletes the grave.
   static const String delete = 'Delete';
+
+  // --------------------------------------------------------------- Séance
+
+  /// Visible text of the séance control on a tombstone.
+  static const String seanceControlText = 'Hold a séance';
+
+  /// Semantic label of the séance control of one tombstone.
+  static String seanceControlLabel(String name) => 'Hold a séance for $name';
+
+  /// Word shown next to the revival score for one band.
+  static String revivalBandLabel(RevivalBand band) => switch (band) {
+    RevivalBand.restless => 'Restless',
+    RevivalBand.stirring => 'Stirring',
+    RevivalBand.readyToRise => 'Ready to rise',
+  };
+
+  /// Semantic label of the revival score and its band.
+  static String revivalScoreLabel(int score, RevivalBand band) =>
+      'Revival score $score out of 100, ${revivalBandLabel(band)}';
+
+  /// Semantic label of one revival step, such as `Step 1 of 3: ...`.
+  static String revivalStepLabel(int k, int total, String text) =>
+      'Step $k of $total: $text';
+
+  /// Route name of the séance sheet for one grave.
+  static String seanceRouteName(String name) => 'Séance for $name';
+
+  /// Label of the close control of the séance sheet.
+  static const String closeSeanceLabel = 'Close séance';
+
+  /// Caption of the ghost while the verdict is pending.
+  static const String seanceThinkingCaption = 'The spirits are murmuring…';
+
+  /// Verdict shown when no verdict line is available. It fits every grave.
+  static const String safeVerdictLine =
+      'The spirits are quiet, but every project can rise again.';
+
+  /// Revival step: fork the repository first.
+  static const String stepForkRepository =
+      'Fork the repository before you touch anything';
+
+  /// Revival step: write down the purpose.
+  static const String stepWriteDownPurpose =
+      'Write down what the project was meant to do';
+
+  /// Revival step: update dependencies.
+  static const String stepUpdateDependencies =
+      'Update dependencies before writing new code';
+
+  /// Revival step: skim the README.
+  static const String stepSkimReadme =
+      'Open the repository and skim the README';
+
+  /// Revival step: fix one small thing.
+  static const String stepFixOneThing =
+      'Pick one small bug or TODO to fix first';
+
+  /// Revival step: ask a friend.
+  static const String stepAskAFriend = 'Ping a friend to co-revive it with you';
+
+  /// Revival step: add one test.
+  static const String stepAddOneTest = 'Add one test before changing any code';
+
+  /// The text of one revival step kind.
+  static String revivalStepText(RevivalStepKind kind) => switch (kind) {
+    RevivalStepKind.forkRepository => stepForkRepository,
+    RevivalStepKind.writeDownPurpose => stepWriteDownPurpose,
+    RevivalStepKind.updateDependencies => stepUpdateDependencies,
+    RevivalStepKind.skimReadme => stepSkimReadme,
+    RevivalStepKind.fixOneThing => stepFixOneThing,
+    RevivalStepKind.askAFriend => stepAskAFriend,
+    RevivalStepKind.addOneTest => stepAddOneTest,
+  };
 }
