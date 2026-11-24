@@ -163,34 +163,34 @@ Rules for every task:
 - [x] 9. Checkpoint - Séance wired
   - Ensure all tests pass, ask the user if questions arise.
 
-- [ ] 10. Widget tests
-  - [ ] 10.1 Write widget tests for the control
+- [x] 10. Widget tests
+  - [x] 10.1 Write widget tests for the control
     - Create `test/ui/seance_control_test.dart`: the visible label "Hold a séance"; the semantic label names the Grave; the tap target is at least 48 by 48; Enter and Space activate it; hover, pressed and focused states are visible; it lies outside the stone and its rect does not overlap the delete control or any text of the tombstone; activating it opens the Seance_Sheet for that Grave; while a sheet is open no second sheet opens; the Scene_Layout column count, tombstone width and tilt of a tombstone are unchanged by the control.
     - Also edit `test/ui/graveyard_scene_test.dart`, group `semantics`, test `node order follows the grave order`: stop skipping the séance label that task 8.4 added to the label walk, and assert the full per-grave order for every grave at every width in the test (320, 360, 768 and 1280): the stone label, then `GraveyardCopy.seanceControlLabel(name)` ("Hold a séance for <name>"), then the delete label ("Delete <name>"), with the graves in grave order.
     - _Requirements: 1.1, 1.2, 1.3, 1.4, 1.5, 1.6, 1.7, 1.8, 11.3, 11.4, 14.12_
 
-  - [ ] 10.2 Write widget tests for the sheet content and the verdict
+  - [x] 10.2 Write widget tests for the sheet content and the verdict
     - Create `test/ui/seance_sheet_test.dart`: with a fake `CoffinAI` that never completes, the first frame shows the score, the band word and the three steps, plus the ghost loader and its caption; when the fake replies, the line replaces the loader and the score and steps do not move (`getTopLeft` unchanged); on an error and after pumping past `verdictWaitLimit` the Safe_Verdict_Line shows with no error text, no error icon and no retry control and the score and steps stay unchanged; the order is name, score and band, steps, verdict; the numbers and words are text; the request sent to the fake has the purpose, the two facts and the seed of Requirement 5; the same Grave on the same Today shows the same score, band and steps when opened twice; nothing is written to the repository (`MemoryRecordRepository` unchanged, the Grave, order and saved state unchanged); a Grave removed while the sheet is open leaves the sheet showing; the close button is always present, also while pending.
     - _Requirements: 3.4, 3.5, 5.1, 5.2, 5.7, 5.8, 5.9, 6.1, 6.2, 6.3, 6.4, 6.5, 7.1, 7.2, 7.3, 7.4, 8.2, 8.8, 14.12_
 
-  - [ ] 10.3 Write widget tests for closing, focus and reduced motion
+  - [x] 10.3 Write widget tests for closing, focus and reduced motion
     - Create `test/ui/seance_sheet_close_test.dart`: the close button (48 by 48, label "Close séance"), Escape, a tap outside and a drag down each close the sheet; focus moves into the sheet when it opens and returns to the Seance_Control when it closes while the control is in the tree; focus stays inside the sheet while open; the scene keeps its scroll position and tombstones after closing; closing during the Reveal does not throw; a late fake reply after closing is dropped with no exception (`tester.takeException()` is null after pumping past the delay); with `disableAnimations` true the result shows at once with no running animation, and without it one Reveal of 300 to 600 ms plays once and then no animation keeps running except the ghost loader while pending.
     - _Requirements: 5.10, 8.3, 8.4, 8.6, 8.7, 9.1, 9.2, 9.3, 9.4, 9.5, 9.6, 14.12_
 
-  - [ ] 10.4 Write widget tests for accessibility and contrast
+  - [x] 10.4 Write widget tests for accessibility and contrast
     - Create `test/ui/seance_sheet_semantics_test.dart`: one node labelled "Revival score <n> out of 100, <band>" with the real values; one node per step "Step <k> of 3: <text>"; the Verdict_Line is a live region; the route name is "Séance for <name>"; no node for the glows, the ghost loader graphic or the Reveal; every text and icon of the sheet keeps `WcagContrast.ratio` of at least 4.5 for text and 3.0 for icons against the color directly behind it in the dark and the daylight theme, with the sheet colors read from `CoffinColorTokens`.
     - _Requirements: 8.5, 10.1, 10.2, 10.3, 10.4, 10.5, 10.6, 14.12_
 
-  - [ ] 10.5 Write widget tests for layout
+  - [x] 10.5 Write widget tests for layout
     - Create `test/ui/seance_sheet_layout_test.dart`: the control and the sheet render without an overflow exception at the widths 320, 360, 768 and 1280 and the text scales 1.0, 1.5 and 2.0 (the sheet also at 2.0, with no clipped text); the content is at most 560 wide and centered on wide screens; the sheet scrolls when taller than the available height and the close button stays reachable; every sheet state (pending, ready, fallback) is covered.
     - _Requirements: 8.1, 10.7, 11.1, 11.2, 11.5, 14.12_
 
-- [ ] 11. Source-rule tests
-  - [ ] 11.1 Write source-rule tests for the séance
+- [x] 11. Source-rule tests
+  - [x] 11.1 Write source-rule tests for the séance
     - Create `test/source_rules/seance_sources_test.dart`: no file under `lib/src/domain/seance` contains `package:flutter`, `dart:ui`, `dart:io`, `dart:html`, `package:coffin_core`, `package:http`, `package:hive_ce` or `DateTime.now`, and none imports anything from `ui` (no import path containing `ui/`, no `graveyard_copy.dart`), with no allow-list and no exception; every file under `lib/src/domain/seance` has one public class and a doc comment on each public member; no file of this feature (`lib/src/domain/seance`, `seance_ai.dart`, `seance_control.dart`, `seance_sheet.dart`) references a storage class (`Hive`, `RecordRepository`, `GraveStorage`) or writes séance data; `grave_codec.dart` contains none of "seance", "revival" or "verdict"; `seance_ai.dart` imports `coffin_core` only through `package:coffin_core/coffin_core.dart`; no file under `lib` imports `coffin_core/src` or Hauntagotchi; the new UI files use no `Color(0x` and no `Colors.`; no file adds a state-management package import. This folder is the only place that reads source files with `dart:io`.
     - _Requirements: 5.11, 7.2, 8.5, 13.1, 13.2, 13.3, 13.4, 13.5, 14.14_
 
-- [ ] 12. Final checkpoint - Verification
+- [x] 12. Final checkpoint - Verification
   - Run in `apps/graveyard`: `dart format --output=none --set-exit-if-changed .`, `flutter analyze` (zero issues), `flutter test`, and `flutter test --platform chrome test/domain test/data`. Check `grep -rl "dart:io" test/domain test/data` finds nothing.
   - Run `flutter test` in `packages/coffin_core` (it must pass unchanged, which shows the AI layer is unaffected), in `apps/hauntagotchi` and in `tool/`.
   - Run `flutter pub get --enforce-lockfile` at the repo root, then check `git diff --exit-code -- pubspec.lock` exits 0 (no new package, so no lockfile change).

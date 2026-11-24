@@ -469,8 +469,9 @@ void main() {
               .semanticsOwner!
               .rootSemanticsNode!,
         );
-        // Each stone is followed by its own Delete button: stone 1, Delete 1,
-        // stone 2, Delete 2, at every width.
+        // Each stone is followed by its own séance control and then its own
+        // Delete button: stone 1, séance 1, Delete 1, stone 2, ... at every
+        // width.
         final sequence = <String>[
           for (final label in labels)
             for (var i = 0; i < graves.length; i++)
@@ -478,12 +479,16 @@ void main() {
                 'delete $i'
               else if (label ==
                   GraveyardCopy.seanceControlLabel(graves[i].name))
-                ...const <String>[]
+                'seance $i'
               else if (label.contains(graves[i].name))
                 'stone $i',
         ];
         expect(sequence, <String>[
-          for (var i = 0; i < graves.length; i++) ...['stone $i', 'delete $i'],
+          for (var i = 0; i < graves.length; i++) ...[
+            'stone $i',
+            'seance $i',
+            'delete $i',
+          ],
         ], reason: 'reading order at width $width');
       }
       handle.dispose();

@@ -474,6 +474,114 @@
         "chatSessionId": "sess_d1566501-2f79-4637-8f2c-5360da2e34c1",
         "timestamp": 1795537733678
       }
+    ],
+    "10.1 Write widget tests for the control": [
+      {
+        "executionId": "772cd0e9-0adb-44b2-ba29-f94ab70b3759",
+        "chatSessionId": "sess_104f2508-36bc-4f45-9aeb-11abbec1a630",
+        "timestamp": 1795537931446
+      },
+      {
+        "executionId": "772cd0e9-0adb-44b2-ba29-f94ab70b3759",
+        "chatSessionId": "sess_104f2508-36bc-4f45-9aeb-11abbec1a630",
+        "timestamp": 1795538622560
+      }
+    ],
+    "10.2 Write widget tests for the sheet content and the verdict": [
+      {
+        "executionId": "0865c44c-18b8-4b1c-8578-51d3e4cbef93",
+        "chatSessionId": "sess_3ebe8dc3-8c73-4943-9f62-8cee8d1eb718",
+        "timestamp": 1795538692597
+      },
+      {
+        "executionId": "0865c44c-18b8-4b1c-8578-51d3e4cbef93",
+        "chatSessionId": "sess_3ebe8dc3-8c73-4943-9f62-8cee8d1eb718",
+        "timestamp": 1795538841077
+      }
+    ],
+    "10.3 Write widget tests for closing, focus and reduced motion": [
+      {
+        "executionId": "f367e18d-64db-4164-b288-d025462428e7",
+        "chatSessionId": "sess_971b8d8a-fc37-4a03-a404-6ab788117cad",
+        "timestamp": 1795538879997
+      },
+      {
+        "executionId": "f367e18d-64db-4164-b288-d025462428e7",
+        "chatSessionId": "sess_971b8d8a-fc37-4a03-a404-6ab788117cad",
+        "timestamp": 1795539046715
+      }
+    ],
+    "10.4 Write widget tests for accessibility and contrast": [
+      {
+        "executionId": "894a5631-309d-4f42-abe8-539c50710f39",
+        "chatSessionId": "sess_3879e096-33b4-4c02-9482-702b166d2df8",
+        "timestamp": 1795539092366
+      },
+      {
+        "executionId": "894a5631-309d-4f42-abe8-539c50710f39",
+        "chatSessionId": "sess_3879e096-33b4-4c02-9482-702b166d2df8",
+        "timestamp": 1795539324647
+      }
+    ],
+    "10.5 Write widget tests for layout": [
+      {
+        "executionId": "57d7a61c-3377-45a3-bf21-1bdf622b281b",
+        "chatSessionId": "sess_c90fcec0-96b8-4f1f-a04e-2552aef5aacf",
+        "timestamp": 1795539409985
+      },
+      {
+        "executionId": "57d7a61c-3377-45a3-bf21-1bdf622b281b",
+        "chatSessionId": "sess_c90fcec0-96b8-4f1f-a04e-2552aef5aacf",
+        "timestamp": 1795539593566
+      },
+      {
+        "executionId": "c59c090b-8195-4a54-946e-70312b344cb2",
+        "chatSessionId": "sess_c90fcec0-96b8-4f1f-a04e-2552aef5aacf",
+        "timestamp": 1795539640026
+      },
+      {
+        "executionId": "c59c090b-8195-4a54-946e-70312b344cb2",
+        "chatSessionId": "sess_c90fcec0-96b8-4f1f-a04e-2552aef5aacf",
+        "timestamp": 1795539724983
+      }
+    ],
+    "10. Widget tests": [
+      {
+        "executionId": "57d7a61c-3377-45a3-bf21-1bdf622b281b",
+        "chatSessionId": "sess_c90fcec0-96b8-4f1f-a04e-2552aef5aacf",
+        "timestamp": 1795539593614
+      }
+    ],
+    "11.1 Write source-rule tests for the séance": [
+      {
+        "executionId": "c59c090b-8195-4a54-946e-70312b344cb2",
+        "chatSessionId": "sess_c90fcec0-96b8-4f1f-a04e-2552aef5aacf",
+        "timestamp": 1795539732176
+      },
+      {
+        "executionId": "c59c090b-8195-4a54-946e-70312b344cb2",
+        "chatSessionId": "sess_c90fcec0-96b8-4f1f-a04e-2552aef5aacf",
+        "timestamp": 1795539900629
+      }
+    ],
+    "11. Source-rule tests": [
+      {
+        "executionId": "c59c090b-8195-4a54-946e-70312b344cb2",
+        "chatSessionId": "sess_c90fcec0-96b8-4f1f-a04e-2552aef5aacf",
+        "timestamp": 1795539900679
+      }
+    ],
+    "12. Final checkpoint - Verification": [
+      {
+        "executionId": "c59c090b-8195-4a54-946e-70312b344cb2",
+        "chatSessionId": "sess_c90fcec0-96b8-4f1f-a04e-2552aef5aacf",
+        "timestamp": 1795539906981
+      },
+      {
+        "executionId": "c59c090b-8195-4a54-946e-70312b344cb2",
+        "chatSessionId": "sess_c90fcec0-96b8-4f1f-a04e-2552aef5aacf",
+        "timestamp": 1795540240414
+      }
     ]
   }
 }

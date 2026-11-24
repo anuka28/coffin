@@ -168,6 +168,7 @@ class _SeanceSheetState extends State<SeanceSheet>
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: <Widget>[
                     Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
                         Expanded(
                           child: Semantics(
