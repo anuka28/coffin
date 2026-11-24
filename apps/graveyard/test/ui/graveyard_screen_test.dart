@@ -13,6 +13,8 @@ import '../support/controller_harness.dart';
 import '../support/fake_github_client.dart';
 import '../support/throwing_record_repository.dart';
 
+import 'package:graveyard/src/ui/seance_ai.dart';
+
 Grave _manual(String id, String name, CalendarDate died) =>
     Grave.manual(id: id, name: name, dateOfDeath: died);
 
@@ -53,7 +55,10 @@ Future<void> _pump(
         data: MediaQuery.of(context).copyWith(disableAnimations: true),
         child: child!,
       ),
-      home: GraveyardScreen(controller: h.controller),
+      home: GraveyardScreen(
+        controller: h.controller,
+        seanceAi: buildSeanceAi(),
+      ),
     ),
   );
   await tester.pumpAndSettle();

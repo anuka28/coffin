@@ -10,6 +10,8 @@ import 'package:graveyard/src/ui/arch_epitaph.dart';
 import 'package:graveyard/src/ui/crack_painter.dart';
 import 'package:graveyard/src/ui/grave_tombstone.dart';
 import 'package:graveyard/src/ui/graveyard_scene.dart';
+import 'package:graveyard/src/ui/seance_ai.dart';
+import 'package:graveyard/src/ui/graveyard_copy.dart';
 
 final CalendarDate _today = CalendarDate(2024, 1, 10);
 final int _todayEpoch = CalendarDate(1970, 1, 1).daysUntil(_today);
@@ -64,6 +66,7 @@ Future<void> _pump(
                   grave: grave,
                   today: _today,
                   onDelete: onDelete ?? () {},
+                  seanceAi: buildSeanceAi(),
                 ),
               ),
             ),
@@ -248,10 +251,12 @@ void main() {
     ) async {
       var deleted = 0;
       await _pump(tester, _grave(3650), onDelete: () => deleted++);
-      final size = tester.getSize(find.byType(TextButton));
+      final size = tester.getSize(
+        find.widgetWithText(TextButton, GraveyardCopy.delete),
+      );
       expect(size.width, greaterThanOrEqualTo(48));
       expect(size.height, greaterThanOrEqualTo(48));
-      await tester.tap(find.byType(TextButton));
+      await tester.tap(find.widgetWithText(TextButton, GraveyardCopy.delete));
       expect(deleted, 1);
     });
   });
@@ -269,6 +274,7 @@ void main() {
               graves: <Grave>[grave],
               today: today,
               onDelete: (_) {},
+              seanceAi: buildSeanceAi(),
             ),
           ),
         ),

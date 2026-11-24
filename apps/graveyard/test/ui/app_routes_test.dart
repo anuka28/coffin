@@ -7,12 +7,14 @@ import 'package:graveyard/src/ui/graveyard_screen.dart';
 
 import '../support/controller_harness.dart';
 
+import 'package:graveyard/src/ui/seance_ai.dart';
+
 void main() {
   Future<ControllerHarness> pumpAt(WidgetTester tester, String location) async {
     final ControllerHarness h = ControllerHarness();
     addTearDown(h.dispose);
     final GoRouter router = FogRouter.create(
-      routes: buildAppRoutes(h.controller),
+      routes: buildAppRoutes(h.controller, buildSeanceAi()),
       initialLocation: location,
     );
     addTearDown(router.dispose);
@@ -29,7 +31,9 @@ void main() {
   ) async {
     final ControllerHarness h = ControllerHarness();
     addTearDown(h.dispose);
-    await tester.pumpWidget(GraveyardApp(controller: h.controller));
+    await tester.pumpWidget(
+      GraveyardApp(controller: h.controller, seanceAi: buildSeanceAi()),
+    );
     await tester.pump();
     await tester.pump(const Duration(seconds: 1));
     expect(find.byType(GraveyardScreen), findsOneWidget);
@@ -46,7 +50,7 @@ void main() {
   testWidgets('the home route is the only declared route', (tester) async {
     final ControllerHarness h = ControllerHarness();
     addTearDown(h.dispose);
-    final List<AppRoute> routes = buildAppRoutes(h.controller);
+    final List<AppRoute> routes = buildAppRoutes(h.controller, buildSeanceAi());
     expect(routes, hasLength(1));
     expect(routes.single.path, '/');
     expect(routes.single.name, 'home');

@@ -2,7 +2,7 @@
 
 ## Overview
 
-The plan builds the séance bottom-up in Dart. First come the Seance_Copy strings, then the pure Domain rules in `lib/src/domain/seance` (facts, band, step kinds, steps, result, rules; the Domain holds step kinds, never step text, and `GraveyardCopy.revivalStepText` maps kinds to text in the UI layer), each unit with its unit tests and its glados property tests (Properties 1 to 11) and the eight worked examples. Then come the verdict request builder and the `FallbackCoffinAI` wiring in `lib/src/ui/seance_ai.dart`, the Seance_Control, the Seance_Sheet, and the wiring through the tombstone, the scene, the screen and the app. Widget tests, source-rule tests and a final verification follow. Each task builds on the previous ones and ends wired into the app, so no code is left orphaned. No package, asset or lock change is part of this plan.
+The plan builds the séance bottom-up in Dart. First come the Seance_Copy strings, then the pure Domain rules in `lib/src/domain/seance` (facts, band, step kinds, steps, result, rules; the Domain holds step kinds, never step text, and `GraveyardCopy.revivalStepText` maps kinds to text in the UI layer), each unit with its unit tests and its glados property tests (Properties 1 to 12) and the eight worked examples. Then come the verdict request builder and the `FallbackCoffinAI` wiring in `lib/src/ui/seance_ai.dart`, the Seance_Control, the Seance_Sheet, and the wiring through the tombstone, the scene, the screen and the app. Widget tests, source-rule tests and a final verification follow. Each task builds on the previous ones and ends wired into the app, so no code is left orphaned. No package, asset or lock change is part of this plan.
 
 Rules for every task:
 
@@ -37,9 +37,9 @@ Rules for every task:
     - _Requirements: 2.2, 2.3, 2.9, 2.10, 3.1, 3.2, 13.1, 13.2_
 
   - [x] 2.2 Implement `RevivalSteps`, `SeanceResult` and `SeanceRules`
-    - Create `revival_steps.dart` (`RevivalSteps` with the const `generalKinds` list `skimReadme`, `fixOneThing`, `askAFriend`, `addOneTest` in that order, and `choose(facts)` returning a `List<RevivalStepKind>`: condition kinds in the fixed priority order archived (`forkRepository`), manual (`writeDownPurpose`), old (`updateDependencies` when `dayCount > 365`), `take(3)`, then fill from `generalKinds` in order skipping kinds already chosen, so the result always has three distinct kinds), `seance_result.dart` (`score`, `band`, `steps` as three `RevivalStepKind` values, value equality that compares the kinds in order) and `seance_rules.dart` (`evaluate(SeanceFacts)`: age staircase 70/66/56/46/34/24/14/6/0 at the edges 30/90/180/365/730/1095/1825/3650, star points `0` for `stars <= 0` else `min(10, (stars + 1).bitLength)`, Remembered_Bonus `+6` when `hasDescription || manual`, archived penalty `-25`, sum clamped to 0..100, band from `RevivalBand.forScore`) in `lib/src/domain/seance`.
+    - Create `revival_steps.dart` (`RevivalSteps` with the const `generalKinds` list `skimReadme`, `fixOneThing`, `askAFriend`, `addOneTest` in that order, and `choose(facts)` returning a `List<RevivalStepKind>`: condition kinds in the fixed priority order archived and not manual (`forkRepository`), manual (`writeDownPurpose`), old (`updateDependencies` when `dayCount > 365`), `take(3)`, then fill from `generalKinds` in order skipping kinds already chosen and, for a manual Grave, the repository-only kinds `skimReadme` and `forkRepository` (`repositoryOnlyKinds`), so the result always has three distinct kinds), `seance_result.dart` (`score`, `band`, `steps` as three `RevivalStepKind` values, value equality that compares the kinds in order) and `seance_rules.dart` (`evaluate(SeanceFacts)`: age staircase 70/66/56/46/34/24/14/6/0 at the edges 30/90/180/365/730/1095/1825/3650, star points `0` for `stars <= 0` else `min(10, (stars + 1).bitLength)`, Remembered_Bonus `+6` when `hasDescription || manual`, archived penalty `-25`, sum clamped to 0..100, band from `RevivalBand.forScore`) in `lib/src/domain/seance`.
     - Integer arithmetic only, no `dart:math`, no `DateTime.now()`, no randomness. These files import nothing from `lib/src/ui`, no Flutter, no `dart:ui` and no `package:coffin_core`, and hold no step text. The existing Domain source rules must pass without any change to their allow-list.
-    - _Requirements: 2.1, 2.2, 2.3, 2.4, 2.5, 2.6, 2.7, 2.8, 2.10, 2.11, 3.1, 4.1, 4.2, 4.3, 4.4, 4.5, 4.6, 4.7, 4.8, 13.1, 13.2_
+    - _Requirements: 2.1, 2.2, 2.3, 2.4, 2.5, 2.6, 2.7, 2.8, 2.10, 2.11, 3.1, 4.1, 4.2, 4.3, 4.4, 4.5, 4.6, 4.7, 4.8, 4.11, 13.1, 13.2_
 
 - [x] 3. Test generators
   - [x] 3.1 Extend the generators with séance facts
@@ -61,12 +61,12 @@ Rules for every task:
     - _Requirements: 3.1, 14.1, 14.9_
 
   - [x] 4.4 Write unit tests for `RevivalSteps`
-    - Create `test/domain/seance/revival_steps_test.dart`: zero conditions give the first three `generalKinds` in order; archived only, manual only and old only each give that kind first followed by the fill in order; archived and manual, archived and old, manual and old; all three conditions give `forkRepository`, `writeDownPurpose`, `updateDependencies` in that priority order; `dayCount` 365 does not trigger `updateDependencies` and 366 does; every result has three distinct kinds; two calls give equal lists.
-    - _Requirements: 4.1, 4.2, 4.3, 4.4, 4.5, 4.6, 4.7, 4.8, 14.1_
+    - Create `test/domain/seance/revival_steps_test.dart`: zero conditions give the first three `generalKinds` in order; archived only and old only each give that kind first followed by the fill in order; manual only gives `writeDownPurpose`, `fixOneThing`, `askAFriend`; archived and old gives `forkRepository`, `updateDependencies`, `skimReadme`; manual and old gives `writeDownPurpose`, `updateDependencies`, `fixOneThing`; a manual Grave never gets `skimReadme` or `forkRepository`, also when `archived` is true (archived and manual, and archived, manual and old, give no repository-only kind); `dayCount` 365 does not trigger `updateDependencies` and 366 does; every result has three distinct kinds; two calls give equal lists.
+    - _Requirements: 4.1, 4.2, 4.3, 4.4, 4.5, 4.6, 4.7, 4.8, 4.11, 14.1_
 
   - [x] 4.5 Write the worked examples test
-    - Create `test/domain/seance/worked_examples_test.dart` with all eight rows of the design table, each building the `SeanceFacts` shown (manual rows: `manual true`, `archived false`, `stars 0`, `hasDescription false`) and asserting that `SeanceRules.evaluate` returns the exact score, the exact band and the exact three `RevivalStepKind` values in order (the text of each kind is checked in the copy test, so this Domain test imports nothing from `ui`): row 1 (10 stars, described, 30 days: 80, Ready to rise), row 2 (182 days: 56, Stirring), row 3 (manual, 60 days: 72, Ready to rise), row 4 (manual, 4,015 days: 6, Restless), row 5 (181,400 stars, 0 days: 86, Ready to rise), row 6 (`atom/atom`, archived, 1,095 days: 15, Restless), row 7 (`mojombo/grit`, 1,095 days, 2,000 stars: 40, Stirring) and row 8 (`octocat/Hello-World`, no description, 4,000 stars, 730 days: 44, Stirring). Also check the stability rows: 28 to 31 days stay Ready to rise for row 1, 180 to 184 days stay Stirring for row 2, and 59 to 62 days stay Ready to rise for row 3.
-    - _Requirements: 2.1, 2.5, 3.1, 4.4, 4.5, 4.6, 4.7, 14.1_
+    - Create `test/domain/seance/worked_examples_test.dart` with all eight rows of the design table, each building the `SeanceFacts` shown (manual rows: `manual true`, `archived false`, `stars 0`, `hasDescription false`) and asserting that `SeanceRules.evaluate` returns the exact score, the exact band and the exact three `RevivalStepKind` values in order (the text of each kind is checked in the copy test, so this Domain test imports nothing from `ui`): row 1 (10 stars, described, 30 days: 80, Ready to rise), row 2 (182 days: 56, Stirring), row 3 (manual, 60 days: 72, Ready to rise, steps `writeDownPurpose`, `fixOneThing`, `askAFriend`), row 4 (manual, 4,015 days: 6, Restless, steps `writeDownPurpose`, `updateDependencies`, `fixOneThing`), row 5 (181,400 stars, 0 days: 86, Ready to rise), row 6 (`atom/atom`, archived, 1,095 days: 15, Restless), row 7 (`mojombo/grit`, 1,095 days, 2,000 stars: 40, Stirring) and row 8 (`octocat/Hello-World`, no description, 4,000 stars, 730 days: 44, Stirring). Also check the stability rows: 28 to 31 days stay Ready to rise for row 1, 180 to 184 days stay Stirring for row 2, and 59 to 62 days stay Ready to rise for row 3.
+    - _Requirements: 2.1, 2.5, 3.1, 4.4, 4.5, 4.6, 4.7, 4.11, 14.1_
 
 - [x] 5. Property tests for the rules
   - [x] 5.1 Write property test for score range
@@ -122,43 +122,51 @@ Rules for every task:
 - [x] 6. Checkpoint - Rules complete
   - Ensure all tests pass, ask the user if questions arise. Also run `flutter test --platform chrome test/domain test/data` in `apps/graveyard`; it must pass, so the score is equal on the VM and on the web.
 
-- [ ] 7. Verdict request and Seance_Ai
-  - [ ] 7.1 Implement `buildVerdictRequest` and `buildSeanceAi`
+- [x] 7. Verdict request and Seance_Ai
+  - [x] 7.1 Implement `buildVerdictRequest` and `buildSeanceAi`
     - Create `lib/src/ui/seance_ai.dart` with `verdictMaxLength` (140), `verdictWaitLimit` (3 seconds), `buildVerdictRequest({grave, facts})` (purpose `AiPurpose.seanceVerdict`, exactly the two facts `AiFactKeys.projectName` and `AiFactKeys.daysSinceLastCommit`, `maxLength` 140, seed `StableHash.of(grave.id) % (AiRequest.maxSeed + 1)`) and `buildSeanceAi()` (`FallbackCoffinAI` with `OfflineCoffinAI` as primary and as secondary and `timeout: verdictWaitLimit`). Import only `package:coffin_core/coffin_core.dart`. No network call, no key.
     - _Requirements: 5.1, 5.2, 5.3, 5.4, 5.5, 5.11, 13.3_
 
-  - [ ] 7.2 Write unit tests for the verdict request and the Seance_Ai
+  - [x] 7.2 Write unit tests for the verdict request and the Seance_Ai
     - Create `test/ui/seance_ai_test.dart`: the purpose is `AiPurpose.seanceVerdict`; the fact keys are exactly `projectName` and `daysSinceLastCommit` with the Grave name and the Day_Count; `maxLength` is between 16 and 140; the seed is between 0 and `AiRequest.maxSeed`; the same Grave id gives the same seed with different facts; two ids give a fixed pinned seed each; `buildSeanceAi()` is a `FallbackCoffinAI` whose primary and secondary are `OfflineCoffinAI` and whose timeout is greater than zero and at most 3 seconds; asking it for a request returns a non-blank reply with no network.
     - _Requirements: 5.1, 5.2, 5.3, 5.4, 5.5, 14.1, 14.13_
 
-  - [ ] 7.3 Write property test for the verdict request
+  - [x] 7.3 Write property test for the verdict request
     - **Property 10: Verdict request facts and seed are stable**
     - **Validates: Requirements 5.2, 5.3, 14.13**
     - Create `test/ui/seance_ai_property_test.dart` over `anyGraveWithSource` and `anySeanceFacts`: the facts map has exactly the two keys with the right values, and two calls with the same Grave id and different facts give the same seed in `[0, AiRequest.maxSeed]`.
 
-- [ ] 8. Control, sheet and wiring
-  - [ ] 8.1 Add the fake `CoffinAI` test support
+- [x] 8. Control, sheet and wiring
+  - [x] 8.1 Add the fake `CoffinAI` test support
     - Create `test/support/fake_coffin_ai.dart`: a `CoffinAI` that can reply at once, reply after a completer is completed, throw, never complete, or return a blank or an over-length reply, and that records the requests it received.
     - _Requirements: 5.6, 14.12_
 
-  - [ ] 8.2 Implement `SeanceControl`
+  - [x] 8.2 Implement `SeanceControl`
     - Create `lib/src/ui/seance_control.dart`: a button with the visible label `GraveyardCopy.seanceControlText`, a minimum size of 48 by 48 with a padded tap target, `Semantics(button: true, label: GraveyardCopy.seanceControlLabel(grave.name))`, keyboard activation on Enter and Space, and hover, press and focus states from the ambient theme. It takes `grave` and `onPressed`, holds no string of its own and uses no hard-coded color.
     - _Requirements: 1.1, 1.2, 1.3, 1.4, 1.5, 12.1_
 
-  - [ ] 8.3 Implement `SeanceSheet` and `showSeanceSheet`
+  - [x] 8.3 Implement `SeanceSheet` and `showSeanceSheet`
     - Create `lib/src/ui/seance_sheet.dart`: `showSeanceSheet(context, {grave, today, seanceAi})` opens `showModalBottomSheet` with `isScrollControlled: true`, `RouteSettings(name: GraveyardCopy.seanceRouteName(grave.name))`, safe-area padding and a content width of at most 560 centered. `SeanceSheet` computes `SeanceFacts.of` and `SeanceRules.evaluate` once in `initState`, asks the Seance_Ai once with `buildVerdictRequest`, and keeps the final `Grave` it was opened with. Layout in order: title row with the Grave name and a 48 by 48 close button labelled "Close séance" with autofocus; the score as a number and the band as a word in text; the numbered list of three steps, each kind rendered as text through `GraveyardCopy.revivalStepText`; the Verdict_Line area (`GhostLoader` with `seanceThinkingCaption` while pending, the reply text when ready, `safeVerdictLine` on an error or when the wait limit passes, with no error text, icon or retry). Guard every `setState` with a disposed flag so a late reply is dropped. One non-looping fade `AnimationController` (300 to 600 ms, ease-in-out) plays once unless `MediaQuery.disableAnimations` is true, then starts at 1; dispose it once, also when the sheet closes mid-Reveal. Semantics: one node `revivalScoreLabel`, one node per step `revivalStepLabel(k, 3, GraveyardCopy.revivalStepText(kind))`, the Verdict_Line in a live region, decorative parts excluded. Colors from `CoffinColorTokens`, 16 px corners, soft glow, text wraps, the content scrolls with the close button reachable. Store nothing.
     - _Requirements: 3.4, 3.5, 5.1, 5.6, 5.7, 5.8, 5.9, 5.10, 6.1, 6.2, 6.3, 6.4, 6.5, 7.1, 7.2, 7.3, 8.1, 8.2, 8.3, 8.4, 8.5, 8.6, 8.7, 8.8, 9.1, 9.2, 9.3, 9.4, 9.5, 10.1, 10.2, 10.3, 10.4, 10.5, 11.2, 12.1_
 
-  - [ ] 8.4 Wire the control and the Seance_Ai through the app
+  - [x] 8.4 Wire the control and the Seance_Ai through the app
     - Edit `lib/src/ui/grave_tombstone.dart` to place the `SeanceControl` below the stone next to the delete control (outside the stone, no overlap with the delete control or any stone text, with the Crack_Band, Epitaph and Keep_Out_Areas math, the column count, the tombstone width and the tilt limit unchanged) and to open `showSeanceSheet` with the Grave, Today and the Seance_Ai. Thread a `CoffinAI seanceAi` constructor argument through `GraveyardScene` and `GraveyardScreen`, and build it once with `buildSeanceAi()` in `app_routes.dart` or `main.dart` where the controller is built. Update the existing tests that construct these widgets so they compile and pass (pass a fake or the default `buildSeanceAi()`), without changing what they assert.
     - _Requirements: 1.6, 1.7, 1.8, 5.6, 9.6, 11.3, 11.4, 13.7_
 
-- [ ] 9. Checkpoint - Séance wired
+  - [x] 8.5 Manual graves never get repository-only steps
+    - Rule change found in the running app: a manual Grave got "Open the repository and skim the README", but a manual Grave has no repository. A manual Grave never gets the repository-only kinds `skimReadme` and `forkRepository`. `RevivalSteps` fills its remaining places from the general kinds that are left (`fixOneThing`, `askAFriend`, `addOneTest`, in that order), and the result still has exactly three distinct kinds. Scores do not change.
+    - Update `requirements.md` (Requirement 4: criteria 4 and 7 and one new criterion, with the rule and the numbering kept consistent), `design.md` (the `RevivalSteps` section and code sample, the worked examples table where the manual rows 3 and 4 change their steps and the scores stay, the testing section, and a new Property 12 "A manual Grave never gets a repository-only step") and the `.kiro/specs/graveyard-seance/tasks.md` text of tasks 2.2, 4.4, 4.5 and the property notes so that they match.
+    - Edit `lib/src/domain/seance/revival_steps.dart` (Domain stays pure, no new import, no step text; the `generalKinds` list keeps its order and a manual Grave skips `skimReadme` while filling; a manual Grave never gets `forkRepository` even when `archived` is true), then update `test/domain/seance/revival_steps_test.dart` and `test/domain/seance/worked_examples_test.dart` (the manual rows get the new steps, scores and bands unchanged). Add a glados property test `test/domain/seance/revival_steps_property_test.dart` (or the existing property file for steps, if there is one, extending it) with the header `// Feature: graveyard-seance, Property 12: A manual Grave never gets a repository-only step` and `// Validates: Requirements 4.1, 4.2, 4.11`: for all facts with `manual` true (any `archived`, `dayCount`, `stars`, `hasDescription`), the steps never include `skimReadme` or `forkRepository`, and are still three distinct kinds. Keep the existing properties passing.
+    - Check any widget or copy test that expects the old manual steps and update it to the new rule without weakening what it asserts.
+    - _Requirements: 4.1, 4.2, 4.4, 4.6, 4.7, 4.11, 14.1_
+
+- [x] 9. Checkpoint - Séance wired
   - Ensure all tests pass, ask the user if questions arise.
 
 - [ ] 10. Widget tests
   - [ ] 10.1 Write widget tests for the control
     - Create `test/ui/seance_control_test.dart`: the visible label "Hold a séance"; the semantic label names the Grave; the tap target is at least 48 by 48; Enter and Space activate it; hover, pressed and focused states are visible; it lies outside the stone and its rect does not overlap the delete control or any text of the tombstone; activating it opens the Seance_Sheet for that Grave; while a sheet is open no second sheet opens; the Scene_Layout column count, tombstone width and tilt of a tombstone are unchanged by the control.
+    - Also edit `test/ui/graveyard_scene_test.dart`, group `semantics`, test `node order follows the grave order`: stop skipping the séance label that task 8.4 added to the label walk, and assert the full per-grave order for every grave at every width in the test (320, 360, 768 and 1280): the stone label, then `GraveyardCopy.seanceControlLabel(name)` ("Hold a séance for <name>"), then the delete label ("Delete <name>"), with the graves in grave order.
     - _Requirements: 1.1, 1.2, 1.3, 1.4, 1.5, 1.6, 1.7, 1.8, 11.3, 11.4, 14.12_
 
   - [ ] 10.2 Write widget tests for the sheet content and the verdict
@@ -195,7 +203,7 @@ Rules for every task:
 ## Notes
 
 - Every test sub-task is required and none is marked optional. The project testing rules and Requirement 14.3 require unit tests for pure logic and glados property tests for numeric rules.
-- Every property in the design (1 to 11) has its own sub-task: P1 (5.1), P2 (5.2), P3 (5.3), P4 (5.4), P5 (5.5), P6 (5.6), P7 (5.7), P8 (5.8), P9 (5.9), P10 (7.3), P11 (5.10).
+- Every property in the design (1 to 12) has its own sub-task: P1 (5.1), P2 (5.2), P3 (5.3), P4 (5.4), P5 (5.5), P6 (5.6), P7 (5.7), P8 (5.8), P9 (5.9), P10 (7.3), P11 (5.10), P12 (8.5).
 - The eight worked examples of the design are pinned in task 4.5 with exact score, band and steps.
 - Requirement 5.9 (timeout) is covered with a fake `CoffinAI` that never completes, pumped past `verdictWaitLimit`, because the default `OfflineCoffinAI` always replies at once.
 - Task 1.1 needs `RevivalBand` and `RevivalStepKind` from task 2.1 for `revivalBandLabel` and `revivalStepText`. The wave order runs 2.1 before 1.1, so both files already exist when 1.1 adds the imports in `graveyard_copy.dart`. The Domain never imports `graveyard_copy.dart`.
@@ -216,9 +224,10 @@ Rules for every task:
     { "id": 5, "tasks": ["7.1", "8.2"] },
     { "id": 6, "tasks": ["7.2", "7.3", "8.3"] },
     { "id": 7, "tasks": ["8.4"] },
-    { "id": 8, "tasks": ["9"] },
-    { "id": 9, "tasks": ["10.1", "10.2", "10.3", "10.4", "10.5", "11.1"] },
-    { "id": 10, "tasks": ["12"] }
+    { "id": 8, "tasks": ["8.5"] },
+    { "id": 9, "tasks": ["9"] },
+    { "id": 10, "tasks": ["10.1", "10.2", "10.3", "10.4", "10.5", "11.1"] },
+    { "id": 11, "tasks": ["12"] }
   ]
 }
 ```

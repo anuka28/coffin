@@ -18,6 +18,8 @@ import '../support/fake_github_client.dart';
 import '../support/fixed_offset_zone.dart';
 import '../support/sheet_host.dart';
 
+import 'package:graveyard/src/ui/seance_ai.dart';
+
 const Key _name = ValueKey<String>('bury-name');
 const Key _date = ValueKey<String>('bury-date');
 const Key _bury = ValueKey<String>('bury-submit');
@@ -86,7 +88,10 @@ void main() {
             data: MediaQuery.of(context).copyWith(disableAnimations: true),
             child: child!,
           ),
-          home: GraveyardScreen(controller: h.controller),
+          home: GraveyardScreen(
+            controller: h.controller,
+            seanceAi: buildSeanceAi(),
+          ),
         ),
       );
       await tester.pumpAndSettle();

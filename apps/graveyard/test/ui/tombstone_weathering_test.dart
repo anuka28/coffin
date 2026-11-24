@@ -7,6 +7,7 @@ import 'package:graveyard/src/domain/calendar_date.dart';
 import 'package:graveyard/src/domain/grave.dart';
 import 'package:graveyard/src/domain/repo_info.dart';
 import 'package:graveyard/src/ui/grave_tombstone.dart';
+import 'package:graveyard/src/ui/seance_ai.dart';
 
 final CalendarDate _today = CalendarDate(2024, 1, 10);
 final int _todayEpoch = CalendarDate(1970, 1, 1).daysUntil(_today);
@@ -38,7 +39,12 @@ Future<void> _pump(
         child: Column(
           children: <Widget>[
             SizedBox(height: rebuild.toDouble()),
-            GraveTombstone(grave: grave, today: _today, onDelete: () {}),
+            GraveTombstone(
+              grave: grave,
+              today: _today,
+              onDelete: () {},
+              seanceAi: buildSeanceAi(),
+            ),
           ],
         ),
       ),

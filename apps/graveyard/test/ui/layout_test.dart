@@ -20,6 +20,8 @@ import 'package:graveyard/src/ui/graveyard_screen.dart';
 import '../support/controller_harness.dart';
 import '../support/throwing_record_repository.dart';
 
+import 'package:graveyard/src/ui/seance_ai.dart';
+
 const Key _fab = ValueKey<String>('screen-add');
 const Key _importField = ValueKey<String>('import-field');
 const Key _importSubmit = ValueKey<String>('import-submit');
@@ -90,7 +92,10 @@ Future<void> _pump(
         ),
         child: child!,
       ),
-      home: GraveyardScreen(controller: h.controller),
+      home: GraveyardScreen(
+        controller: h.controller,
+        seanceAi: buildSeanceAi(),
+      ),
     ),
   );
   await tester.pumpAndSettle();
@@ -215,7 +220,10 @@ void main() {
       await _pump(tester, h, width: 320);
       _expectTapTarget(tester, find.byKey(_fab));
       expect(find.bySemanticsLabel(GraveyardCopy.addButton), findsWidgets);
-      final Finder deletes = find.byType(TextButton);
+      final Finder deletes = find.widgetWithText(
+        TextButton,
+        GraveyardCopy.delete,
+      );
       expect(deletes, findsAtLeast(2));
       for (final Element e in deletes.evaluate()) {
         final Finder one = find.byElementPredicate((Element x) => x == e);
@@ -435,7 +443,10 @@ void main() {
         seed: _seed(<Grave>[_manual('g1', 'Doomed', CalendarDate(2020, 1, 1))]),
       );
       await _pump(tester, h);
-      final Finder deleteButton = find.byType(TextButton);
+      final Finder deleteButton = find.widgetWithText(
+        TextButton,
+        GraveyardCopy.delete,
+      );
       // Focus the delete button the way a keyboard user would.
       Focus.of(
         tester.element(
@@ -465,7 +476,10 @@ void main() {
         seed: _seed(<Grave>[_manual('g1', 'Doomed', CalendarDate(2020, 1, 1))]),
       );
       await _pump(tester, h);
-      _expectHoverAndPress(tester, find.byType(TextButton));
+      _expectHoverAndPress(
+        tester,
+        find.widgetWithText(TextButton, GraveyardCopy.delete),
+      );
 
       await tester.tap(find.byKey(_fab));
       await _settleSheet(tester);
@@ -549,7 +563,10 @@ void main() {
       await tester.pumpWidget(
         MaterialApp(
           theme: CoffinTheme.dark(),
-          home: GraveyardScreen(controller: h.controller),
+          home: GraveyardScreen(
+            controller: h.controller,
+            seanceAi: buildSeanceAi(),
+          ),
         ),
       );
       await tester.pump(const Duration(milliseconds: 300));

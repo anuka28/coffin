@@ -263,17 +263,25 @@ abstract final class RevivalSteps {
     RevivalStepKind.addOneTest,
   ];
 
+  /// The kinds that only make sense for a Grave with a repository. A manual
+  /// Grave never gets any of them (Requirement 4.11).
+  static const Set<RevivalStepKind> repositoryOnlyKinds = <RevivalStepKind>{
+    RevivalStepKind.skimReadme,
+    RevivalStepKind.forkRepository,
+  };
+
   /// Chooses exactly three distinct kinds, highest-priority
   /// condition-driven kinds first, filled from the fixed general list.
   static List<RevivalStepKind> choose(SeanceFacts facts) {
     final List<RevivalStepKind> conditionKinds = <RevivalStepKind>[
-      if (facts.archived) RevivalStepKind.forkRepository,
+      if (facts.archived && !facts.manual) RevivalStepKind.forkRepository,
       if (facts.manual) RevivalStepKind.writeDownPurpose,
       if (facts.dayCount > 365) RevivalStepKind.updateDependencies,
     ];
     final List<RevivalStepKind> chosen = conditionKinds.take(3).toList();
     for (final RevivalStepKind kind in generalKinds) {
       if (chosen.length == 3) break;
+      if (facts.manual && repositoryOnlyKinds.contains(kind)) continue;
       if (!chosen.contains(kind)) chosen.add(kind);
     }
     return chosen;
@@ -282,6 +290,8 @@ abstract final class RevivalSteps {
 ```
 
 The condition list is built in a single fixed order (archived, manual, old). When more than three conditions apply (Requirement 4.8), `conditionKinds.take(3)` keeps the first three in that priority order: `forkRepository`, then `writeDownPurpose`, then `updateDependencies`. With at most three conditions possible in this version of the rules, `take(3)` is a no-op today but is the seam where the priority order lives if a fourth condition is added. `generalKinds` is iterated in a fixed order and skipped when already chosen, so the result always has exactly three distinct kinds (Requirements 4.1, 4.2, 4.7) with no randomness (Requirement 4.3). Enum values compare by identity, so no `==` override is needed.
+
+**Key decision: a manual Grave has no repository.** The repository-only kinds are `forkRepository` and `skimReadme` (`RevivalSteps.repositoryOnlyKinds`). For a manual Grave, `forkRepository` is not added even if `archived` is true (the facts built by `SeanceFacts.of` never set it, but `choose` does not rely on that), and the fill loop skips `skimReadme`. The remaining general kinds `fixOneThing`, `askAFriend` and `addOneTest` are always enough: a manual Grave has at most two condition kinds (`writeDownPurpose`, `updateDependencies`), so at most one place is filled and three general kinds are available (Requirements 4.7, 4.11). `updateDependencies` and `writeDownPurpose` are not repository-only and stay as they are. The score does not change. The `generalKinds` list keeps its order, so non-manual results are unchanged.
 
 **Key decision: the Domain imports nothing from `ui/`, with no exception.** Step text is Seance_Copy and Seance_Copy lives in `GraveyardCopy` (`lib/src/ui/graveyard_copy.dart`), so the Domain cannot reference the text constants. The Domain returns `RevivalStepKind` values only, and the UI turns each kind into text.
 
@@ -462,14 +472,14 @@ Reference day for every example: **Today = 2024-01-15**. `dayCount = max(0, date
 | 7 | `mojombo/grit`, GitHub, not archived, dead **1,095 days**, 2,000 stars, described | 24 | `(2001).bitLength = 11` → capped 10 | +6 | 0 | `24+10+6-0 = 40` | **Stirring** (low edge: 40 is the first Stirring score) |
 | 8 | `octocat/Hello-World`, GitHub, not archived, **no description**, 4,000 stars, dead **730 days** (died 2022-01-15) | 34 (`366-730`) | `(4001).bitLength = 12` → capped 10 | +0 | 0 | `34+10+0-0 = 44` | **Stirring** |
 
-Steps (the existing choice: archived → fork, manual → write-down, `dayCount > 365` → update dependencies, then general fill in the order skim README, fix one thing, ask a friend, add one test):
+Steps (archived and not manual → fork, manual → write-down, `dayCount > 365` → update dependencies, then general fill in the order skim README, fix one thing, ask a friend, add one test; a manual Grave skips the repository-only kinds `forkRepository` and `skimReadme`, so rows 3 and 4 fill from fix one thing, ask a friend and add one test):
 
 | # | Revival_Steps, in order (kinds, with the text each maps to in `GraveyardCopy`) |
 | --- | --- |
 | 1 | 1. `skimReadme` ("Open the repository and skim the README") 2. `fixOneThing` ("Pick one small bug or TODO to fix first") 3. `askAFriend` ("Ping a friend to co-revive it with you") |
 | 2 | Same as row 1 (182 days is not over 365, not archived, not manual) |
-| 3 | 1. `writeDownPurpose` ("Write down what the project was meant to do") 2. `skimReadme` ("Open the repository and skim the README") 3. `fixOneThing` ("Pick one small bug or TODO to fix first") |
-| 4 | 1. `writeDownPurpose` ("Write down what the project was meant to do") 2. `updateDependencies` ("Update dependencies before writing new code") 3. `skimReadme` ("Open the repository and skim the README") |
+| 3 | 1. `writeDownPurpose` ("Write down what the project was meant to do") 2. `fixOneThing` ("Pick one small bug or TODO to fix first") 3. `askAFriend` ("Ping a friend to co-revive it with you") |
+| 4 | 1. `writeDownPurpose` ("Write down what the project was meant to do") 2. `updateDependencies` ("Update dependencies before writing new code") 3. `fixOneThing` ("Pick one small bug or TODO to fix first") |
 | 5 | Same as row 1 |
 | 6 | 1. `forkRepository` ("Fork the repository before you touch anything") 2. `updateDependencies` ("Update dependencies before writing new code") 3. `skimReadme` ("Open the repository and skim the README") |
 | 7 | 1. `updateDependencies` ("Update dependencies before writing new code") 2. `skimReadme` ("Open the repository and skim the README") 3. `fixOneThing` ("Pick one small bug or TODO to fix first") |
@@ -551,6 +561,12 @@ For all Day_Counts, the facts of a manual Grave (`manual = true`, `archived = fa
 
 **Validates: Requirements 2.1, 2.8, 3.1, 4.6**
 
+### Property 12: A manual Grave never gets a repository-only step
+
+For all Seance_Facts with `manual = true` (any `archived`, `dayCount`, `stars` and `hasDescription`), `RevivalSteps.choose(facts)` contains neither `RevivalStepKind.skimReadme` nor `RevivalStepKind.forkRepository`, and still returns exactly three pairwise distinct kinds.
+
+**Validates: Requirements 4.1, 4.2, 4.11**
+
 **Reflection on the properties.** A separately-considered "a Grave with a larger dayCount, more stars, a description and not archived always lands in a band at least as high" property was dropped in favor of Properties 3 to 6 plus Property 8, because the per-field monotonicity of the score (3 to 6) composed with the band's own monotonicity (8) already implies the combined claim — testing it again as its own property would duplicate the same generators and catch no failure the component properties miss. A considered "the Day_Count-0 case returns a valid score" property was dropped as redundant with Property 1 (which already quantifies over all Seance_Facts, including `dayCount = 0`) plus the dedicated unit test pinning that exact boundary; Requirement 2.9 is about the *clamp before* `SeanceRules` ever runs (`SeanceFacts.of`'s `rawDays < 0 ? 0 : rawDays`), so it is better covered by a `SeanceFacts.of` unit test with a future date of death than by a property on `SeanceRules` itself, which never sees a negative `dayCount` by construction. A considered "fill-in steps keep the result at three when zero, one, two or three conditions apply" property was folded into Property 7, since Property 7's "exactly three, pairwise distinct" claim already has to hold across the full space of Seance_Facts, which includes zero-, one-, two- and three-condition facts as ordinary generated cases — a separate property would only relabel the same check. Properties 1 and 3 to 6 hold for the clamped score because each holds for the raw sum (a sum of terms that are each non-increasing or non-decreasing in the changed fact, or fixed) and the clamp is non-decreasing. Property 11 is kept separate from Property 6 because it pins the manual rule (bonus independent of `hasDescription`) and the band reach, which Property 6's `>=` claim does not. Property 10 covers both Requirement 5.2 (the facts) and 5.3 (the seed) in one property because they are two assertions about the same single function call on the same generated input, and splitting them would double the generator machinery for the same `VerdictRequestBuilder`/`buildVerdictRequest` under test twice.
 
 ## Error Handling
@@ -569,11 +585,12 @@ For all Day_Counts, the facts of a manual Grave (`manual = true`, `archived = fa
 - `seance_facts_test.dart`: a manual grave gives `archived = false, stars = 0, hasDescription = false`, regardless of what its (absent) `repo` would otherwise say; a GitHub grave with no `description` gives `hasDescription = false`; a GitHub grave whose description is only an emoji shortcode (cleans to empty) gives `hasDescription = false`; a future `dateOfDeath` gives `dayCount = 0`.
 - `seance_rules_test.dart`: the exact age-point table boundaries 0, 30, 31, 90, 91, 180, 181, 365, 366, 730, 731, 1095, 1096, 1825, 1826, 3650, 3651; `stars = 0` gives 0 star points exactly (not `bitLength(1) = 1`); `stars = 1` gives 2 points and `stars = 1023` and above give exactly 10; the Remembered_Bonus is 6 for a manual Grave with `hasDescription` true or false and for a described GitHub Grave, and 0 for an undescribed GitHub Grave; the raw maximum `70+10+6-0 = 86` stays below 100, and an archived Grave with `dayCount = 4015` and no bonus has raw `-25` and clamps to 0.
 - `revival_band_test.dart`: the band edges 0, 39, 40, 69, 70, 100 (Requirement 3.1, 14.9's example half).
-- `revival_steps_test.dart`: zero conditions (three general kinds, in `generalKinds` order); exactly one, two and three conditions each produce that many condition kinds followed by general-list fill; all three conditions at once keeps all three in priority order `forkRepository`, `writeDownPurpose`, `updateDependencies` (no fourth condition exists today, so Requirement 4.8's "more than three" branch has no live example — noted here rather than tested, since there is nothing to construct it from with the current rules).
+- `revival_steps_test.dart`: zero conditions (three general kinds, in `generalKinds` order); exactly one, two and three conditions each produce that many condition kinds followed by general-list fill; a non-manual Grave that is archived and old keeps `forkRepository`, `updateDependencies`, `skimReadme`; a manual Grave (also when `archived` is true, also when old) never gets `skimReadme` or `forkRepository` and fills from `fixOneThing`, `askAFriend`, `addOneTest` in that order (manual only: `writeDownPurpose`, `fixOneThing`, `askAFriend`; manual and old: `writeDownPurpose`, `updateDependencies`, `fixOneThing`). With the current rules at most two condition kinds apply to a manual Grave and at most three to any other, so Requirement 4.8's "more than three" branch has no live example, and is noted here rather than tested.
+- `revival_steps_property_test.dart`: Property 12 over manual facts with any other field, plus one pinned archived manual example.
 - `worked_examples_test.dart` (`apps/graveyard/test/domain/seance/worked_examples_test.dart`): all eight rows of the Worked examples table above (including the nearby day counts 28 to 31, 59 to 62 and 180 to 184 for rows 1 to 3), each asserting the exact score, band and the three kinds in order.
 - `seance_ai_test.dart` (`apps/graveyard/test/ui/seance_ai_test.dart`, since `buildVerdictRequest`/`buildSeanceAi` live in `lib/src/ui/seance_ai.dart`): `buildVerdictRequest`'s facts map has exactly the two required keys with the right values; the same Grave id gives the same seed across two calls with different `facts`; `buildSeanceAi()` returns a `FallbackCoffinAI` whose `primary`/`secondary` are both `OfflineCoffinAI` and whose `timeout` equals `verdictWaitLimit` (3 seconds).
 
-**Property tests** (glados, `apps/graveyard/test/domain/seance/*_property_test.dart`), using Web_Safe_Generators built from `anyIntBetween`/`anyListBetween` in the existing `test/domain/support/grave_generators.dart`, extended with an `anySeanceFacts` generator (`dayCount` from `anyIntBetween(0, 20000)` with the fixed edges 0, 30, 31, 90, 91, 180, 181, 365, 366, 730, 731, 1095, 1096, 1825, 1826, 3650, 3651 folded in the way `anyDayCount`/`anyCrackInput` already fold fixed edges into a `Generator`; `stars` from `anyIntBetween(0, 1048576)` with the fixed values 0, 1, 511, 1023, 2000, 60680, 181400 folded in; a separate `anyManualFacts` generator (`manual = true`, `archived = false`, `stars = 0`, `hasDescription` random) for Property 11; `archived`/`hasDescription`/`manual` from a small `anyBool`-equivalent built on `anyIntBetween(0, 1).map((n) => n == 1)`), at least 200 iterations each (matching `graveyard-scene`'s convention, above the 100-iteration minimum), tagged:
+**Property tests** (glados, `apps/graveyard/test/domain/seance/*_property_test.dart`), using Web_Safe_Generators built from `anyIntBetween`/`anyListBetween` in the existing `test/domain/support/grave_generators.dart`, extended with an `anySeanceFacts` generator (`dayCount` from `anyIntBetween(0, 20000)` with the fixed edges 0, 30, 31, 90, 91, 180, 181, 365, 366, 730, 731, 1095, 1096, 1825, 1826, 3650, 3651 folded in the way `anyDayCount`/`anyCrackInput` already fold fixed edges into a `Generator`; `stars` from `anyIntBetween(0, 1048576)` with the fixed values 0, 1, 511, 1023, 2000, 60680, 181400 folded in; a separate `anyManualFacts` generator (`manual = true`, `archived = false`, `stars = 0`, `hasDescription` random) for Property 11; Property 12 maps `anySeanceFacts` to `manual = true` with the other fields kept, so manual facts with `archived` true are generated too; `archived`/`hasDescription`/`manual` from a small `anyBool`-equivalent built on `anyIntBetween(0, 1).map((n) => n == 1)`), at least 200 iterations each (matching `graveyard-scene`'s convention, above the 100-iteration minimum), tagged:
 ```dart
 // Feature: graveyard-seance, Property 3: Older death never scores higher
 // Validates: Requirements 2.5, 14.6

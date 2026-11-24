@@ -73,8 +73,8 @@ void main() {
     test('row 3: manual grave, 60 days', () {
       _expectResult(_manual(60), 72, RevivalBand.readyToRise, <RevivalStepKind>[
         RevivalStepKind.writeDownPurpose,
-        RevivalStepKind.skimReadme,
         RevivalStepKind.fixOneThing,
+        RevivalStepKind.askAFriend,
       ]);
     });
 
@@ -82,7 +82,7 @@ void main() {
       _expectResult(_manual(4015), 6, RevivalBand.restless, <RevivalStepKind>[
         RevivalStepKind.writeDownPurpose,
         RevivalStepKind.updateDependencies,
-        RevivalStepKind.skimReadme,
+        RevivalStepKind.fixOneThing,
       ]);
     });
 

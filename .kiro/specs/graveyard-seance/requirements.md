@@ -36,6 +36,7 @@ No dependency changes:
 - **Revival_Band**: The word band of a Revival_Score, one of "Restless" (0 to 39), "Stirring" (40 to 69) and "Ready to rise" (70 to 100).
 - **Revival_Step**: One short instruction that tells the user how to bring the project back. The Domain chooses it as a `RevivalStepKind` value, and the text of the instruction is the text that `GraveyardCopy` provides for that kind through `GraveyardCopy.revivalStepText`.
 - **Revival_Steps**: The list of exactly three distinct `RevivalStepKind` values for one Grave.
+- **Repository_Only_Step**: A `RevivalStepKind` that only makes sense for a Grave with a repository: `forkRepository` and `skimReadme`.
 - **Verdict_Line**: One short spooky sentence about the project, from `CoffinAI`, or the Safe_Verdict_Line.
 - **Safe_Verdict_Line**: A fixed line held in `GraveyardCopy`, shown when the Verdict_Line is not available.
 - **Seance_Result**: The Revival_Score, the Revival_Band and the Revival_Steps of one Grave on one Today.
@@ -105,13 +106,14 @@ No dependency changes:
 1. THE Seance_Rules SHALL return exactly three Revival_Steps, each a `RevivalStepKind` value, for every Grave and every Today.
 2. THE three `RevivalStepKind` values of one Seance_Result SHALL be distinct.
 3. THE Seance_Rules SHALL choose the `RevivalStepKind` values from the Seance_Facts and Today only, with no randomness.
-4. WHEN the Grave is archived, THE Seance_Rules SHALL include a step that suggests forking the repository.
+4. WHEN the Grave is archived and its source is GitHub, THE Seance_Rules SHALL include a step that suggests forking the repository.
 5. WHEN the Day_Count is greater than 365, THE Seance_Rules SHALL include a step that suggests updating dependencies first.
 6. WHEN the Grave source is manual, THE Seance_Rules SHALL include a step that suggests writing down what the project was meant to do.
-7. WHEN fewer than three steps are chosen by the conditions above, THE Seance_Rules SHALL fill the remaining places from a fixed list of general steps, in a fixed order, so that the result always has three distinct steps.
+7. WHEN fewer than three steps are chosen by the conditions above, THE Seance_Rules SHALL fill the remaining places from a fixed list of general steps, in a fixed order, skipping every repository-only step when the Grave source is manual, so that the result always has three distinct steps.
 8. WHEN more than three conditions apply, THE Seance_Rules SHALL keep the three of highest priority, with the priority order set in the design phase.
 9. FOR ALL Seance_Facts, every Revival_Step SHALL fit on one line at a width of 320 logical pixels at the default text scale, which the design phase SHALL turn into a maximum length in characters.
 10. THE Revival_Steps SHALL be kind and concrete, and SHALL NOT shame the user for abandoning the project.
+11. WHEN the Grave source is manual, THE Seance_Rules SHALL NOT include a repository-only step, that is the step that suggests forking the repository or the step that suggests skimming the README of the repository, even when the Seance_Facts say the Grave is archived. The steps that suggest updating dependencies and writing down the purpose are not repository-only.
 
 ### Requirement 5: Verdict line from CoffinAI
 

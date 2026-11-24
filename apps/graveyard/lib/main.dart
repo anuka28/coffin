@@ -6,6 +6,7 @@ import 'src/data/http_github_client.dart';
 import 'src/data/system_clock.dart';
 import 'src/ui/app_routes.dart';
 import 'src/ui/grave_list_controller.dart';
+import 'src/ui/seance_ai.dart';
 
 void main() {
   const SystemClock clock = SystemClock();
@@ -18,16 +19,23 @@ void main() {
       ),
     ),
   );
-  runApp(GraveyardApp(controller: controller));
+  runApp(GraveyardApp(controller: controller, seanceAi: buildSeanceAi()));
 }
 
 /// Root widget of the Graveyard app.
 class GraveyardApp extends StatefulWidget {
   /// Creates the app root around [controller].
-  const GraveyardApp({super.key, required this.controller});
+  const GraveyardApp({
+    super.key,
+    required this.controller,
+    required this.seanceAi,
+  });
 
   /// The controller that owns the graves and their storage.
   final GraveListController controller;
+
+  /// The AI that words the verdict line of each séance, built once.
+  final CoffinAI seanceAi;
 
   @override
   State<GraveyardApp> createState() => _GraveyardAppState();
@@ -40,7 +48,9 @@ class _GraveyardAppState extends State<GraveyardApp> {
   @override
   void initState() {
     super.initState();
-    _router = FogRouter.create(routes: buildAppRoutes(widget.controller));
+    _router = FogRouter.create(
+      routes: buildAppRoutes(widget.controller, widget.seanceAi),
+    );
     widget.controller.load();
   }
 

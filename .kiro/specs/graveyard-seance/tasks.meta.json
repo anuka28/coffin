@@ -35,6 +35,14 @@
     "5.7 Write property test for the steps": {
       "status": "passed",
       "lastRunTimestamp": 1795532547688
+    },
+    "7.3 Write property test for the verdict request": {
+      "status": "passed",
+      "lastRunTimestamp": 1795535310171
+    },
+    "8.5 Manual graves never get repository-only steps": {
+      "status": "passed",
+      "lastRunTimestamp": 1795537492337
     }
   },
   "executionHistory": {
@@ -333,6 +341,138 @@
         "executionId": "c7eea710-b420-46ae-b393-b39e199ac901",
         "chatSessionId": "sess_a7874478-5bbf-4617-b8fe-f4dfb45183eb",
         "timestamp": 1795532795270
+      }
+    ],
+    "7.1 Implement `buildVerdictRequest` and `buildSeanceAi`": [
+      {
+        "executionId": "c3765d53-5c3b-4cac-bb1e-9b3ead79046a",
+        "chatSessionId": "sess_8eee4b24-d4d6-4e3d-b861-114859962aa7",
+        "timestamp": 1795534976104
+      },
+      {
+        "executionId": "c3765d53-5c3b-4cac-bb1e-9b3ead79046a",
+        "chatSessionId": "sess_8eee4b24-d4d6-4e3d-b861-114859962aa7",
+        "timestamp": 1795535097704
+      }
+    ],
+    "7.2 Write unit tests for the verdict request and the Seance_Ai": [
+      {
+        "executionId": "c3765d53-5c3b-4cac-bb1e-9b3ead79046a",
+        "chatSessionId": "sess_8eee4b24-d4d6-4e3d-b861-114859962aa7",
+        "timestamp": 1795535103451
+      },
+      {
+        "executionId": "c3765d53-5c3b-4cac-bb1e-9b3ead79046a",
+        "chatSessionId": "sess_8eee4b24-d4d6-4e3d-b861-114859962aa7",
+        "timestamp": 1795535217990
+      }
+    ],
+    "7.3 Write property test for the verdict request": [
+      {
+        "executionId": "63409fa2-fd8d-4e0c-a17b-1a94549d3570",
+        "chatSessionId": "sess_f5c8c891-3fa6-403b-8749-3e9d590cdde7",
+        "timestamp": 1795535233519
+      },
+      {
+        "executionId": "63409fa2-fd8d-4e0c-a17b-1a94549d3570",
+        "chatSessionId": "sess_f5c8c891-3fa6-403b-8749-3e9d590cdde7",
+        "timestamp": 1795535319572
+      }
+    ],
+    "7. Verdict request and Seance_Ai": [
+      {
+        "executionId": "63409fa2-fd8d-4e0c-a17b-1a94549d3570",
+        "chatSessionId": "sess_f5c8c891-3fa6-403b-8749-3e9d590cdde7",
+        "timestamp": 1795535319617
+      }
+    ],
+    "8.1 Add the fake `CoffinAI` test support": [
+      {
+        "executionId": "af1dc5f1-4426-438a-8fbc-8b1820c607b1",
+        "chatSessionId": "sess_4855e812-cd92-4a49-a15e-4c0cf51610c5",
+        "timestamp": 1795535341004
+      },
+      {
+        "executionId": "af1dc5f1-4426-438a-8fbc-8b1820c607b1",
+        "chatSessionId": "sess_4855e812-cd92-4a49-a15e-4c0cf51610c5",
+        "timestamp": 1795535459786
+      }
+    ],
+    "8.2 Implement `SeanceControl`": [
+      {
+        "executionId": "4ee26d6d-d852-4a61-9c93-f1b42c430b2b",
+        "chatSessionId": "sess_c8834491-d436-4a50-b82b-a6a4dd3606c6",
+        "timestamp": 1795535521236
+      },
+      {
+        "executionId": "4ee26d6d-d852-4a61-9c93-f1b42c430b2b",
+        "chatSessionId": "sess_c8834491-d436-4a50-b82b-a6a4dd3606c6",
+        "timestamp": 1795535610314
+      }
+    ],
+    "8.3 Implement `SeanceSheet` and `showSeanceSheet`": [
+      {
+        "executionId": "0456c2af-b9c1-4a41-9b10-8aab2ca369b6",
+        "chatSessionId": "sess_08e8f1fd-10cb-4052-9aef-37d7fb8b7e3a",
+        "timestamp": 1795535636429
+      },
+      {
+        "executionId": "0456c2af-b9c1-4a41-9b10-8aab2ca369b6",
+        "chatSessionId": "sess_08e8f1fd-10cb-4052-9aef-37d7fb8b7e3a",
+        "timestamp": 1795536076533
+      },
+      {
+        "executionId": "0456c2af-b9c1-4a41-9b10-8aab2ca369b6",
+        "chatSessionId": "sess_08e8f1fd-10cb-4052-9aef-37d7fb8b7e3a",
+        "timestamp": 1795536087009
+      },
+      {
+        "executionId": "0456c2af-b9c1-4a41-9b10-8aab2ca369b6",
+        "chatSessionId": "sess_08e8f1fd-10cb-4052-9aef-37d7fb8b7e3a",
+        "timestamp": 1795536215405
+      }
+    ],
+    "8.4 Wire the control and the Seance_Ai through the app": [
+      {
+        "executionId": "54be3ff7-0958-458c-a439-82543a84a583",
+        "chatSessionId": "sess_d1566501-2f79-4637-8f2c-5360da2e34c1",
+        "timestamp": 1795536334158
+      },
+      {
+        "executionId": "54be3ff7-0958-458c-a439-82543a84a583",
+        "chatSessionId": "sess_d1566501-2f79-4637-8f2c-5360da2e34c1",
+        "timestamp": 1795536598677
+      }
+    ],
+    "8. Control, sheet and wiring": [
+      {
+        "executionId": "54be3ff7-0958-458c-a439-82543a84a583",
+        "chatSessionId": "sess_d1566501-2f79-4637-8f2c-5360da2e34c1",
+        "timestamp": 1795536598722
+      }
+    ],
+    "8.5 Manual graves never get repository-only steps": [
+      {
+        "executionId": "fcd8ef2a-0124-447a-823a-890fda1415f5",
+        "chatSessionId": "sess_d1566501-2f79-4637-8f2c-5360da2e34c1",
+        "timestamp": 1795537301597
+      },
+      {
+        "executionId": "fcd8ef2a-0124-447a-823a-890fda1415f5",
+        "chatSessionId": "sess_d1566501-2f79-4637-8f2c-5360da2e34c1",
+        "timestamp": 1795537504262
+      }
+    ],
+    "9. Checkpoint - Séance wired": [
+      {
+        "executionId": "fcd8ef2a-0124-447a-823a-890fda1415f5",
+        "chatSessionId": "sess_d1566501-2f79-4637-8f2c-5360da2e34c1",
+        "timestamp": 1795537514842
+      },
+      {
+        "executionId": "fcd8ef2a-0124-447a-823a-890fda1415f5",
+        "chatSessionId": "sess_d1566501-2f79-4637-8f2c-5360da2e34c1",
+        "timestamp": 1795537733678
       }
     ]
   }

@@ -21,10 +21,17 @@ import 'save_status.dart';
 /// for them while loading, after a load error, or when nothing is buried.
 class GraveyardScreen extends StatefulWidget {
   /// Creates the screen for [controller].
-  const GraveyardScreen({super.key, required this.controller});
+  const GraveyardScreen({
+    super.key,
+    required this.controller,
+    required this.seanceAi,
+  });
 
   /// The controller that owns the graves.
   final GraveListController controller;
+
+  /// The AI that words the verdict line of each séance.
+  final CoffinAI seanceAi;
 
   @override
   State<GraveyardScreen> createState() => _GraveyardScreenState();
@@ -155,6 +162,7 @@ class _GraveyardScreenState extends State<GraveyardScreen>
       graves: c.status == GraveListStatus.loadError ? const <Grave>[] : graves,
       today: c.today,
       onDelete: _delete,
+      seanceAi: widget.seanceAi,
       header: SafeArea(
         bottom: false,
         child: Padding(

@@ -15,6 +15,8 @@ import 'package:graveyard/src/ui/night_sky_painter.dart';
 import '../support/controller_harness.dart';
 import '../support/throwing_record_repository.dart';
 
+import 'package:graveyard/src/ui/seance_ai.dart';
+
 final CalendarDate _today = CalendarDate(2024, 1, 10);
 
 Grave _grave(String id) => Grave.manual(
@@ -44,6 +46,7 @@ Widget _host(
       graves: graves,
       today: today ?? _today,
       onDelete: (_) {},
+      seanceAi: buildSeanceAi(),
     ),
   ),
 );
@@ -97,7 +100,10 @@ Future<void> _pumpScreen(
         ),
         child: child!,
       ),
-      home: GraveyardScreen(controller: h.controller),
+      home: GraveyardScreen(
+        controller: h.controller,
+        seanceAi: buildSeanceAi(),
+      ),
     ),
   );
   if (disableAnimations) {
@@ -224,7 +230,12 @@ void main() {
           child: child!,
         ),
         home: Scaffold(
-          body: GraveyardScene(graves: graves, today: _today, onDelete: (_) {}),
+          body: GraveyardScene(
+            graves: graves,
+            today: _today,
+            onDelete: (_) {},
+            seanceAi: buildSeanceAi(),
+          ),
         ),
       );
       await tester.pumpWidget(host([_grave('a')]));
@@ -465,6 +476,9 @@ void main() {
             for (var i = 0; i < graves.length; i++)
               if (label == GraveyardCopy.deleteLabel(graves[i].name))
                 'delete $i'
+              else if (label ==
+                  GraveyardCopy.seanceControlLabel(graves[i].name))
+                ...const <String>[]
               else if (label.contains(graves[i].name))
                 'stone $i',
         ];
@@ -511,6 +525,7 @@ void main() {
             graves: const <Grave>[],
             today: _today,
             onDelete: (_) {},
+            seanceAi: buildSeanceAi(),
           ),
         ),
       );

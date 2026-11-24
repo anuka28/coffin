@@ -17,6 +17,8 @@ import '../domain/scene/weathering_result.dart';
 import 'arch_epitaph.dart';
 import 'crack_painter.dart';
 import 'graveyard_copy.dart';
+import 'seance_control.dart';
+import 'seance_sheet.dart';
 
 /// One weathered tombstone for a [Grave], with its delete button below it.
 ///
@@ -34,6 +36,7 @@ class GraveTombstone extends StatelessWidget {
     required this.grave,
     required this.today,
     required this.onDelete,
+    required this.seanceAi,
     this.riseProgress = 1,
   });
 
@@ -45,6 +48,9 @@ class GraveTombstone extends StatelessWidget {
 
   /// Called when the delete button is pressed.
   final VoidCallback onDelete;
+
+  /// The AI that words the verdict line of the séance.
+  final CoffinAI seanceAi;
 
   /// Progress of the Rise, from 0 (below the ground) to 1 (at rest).
   final double riseProgress;
@@ -244,20 +250,35 @@ class GraveTombstone extends StatelessWidget {
               ),
             ),
           ),
-          Semantics(
-            button: true,
-            label: GraveyardCopy.deleteLabel(grave.name),
-            excludeSemantics: true,
-            onTap: onDelete,
-            child: TextButton.icon(
-              onPressed: onDelete,
-              icon: const Icon(Icons.delete_outline),
-              label: const Text(GraveyardCopy.delete),
-              style: TextButton.styleFrom(
-                minimumSize: const Size(48, 48),
-                tapTargetSize: MaterialTapTargetSize.padded,
+          Wrap(
+            alignment: WrapAlignment.center,
+            crossAxisAlignment: WrapCrossAlignment.center,
+            children: <Widget>[
+              SeanceControl(
+                grave: grave,
+                onPressed: () => showSeanceSheet(
+                  context,
+                  grave: grave,
+                  today: today,
+                  seanceAi: seanceAi,
+                ),
               ),
-            ),
+              Semantics(
+                button: true,
+                label: GraveyardCopy.deleteLabel(grave.name),
+                excludeSemantics: true,
+                onTap: onDelete,
+                child: TextButton.icon(
+                  onPressed: onDelete,
+                  icon: const Icon(Icons.delete_outline),
+                  label: const Text(GraveyardCopy.delete),
+                  style: TextButton.styleFrom(
+                    minimumSize: const Size(48, 48),
+                    tapTargetSize: MaterialTapTargetSize.padded,
+                  ),
+                ),
+              ),
+            ],
           ),
         ],
       ),

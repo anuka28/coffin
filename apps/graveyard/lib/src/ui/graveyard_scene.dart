@@ -32,6 +32,7 @@ class GraveyardScene extends StatefulWidget {
     required this.graves,
     required this.today,
     required this.onDelete,
+    required this.seanceAi,
     this.header,
   });
 
@@ -43,6 +44,9 @@ class GraveyardScene extends StatefulWidget {
 
   /// Called with the grave whose delete button was pressed.
   final ValueChanged<Grave> onDelete;
+
+  /// The AI that words the verdict line of each séance.
+  final CoffinAI seanceAi;
 
   /// Optional content shown at the top of the scrolling content, above the
   /// rows. It scrolls with the graves while the sky, ground and fog stay put.
@@ -293,6 +297,7 @@ class _GraveyardSceneState extends State<GraveyardScene>
       grave: grave,
       today: widget.today,
       onDelete: () => widget.onDelete(grave),
+      seanceAi: widget.seanceAi,
       riseProgress: progress,
     );
     if (rise == null) {

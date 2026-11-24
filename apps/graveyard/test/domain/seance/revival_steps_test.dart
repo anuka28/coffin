@@ -16,6 +16,15 @@ SeanceFacts _facts({
 );
 
 void main() {
+  group('RevivalSteps.repositoryOnlyKinds', () {
+    test('is exactly skimReadme and forkRepository', () {
+      expect(RevivalSteps.repositoryOnlyKinds, <RevivalStepKind>{
+        RevivalStepKind.skimReadme,
+        RevivalStepKind.forkRepository,
+      });
+    });
+  });
+
   group('RevivalSteps.choose', () {
     test('no conditions gives the first three general kinds', () {
       expect(RevivalSteps.choose(_facts()), <RevivalStepKind>[
@@ -37,11 +46,11 @@ void main() {
       ]);
     });
 
-    test('manual comes first', () {
+    test('manual comes first and skips the repository-only fill', () {
       expect(RevivalSteps.choose(_facts(manual: true)), <RevivalStepKind>[
         RevivalStepKind.writeDownPurpose,
-        RevivalStepKind.skimReadme,
         RevivalStepKind.fixOneThing,
+        RevivalStepKind.askAFriend,
       ]);
     });
 
@@ -53,13 +62,13 @@ void main() {
       ]);
     });
 
-    test('archived and manual keep priority order, then fill', () {
+    test('archived and manual: a manual Grave never gets forkRepository', () {
       expect(
         RevivalSteps.choose(_facts(archived: true, manual: true)),
         <RevivalStepKind>[
-          RevivalStepKind.forkRepository,
           RevivalStepKind.writeDownPurpose,
-          RevivalStepKind.skimReadme,
+          RevivalStepKind.fixOneThing,
+          RevivalStepKind.askAFriend,
         ],
       );
     });
@@ -81,7 +90,7 @@ void main() {
         <RevivalStepKind>[
           RevivalStepKind.writeDownPurpose,
           RevivalStepKind.updateDependencies,
-          RevivalStepKind.skimReadme,
+          RevivalStepKind.fixOneThing,
         ],
       );
     });
@@ -91,17 +100,40 @@ void main() {
       expect(RevivalSteps.choose(facts), RevivalSteps.choose(facts));
     });
 
-    test('all three conditions fill every place', () {
+    test('archived, manual and old: manual drops forkRepository', () {
       expect(
         RevivalSteps.choose(
           _facts(dayCount: 1000, archived: true, manual: true),
         ),
         <RevivalStepKind>[
-          RevivalStepKind.forkRepository,
           RevivalStepKind.writeDownPurpose,
           RevivalStepKind.updateDependencies,
+          RevivalStepKind.fixOneThing,
         ],
       );
+    });
+
+    test('non-manual archived and old keeps all repository kinds', () {
+      expect(
+        RevivalSteps.choose(_facts(dayCount: 1000, archived: true)),
+        <RevivalStepKind>[
+          RevivalStepKind.forkRepository,
+          RevivalStepKind.updateDependencies,
+          RevivalStepKind.skimReadme,
+        ],
+      );
+    });
+
+    test('a manual Grave never gets a repository-only kind', () {
+      for (final bool a in <bool>[false, true]) {
+        for (final int d in <int>[0, 365, 366, 4015]) {
+          final List<RevivalStepKind> steps = RevivalSteps.choose(
+            _facts(dayCount: d, archived: a, manual: true),
+          );
+          expect(steps, isNot(contains(RevivalStepKind.skimReadme)));
+          expect(steps, isNot(contains(RevivalStepKind.forkRepository)));
+        }
+      }
     });
 
     test('dayCount 365 is not old, 366 is', () {

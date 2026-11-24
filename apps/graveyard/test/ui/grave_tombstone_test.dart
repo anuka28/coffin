@@ -7,6 +7,8 @@ import 'package:graveyard/src/domain/dead_for_formatter.dart';
 import 'package:graveyard/src/domain/grave.dart';
 import 'package:graveyard/src/domain/repo_info.dart';
 import 'package:graveyard/src/ui/grave_tombstone.dart';
+import 'package:graveyard/src/ui/seance_ai.dart';
+import 'package:graveyard/src/ui/graveyard_copy.dart';
 
 final CalendarDate _today = CalendarDate(2024, 1, 10);
 
@@ -36,6 +38,7 @@ Future<void> _pump(
           grave: grave,
           today: _today,
           onDelete: onDelete ?? () {},
+          seanceAi: buildSeanceAi(),
         ),
       ),
     ),
@@ -230,7 +233,9 @@ void main() {
       ) async {
         final handle = tester.ensureSemantics();
         await _pump(tester, named('atom'), theme: theme());
-        final size = tester.getSize(find.byType(TextButton));
+        final size = tester.getSize(
+          find.widgetWithText(TextButton, GraveyardCopy.delete),
+        );
         expect(size.width, greaterThanOrEqualTo(48));
         expect(size.height, greaterThanOrEqualTo(48));
         expect(find.bySemanticsLabel('Delete atom'), findsOneWidget);
@@ -245,8 +250,12 @@ void main() {
           onDelete: () => deleted++,
           theme: theme(),
         );
-        final button = tester.widget<TextButton>(find.byType(TextButton));
-        final context = tester.element(find.byType(TextButton));
+        final button = tester.widget<TextButton>(
+          find.widgetWithText(TextButton, GraveyardCopy.delete),
+        );
+        final context = tester.element(
+          find.widgetWithText(TextButton, GraveyardCopy.delete),
+        );
         final overlay = button.defaultStyleOf(context).overlayColor!;
         expect(
           overlay.resolve(<WidgetState>{WidgetState.hovered})!.a,
@@ -259,10 +268,18 @@ void main() {
 
         final mouse = await tester.createGesture(kind: PointerDeviceKind.mouse);
         await mouse.addPointer(location: Offset.zero);
-        await mouse.moveTo(tester.getCenter(find.byType(TextButton)));
+        await mouse.moveTo(
+          tester.getCenter(
+            find.widgetWithText(TextButton, GraveyardCopy.delete),
+          ),
+        );
         await tester.pump();
 
-        await mouse.down(tester.getCenter(find.byType(TextButton)));
+        await mouse.down(
+          tester.getCenter(
+            find.widgetWithText(TextButton, GraveyardCopy.delete),
+          ),
+        );
         await tester.pump();
         await mouse.up();
         await tester.pump();
