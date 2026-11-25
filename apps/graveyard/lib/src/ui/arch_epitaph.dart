@@ -37,14 +37,23 @@ class ArchEpitaph extends StatelessWidget {
   /// stone's top-left corner), for a stone of [width] at [textScaler].
   ///
   /// The rectangle lies inside [width] and is used as a crack keep-out area.
+  ///
+  /// [text] is the engraved text to measure. It defaults to
+  /// `GraveyardCopy.epitaph` ("R.I.P.").
   static KeepOutRect rectFor({
     required double width,
     required TextScaler textScaler,
-  }) => _layout(width, textScaler).rect;
+    String? text,
+  }) => _layout(width, textScaler, text).rect;
 
-  static _EpitaphLayout _layout(double width, TextScaler textScaler) {
+  static _EpitaphLayout _layout(
+    double width,
+    TextScaler textScaler, [
+    String? text,
+  ]) {
+    final engraved = text ?? GraveyardCopy.epitaph;
     final scaledBase = textScaler.scale(baseFontSize);
-    final base = _measure(scaledBase, null);
+    final base = _measure(engraved, scaledBase, null);
     final fit = ArchFit.positionFor(
       archWidth: width,
       archRise: archRise,
@@ -55,7 +64,11 @@ class ArchEpitaph extends StatelessWidget {
     final maxWidth = fit.truncated
         ? (width / 2 - ArchFit.margin) * 2
         : double.infinity;
-    final size = _measure(fit.fontSize, maxWidth.isFinite ? maxWidth : null);
+    final size = _measure(
+      engraved,
+      fit.fontSize,
+      maxWidth.isFinite ? maxWidth : null,
+    );
     final w = size.width.clamp(0.0, width);
     final left = (width - w) / 2;
     final top = fit.top;
@@ -70,9 +83,9 @@ class ArchEpitaph extends StatelessWidget {
     );
   }
 
-  static Size _measure(double fontSize, double? maxWidth) {
+  static Size _measure(String text, double fontSize, double? maxWidth) {
     final painter = TextPainter(
-      text: TextSpan(text: GraveyardCopy.epitaph, style: _style(fontSize)),
+      text: TextSpan(text: text, style: _style(fontSize)),
       textDirection: TextDirection.ltr,
       textScaler: TextScaler.noScaling,
       maxLines: 1,

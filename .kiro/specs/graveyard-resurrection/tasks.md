@@ -171,22 +171,22 @@ Rules for every task:
     - **Validates: Requirements 8.7**
     - Create `test/domain/resurrection/clod_window_property_test.dart`: for elapsed times strictly before `launchMs` or strictly after `launchMs + flightMs`, `visible` is false.
 
-- [ ] 8. Epitaph footprint
-  - [ ] 8.1 Let `ArchEpitaph.rectFor` measure a given text
+- [x] 8. Epitaph footprint
+  - [x] 8.1 Let `ArchEpitaph.rectFor` measure a given text
     - Calibration needs the real rectangle of "RISEN". Edit `lib/src/ui/arch_epitaph.dart` only as far as this needs: add the optional parameter `String? text` to `ArchEpitaph.rectFor` and to the private `_layout`, defaulting to `GraveyardCopy.epitaph` ("R.I.P.") so every existing call and test is unchanged. The widget `build` is changed later, in task 16.1.
     - _Requirements: 11.4, 11.5, 11.8_
 
-  - [ ] 8.2 Implement `EpitaphFootprint` with the provisional metrics
+  - [x] 8.2 Implement `EpitaphFootprint` with the provisional metrics
     - Create `lib/src/domain/resurrection/epitaph_footprint.dart` as in the design: the constants `archRise` 140, `baseFontSize` 20, `letterSpacing` 2, `lineHeightPerFontPx` 1.5, `ripAdvancePerFontPx` 3.6 and `risenAdvancePerFontPx` 3.4 (provisional upper bounds), and `forStone({stoneWidth, textScale})` returning the `KeepOutRect` that encloses the per-text rectangles of "R.I.P." and "RISEN". Each per-text rectangle calls the real `ArchFit.positionFor` and builds the rectangle like `ArchEpitaph._layout` does (centered, width clamped to the stone, height scaled with the fitted font size). Unusable input returns the zero rectangle at the origin. Never throws. Imports only `dart:math`, `arch_fit.dart` and `keep_out_rect.dart`.
     - _Requirements: 7.17, 16.1, 16.2_
 
-  - [ ] 8.3 Write the calibration tests and calibrate the metrics
+  - [x] 8.3 Write the calibration tests and calibrate the metrics
     - Create `test/ui/epitaph_footprint_cover_test.dart` with three tests. The constants test: `EpitaphFootprint.archRise`, `baseFontSize` and `letterSpacing` equal `ArchEpitaph.archRise`, `baseFontSize` and `letterSpacing`. The cover test: for stone widths 120 to 400 in steps of 20 and text scales 1.0 to 2.0 in steps of 0.25, `EpitaphFootprint.forStone` covers both `ArchEpitaph.rectFor(text: 'R.I.P.')` and `ArchEpitaph.rectFor(text: 'RISEN')` (left and top at most, right and bottom at least those of each real rectangle). The equality test: a rectangle built from `ArchFit.positionFor` with the real measured width and line height, the way `ArchEpitaph._layout` does it, has the same `top` and `fontSize` as the model whenever the model's metrics equal the measured ones (checked with metrics set to the measured values).
     - Calibrate: measure "R.I.P." and "RISEN" with `TextPainter` and the Creepster style at 20 px, round the advance sums and the line height up, and write the smallest numbers that make the cover test pass into `epitaph_footprint.dart`.
     - If the cover test fails, RAISE the model's metrics (the advance and line-height constants) until it passes. NEVER weaken the cover test (no looser tolerance, no narrower grid, no skipped width or scale, no dropped text) and NEVER weaken the margin test of task 9.2. The 16 px minimum box height and the 8 px gap stay as they are.
     - _Requirements: 7.17, 11.4, 11.5, 11.6, 17.1_
 
-  - [ ] 8.4 Write unit tests for `EpitaphFootprint`
+  - [x] 8.4 Write unit tests for `EpitaphFootprint`
     - Create `test/domain/resurrection/epitaph_footprint_test.dart` with the numbers pinned to the calibrated metrics from task 8.3 (the provisional worked values of the design, a 120 by 160 stone at scale 1.0 with left 18, top 22.16, right 102 and bottom 55.48, and at scale 2.0 with bottom 99.03, are replaced by the calibrated values and written to two decimals): the union rectangle for those two cases; the rectangle never leaves `[0, stoneWidth]` horizontally; the union contains both per-text rectangles; a non-finite, zero or negative input returns the zero rectangle; the rectangle is deterministic.
     - _Requirements: 7.17, 17.1_
 
