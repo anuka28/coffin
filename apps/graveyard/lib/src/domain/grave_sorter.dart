@@ -8,11 +8,15 @@ abstract final class GraveSorter {
   /// as plain string comparison. The input is never modified.
   static List<Grave> sort(Iterable<Grave> graves) {
     final sorted = List<Grave>.of(graves);
-    sorted.sort(_compare);
+    sorted.sort(compare);
     return sorted;
   }
 
-  static int _compare(Grave a, Grave b) {
+  /// Compares two graves in display order.
+  ///
+  /// Orders by date of death descending (most recent first), then by
+  /// lower-cased name, then by id as plain string comparison.
+  static int compare(Grave a, Grave b) {
     final byDate = b.dateOfDeath.compareTo(a.dateOfDeath);
     if (byDate != 0) return byDate;
     final byName = a.name.toLowerCase().compareTo(b.name.toLowerCase());

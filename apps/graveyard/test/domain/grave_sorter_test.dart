@@ -50,4 +50,11 @@ void main() {
       GraveSorter.sort(input).map((g) => g.id),
     );
   });
+  test('compare is public and orders like sort', () {
+    expect(
+      GraveSorter.compare(_g('g1', 'a', 5), _g('g2', 'a', 1)),
+      lessThan(0),
+    );
+    expect(GraveSorter.compare(_g('g1', 'a', 1), _g('g1', 'a', 1)), 0);
+  });
 }

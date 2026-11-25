@@ -19,6 +19,10 @@
     "2.5 Write property test for malformed risen values": {
       "status": "passed",
       "lastRunTimestamp": 1795579383905
+    },
+    "3.3 Write property test for the partition": {
+      "status": "passed",
+      "lastRunTimestamp": 1795580296665
     }
   },
   "executionHistory": {
@@ -188,6 +192,71 @@
         "executionId": "8f789aa8-aa09-403c-9c00-10a2cd8c47ec",
         "chatSessionId": "sess_63e34574-6942-4d26-876a-6c00e77cd288",
         "timestamp": 1795579394067
+      }
+    ],
+    "3.1 Implement `LivingSplit`": [
+      {
+        "executionId": "87120c4d-2f82-4e0a-92ba-e8db9dae0408",
+        "chatSessionId": "sess_055b3c79-4b75-4ddf-9884-2a748d9dc316",
+        "timestamp": 1795579689324
+      },
+      {
+        "executionId": "87120c4d-2f82-4e0a-92ba-e8db9dae0408",
+        "chatSessionId": "sess_055b3c79-4b75-4ddf-9884-2a748d9dc316",
+        "timestamp": 1795579760363
+      },
+      {
+        "executionId": "728c90d6-7792-438b-aae0-4eeb90516618",
+        "chatSessionId": "sess_055b3c79-4b75-4ddf-9884-2a748d9dc316",
+        "timestamp": 1795579916637
+      },
+      {
+        "executionId": "728c90d6-7792-438b-aae0-4eeb90516618",
+        "chatSessionId": "sess_055b3c79-4b75-4ddf-9884-2a748d9dc316",
+        "timestamp": 1795580145322
+      }
+    ],
+    "3.2 Write unit tests for `LivingSplit`": [
+      {
+        "executionId": "87120c4d-2f82-4e0a-92ba-e8db9dae0408",
+        "chatSessionId": "sess_055b3c79-4b75-4ddf-9884-2a748d9dc316",
+        "timestamp": 1795579765495
+      },
+      {
+        "executionId": "87120c4d-2f82-4e0a-92ba-e8db9dae0408",
+        "chatSessionId": "sess_055b3c79-4b75-4ddf-9884-2a748d9dc316",
+        "timestamp": 1795579868032
+      }
+    ],
+    "3.3 Write property test for the partition": [
+      {
+        "executionId": "eef3223a-3979-4943-85e7-f9dd9726c668",
+        "chatSessionId": "sess_e2179c40-b304-4f50-9e95-c90d68c5b486",
+        "timestamp": 1795580255786
+      },
+      {
+        "executionId": "eef3223a-3979-4943-85e7-f9dd9726c668",
+        "chatSessionId": "sess_e2179c40-b304-4f50-9e95-c90d68c5b486",
+        "timestamp": 1795580304977
+      }
+    ],
+    "3.4 Write property test for totality and determinism": [
+      {
+        "executionId": "d9a445de-9ad0-4379-a796-01412e173f44",
+        "chatSessionId": "sess_62a0d907-f239-4bc5-84e9-7b1727ca0b77",
+        "timestamp": 1795580339517
+      },
+      {
+        "executionId": "d9a445de-9ad0-4379-a796-01412e173f44",
+        "chatSessionId": "sess_62a0d907-f239-4bc5-84e9-7b1727ca0b77",
+        "timestamp": 1795580433152
+      }
+    ],
+    "3. Splitting the graveyard": [
+      {
+        "executionId": "d9a445de-9ad0-4379-a796-01412e173f44",
+        "chatSessionId": "sess_62a0d907-f239-4bc5-84e9-7b1727ca0b77",
+        "timestamp": 1795580433213
       }
     ]
   }

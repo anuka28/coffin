@@ -82,21 +82,21 @@ Rules for every task:
     - **Validates: Requirements 3.5, 3.6**
     - Create `test/data/grave_codec_risen_malformed_property_test.dart`: replace the `risen` value of a valid encoding with a generated malformed value (wrong type chosen by `anyIntBetween`, wrong format, month 13, day 30 of February) and check that decoding throws `FormatException` and nothing else.
 
-- [ ] 3. Splitting the graveyard
-  - [ ] 3.1 Implement `LivingSplit`
+- [x] 3. Splitting the graveyard
+  - [x] 3.1 Implement `LivingSplit`
     - Create `lib/src/domain/living_split.dart` with `LivingSplit.split({graves, playing})` returning the record `(List<Grave> graveyardRows, List<Grave> livingRow)`: a Grave goes to `livingRow` exactly when `risenOn != null` and its id is not in `playing`; every other Grave goes to `graveyardRows` in input order; `livingRow` is ordered by `risenOn` descending, then lower-cased name, then id. Total, never throws.
     - _Requirements: 5.9, 6.1, 6.2, 6.3, 6.5, 6.6, 6.8, 16.1, 16.2_
 
-  - [ ] 3.2 Write unit tests for `LivingSplit`
+  - [x] 3.2 Write unit tests for `LivingSplit`
     - Create `test/domain/living_split_test.dart`: a concrete list with Risen, playing and plain Graves; a Risen Grave that is playing stays in the graveyard rows; the graveyard rows keep the input order; two Risen Graves with different dates order most recent first; a tie on date is broken by lower-cased name and then by id; an empty list, a playing set with ids that are not in the list, and a list where every Grave is Risen all return without throwing.
     - _Requirements: 5.9, 6.2, 6.3, 6.5, 6.6, 6.8, 17.1_
 
-  - [ ] 3.3 Write property test for the partition
+  - [x] 3.3 Write property test for the partition
     - **Property 8: Living_Split is a partition**
     - **Validates: Requirements 6.4**
     - Create `test/domain/living_split_partition_property_test.dart` over `anyGraveList` and `anyPlayingSet`: every Grave appears in exactly one list and the two lists together hold the input as a multiset.
 
-  - [ ] 3.4 Write property test for totality and determinism
+  - [x] 3.4 Write property test for totality and determinism
     - **Property 9: Living_Split never throws and is deterministic**
     - **Validates: Requirements 6.7, 6.8**
     - Create `test/domain/living_split_determinism_property_test.dart`: two calls with the same arguments return equal results, for lists with equal `risenOn` values and for an empty list.
