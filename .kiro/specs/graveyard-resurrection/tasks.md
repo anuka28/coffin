@@ -138,35 +138,35 @@ Rules for every task:
     - **Validates: Requirements 7.7, 9.3, 9.4**
     - Create `test/domain/resurrection/hand_geometry_property_test.dart` over `anyStoneWidth`, `anyStoneHeight` and `anyElapsedMs`: every point of every bone of `HandGeometry.at` lies in `[0, width] x [0, height]`. The test targets the pure function, never `HandPainter`.
 
-- [ ] 7. Clods
-  - [ ] 7.1 Implement `Clod`, `ClodFrame`, `ClodPathGenerator` and `ClodPath`
+- [x] 7. Clods
+  - [x] 7.1 Implement `Clod`, `ClodFrame`, `ClodPathGenerator` and `ClodPath`
     - Create `lib/src/domain/resurrection/clod.dart`, `clod_frame.dart` (plain `double x, y, diameter` and `bool visible`, no `dart:ui`), `clod_path_generator.dart` and `clod_path.dart` as in the design. `ClodPathGenerator.generate(graveId)` seeds a `StableRandom` from `StableHash.of(graveId)` and returns 4 to 7 Clods, each with a launch angle, a `launchMs` inside the burst, a positive `flightMs`, a peak height fraction and a size from 2 to 8, and every `launchMs + flightMs` is at most `PlayTiming.handSinkEndMs`. `ClodPath.at({clod, stoneArea width and height, elapsedMs})` returns not visible outside the flight window and otherwise a parabolic arc whose whole circle is clamped inside the Stone_Area. Integer arithmetic only for the hash and the random sequence. Imports only `dart:math` and Domain files.
     - _Requirements: 8.1, 8.2, 8.4, 8.5, 8.6, 8.7, 8.8, 8.9, 16.1, 16.2_
 
-  - [ ] 7.2 Write unit tests for `ClodPathGenerator`
+  - [x] 7.2 Write unit tests for `ClodPathGenerator`
     - Create `test/domain/resurrection/clod_path_generator_test.dart`: two pinned Grave ids give two different lists that are each stable (pinned count and first Clod values, equal on the VM and on the web); the count is 4 to 7 across a sample of 200 ids; every Clod lands at or before `handSinkEndMs`; `launchMs` is inside the burst; `Clod` has value equality.
     - _Requirements: 8.1, 8.2, 8.3, 8.4, 8.8, 8.9, 17.1_
 
-  - [ ] 7.3 Write unit tests for `ClodPath`
+  - [x] 7.3 Write unit tests for `ClodPath`
     - Create `test/domain/resurrection/clod_path_test.dart`: a Clod before its launch and after its landing is not visible; at the midpoint of its flight a Clod sits at its peak height above the ground line; at launch and at landing it sits on the ground line (`y == height` minus its radius at most); the position and size are finite; a Clod near the stone edge stays inside after the clamp.
     - _Requirements: 8.5, 8.6, 8.7, 8.8, 17.1_
 
-  - [ ] 7.4 Write property test for Clod determinism
+  - [x] 7.4 Write property test for Clod determinism
     - **Property 11: The same Grave id always gets the same Clods**
     - **Validates: Requirements 8.2, 8.3**
     - Create `test/domain/resurrection/clod_determinism_property_test.dart` over `anyGraveId`.
 
-  - [ ] 7.5 Write property test for Clod bounds
+  - [x] 7.5 Write property test for Clod bounds
     - **Property 12: Clods stay inside their bounds**
     - **Validates: Requirements 8.4**
     - Create `test/domain/resurrection/clod_bounds_property_test.dart`: the count is 4 to 7, every `flightMs` is positive and every `sizePx` is from 2 to 8.
 
-  - [ ] 7.6 Write property test for the Clod path inside the stone
+  - [x] 7.6 Write property test for the Clod path inside the stone
     - **Property 13: Clod_Path stays inside the Stone_Area**
     - **Validates: Requirements 8.6, 9.4**
     - Create `test/domain/resurrection/clod_path_inside_property_test.dart` over `anyGraveId`, `anyStoneWidth`, `anyStoneHeight` and `anyElapsedMs`: every visible frame's circle lies in `[0, width] x [0, height]`.
 
-  - [ ] 7.7 Write property test for the Clod flight window
+  - [x] 7.7 Write property test for the Clod flight window
     - **Property 14: Clods report not-visible outside their flight window**
     - **Validates: Requirements 8.7**
     - Create `test/domain/resurrection/clod_window_property_test.dart`: for elapsed times strictly before `launchMs` or strictly after `launchMs + flightMs`, `visible` is false.

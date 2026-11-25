@@ -265,7 +265,7 @@ final class Clod {
     required this.launchAngleRadians, // direction from straight up, +/- spread
     required this.launchMs,           // when it leaves the ground, within the burst
     required this.flightMs,           // >0, how long it is airborne
-    required this.peakHeightFraction, // 0..1 of the Stone_Area height
+    required this.peakHeightFraction, // 0..1 of the Stone_Area height (generated 0.10..0.45)
     required this.sizePx,             // 2..8 logical pixels (diameter)
   });
   final double launchAngleRadians;
