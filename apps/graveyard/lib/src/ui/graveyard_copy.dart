@@ -312,4 +312,61 @@ abstract final class GraveyardCopy {
     RevivalStepKind.askAFriend => stepAskAFriend,
     RevivalStepKind.addOneTest => stepAddOneTest,
   };
+
+  // ---------------------------------------------------------- Resurrection
+
+  /// Visible text of the Raise control in the séance sheet.
+  static const String raiseControlText = 'Raise it';
+
+  /// Semantic label of the Raise control for one grave.
+  static String raiseControlLabel(String name) => 'Raise $name from the dead';
+
+  /// The epitaph engraved on a risen tombstone.
+  static const String epitaphRisen = 'RISEN';
+
+  /// Heading of the row of risen projects.
+  static const String livingRowHeading = 'Back among the living';
+
+  /// The "Risen on" line of one living entry.
+  static String risenOnLine(CalendarDate risenOn) =>
+      'Risen on ${date(risenOn)}';
+
+  /// Visible text of the Lay to rest control.
+  static const String layToRestText = 'Lay it back to rest';
+
+  /// Semantic label of the Lay to rest control for one grave.
+  static String layToRestLabel(String name) => 'Lay $name back to rest';
+
+  /// Route name of the rest dialog for one grave.
+  static String restDialogRouteName(String name) => 'Lay $name back to rest?';
+
+  /// Title of the rest dialog.
+  static String restDialogTitle(String name) => 'Lay $name back to rest?';
+
+  /// Body of the rest dialog. It says nothing is deleted.
+  static String restDialogBody(String name) =>
+      '$name goes back to the graveyard. You can raise it again any time.';
+
+  /// Button that confirms laying a grave back to rest.
+  static const String restConfirmText = 'Lay it to rest';
+
+  /// Button that keeps a grave risen.
+  static const String restCancelText = 'Keep it risen';
+
+  /// Semantic label of the repository link of one living entry.
+  static String repositoryLinkLabel(String name) =>
+      'Copy the repository link of $name';
+
+  /// Confirmation after a repository link was copied.
+  static const String linkCopied = 'Link copied';
+
+  /// Message when a repository link could not be copied.
+  static const String linkCopyFailed =
+      'That link would not copy. Try once more.';
+
+  /// Line shown when every grave has risen.
+  static const String allRisen = 'Every grave here has risen.';
+
+  /// Live-region announcement for a risen project.
+  static String risenAnnouncement(String name) => '$name has risen.';
 }

@@ -17,6 +17,7 @@ import '../domain/import_failure.dart';
 import '../domain/import_failure_kind.dart';
 import '../domain/manual_grave_check.dart';
 import '../domain/name_rules.dart';
+import '../domain/raise_rules.dart';
 import '../domain/repo_input_parser.dart';
 import '../domain/repo_parse_result.dart';
 import 'grave_list_status.dart';
@@ -209,6 +210,36 @@ class GraveListController extends ChangeNotifier {
     _notify();
     _enqueueWrite();
     await _writeChain;
+  }
+
+  /// Replaces the grave that has the same id as [grave], at the same place in
+  /// the list, and saves it. Does nothing, without a write or a notification,
+  /// when no grave has that id.
+  void replaceGrave(Grave grave) {
+    final index = _graves.indexWhere((g) => g.id == grave.id);
+    if (index < 0) return;
+    _graves = List<Grave>.of(_graves)..[index] = grave;
+    _pendingDeletes.remove(grave.id);
+    _pendingPuts.add(grave.id);
+    _notify();
+    _enqueueWrite();
+  }
+
+  /// Raises the grave with [id], dated Today. A grave that is already risen
+  /// keeps its first date. Returns false when there is no such grave.
+  bool raise(String id) {
+    final index = _graves.indexWhere((g) => g.id == id);
+    if (index < 0) return false;
+    replaceGrave(RaiseRules.raise(_graves[index], today));
+    return true;
+  }
+
+  /// Lays the grave with [id] back to rest. Does nothing when there is no such
+  /// grave.
+  void layToRest(String id) {
+    final index = _graves.indexWhere((g) => g.id == id);
+    if (index < 0) return;
+    replaceGrave(RaiseRules.layToRest(_graves[index]));
   }
 
   /// Repeats every write and delete that has not reached storage yet.

@@ -190,186 +190,186 @@ Rules for every task:
     - Create `test/domain/resurrection/epitaph_footprint_test.dart` with the numbers pinned to the calibrated metrics from task 8.3 (the provisional worked values of the design, a 120 by 160 stone at scale 1.0 with left 18, top 22.16, right 102 and bottom 55.48, and at scale 2.0 with bottom 99.03, are replaced by the calibrated values and written to two decimals): the union rectangle for those two cases; the rectangle never leaves `[0, stoneWidth]` horizontally; the union contains both per-text rectangles; a non-finite, zero or negative input returns the zero rectangle; the rectangle is deterministic.
     - _Requirements: 7.17, 17.1_
 
-- [ ] 9. Rising ghost box
-  - [ ] 9.1 Implement `GhostBox` and `RisingGhostBox`
+- [x] 9. Rising ghost box
+  - [x] 9.1 Implement `GhostBox` and `RisingGhostBox`
     - Create `lib/src/domain/resurrection/ghost_box.dart` and `rising_ghost_box.dart` as in the design: the constants `epitaphGapPx` 8, `minTravelPx` 8, `minBoxHeightPx` 16 and `aspect` 1.2; `RisingGhostBox.at({width, height, textScale, elapsedMs})` builds the natural box (half the stone width wide, `min(width * 0.5 * aspect, height * 0.7)` tall, centered), shrinks it with `boxH = min(naturalH, height - endTop - minTravelPx)` where `endTop = EpitaphFootprint.forStone(...).bottom + epitaphGapPx`, scales the width by the same factor, moves the top from `height - boxH` to `endTop` over `PlayTiming.ghostRiseStartMs` to `ghostRiseEndMs` with the `RiseProgress` curve rescaled like `HandHeight` does, holds it until the end of the play, and returns the zero-area hidden box on the bottom edge when `boxH < minBoxHeightPx` and the all-zero hidden box for unusable input. `visible` is true from `risingGhostStartMs` to `playDurationMs`. Never throws.
     - _Requirements: 7.10, 7.16, 7.17, 9.4, 16.1, 16.2_
 
-  - [ ] 9.2 Write unit tests for `RisingGhostBox`
+  - [x] 9.2 Write unit tests for `RisingGhostBox`
     - Create `test/domain/resurrection/rising_ghost_box_test.dart`: `visible` is false before `risingGhostStartMs` and true from there to `playDurationMs`; the box is centered; at 600 ms and before, its bottom edge rests on the base of the stone; from 2140 ms to 2800 ms its top is exactly the epitaph bottom plus 8; at 1370 ms its top is halfway between the two; the worked example of a 120 by 160 stone at scale 1.0 (box 60 by 72, top 88 at 600 ms, 75.74 at 1370 ms and 63.48 at 2140 ms, all pinned to the calibrated metrics of task 8.3) and of a 120 by 160 stone at scale 2.0 (a shrunk box, start top above end top by at least 8); the extreme case, a 120 by 100 stone at scale 2.0, returns the zero-area hidden box on the bottom edge; NaN, infinite, zero and negative inputs return the all-zero hidden box.
     - The margin test: over a grid of widths 120 to 400 in steps of 20, heights 160 to 480 in steps of 40 and text scales 1.0 to 2.0 in steps of 0.25, the box height is at least 16 and the box is never the zero-area case. NEVER weaken the margin test, and keep the 16 px minimum and the 8 px gap. If it fails with the calibrated metrics, do not change the test, the 16 px minimum or the gap: stop and report the failing size and scale to the user.
     - _Requirements: 7.10, 7.16, 7.17, 17.1_
 
-  - [ ] 9.3 Write property test for the box inside the stone
+  - [x] 9.3 Write property test for the box inside the stone
     - **Property 16: The Rising_Ghost box stays inside the Stone_Area**
     - **Validates: Requirements 7.10, 9.4**
     - Create `test/domain/resurrection/rising_ghost_box_property_test.dart` with this first test over `anyStoneWidth`, `anyStoneHeight`, `anyTextScale` and `anyElapsedMs`: `0 <= left`, `0 <= top`, `left + width <= stoneWidth`, `top + height <= stoneHeight`, positive `width` and `height`, and `height >= RisingGhostBox.minBoxHeightPx`.
 
-  - [ ] 9.4 Write property test for the rise and the hold
+  - [x] 9.4 Write property test for the rise and the hold
     - **Property 17: The Rising_Ghost box rises and then holds still**
     - **Validates: Requirements 7.10, 7.16, 7.17**
     - Add this test to `test/domain/resurrection/rising_ghost_box_property_test.dart` with its own `RunCounter`, over the sizes, the scale and two ordered times `a <= b` from `anyIntBetween(-500, 3300)`: the top at `b` is at most the top at `a`; `left`, `width` and `height` are equal at `a` and `b`; the tops are equal for `a, b >= ghostRiseEndMs`; the top at or before `ghostRiseStartMs` equals `height - boxHeight`; the top at or after `ghostRiseEndMs` equals the `EpitaphFootprint` bottom plus 8; the start top exceeds the end top by at least 8.
 
-  - [ ] 9.5 Write property test for the epitaph never covered
+  - [x] 9.5 Write property test for the epitaph never covered
     - **Property 18: The Rising_Ghost box never covers the epitaph**
     - **Validates: Requirements 7.17**
     - Add this test to `test/domain/resurrection/rising_ghost_box_property_test.dart` with its own `RunCounter`, over the sizes, the scale and elapsed times from `anyIntBetween(PlayTiming.ghostRiseEndMs, PlayTiming.playDurationMs)`: the box and the `EpitaphFootprint.forStone` rectangle share no area (`box.top >= epitaph.bottom`).
 
-- [ ] 10. Checkpoint - Domain complete
+- [x] 10. Checkpoint - Domain complete
   - Run in `apps/graveyard`: `flutter analyze` (zero issues), `flutter test` (all graveyard tests), and `flutter test --platform chrome test/domain test/data` (the domain and data tests in Chrome, so every score, path and box is equal on the VM and on the web).
   - From the repository root, confirm `git status --porcelain -- pubspec.lock pubspec.yaml apps/graveyard/pubspec.yaml packages/coffin_core apps/hauntagotchi tool` prints nothing (`pubspec.lock` and `packages/coffin_core` unchanged, Hauntagotchi and `tool/` unchanged, no new package; this also catches new untracked files).
   - Fix any failure at its cause. Create no file outside the repository, including `/tmp`.
   - Ensure all tests pass, ask the user if questions arise.
   - _Requirements: 16.2, 16.7, 16.9, 17.15_
 
-- [ ] 11. Controller
-  - [ ] 11.1 Add `replaceGrave`, `raise` and `layToRest` to `GraveListController`
+- [x] 11. Controller
+  - [x] 11.1 Add `replaceGrave`, `raise` and `layToRest` to `GraveListController`
     - Edit `lib/src/ui/grave_list_controller.dart` as in the design. `replaceGrave(Grave)` replaces the Grave with the same id at the same list index (no re-sort, no append), removes the id from `_pendingDeletes`, adds it to `_pendingPuts`, notifies and calls `_enqueueWrite()`, so the write has the same save status and retry behavior as an added Grave; it does nothing (no write, no notification) when the id is not in the list. `raise(String id)` finds the Grave, calls `replaceGrave(RaiseRules.raise(grave, today))` and returns true, or returns false when the id is not in the list. `layToRest(String id)` calls `replaceGrave(RaiseRules.layToRest(grave))` and returns normally when the id is not in the list. The controller knows nothing about the Playing_Set.
     - _Requirements: 1.6, 1.8, 3.9, 3.11, 4.5, 4.9, 16.5, 16.6_
 
-  - [ ] 11.2 Write tests for the controller methods
+  - [x] 11.2 Write tests for the controller methods
     - Create `test/ui/grave_list_controller_raise_test.dart` (a new file) with `ControllerHarness`, `FakeClock`, `MemoryRecordRepository<Grave>` and `ThrowingRecordRepository`: `raise` sets `risenOn` to the clock's Today, keeps the list index and the other Graves, and writes the record (the stored record has the `risen` key); `layToRest` clears it and the stored record has no `risen` key; `raise` of an id that is not in the list returns false, writes nothing and does not notify; `layToRest` and `replaceGrave` of a missing id do nothing and throw nothing; a failing write sets the existing save error status, keeps the new state in memory, and the retry writes it; the save status sequence equals the one of an added Grave; a Grave deleted while a write is queued is not written back by a later `replaceGrave` of the same id; a second `raise` of an already Risen Grave keeps the first date.
     - _Requirements: 1.6, 1.8, 3.9, 3.11, 4.5, 4.9, 17.7_
 
-- [ ] 12. Checkpoint - Controller complete
+- [x] 12. Checkpoint - Controller complete
   - Run in `apps/graveyard`: `flutter analyze` (zero issues), `flutter test` (all graveyard tests), and `flutter test --platform chrome test/domain test/data` (the domain and data tests in Chrome).
   - From the repository root, confirm `git status --porcelain -- pubspec.lock pubspec.yaml apps/graveyard/pubspec.yaml packages/coffin_core apps/hauntagotchi tool` prints nothing (`pubspec.lock` and `packages/coffin_core` unchanged, Hauntagotchi and `tool/` unchanged, no new package; this also catches new untracked files).
   - Fix any failure at its cause. Create no file outside the repository, including `/tmp`.
   - Ensure all tests pass, ask the user if questions arise.
   - _Requirements: 16.7, 16.9, 17.15_
 
-- [ ] 13. Resurrection copy
-  - [ ] 13.1 Add the Resurrection_Copy to `GraveyardCopy`
+- [x] 13. Resurrection copy
+  - [x] 13.1 Add the Resurrection_Copy to `GraveyardCopy`
     - In `lib/src/ui/graveyard_copy.dart` add, with no change to any existing string (`GraveyardCopy.epitaph` stays "R.I.P."): `raiseControlText` ("Raise it"), `raiseControlLabel(name)` ("Raise <name> from the dead"), `epitaphRisen` ("RISEN"), `livingRowHeading` ("Back among the living"), `risenOnLine(date)` ("Risen on <date>", built with the existing `GraveyardCopy.date`), `layToRestText` ("Lay it back to rest"), `layToRestLabel(name)` ("Lay <name> back to rest"), `restDialogRouteName(name)` ("Lay <name> back to rest?"), `restDialogTitle(name)`, `restDialogBody(name)` (says the project goes back to the graveyard and never says anything is deleted), `restConfirmText` ("Lay it to rest"), `restCancelText` ("Keep it risen"), `repositoryLinkLabel(name)` ("Copy the repository link of <name>"), `linkCopied` ("Link copied"), `linkCopyFailed` ("That link would not copy. Try once more."), `allRisen` ("Every grave here has risen.") and `risenAnnouncement(name)` ("<name> has risen.").
     - Use only Allowed_Characters, no emoji, no time-of-day word, none of "failed", "invalid" or "your fault". Kind and a little triumphant, never shaming. No Flutter import in `graveyard_copy.dart`.
     - _Requirements: 1.1, 1.3, 4.1, 4.2, 4.4, 5.2, 5.4, 5.6, 5.7, 5.11, 5.13, 11.3, 12.4, 13.3, 14.1, 14.2, 14.3, 14.4, 14.5, 14.6, 14.7, 14.8_
 
-- [ ] 14. Painters
-  - [ ] 14.1 Implement `HandPainter` and `ClodsPainter`
+- [x] 14. Painters
+  - [x] 14.1 Implement `HandPainter` and `ClodsPainter`
     - Create `lib/src/ui/hand_painter.dart` and `lib/src/ui/clods_painter.dart`. `HandPainter` takes a `HandShape` and the colors, strokes each bone of the `HandShape` as a polyline with round caps and draws a small dot at each joint (every polyline vertex), with a soft glow (no hard shadow); it holds no geometry logic. `ClodsPainter` takes the list of `Clod`, the elapsed milliseconds and the colors, calls `ClodPath.at` for each Clod with the Stone_Area size it is given and draws one circle per visible frame (at most 7). Both clip the canvas to the Stone_Area (`clipRect(Offset.zero & size)`) before any drawing call. Colors come from the `CoffinColorTokens` the caller passes in, with no hard-coded color. `shouldRepaint` compares the inputs.
     - _Requirements: 7.4, 8.10, 9.1, 9.2, 9.3, 13.5, 13.7_
 
-- [ ] 15. Resurrection play
-  - [ ] 15.1 Implement `ResurrectionPlay`
+- [x] 15. Resurrection play
+  - [x] 15.1 Implement `ResurrectionPlay`
     - Create `lib/src/ui/resurrection_play.dart` as in the design: a `StatefulWidget` with `graveId`, `stoneSize`, `textScale`, `onEnd` and `onEpitaphRisen`. On the animated path it owns one tick `AnimationController` of `PlayTiming.playDurationMs` that runs once to the end (its completion calls `onEnd` exactly once), one epitaph fade controller of `PlayTiming.epitaphFadeMs` with an ease-in-out curve started at `epitaphFadeStartMs`, and the `reactionKey` of the `GhostLoader`. One `AnimatedBuilder` draws the Hand (`HandGeometry`), the Clods (`ClodPathGenerator` and `ClodPath`) and the Rising_Ghost from the same elapsed milliseconds; the `GhostLoader(mood: GhostMood.rising)` is built only while `RisingGhostBox.at(...).visible` is true, placed in a `Positioned` and `SizedBox` from the box, its reaction key increments once at `risingGhostStartMs`, and it is wrapped so its own loader label is not read. On the reduced-motion path (`MediaQuery.disableAnimationsOf`) it creates no ticking controller: it calls `onEpitaphRisen` at once, builds the ghost with no `onReactionEnd`, and holds one cancellable `Timer` of `playDurationMs` that calls `onEnd`. When Reduced_Motion turns on mid-play it stops the controllers, snaps to the risen state, and finishes with one `Timer` for the remaining time without a second announcement. `dispose` cancels the timer and disposes every controller with null checks; `onEnd` is guarded so it never fires after dispose or twice. A rebuild with new size or scale does not restart the play.
     - _Requirements: 7.1, 7.3, 7.9, 7.10, 7.11, 7.13, 7.14, 7.15, 9.5, 10.7, 10.8, 12.1, 12.2, 12.3, 12.7, 12.8, 13.7_
 
-- [ ] 16. ArchEpitaph text
-  - [ ] 16.1 Let the `ArchEpitaph` widget draw a given text
+- [x] 16. ArchEpitaph text
+  - [x] 16.1 Let the `ArchEpitaph` widget draw a given text
     - Edit `lib/src/ui/arch_epitaph.dart`: add the optional constructor parameter `String? text` and make `build` draw `text ?? GraveyardCopy.epitaph` with the same `ArchFit` search, the same scaled font size and the same single-line, inside-the-arch rules, so `rectFor` and the widget measure the same text. `ArchEpitaph()` with no text keeps drawing "R.I.P." exactly as before.
     - _Requirements: 11.3, 11.4, 11.5, 11.6, 11.8_
 
-- [ ] 17. Tombstone
-  - [ ] 17.1 Add the play layer and the epitaph switch to `GraveTombstone`
+- [x] 17. Tombstone
+  - [x] 17.1 Add the play layer and the epitaph switch to `GraveTombstone`
     - Edit `lib/src/ui/grave_tombstone.dart`: add the parameters `playing` (default false) and `onPlayEnd` (default null). While `playing`, add one layer to the existing stack inside the same tilted layer as the card and the cracks: `Positioned.fill` with `IgnorePointer`, `ExcludeSemantics`, `RepaintBoundary`, a `LayoutBuilder` for the Stone_Area size and a `ClipRect` around `ResurrectionPlay`, with `textScale` computed as `MediaQuery.textScalerOf(context).scale(ArchEpitaph.baseFontSize) / ArchEpitaph.baseFontSize`. The Epitaph_Text is `GraveyardCopy.epitaph` until `onEpitaphRisen` fires and `GraveyardCopy.epitaphRisen` after, passed to `ArchEpitaph(text: ...)` and to `ArchEpitaph.rectFor` for the crack keep-out area, with a 300 to 600 ms ease-in-out fade between the two (none under Reduced_Motion). `TombstoneCard` keeps `showEpitaph: false` and `coffin_core` is not edited. The semantic label, the Seance_Control, the delete control, the Crack_Band, the Keep_Out_Areas math, the column count, the tombstone width and the 3 degree tilt limit stay unchanged, and the layout size of the stone never changes during the play. The Seance_Control and the delete control stay present while playing.
     - _Requirements: 3.10, 7.1, 7.11, 7.12, 9.1, 9.2, 9.5, 9.6, 9.7, 9.8, 10.1, 10.3, 10.5, 10.6, 10.9, 11.1, 11.2, 11.3, 11.7, 12.2, 12.7, 15.4_
 
-- [ ] 18. Seance sheet
-  - [ ] 18.1 Add the Raise_Control to `SeanceSheet` and wire it from the tombstone
+- [x] 18. Seance sheet
+  - [x] 18.1 Add the Raise_Control to `SeanceSheet` and wire it from the tombstone
     - Edit `lib/src/ui/seance_sheet.dart`: `showSeanceSheet` and `SeanceSheet` get an optional `onRaise` callback (`ValueChanged<Grave>`, default null). When it is not null the sheet shows one Raise_Control with the visible label `GraveyardCopy.raiseControlText`, `Semantics(button: true, label: GraveyardCopy.raiseControlLabel(grave.name))`, a minimum size of 48 by 48, keyboard focus, Enter and Space activation, and hover, press and focus states from the theme, placed so it stays visible and reachable in every sheet state (also while the verdict is pending) at every width and text scale, inside the sheet's 560 maximum content width, scrolling and pinned close button. Activating it closes the sheet and then calls `onRaise(grave)` once (a second activation does nothing). Closing through the close button, Escape, a tap outside or a drag down never calls `onRaise`. The score, band, steps and verdict line do not change.
     - Edit `lib/src/ui/grave_tombstone.dart`: add the optional parameter `onRaise` and pass `onRaise` to `showSeanceSheet` only while the Grave is not Risen and not `playing`, so a playing Tombstone opens a sheet with no Raise_Control.
     - _Requirements: 1.1, 1.2, 1.3, 1.4, 1.5, 1.6, 1.7, 1.9, 1.10, 10.6, 13.1, 14.1, 15.2_
 
-- [ ] 19. Living row
-  - [ ] 19.1 Implement `LivingRow`
+- [x] 19. Living row
+  - [x] 19.1 Implement `LivingRow`
     - Create `lib/src/ui/living_row.dart` with `LivingRow` (`entries` already ordered by `LivingSplit`, `onLayToRest`), which renders nothing at all (no heading, no placeholder) when `entries` is empty, else a semantic header `GraveyardCopy.livingRowHeading` and one entry per Grave. Each entry is a private widget in the same file that shows the name, the line `GraveyardCopy.risenOnLine(risenOn)` in one semantic node, and the Lay_To_Rest_Control (visible label `GraveyardCopy.layToRestText`, semantic label `GraveyardCopy.layToRestLabel(name)`, at least 48 by 48, keyboard focus, hover, press and focus states, `FocusNode` kept so focus can return to it). A manual Grave shows no repository part. Text wraps and a name of 80 code points stays readable, with no decorative node. The row uses the same side padding and maximum width as the rest of the header, keeps every color from `CoffinColorTokens`, and stays usable at a text scale of 2.0.
     - _Requirements: 4.1, 4.2, 5.2, 5.3, 5.4, 5.8, 5.9, 5.10, 5.12, 13.1, 13.4, 13.6, 13.7, 15.3, 15.6_
 
-- [ ] 20. Rest dialog
-  - [ ] 20.1 Implement `RestDialog` and `showRestDialog`
+- [x] 20. Rest dialog
+  - [x] 20.1 Implement `RestDialog` and `showRestDialog`
     - Create `lib/src/ui/rest_dialog.dart` following the existing `DeleteGraveDialog` pattern: `showRestDialog(context, name)` returns a `Future<bool>` (true only on confirm). The dialog route name is `GraveyardCopy.restDialogRouteName(name)`; it names the Grave, shows `restDialogBody` (the project goes back to the graveyard, nothing is deleted), one confirm button `restConfirmText` and one cancel button `restCancelText`, each at least 48 by 48 with a semantic label. Escape and a tap outside act as cancel. Focus moves into the dialog when it opens and stays inside while it is open. It stays usable at a text scale of 2.0 with wrapping or scrolling and no clipped text, and keeps contrast through `CoffinColorTokens`. A second dialog cannot open while one is open.
     - _Requirements: 4.3, 4.4, 4.10, 13.1, 13.2, 13.3, 13.4, 13.6, 13.7, 14.7_
 
-- [ ] 21. Repository link
-  - [ ] 21.1 Implement `GraveyardClipboard`
+- [x] 21. Repository link
+  - [x] 21.1 Implement `GraveyardClipboard`
     - Create `lib/src/ui/graveyard_clipboard.dart` with the `abstract interface class GraveyardClipboard` (`Future<void> copy(String text)`, may throw) and `SystemGraveyardClipboard`, a `const` implementation backed by `Clipboard.setData(ClipboardData(text: text))` from `package:flutter/services.dart`. No package is added.
     - _Requirements: 5.6, 5.13, 16.3_
 
-  - [ ] 21.2 Implement `RepositoryLink` and place it in the Living_Row
+  - [x] 21.2 Implement `RepositoryLink` and place it in the Living_Row
     - Create `lib/src/ui/repository_link.dart` with `RepositoryLink` (`name`, `fullName`, `address`, `clipboard`). It shows the full repository name, has a semantic label `GraveyardCopy.repositoryLinkLabel(name)`, a tap target of at least 48 by 48, keyboard focus, and hover, press and focus states. Activating it calls `clipboard.copy(address)` inside a `try` and `catch` and shows `GraveyardCopy.linkCopied` on success or `GraveyardCopy.linkCopyFailed` on any thrown object, with no exception escaping and no change to the entry. Edit `lib/src/ui/living_row.dart`: `LivingRow` gets the `clipboard` parameter and each entry of a GitHub Grave with a repository address shows one `RepositoryLink`; a manual Grave shows none.
     - _Requirements: 5.5, 5.6, 5.7, 5.8, 5.13, 13.1, 13.7_
 
-- [ ] 22. Wiring
-  - [ ] 22.1 Implement `RisenAnnouncement`
+- [x] 22. Wiring
+  - [x] 22.1 Implement `RisenAnnouncement`
     - Create `lib/src/ui/risen_announcement.dart`: a widget that exposes `GraveyardCopy.risenAnnouncement(name)` as one polite live region, once per Raise (keyed by the announcement counter of the screen), never moves keyboard focus, and does not repeat on rebuilds or when the Grave moves to the Living_Row. It has no visual output.
     - _Requirements: 12.4, 12.5, 12.6_
 
-  - [ ] 22.2 Wire `GraveyardScene`
+  - [x] 22.2 Wire `GraveyardScene`
     - Edit `lib/src/ui/graveyard_scene.dart`: add the parameters `playingIds` (default empty), `onPlayEnd`, `onRaise` and `clipboard` and `onLayToRest`. Call `LivingSplit.split(graves: ..., playing: playingIds)` once per build, place `LivingRow` in the scrolling header below the title, notices and banners and above the rows, and pass only the graveyard rows list to `SceneLayout`, so the column count, the tombstone width, the keys and the tilt follow the existing rules. Give each `GraveTombstone` its `playing` flag, `onPlayEnd` and `onRaise`. When a Grave leaves the rows at the end of its play the gap closes with no Rise for the other Tombstones; a Grave that returns after Lay_To_Rest gets the existing Rise for graves that appear after the first list. Existing tests that build the scene keep compiling through the defaults.
     - _Requirements: 3.10, 5.1, 5.3, 6.9, 6.10, 10.8, 15.3, 15.4, 15.6_
 
-  - [ ] 22.3 Wire `GraveyardScreen`
+  - [x] 22.3 Wire `GraveyardScreen`
     - Edit `lib/src/ui/graveyard_screen.dart` as in the design. The screen owns the in-memory `Playing_Set` and the announcement counter (neither is saved). `_raise(grave)` calls `controller.raise(grave.id)`; when it returns true the id is added to the set and the counter is bumped in one `setState`; when it returns false no play starts and nothing throws. `_onPlayEnd(id)` removes the id. `_layToRest(grave)` opens `showRestDialog`, calls `controller.layToRest(id)` only on confirm, and returns focus to the Lay_To_Rest_Control that opened it while that control is in the tree. `_delete` also removes the id from the set in the same `setState`. A saved Risen Grave shows in the Living_Row with no play, and the set is empty on load and reload. The empty state follows the design: `EmptyGraveyardPanel` only when both lists are empty, and `GraveyardCopy.allRisen` instead of the graveyard rows (with no empty panel) when only the Living_Row has entries. `RisenAnnouncement` is mounted once. The existing save error banner and retry control show for a failed write of a Raise or a Lay_To_Rest.
     - _Requirements: 1.6, 1.7, 1.8, 3.10, 3.11, 4.3, 4.5, 4.6, 4.7, 4.8, 4.9, 5.11, 10.1, 10.2, 10.3, 10.4, 10.5, 10.7, 10.9, 12.4, 12.5, 12.6_
 
-  - [ ] 22.4 Thread the clipboard from the app root
+  - [x] 22.4 Thread the clipboard from the app root
     - Edit `lib/src/ui/app_routes.dart` or `lib/main.dart`, wherever the controller and the Seance_Ai are built: build one `const SystemGraveyardClipboard()` at the root and pass it down to `GraveyardScreen` and `GraveyardScene`, with no default lower in the tree. Update any existing test that constructs these widgets only by adding the new constructor argument (a fake clipboard), without changing what it asserts.
     - _Requirements: 5.6, 16.3, 16.5_
 
-- [ ] 23. Widget tests
-  - [ ] 23.1 Add the clipboard fakes
+- [x] 23. Widget tests
+  - [x] 23.1 Add the clipboard fakes
     - Create `test/support/fake_graveyard_clipboard.dart` with `RecordingGraveyardClipboard` (records every copied text, succeeds) and `ThrowingGraveyardClipboard` (always throws).
     - _Requirements: 5.6, 5.13, 17.7_
 
-  - [ ] 23.2 Write the painter tests with a recording canvas
+  - [x] 23.2 Write the painter tests with a recording canvas
     - Create `test/ui/hand_clods_painter_test.dart` with `test/support/recording_canvas.dart`: drive `HandPainter` (given `HandGeometry.at` shapes) and `ClodsPainter` at several elapsed times across the play and for several stone sizes (120 by 160, 400 by 480, 200 by 300); every recorded drawing call lies inside the Stone_Area; a `clipRect` call equal to the Stone_Area is recorded before any Hand or Clod drawing call; at most 7 circles are drawn; nothing is drawn when the Hand is not visible; `shouldRepaint` is true only when an input changes.
     - _Requirements: 8.10, 9.1, 9.2, 9.3, 17.6_
 
-  - [ ] 23.3 Write widget tests for `ResurrectionPlay`
+  - [x] 23.3 Write widget tests for `ResurrectionPlay`
     - Create `test/ui/resurrection_play_test.dart` and `test/ui/resurrection_dispose_test.dart` with a small host and `tester.pump(Duration(...))` only: the Hand and the Clods paint during the first 600 ms and are gone afterwards; no `GhostLoader` before 600 ms and one from 600 ms to the end; its box rises (top at 1370 ms is between the start and end tops) and holds from 2140 ms; `onEpitaphRisen` is called once at 2140 ms; `onEnd` is called exactly once at 2800 ms and never twice; the play ends within `playDurationMs` of pumped time and no animation is left running after it (`tester.hasRunningAnimations` false); `MoodReaction.risingDurationMs` of `coffin_core` equals 2200 and `risingGhostStartMs + 2200` is at most `playDurationMs`; a rebuild with a new size or text scale does not restart the play (the elapsed time continues); disposing the widget mid-play (at 0, 300, 700 and 2300 ms) throws nothing, calls `onEnd` never, and leaves no pending timer or ticker; with `disableAnimations` true no ticking controller exists (`hasRunningAnimations` false at once), `onEpitaphRisen` is called at once, no Hand, Clod or ghost movement is drawn, and `onEnd` fires at 2800 ms; switching `disableAnimations` from false to true mid-play finishes the play at the same total time with `onEpitaphRisen` called once; the play exposes no semantic node.
     - _Requirements: 7.1, 7.9, 7.10, 7.11, 7.13, 7.14, 7.15, 10.7, 10.8, 12.1, 12.2, 12.3, 12.7, 12.8, 17.7, 17.8_
 
-  - [ ] 23.4 Write widget tests for the `ArchEpitaph` text
+  - [x] 23.4 Write widget tests for the `ArchEpitaph` text
     - Create `test/ui/arch_epitaph_text_test.dart` (a new file): `ArchEpitaph()` with no text draws "R.I.P." and `ArchEpitaph.rectFor` with no text returns the same rectangle as before this feature (compared with `GraveyardCopy.epitaph`); `ArchEpitaph(text: 'RISEN')` draws "RISEN" and `rectFor(text: 'RISEN')` measures the same text; "RISEN" fits inside the arch on one line (not truncated) for widths 120 to 400 in steps of 20 at the default text scale and stays on one line inside the arch up to text scale 2.0; `GraveyardCopy.epitaph` still equals "R.I.P.".
     - _Requirements: 11.3, 11.4, 11.5, 11.6, 11.8, 14.8, 17.13_
 
-  - [ ] 23.5 Write widget tests for the tombstone during a play
+  - [x] 23.5 Write widget tests for the tombstone during a play
     - Create `test/ui/grave_tombstone_resurrection_test.dart`: the Epitaph_Text is "R.I.P." at the start of a play, still "R.I.P." at 600 ms and "RISEN" after `epitaphFadeStartMs + epitaphFadeMs`; the fade lasts 300 to 600 ms; the crack keep-out area follows the text; the play layer is inside the tilted layer, wrapped in `IgnorePointer`, `ExcludeSemantics`, `RepaintBoundary` and `ClipRect`; a tap on the Seance_Control and on the delete control still works during the play; the Seance_Control opens a sheet with no Raise_Control while playing; the layout size, the column count, the tombstone width and the tilt are equal before, during and after the play, also at the largest tilt of 3 degrees; neighbor tombstones do not move; the semantic label of the stone is unchanged; a not playing, not Risen Tombstone shows "R.I.P." and no play layer.
     - _Requirements: 7.11, 7.12, 9.1, 9.5, 9.6, 9.7, 9.8, 10.6, 11.1, 11.2, 11.7, 15.4, 17.7_
 
-  - [ ] 23.6 Write widget tests for the Raise_Control
+  - [x] 23.6 Write widget tests for the Raise_Control
     - Create `test/ui/seance_sheet_raise_test.dart` with a fake `CoffinAI`: the visible label "Raise it"; the semantic label "Raise <name> from the dead"; the tap target is at least 48 by 48; Enter and Space activate it; hover, pressed and focused states are visible; it stays visible and reachable while the verdict is pending, in the ready and fallback states, and at the widths 320, 360, 768 and 1280 and the text scales 1.0, 1.5 and 2.0; activating it closes the sheet, sets `risenOn` to Today, saves the record and starts exactly one play; two quick activations raise once; a Grave removed before the activation closes the sheet with no play and no exception; the close button, Escape, a tap outside and a drag down do not raise the Grave; the score, band, steps and verdict text on screen are unchanged by the control; a sheet opened for a playing Grave has no Raise_Control.
     - _Requirements: 1.1, 1.2, 1.3, 1.4, 1.5, 1.6, 1.7, 1.8, 1.9, 1.10, 10.6, 17.7_
 
-  - [ ] 23.7 Write widget tests for the Living_Row
+  - [x] 23.7 Write widget tests for the Living_Row
     - Create `test/ui/living_row_test.dart`: the heading "Back among the living" is a semantic header; entries show the name and "Risen on <date>"; most recent `risenOn` first and ties in `GraveSorter` order; an empty list shows no row, no heading and no placeholder; a name of 80 code points renders with no overflow; one semantic node per entry text and no decorative node; a manual Grave has no Repository_Link; the Lay_To_Rest_Control has the visible label "Lay it back to rest", the semantic label "Lay <name> back to rest" and a tap target of at least 48 by 48, and reacts to focus, hover and press.
     - _Requirements: 4.1, 4.2, 5.2, 5.3, 5.4, 5.8, 5.9, 5.10, 5.12, 13.1, 17.7_
 
-  - [ ] 23.8 Write widget tests for the Repository_Link
+  - [x] 23.8 Write widget tests for the Repository_Link
     - Create `test/ui/repository_link_test.dart` with the clipboard fakes: a GitHub Grave shows the full repository name; activating the link copies the repository address (the recording clipboard holds it) and shows "Link copied"; a `ThrowingGraveyardClipboard` shows "That link would not copy. Try once more.", `tester.takeException()` is null, and the Living_Entry text and controls are unchanged; the semantic label is "Copy the repository link of <name>"; the tap target is at least 48 by 48; Enter and Space activate it; a manual Grave shows no link.
     - _Requirements: 5.5, 5.6, 5.7, 5.8, 5.13, 13.1, 17.7_
 
-  - [ ] 23.9 Write widget tests for Lay_To_Rest
+  - [x] 23.9 Write widget tests for Lay_To_Rest
     - Create `test/ui/lay_to_rest_test.dart`: activating "Lay it back to rest" opens the dialog and does not change the Grave yet; the dialog names the Grave, shows the body that says the project goes back to the graveyard and never says "delete", and shows "Lay it to rest" and "Keep it risen"; confirm clears `risenOn`, saves, moves the Grave back to the graveyard rows with the Epitaph_Text "R.I.P.", no play, and the Rise of a grave that appears after the first list; cancel, Escape and a tap outside leave the Grave Risen and unchanged; focus moves into the dialog and stays inside it while it is open, and returns to the Lay_To_Rest_Control afterwards while that control is in the tree; the route name is "Lay <name> back to rest?"; a Grave deleted before the confirm closes the dialog with no exception; a second dialog cannot open while one is open; both buttons are at least 48 by 48 with a semantic label.
     - _Requirements: 4.3, 4.4, 4.5, 4.6, 4.7, 4.8, 4.9, 4.10, 13.1, 13.2, 13.3, 14.7, 17.7_
 
-  - [ ] 23.10 Write widget tests for the whole flow on the screen
+  - [x] 23.10 Write widget tests for the whole flow on the screen
     - Create `test/ui/graveyard_resurrection_flow_test.dart` with `FakeClock`, `ControllerHarness` and a fake `CoffinAI`, driven only by `tester.pump(Duration(...))`: séance, "Raise it", the sheet closes, the record is saved with `risenOn`, one play runs, the Epitaph_Text changes from "R.I.P." to "RISEN", and at 2800 ms the Grave leaves the rows and shows in the Living_Row, the gap closes with no Rise for the others, and the whole test ends within the Play_Duration of pumped time; a saved Risen Grave on load shows in the Living_Row and starts no play, also after a second `pumpWidget` with a new controller of the same saved data (no replay); no replay after a rebuild, a new width or a changed text scale mid-play; lay to rest and raise again plays one new play; two plays on different Graves do not disturb each other; deleting a Grave mid-play stops the play with no exception and no leftover timer; the Playing_Set and the play progress are not written to the repository; when every Grave is Risen the screen shows the Living_Row and "Every grave here has risen." and no empty graveyard panel; with no Risen Grave the Living_Row is not shown; the Living_Row sits below the title and any notice or banner; a failing write of a Raise shows the existing save error banner with its retry, keeps the new state, and the retry saves it.
     - _Requirements: 1.6, 1.7, 1.8, 3.10, 3.11, 4.5, 4.7, 5.1, 5.3, 5.11, 6.10, 7.1, 7.14, 10.1, 10.2, 10.3, 10.4, 10.5, 10.7, 10.8, 10.9, 17.7, 17.8, 17.14_
 
-  - [ ] 23.11 Write widget tests for reduced motion and the announcement
+  - [x] 23.11 Write widget tests for reduced motion and the announcement
     - Create `test/ui/resurrection_reduced_motion_test.dart`: with `disableAnimations` true, a Raise shows "RISEN" on a still stone at once with `tester.hasRunningAnimations` false right after the triggering pump, with no Hand, no Clods and no moving ghost, the Grave stays in the graveyard rows for 2800 ms and then moves to the Living_Row; exactly one polite live-region node "<name> has risen." exists per Raise, with and without Reduced_Motion, it does not move keyboard focus, it does not repeat on a rebuild, and no second message is announced when the Grave moves to the Living_Row; switching `disableAnimations` from false to true mid-play stops the movement, shows "RISEN" at once, finishes the play at the same total time and announces nothing a second time.
     - _Requirements: 12.1, 12.2, 12.3, 12.4, 12.5, 12.6, 12.8, 17.7_
 
-  - [ ] 23.12 Write layout tests
+  - [x] 23.12 Write layout tests
     - Create `test/ui/resurrection_layout_test.dart`: the Raise_Control in the sheet, the Living_Row (with a name of 80 code points and a GitHub repository name), the Rest_Dialog and a running Resurrection_Play render with no overflow exception at the widths 320, 360, 768 and 1280 and the text scales 1.0 and 1.5, in `CoffinTheme.dark()` and in the daylight theme; the Living_Row and the Rest_Dialog also stay usable at 2.0 with no clipped text; the sheet keeps its content width of at most 560, its scrolling and its pinned close button; the Living_Row uses the same side padding and maximum width as the header; a long Living_Row scrolls with the rest of the header and does not trap the scroll position; the Scene_Layout column count, tombstone width and tilt limit are unchanged.
     - _Requirements: 5.10, 13.6, 15.1, 15.2, 15.3, 15.4, 15.5, 15.6, 17.9_
 
-  - [ ] 23.13 Write semantics and contrast tests
+  - [x] 23.13 Write semantics and contrast tests
     - Create `test/ui/resurrection_semantics_test.dart`: exact labels "Raise <name> from the dead", "Lay <name> back to rest", "Copy the repository link of <name>", the dialog route name "Lay <name> back to rest?" and the live-region text "<name> has risen."; the Living_Row heading is a header and each entry has one text node with the controls as their own nodes; the play exposes no node for the Hand, the Clods, the glows or the ghost graphic and its loader label is not read; every control of this feature has a tap target of at least 48 by 48 and a semantic label; `WcagContrast.ratio` of at least 4.5 for every text and 3.0 for every icon of the Living_Row, the Living_Entry and the Rest_Dialog against the color directly behind it, and of at least 3.0 for the Hand, the Clods and the ghost against the stone and the ground where they overlap, in the dark theme and in the daylight theme, with the colors read from `CoffinColorTokens`.
     - _Requirements: 1.3, 4.2, 5.7, 5.12, 12.4, 12.7, 13.1, 13.3, 13.4, 13.5, 13.7, 17.10_
 
-- [ ] 24. Source-rule and copy-rule tests
-  - [ ] 24.1 Write source-rule tests for the resurrection
+- [x] 24. Source-rule and copy-rule tests
+  - [x] 24.1 Write source-rule tests for the resurrection
     - Create `test/source_rules/resurrection_sources_test.dart` (the only place of this feature that reads source files with `dart:io`): no new Domain file (`lib/src/domain/raise_rules.dart`, `lib/src/domain/living_split.dart` and every file under `lib/src/domain/resurrection`) contains `package:flutter`, `dart:ui`, `dart:io`, `dart:html`, `package:coffin_core`, `package:http`, `package:hive_ce`, `DateTime.now`, `Duration` or `Timer`, and none imports anything from `ui`; each of those files has one public class and a doc comment on each public member; no file under `lib` imports `coffin_core/src` or Hauntagotchi, and no file under `lib` adds a package import outside the existing dependencies; `grave_codec.dart` contains none of "playing", "Playing_Set" or "ResurrectionPlay" and no file of this feature writes play data to storage; the `pubspec.yaml` of `apps/graveyard` still lists exactly its existing dependencies (`flutter`, `coffin_core`, `http` and the unchanged dev dependencies) and no new package, font or asset entry; the new UI files use no `Color(0x` and no `Colors.`; the new UI files hold no user-facing string literal (no `Text('` or `Text("` with a literal) because every string comes from `GraveyardCopy`; the `dispose` method of `ResurrectionPlay` mentions the cancel or dispose call of every controller and timer field the class declares; no `import` of a state-management package.
     - The check that `packages/coffin_core`, `apps/hauntagotchi`, `tool/`, every `pubspec.yaml` and `pubspec.lock` are unchanged is made with `git status --porcelain` (which prints nothing when they are unchanged and also catches new untracked files) in the final checkpoint, because a Dart test cannot read git state.
     - _Requirements: 2.6, 10.2, 16.1, 16.2, 16.3, 16.4, 16.5, 16.9, 17.11, 17.14_
 
-  - [ ] 24.2 Write the copy-rule tests
+  - [x] 24.2 Write the copy-rule tests
     - Create `test/ui/resurrection_copy_test.dart` (a new file): every Resurrection_Copy string and every output of the label functions (for a few fixed names, including one of 80 code points and one with "é") uses only Allowed_Characters and contains no emoji, no time-of-day word ("morning", "afternoon", "evening", "night", "midnight", "dawn", "dusk"), none of "failed", "invalid" or "your fault", no exception text and no raw status code; the exact strings "Raise it", "RISEN", "Back among the living", "Risen on <date>", "Lay it back to rest", "Lay it to rest", "Keep it risen", "Link copied", "That link would not copy. Try once more.", "Every grave here has risen." and "<name> has risen." are pinned; the Rest_Dialog body mentions the graveyard and does not contain "delete"; `GraveyardCopy.epitaph` still equals "R.I.P."; every pre-existing string of `GraveyardCopy` is unchanged.
     - _Requirements: 11.3, 14.1, 14.2, 14.3, 14.4, 14.5, 14.6, 14.7, 14.8, 17.12_
 
-- [ ] 25. Final checkpoint - Verification
+- [x] 25. Final checkpoint - Verification
   - Run in `apps/graveyard`: `dart format --output=none --set-exit-if-changed .`, `flutter analyze` (zero issues), `flutter test` (all graveyard tests), and `flutter test --platform chrome test/domain test/data` (the domain tests in Chrome). Check `grep -rl "dart:io" test/domain test/data` finds nothing.
   - Run `flutter test` in `packages/coffin_core` (it must pass unchanged), in `apps/hauntagotchi` and in `tool/`.
   - Run `flutter pub get --enforce-lockfile` at the repository root, and check it succeeds (no new package, so no lockfile change; the status check on the next line also covers `pubspec.lock`).

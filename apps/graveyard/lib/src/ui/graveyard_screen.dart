@@ -4,16 +4,20 @@ import 'package:coffin_core/coffin_core.dart';
 import 'package:flutter/material.dart';
 
 import '../domain/grave.dart';
+import '../domain/living_split.dart';
 import 'add_grave_sheet.dart';
 import 'add_mode.dart';
 import 'delete_grave_dialog.dart';
 import 'empty_graveyard_panel.dart';
 import 'grave_list_controller.dart';
 import 'grave_list_status.dart';
+import 'graveyard_clipboard.dart';
 import 'graveyard_copy.dart';
 import 'graveyard_scene.dart';
 import 'load_error_view.dart';
 import 'memory_notice.dart';
+import 'rest_dialog.dart';
+import 'risen_announcement.dart';
 import 'save_error_banner.dart';
 import 'save_status.dart';
 
@@ -25,6 +29,7 @@ class GraveyardScreen extends StatefulWidget {
     super.key,
     required this.controller,
     required this.seanceAi,
+    this.clipboard = const SystemGraveyardClipboard(),
   });
 
   /// The controller that owns the graves.
@@ -32,6 +37,9 @@ class GraveyardScreen extends StatefulWidget {
 
   /// The AI that words the verdict line of each séance.
   final CoffinAI seanceAi;
+
+  /// Where repository links of the Living_Row are copied to.
+  final GraveyardClipboard clipboard;
 
   @override
   State<GraveyardScreen> createState() => _GraveyardScreenState();
@@ -41,6 +49,13 @@ class _GraveyardScreenState extends State<GraveyardScreen>
     with WidgetsBindingObserver {
   static const double _maxWidth = 560;
   static const double _sidePadding = 16;
+
+  /// Ids of the graves whose Resurrection_Play runs now. Never saved.
+  final Set<String> _playing = <String>{};
+
+  /// Count of Raises so far, read by [RisenAnnouncement]. Never saved.
+  int _announceKey = 0;
+  String? _announceName;
 
   @override
   void initState() {
@@ -67,7 +82,53 @@ class _GraveyardScreenState extends State<GraveyardScreen>
 
   Future<void> _delete(Grave grave) async {
     final bool confirmed = await showDeleteGraveDialog(context, grave.name);
-    if (confirmed) await widget.controller.deleteGrave(grave.id);
+    if (!confirmed) return;
+    if (mounted) setState(() => _playing.remove(grave.id));
+    await widget.controller.deleteGrave(grave.id);
+  }
+
+  /// Raises [grave]. The séance sheet has already closed itself.
+  void _raise(Grave grave) {
+    if (!widget.controller.raise(grave.id)) return;
+    setState(() {
+      _playing.add(grave.id);
+      _announceKey++;
+      _announceName = grave.name;
+    });
+  }
+
+  void _onPlayEnd(String id) {
+    if (!mounted || !_playing.contains(id)) return;
+    setState(() => _playing.remove(id));
+  }
+
+  Future<void> _layToRest(Grave grave) async {
+    final bool confirmed = await showRestDialog(context, grave.name);
+    if (!mounted) return;
+    if (confirmed) widget.controller.layToRest(grave.id);
+    _returnFocusTo(grave.id);
+  }
+
+  /// Gives focus back to the Lay_To_Rest_Control of [id] while it is in the
+  /// tree. After a confirmed Lay_To_Rest the control is gone and nothing moves.
+  void _returnFocusTo(String id) {
+    final Key key = ValueKey<String>('lay-to-rest-$id');
+    FocusNode? found;
+    void visit(Element element) {
+      if (found != null) return;
+      final Widget w = element.widget;
+      if (w.key == key && w is TextButton) {
+        found = w.focusNode;
+        return;
+      }
+      element.visitChildren(visit);
+    }
+
+    (context as Element).visitChildren(visit);
+    final FocusNode? node = found;
+    if (node != null && node.context != null && node.canRequestFocus) {
+      node.requestFocus();
+    }
   }
 
   @override
@@ -108,6 +169,9 @@ class _GraveyardScreenState extends State<GraveyardScreen>
     final double side = _sidePadding + math.max(0, (width - _maxWidth) / 2);
     final TextTheme text = Theme.of(context).textTheme;
     final List<Grave> graves = c.graves;
+    final split = LivingSplit.split(graves: graves, playing: _playing);
+    final bool noRows = split.$1.isEmpty;
+    final bool noLiving = split.$2.isEmpty;
     final List<Widget> children = <Widget>[
       Padding(
         padding: const EdgeInsets.only(top: 24, bottom: 16),
@@ -140,14 +204,28 @@ class _GraveyardScreenState extends State<GraveyardScreen>
           ),
         );
       }
-      if (graves.isEmpty) {
+      if (noRows && noLiving) {
         children.add(
           EmptyGraveyardPanel(
             onBuryByHand: () => _openSheet(AddMode.buryByHand),
             onImport: () => _openSheet(AddMode.importFromGitHub),
           ),
         );
+      } else if (noRows) {
+        children.add(
+          Padding(
+            padding: const EdgeInsets.only(bottom: 12),
+            child: Text(
+              GraveyardCopy.allRisen,
+              textAlign: TextAlign.center,
+              style: text.bodyLarge,
+            ),
+          ),
+        );
       }
+      children.add(
+        RisenAnnouncement(announcement: _announceKey, name: _announceName),
+      );
     }
     // One scene for every non-loading state, at one place in the tree, so a
     // grave added to an empty graveyard rises. The title, notices, banners
@@ -163,6 +241,11 @@ class _GraveyardScreenState extends State<GraveyardScreen>
       today: c.today,
       onDelete: _delete,
       seanceAi: widget.seanceAi,
+      playingIds: _playing,
+      onPlayEnd: _onPlayEnd,
+      onRaise: _raise,
+      onLayToRest: _layToRest,
+      clipboard: widget.clipboard,
       header: SafeArea(
         bottom: false,
         child: Padding(

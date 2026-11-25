@@ -2,11 +2,13 @@ import 'dart:math' as math;
 
 import 'package:coffin_core/coffin_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 
 import '../domain/calendar_date.dart';
 import '../domain/grave.dart';
 import '../domain/grave_source.dart';
 import '../domain/repo_info.dart';
+import '../domain/resurrection/play_timing.dart';
 import '../domain/scene/crack_generator.dart';
 import '../domain/scene/description_cleaner.dart';
 import '../domain/scene/keep_out_rect.dart';
@@ -17,6 +19,7 @@ import '../domain/scene/weathering_result.dart';
 import 'arch_epitaph.dart';
 import 'crack_painter.dart';
 import 'graveyard_copy.dart';
+import 'resurrection_play.dart';
 import 'seance_control.dart';
 import 'seance_sheet.dart';
 
@@ -26,7 +29,10 @@ import 'seance_sheet.dart';
 /// and, for a grave older than 1825 days, a layer of cracks. The whole stone
 /// tilts around the middle of its base and fades with age. The age comes from
 /// [today] and the grave's date of death. Screen readers get one label.
-class GraveTombstone extends StatelessWidget {
+///
+/// While [playing], the stone also shows the Resurrection_Play and its epitaph
+/// changes from "R.I.P." to "RISEN" with a fade. "RISEN" then stays.
+class GraveTombstone extends StatefulWidget {
   /// Creates a tombstone for [grave], counted to [today].
   ///
   /// [riseProgress] is the progress of the Rise, from 0 to 1. At 1 the stone
@@ -38,6 +44,9 @@ class GraveTombstone extends StatelessWidget {
     required this.onDelete,
     required this.seanceAi,
     this.riseProgress = 1,
+    this.playing = false,
+    this.onPlayEnd,
+    this.onRaise,
   });
 
   /// The grave to show.
@@ -55,16 +64,67 @@ class GraveTombstone extends StatelessWidget {
   /// Progress of the Rise, from 0 (below the ground) to 1 (at rest).
   final double riseProgress;
 
+  /// Whether the Resurrection_Play runs on this stone now.
+  final bool playing;
+
+  /// Called once when the Resurrection_Play ends.
+  final VoidCallback? onPlayEnd;
+
+  /// Called after the séance sheet closes when the user raises this grave.
+  ///
+  /// The sheet offers the Raise control only while the grave is not risen and
+  /// not [playing].
+  final ValueChanged<Grave>? onRaise;
+
   /// Widest a stone gets, equal to the width of `TombstoneCard`.
   static const double maxStoneWidth = 300;
 
   /// How far below its resting place a stone starts its Rise.
   static const double riseDistance = 24;
 
+  @override
+  State<GraveTombstone> createState() => _GraveTombstoneState();
+}
+
+class _GraveTombstoneState extends State<GraveTombstone> {
   static const double _contentInset = 20;
+
+  bool _risen = false;
+
+  @override
+  void didUpdateWidget(GraveTombstone oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (oldWidget.playing && !widget.playing && widget.grave.risenOn == null) {
+      _risen = false;
+    }
+  }
+
+  void _onEpitaphRisen() {
+    if (!mounted || _risen) return;
+    final SchedulerPhase phase = SchedulerBinding.instance.schedulerPhase;
+    if (phase == SchedulerPhase.idle ||
+        phase == SchedulerPhase.postFrameCallbacks) {
+      setState(() => _risen = true);
+    } else {
+      SchedulerBinding.instance.addPostFrameCallback((_) {
+        if (mounted && !_risen) setState(() => _risen = true);
+      });
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
+    final grave = widget.grave;
+    final today = widget.today;
+    final riseProgress = widget.riseProgress;
+    final onDelete = widget.onDelete;
+    final seanceAi = widget.seanceAi;
+    final String epitaphText = _risen
+        ? GraveyardCopy.epitaphRisen
+        : GraveyardCopy.epitaph;
+    final Duration fade = MediaQuery.disableAnimationsOf(context)
+        ? Duration.zero
+        : const Duration(milliseconds: PlayTiming.epitaphFadeMs);
     final theme = Theme.of(context);
     final tokens = theme.brightness == Brightness.dark
         ? CoffinColorTokens.night
@@ -179,7 +239,17 @@ class GraveTombstone extends StatelessWidget {
             ),
           ),
         card,
-        const Positioned.fill(child: ArchEpitaph()),
+        Positioned.fill(
+          child: AnimatedSwitcher(
+            duration: fade,
+            switchInCurve: Curves.easeInOut,
+            switchOutCurve: Curves.easeInOut,
+            child: ArchEpitaph(
+              key: ValueKey<String>('epitaph-$epitaphText'),
+              text: epitaphText,
+            ),
+          ),
+        ),
         if (dayCount > CrackGenerator.ageThresholdDays)
           Positioned.fill(
             child: IgnorePointer(
@@ -207,6 +277,7 @@ class GraveTombstone extends StatelessWidget {
                               ArchEpitaph.rectFor(
                                 width: width,
                                 textScaler: scaler,
+                                text: epitaphText,
                               ),
                             ],
                           ),
@@ -216,6 +287,32 @@ class GraveTombstone extends StatelessWidget {
                       ),
                     );
                   },
+                ),
+              ),
+            ),
+          ),
+        if (widget.playing)
+          Positioned.fill(
+            child: IgnorePointer(
+              child: ExcludeSemantics(
+                child: RepaintBoundary(
+                  child: LayoutBuilder(
+                    builder: (context, constraints) => ClipRect(
+                      child: ResurrectionPlay(
+                        key: ValueKey<String>('play-${grave.id}'),
+                        graveId: grave.id,
+                        stoneSize: Size(
+                          constraints.maxWidth,
+                          constraints.maxHeight,
+                        ),
+                        textScale:
+                            scaler.scale(ArchEpitaph.baseFontSize) /
+                            ArchEpitaph.baseFontSize,
+                        onEpitaphRisen: _onEpitaphRisen,
+                        onEnd: () => widget.onPlayEnd?.call(),
+                      ),
+                    ),
+                  ),
                 ),
               ),
             ),
@@ -234,9 +331,11 @@ class GraveTombstone extends StatelessWidget {
         children: <Widget>[
           Center(
             child: ConstrainedBox(
-              constraints: const BoxConstraints(maxWidth: maxStoneWidth),
+              constraints: const BoxConstraints(
+                maxWidth: GraveTombstone.maxStoneWidth,
+              ),
               child: Transform.translate(
-                offset: Offset(0, (1 - progress) * riseDistance),
+                offset: Offset(0, (1 - progress) * GraveTombstone.riseDistance),
                 child: Opacity(
                   opacity: progress,
                   child: Semantics(
@@ -261,6 +360,9 @@ class GraveTombstone extends StatelessWidget {
                   grave: grave,
                   today: today,
                   seanceAi: seanceAi,
+                  onRaise: grave.risenOn == null && !widget.playing
+                      ? widget.onRaise
+                      : null,
                 ),
               ),
               Semantics(

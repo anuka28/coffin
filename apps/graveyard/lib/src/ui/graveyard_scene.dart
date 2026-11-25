@@ -6,13 +6,16 @@ import 'package:flutter/scheduler.dart';
 
 import '../domain/calendar_date.dart';
 import '../domain/grave.dart';
+import '../domain/living_split.dart';
 import '../domain/scene/new_grave_ids.dart';
 import '../domain/scene/rise_progress.dart';
 import '../domain/scene/scene_layout.dart';
 import '../domain/scene/star.dart';
 import '../domain/scene/star_field.dart';
 import 'grave_tombstone.dart';
+import 'graveyard_clipboard.dart';
 import 'ground_painter.dart';
+import 'living_row.dart';
 import 'night_sky_painter.dart';
 
 /// The Graveyard night scene: sky, ground and fog behind rows of tombstones.
@@ -34,7 +37,14 @@ class GraveyardScene extends StatefulWidget {
     required this.onDelete,
     required this.seanceAi,
     this.header,
+    this.playingIds = const <String>{},
+    this.onPlayEnd,
+    this.onRaise,
+    this.onLayToRest = _ignoreLayToRest,
+    this.clipboard = const SystemGraveyardClipboard(),
   });
+
+  static void _ignoreLayToRest(Grave grave) {}
 
   /// The graves to show, in display order.
   final List<Grave> graves;
@@ -51,6 +61,28 @@ class GraveyardScene extends StatefulWidget {
   /// Optional content shown at the top of the scrolling content, above the
   /// rows. It scrolls with the graves while the sky, ground and fog stay put.
   final Widget? header;
+
+  /// Ids of the graves whose Resurrection_Play runs now. A risen grave stays
+  /// in the rows until its id leaves this set.
+  final Set<String> playingIds;
+
+  /// Called with the id of a grave when its Resurrection_Play ends.
+  final ValueChanged<String>? onPlayEnd;
+
+  /// Called with the grave the user raised from its séance sheet.
+  final ValueChanged<Grave>? onRaise;
+
+  /// Called with the grave whose "Lay it back to rest" was pressed.
+  final ValueChanged<Grave> onLayToRest;
+
+  /// Where repository links of the Living_Row are copied to.
+  final GraveyardClipboard clipboard;
+
+  /// Side padding of the Living_Row, equal to the one of the screen header.
+  static const double _livingSide = 16;
+
+  /// Widest content column of the Living_Row.
+  static const double _livingMaxWidth = 560;
 
   /// Seed of the star field.
   static const int starSeed = 13;
@@ -96,12 +128,16 @@ class _GraveyardSceneState extends State<GraveyardScene>
     for (final grave in graves) grave.id,
   ];
 
+  /// The graves shown in the rows: every grave that is not in the Living_Row.
+  static List<Grave> _rowsOf(GraveyardScene scene) =>
+      LivingSplit.split(graves: scene.graves, playing: scene.playingIds).$1;
+
   bool get _reduced => MediaQuery.maybeDisableAnimationsOf(context) ?? false;
 
   @override
   void initState() {
     super.initState();
-    _previousIds = _idsOf(widget.graves);
+    _previousIds = _idsOf(_rowsOf(widget));
   }
 
   @override
@@ -118,7 +154,7 @@ class _GraveyardSceneState extends State<GraveyardScene>
   @override
   void didUpdateWidget(GraveyardScene oldWidget) {
     super.didUpdateWidget(oldWidget);
-    final next = _idsOf(widget.graves);
+    final next = _idsOf(_rowsOf(widget));
     final fresh = NewGraveIds.diff(previous: _previousIds, next: next);
     final alive = next.toSet();
     for (final id in _rises.keys.toList()) {
@@ -185,6 +221,12 @@ class _GraveyardSceneState extends State<GraveyardScene>
         ? CoffinColorTokens.night
         : CoffinColorTokens.daylight;
     final reduced = _reduced;
+    final split = LivingSplit.split(
+      graves: widget.graves,
+      playing: widget.playingIds,
+    );
+    final List<Grave> rows = split.$1;
+    final List<Grave> living = split.$2;
     return LayoutBuilder(
       builder: (context, constraints) {
         final width = constraints.hasBoundedWidth
@@ -239,7 +281,24 @@ class _GraveyardSceneState extends State<GraveyardScene>
                       crossAxisAlignment: CrossAxisAlignment.stretch,
                       children: <Widget>[
                         if (widget.header != null) widget.header!,
-                        _rows(width),
+                        if (living.isNotEmpty)
+                          Padding(
+                            padding: EdgeInsets.symmetric(
+                              horizontal:
+                                  GraveyardScene._livingSide +
+                                  math.max(
+                                    0,
+                                    (width - GraveyardScene._livingMaxWidth) /
+                                        2,
+                                  ),
+                            ),
+                            child: LivingRow(
+                              entries: living,
+                              onLayToRest: widget.onLayToRest,
+                              clipboard: widget.clipboard,
+                            ),
+                          ),
+                        _rows(width, rows),
                       ],
                     ),
                   ),
@@ -252,8 +311,7 @@ class _GraveyardSceneState extends State<GraveyardScene>
     );
   }
 
-  Widget _rows(double availableWidth) {
-    final graves = widget.graves;
+  Widget _rows(double availableWidth, List<Grave> graves) {
     final columns = SceneLayout.columnsFor(availableWidth);
     final children = <Widget>[];
     for (var start = 0; start < graves.length; start += columns) {
@@ -299,6 +357,9 @@ class _GraveyardSceneState extends State<GraveyardScene>
       onDelete: () => widget.onDelete(grave),
       seanceAi: widget.seanceAi,
       riseProgress: progress,
+      playing: widget.playingIds.contains(grave.id),
+      onPlayEnd: () => widget.onPlayEnd?.call(grave.id),
+      onRaise: widget.onRaise,
     );
     if (rise == null) {
       return KeyedSubtree(key: ValueKey<String>(grave.id), child: build(1));

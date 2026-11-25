@@ -5,7 +5,7 @@ import '../domain/scene/arch_fit.dart';
 import '../domain/scene/keep_out_rect.dart';
 import 'graveyard_copy.dart';
 
-/// The engraved "R.I.P." in the arch of a tombstone.
+/// The engraved text ("R.I.P." by default) in the arch of a tombstone.
 ///
 /// The text is placed by `ArchFit` so it stays inside the half-ellipse arch of
 /// the stone. It is measured with a `TextPainter` at the scaled font size,
@@ -15,7 +15,13 @@ import 'graveyard_copy.dart';
 /// width and rotates with the stone.
 class ArchEpitaph extends StatelessWidget {
   /// Creates the epitaph for a stone as wide as its parent.
-  const ArchEpitaph({super.key});
+  ///
+  /// [text] is the engraved text. It defaults to `GraveyardCopy.epitaph`
+  /// ("R.I.P.").
+  const ArchEpitaph({super.key, this.text});
+
+  /// The engraved text, or null for `GraveyardCopy.epitaph`.
+  final String? text;
 
   /// Height of the arch curve, equal to the arch of `TombstoneCard`.
   static const double archRise = 140;
@@ -106,7 +112,7 @@ class ArchEpitaph extends StatelessWidget {
       child: LayoutBuilder(
         builder: (context, constraints) {
           final width = constraints.maxWidth;
-          final layout = _layout(width, scaler);
+          final layout = _layout(width, scaler, text);
           final rect = layout.rect;
           return Stack(
             children: [
@@ -115,7 +121,7 @@ class ArchEpitaph extends StatelessWidget {
                 top: rect.top,
                 width: rect.right - rect.left,
                 child: Text(
-                  GraveyardCopy.epitaph,
+                  text ?? GraveyardCopy.epitaph,
                   maxLines: 1,
                   softWrap: false,
                   overflow: TextOverflow.ellipsis,

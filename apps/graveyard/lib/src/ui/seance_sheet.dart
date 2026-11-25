@@ -20,6 +20,7 @@ Future<void> showSeanceSheet(
   required Grave grave,
   required CalendarDate today,
   required CoffinAI seanceAi,
+  ValueChanged<Grave>? onRaise,
 }) {
   final Brightness brightness = Theme.of(context).brightness;
   final CoffinColorTokens tokens = brightness == Brightness.dark
@@ -36,8 +37,12 @@ Future<void> showSeanceSheet(
     routeSettings: RouteSettings(
       name: GraveyardCopy.seanceRouteName(grave.name),
     ),
-    builder: (BuildContext sheetContext) =>
-        SeanceSheet(grave: grave, today: today, seanceAi: seanceAi),
+    builder: (BuildContext sheetContext) => SeanceSheet(
+      grave: grave,
+      today: today,
+      seanceAi: seanceAi,
+      onRaise: onRaise,
+    ),
   );
 }
 
@@ -53,6 +58,7 @@ class SeanceSheet extends StatefulWidget {
     required this.grave,
     required this.today,
     required this.seanceAi,
+    this.onRaise,
   });
 
   /// The grave the séance is held for.
@@ -63,6 +69,11 @@ class SeanceSheet extends StatefulWidget {
 
   /// The generator asked for the verdict line.
   final CoffinAI seanceAi;
+
+  /// Called once, after the sheet has closed, when the user raises the grave.
+  ///
+  /// When null, the sheet shows no Raise control.
+  final ValueChanged<Grave>? onRaise;
 
   @override
   State<SeanceSheet> createState() => _SeanceSheetState();
@@ -76,6 +87,7 @@ class _SeanceSheetState extends State<SeanceSheet>
   late final CurvedAnimation _curve;
   bool _disposed = false;
   bool _revealStarted = false;
+  bool _raised = false;
   String? _verdict;
 
   @override
@@ -139,6 +151,14 @@ class _SeanceSheetState extends State<SeanceSheet>
 
   void _close() => Navigator.of(context).pop();
 
+  void _raise() {
+    final ValueChanged<Grave>? onRaise = widget.onRaise;
+    if (_raised || onRaise == null) return;
+    _raised = true;
+    Navigator.of(context).pop();
+    onRaise(_grave);
+  }
+
   @override
   Widget build(BuildContext context) {
     final ThemeData theme = Theme.of(context);
@@ -195,6 +215,10 @@ class _SeanceSheetState extends State<SeanceSheet>
                         ),
                       ],
                     ),
+                    if (widget.onRaise != null) ...<Widget>[
+                      const SizedBox(height: 8),
+                      _raiseControl(),
+                    ],
                     const SizedBox(height: 8),
                     FadeTransition(
                       opacity: _curve,
@@ -215,6 +239,27 @@ class _SeanceSheetState extends State<SeanceSheet>
               ),
             ),
           ),
+        ),
+      ),
+    );
+  }
+
+  Widget _raiseControl() {
+    return Semantics(
+      button: true,
+      label: GraveyardCopy.raiseControlLabel(_grave.name),
+      excludeSemantics: true,
+      onTap: _raise,
+      child: FilledButton(
+        key: const ValueKey<String>('seance-raise'),
+        onPressed: _raise,
+        style: FilledButton.styleFrom(
+          minimumSize: const Size(48, 48),
+          tapTargetSize: MaterialTapTargetSize.padded,
+        ),
+        child: const Text(
+          GraveyardCopy.raiseControlText,
+          textAlign: TextAlign.center,
         ),
       ),
     );

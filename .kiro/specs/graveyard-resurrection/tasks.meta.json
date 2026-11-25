@@ -43,6 +43,18 @@
     "7.7 Write property test for the Clod flight window": {
       "status": "passed",
       "lastRunTimestamp": 1795584754847
+    },
+    "9.3 Write property test for the box inside the stone": {
+      "status": "passed",
+      "lastRunTimestamp": 1795588786137
+    },
+    "9.4 Write property test for the rise and the hold": {
+      "status": "passed",
+      "lastRunTimestamp": 1795588945278
+    },
+    "9.5 Write property test for the epitaph never covered": {
+      "status": "passed",
+      "lastRunTimestamp": 1795589026289
     }
   },
   "executionHistory": {
@@ -610,6 +622,582 @@
         "executionId": "f08821e9-c8ca-44f8-8c67-e0c37f4e2136",
         "chatSessionId": "sess_2f638065-040a-419f-bc9c-a04ce6dceb85",
         "timestamp": 1795588246396
+      }
+    ],
+    "9.1 Implement `GhostBox` and `RisingGhostBox`": [
+      {
+        "executionId": "fc5252d3-9e9a-418b-bb40-4d91caf60295",
+        "chatSessionId": "sess_0e02a13e-18af-433a-b97c-2a64e69845f0",
+        "timestamp": 1795588603062
+      },
+      {
+        "executionId": "fc5252d3-9e9a-418b-bb40-4d91caf60295",
+        "chatSessionId": "sess_0e02a13e-18af-433a-b97c-2a64e69845f0",
+        "timestamp": 1795588695029
+      }
+    ],
+    "9.2 Write unit tests for `RisingGhostBox`": [
+      {
+        "executionId": "fc5252d3-9e9a-418b-bb40-4d91caf60295",
+        "chatSessionId": "sess_0e02a13e-18af-433a-b97c-2a64e69845f0",
+        "timestamp": 1795588701775
+      },
+      {
+        "executionId": "fc5252d3-9e9a-418b-bb40-4d91caf60295",
+        "chatSessionId": "sess_0e02a13e-18af-433a-b97c-2a64e69845f0",
+        "timestamp": 1795588830432
+      }
+    ],
+    "9.3 Write property test for the box inside the stone": [
+      {
+        "executionId": "fc5252d3-9e9a-418b-bb40-4d91caf60295",
+        "chatSessionId": "sess_0e02a13e-18af-433a-b97c-2a64e69845f0",
+        "timestamp": 1795588701824
+      },
+      {
+        "executionId": "fc5252d3-9e9a-418b-bb40-4d91caf60295",
+        "chatSessionId": "sess_0e02a13e-18af-433a-b97c-2a64e69845f0",
+        "timestamp": 1795588830883
+      }
+    ],
+    "9.4 Write property test for the rise and the hold": [
+      {
+        "executionId": "fc5252d3-9e9a-418b-bb40-4d91caf60295",
+        "chatSessionId": "sess_0e02a13e-18af-433a-b97c-2a64e69845f0",
+        "timestamp": 1795588835819
+      },
+      {
+        "executionId": "fc5252d3-9e9a-418b-bb40-4d91caf60295",
+        "chatSessionId": "sess_0e02a13e-18af-433a-b97c-2a64e69845f0",
+        "timestamp": 1795588955831
+      }
+    ],
+    "9.5 Write property test for the epitaph never covered": [
+      {
+        "executionId": "fc5252d3-9e9a-418b-bb40-4d91caf60295",
+        "chatSessionId": "sess_0e02a13e-18af-433a-b97c-2a64e69845f0",
+        "timestamp": 1795588959368
+      },
+      {
+        "executionId": "fc5252d3-9e9a-418b-bb40-4d91caf60295",
+        "chatSessionId": "sess_0e02a13e-18af-433a-b97c-2a64e69845f0",
+        "timestamp": 1795589036165
+      }
+    ],
+    "9. Rising ghost box": [
+      {
+        "executionId": "fc5252d3-9e9a-418b-bb40-4d91caf60295",
+        "chatSessionId": "sess_0e02a13e-18af-433a-b97c-2a64e69845f0",
+        "timestamp": 1795589036203
+      }
+    ],
+    "10. Checkpoint - Domain complete": [
+      {
+        "executionId": "fc5252d3-9e9a-418b-bb40-4d91caf60295",
+        "chatSessionId": "sess_0e02a13e-18af-433a-b97c-2a64e69845f0",
+        "timestamp": 1795589039749
+      },
+      {
+        "executionId": "fc5252d3-9e9a-418b-bb40-4d91caf60295",
+        "chatSessionId": "sess_0e02a13e-18af-433a-b97c-2a64e69845f0",
+        "timestamp": 1795589596114
+      }
+    ],
+    "11.1 Add `replaceGrave`, `raise` and `layToRest` to `GraveListController`": [
+      {
+        "executionId": "fc5252d3-9e9a-418b-bb40-4d91caf60295",
+        "chatSessionId": "sess_0e02a13e-18af-433a-b97c-2a64e69845f0",
+        "timestamp": 1795589601260
+      },
+      {
+        "executionId": "fc5252d3-9e9a-418b-bb40-4d91caf60295",
+        "chatSessionId": "sess_0e02a13e-18af-433a-b97c-2a64e69845f0",
+        "timestamp": 1795589863979
+      }
+    ],
+    "11.2 Write tests for the controller methods": [
+      {
+        "executionId": "fc5252d3-9e9a-418b-bb40-4d91caf60295",
+        "chatSessionId": "sess_0e02a13e-18af-433a-b97c-2a64e69845f0",
+        "timestamp": 1795589867717
+      },
+      {
+        "executionId": "fc5252d3-9e9a-418b-bb40-4d91caf60295",
+        "chatSessionId": "sess_0e02a13e-18af-433a-b97c-2a64e69845f0",
+        "timestamp": 1795589969987
+      }
+    ],
+    "11. Controller": [
+      {
+        "executionId": "fc5252d3-9e9a-418b-bb40-4d91caf60295",
+        "chatSessionId": "sess_0e02a13e-18af-433a-b97c-2a64e69845f0",
+        "timestamp": 1795589970020
+      }
+    ],
+    "12. Checkpoint - Controller complete": [
+      {
+        "executionId": "fc5252d3-9e9a-418b-bb40-4d91caf60295",
+        "chatSessionId": "sess_0e02a13e-18af-433a-b97c-2a64e69845f0",
+        "timestamp": 1795589974185
+      },
+      {
+        "executionId": "fc5252d3-9e9a-418b-bb40-4d91caf60295",
+        "chatSessionId": "sess_0e02a13e-18af-433a-b97c-2a64e69845f0",
+        "timestamp": 1795590326538
+      }
+    ],
+    "13.1 Add the Resurrection_Copy to `GraveyardCopy`": [
+      {
+        "executionId": "fc5252d3-9e9a-418b-bb40-4d91caf60295",
+        "chatSessionId": "sess_0e02a13e-18af-433a-b97c-2a64e69845f0",
+        "timestamp": 1795590332721
+      },
+      {
+        "executionId": "fc5252d3-9e9a-418b-bb40-4d91caf60295",
+        "chatSessionId": "sess_0e02a13e-18af-433a-b97c-2a64e69845f0",
+        "timestamp": 1795590664896
+      }
+    ],
+    "14.1 Implement `HandPainter` and `ClodsPainter`": [
+      {
+        "executionId": "fc5252d3-9e9a-418b-bb40-4d91caf60295",
+        "chatSessionId": "sess_0e02a13e-18af-433a-b97c-2a64e69845f0",
+        "timestamp": 1795590332767
+      },
+      {
+        "executionId": "fc5252d3-9e9a-418b-bb40-4d91caf60295",
+        "chatSessionId": "sess_0e02a13e-18af-433a-b97c-2a64e69845f0",
+        "timestamp": 1795590665915
+      }
+    ],
+    "16.1 Let the `ArchEpitaph` widget draw a given text": [
+      {
+        "executionId": "fc5252d3-9e9a-418b-bb40-4d91caf60295",
+        "chatSessionId": "sess_0e02a13e-18af-433a-b97c-2a64e69845f0",
+        "timestamp": 1795590333736
+      },
+      {
+        "executionId": "fc5252d3-9e9a-418b-bb40-4d91caf60295",
+        "chatSessionId": "sess_0e02a13e-18af-433a-b97c-2a64e69845f0",
+        "timestamp": 1795590666384
+      }
+    ],
+    "21.1 Implement `GraveyardClipboard`": [
+      {
+        "executionId": "fc5252d3-9e9a-418b-bb40-4d91caf60295",
+        "chatSessionId": "sess_0e02a13e-18af-433a-b97c-2a64e69845f0",
+        "timestamp": 1795590334356
+      },
+      {
+        "executionId": "fc5252d3-9e9a-418b-bb40-4d91caf60295",
+        "chatSessionId": "sess_0e02a13e-18af-433a-b97c-2a64e69845f0",
+        "timestamp": 1795590666983
+      }
+    ],
+    "13. Resurrection copy": [
+      {
+        "executionId": "fc5252d3-9e9a-418b-bb40-4d91caf60295",
+        "chatSessionId": "sess_0e02a13e-18af-433a-b97c-2a64e69845f0",
+        "timestamp": 1795590664946
+      }
+    ],
+    "14. Painters": [
+      {
+        "executionId": "fc5252d3-9e9a-418b-bb40-4d91caf60295",
+        "chatSessionId": "sess_0e02a13e-18af-433a-b97c-2a64e69845f0",
+        "timestamp": 1795590665949
+      }
+    ],
+    "16. ArchEpitaph text": [
+      {
+        "executionId": "fc5252d3-9e9a-418b-bb40-4d91caf60295",
+        "chatSessionId": "sess_0e02a13e-18af-433a-b97c-2a64e69845f0",
+        "timestamp": 1795590666431
+      }
+    ],
+    "15.1 Implement `ResurrectionPlay`": [
+      {
+        "executionId": "fc5252d3-9e9a-418b-bb40-4d91caf60295",
+        "chatSessionId": "sess_0e02a13e-18af-433a-b97c-2a64e69845f0",
+        "timestamp": 1795590674530
+      },
+      {
+        "executionId": "fc5252d3-9e9a-418b-bb40-4d91caf60295",
+        "chatSessionId": "sess_0e02a13e-18af-433a-b97c-2a64e69845f0",
+        "timestamp": 1795591563470
+      },
+      {
+        "executionId": "fc5252d3-9e9a-418b-bb40-4d91caf60295",
+        "chatSessionId": "sess_0e02a13e-18af-433a-b97c-2a64e69845f0",
+        "timestamp": 1795601235038
+      },
+      {
+        "executionId": "fc5252d3-9e9a-418b-bb40-4d91caf60295",
+        "chatSessionId": "sess_0e02a13e-18af-433a-b97c-2a64e69845f0",
+        "timestamp": 1795601346430
+      }
+    ],
+    "19.1 Implement `LivingRow`": [
+      {
+        "executionId": "fc5252d3-9e9a-418b-bb40-4d91caf60295",
+        "chatSessionId": "sess_0e02a13e-18af-433a-b97c-2a64e69845f0",
+        "timestamp": 1795590675319
+      },
+      {
+        "executionId": "fc5252d3-9e9a-418b-bb40-4d91caf60295",
+        "chatSessionId": "sess_0e02a13e-18af-433a-b97c-2a64e69845f0",
+        "timestamp": 1795591564594
+      }
+    ],
+    "20.1 Implement `RestDialog` and `showRestDialog`": [
+      {
+        "executionId": "fc5252d3-9e9a-418b-bb40-4d91caf60295",
+        "chatSessionId": "sess_0e02a13e-18af-433a-b97c-2a64e69845f0",
+        "timestamp": 1795590676132
+      },
+      {
+        "executionId": "fc5252d3-9e9a-418b-bb40-4d91caf60295",
+        "chatSessionId": "sess_0e02a13e-18af-433a-b97c-2a64e69845f0",
+        "timestamp": 1795591565329
+      }
+    ],
+    "22.1 Implement `RisenAnnouncement`": [
+      {
+        "executionId": "fc5252d3-9e9a-418b-bb40-4d91caf60295",
+        "chatSessionId": "sess_0e02a13e-18af-433a-b97c-2a64e69845f0",
+        "timestamp": 1795590676898
+      },
+      {
+        "executionId": "fc5252d3-9e9a-418b-bb40-4d91caf60295",
+        "chatSessionId": "sess_0e02a13e-18af-433a-b97c-2a64e69845f0",
+        "timestamp": 1795591565967
+      }
+    ],
+    "15. Resurrection play": [
+      {
+        "executionId": "fc5252d3-9e9a-418b-bb40-4d91caf60295",
+        "chatSessionId": "sess_0e02a13e-18af-433a-b97c-2a64e69845f0",
+        "timestamp": 1795591563504
+      }
+    ],
+    "19. Living row": [
+      {
+        "executionId": "fc5252d3-9e9a-418b-bb40-4d91caf60295",
+        "chatSessionId": "sess_0e02a13e-18af-433a-b97c-2a64e69845f0",
+        "timestamp": 1795591564619
+      }
+    ],
+    "20. Rest dialog": [
+      {
+        "executionId": "fc5252d3-9e9a-418b-bb40-4d91caf60295",
+        "chatSessionId": "sess_0e02a13e-18af-433a-b97c-2a64e69845f0",
+        "timestamp": 1795591565362
+      }
+    ],
+    "17.1 Add the play layer and the epitaph switch to `GraveTombstone`": [
+      {
+        "executionId": "fc5252d3-9e9a-418b-bb40-4d91caf60295",
+        "chatSessionId": "sess_0e02a13e-18af-433a-b97c-2a64e69845f0",
+        "timestamp": 1795591569737
+      },
+      {
+        "executionId": "fc5252d3-9e9a-418b-bb40-4d91caf60295",
+        "chatSessionId": "sess_0e02a13e-18af-433a-b97c-2a64e69845f0",
+        "timestamp": 1795596791528
+      }
+    ],
+    "21.2 Implement `RepositoryLink` and place it in the Living_Row": [
+      {
+        "executionId": "fc5252d3-9e9a-418b-bb40-4d91caf60295",
+        "chatSessionId": "sess_0e02a13e-18af-433a-b97c-2a64e69845f0",
+        "timestamp": 1795591570329
+      },
+      {
+        "executionId": "fc5252d3-9e9a-418b-bb40-4d91caf60295",
+        "chatSessionId": "sess_0e02a13e-18af-433a-b97c-2a64e69845f0",
+        "timestamp": 1795596790918
+      }
+    ],
+    "21. Repository link": [
+      {
+        "executionId": "fc5252d3-9e9a-418b-bb40-4d91caf60295",
+        "chatSessionId": "sess_0e02a13e-18af-433a-b97c-2a64e69845f0",
+        "timestamp": 1795596790980
+      }
+    ],
+    "17. Tombstone": [
+      {
+        "executionId": "fc5252d3-9e9a-418b-bb40-4d91caf60295",
+        "chatSessionId": "sess_0e02a13e-18af-433a-b97c-2a64e69845f0",
+        "timestamp": 1795596791563
+      }
+    ],
+    "18.1 Add the Raise_Control to `SeanceSheet` and wire it from the tombstone": [
+      {
+        "executionId": "fc5252d3-9e9a-418b-bb40-4d91caf60295",
+        "chatSessionId": "sess_0e02a13e-18af-433a-b97c-2a64e69845f0",
+        "timestamp": 1795596794750
+      },
+      {
+        "executionId": "fc5252d3-9e9a-418b-bb40-4d91caf60295",
+        "chatSessionId": "sess_0e02a13e-18af-433a-b97c-2a64e69845f0",
+        "timestamp": 1795596982023
+      }
+    ],
+    "18. Seance sheet": [
+      {
+        "executionId": "fc5252d3-9e9a-418b-bb40-4d91caf60295",
+        "chatSessionId": "sess_0e02a13e-18af-433a-b97c-2a64e69845f0",
+        "timestamp": 1795596982077
+      }
+    ],
+    "22.2 Wire `GraveyardScene`": [
+      {
+        "executionId": "fc5252d3-9e9a-418b-bb40-4d91caf60295",
+        "chatSessionId": "sess_0e02a13e-18af-433a-b97c-2a64e69845f0",
+        "timestamp": 1795596985648
+      },
+      {
+        "executionId": "fc5252d3-9e9a-418b-bb40-4d91caf60295",
+        "chatSessionId": "sess_0e02a13e-18af-433a-b97c-2a64e69845f0",
+        "timestamp": 1795597144462
+      }
+    ],
+    "22.3 Wire `GraveyardScreen`": [
+      {
+        "executionId": "fc5252d3-9e9a-418b-bb40-4d91caf60295",
+        "chatSessionId": "sess_0e02a13e-18af-433a-b97c-2a64e69845f0",
+        "timestamp": 1795597148489
+      },
+      {
+        "executionId": "fc5252d3-9e9a-418b-bb40-4d91caf60295",
+        "chatSessionId": "sess_0e02a13e-18af-433a-b97c-2a64e69845f0",
+        "timestamp": 1795597595695
+      }
+    ],
+    "22.4 Thread the clipboard from the app root": [
+      {
+        "executionId": "fc5252d3-9e9a-418b-bb40-4d91caf60295",
+        "chatSessionId": "sess_0e02a13e-18af-433a-b97c-2a64e69845f0",
+        "timestamp": 1795597599090
+      },
+      {
+        "executionId": "fc5252d3-9e9a-418b-bb40-4d91caf60295",
+        "chatSessionId": "sess_0e02a13e-18af-433a-b97c-2a64e69845f0",
+        "timestamp": 1795597715512
+      }
+    ],
+    "22. Wiring": [
+      {
+        "executionId": "fc5252d3-9e9a-418b-bb40-4d91caf60295",
+        "chatSessionId": "sess_0e02a13e-18af-433a-b97c-2a64e69845f0",
+        "timestamp": 1795597715592
+      }
+    ],
+    "23.1 Add the clipboard fakes": [
+      {
+        "executionId": "fc5252d3-9e9a-418b-bb40-4d91caf60295",
+        "chatSessionId": "sess_0e02a13e-18af-433a-b97c-2a64e69845f0",
+        "timestamp": 1795597719339
+      },
+      {
+        "executionId": "fc5252d3-9e9a-418b-bb40-4d91caf60295",
+        "chatSessionId": "sess_0e02a13e-18af-433a-b97c-2a64e69845f0",
+        "timestamp": 1795600388069
+      }
+    ],
+    "23.2 Write the painter tests with a recording canvas": [
+      {
+        "executionId": "fc5252d3-9e9a-418b-bb40-4d91caf60295",
+        "chatSessionId": "sess_0e02a13e-18af-433a-b97c-2a64e69845f0",
+        "timestamp": 1795600392668
+      },
+      {
+        "executionId": "fc5252d3-9e9a-418b-bb40-4d91caf60295",
+        "chatSessionId": "sess_0e02a13e-18af-433a-b97c-2a64e69845f0",
+        "timestamp": 1795600688636
+      }
+    ],
+    "23.3 Write widget tests for `ResurrectionPlay`": [
+      {
+        "executionId": "fc5252d3-9e9a-418b-bb40-4d91caf60295",
+        "chatSessionId": "sess_0e02a13e-18af-433a-b97c-2a64e69845f0",
+        "timestamp": 1795600392868
+      },
+      {
+        "executionId": "fc5252d3-9e9a-418b-bb40-4d91caf60295",
+        "chatSessionId": "sess_0e02a13e-18af-433a-b97c-2a64e69845f0",
+        "timestamp": 1795600685945
+      }
+    ],
+    "23.4 Write widget tests for the `ArchEpitaph` text": [
+      {
+        "executionId": "fc5252d3-9e9a-418b-bb40-4d91caf60295",
+        "chatSessionId": "sess_0e02a13e-18af-433a-b97c-2a64e69845f0",
+        "timestamp": 1795600393708
+      },
+      {
+        "executionId": "fc5252d3-9e9a-418b-bb40-4d91caf60295",
+        "chatSessionId": "sess_0e02a13e-18af-433a-b97c-2a64e69845f0",
+        "timestamp": 1795600687884
+      }
+    ],
+    "23.5 Write widget tests for the tombstone during a play": [
+      {
+        "executionId": "fc5252d3-9e9a-418b-bb40-4d91caf60295",
+        "chatSessionId": "sess_0e02a13e-18af-433a-b97c-2a64e69845f0",
+        "timestamp": 1795600394493
+      },
+      {
+        "executionId": "fc5252d3-9e9a-418b-bb40-4d91caf60295",
+        "chatSessionId": "sess_0e02a13e-18af-433a-b97c-2a64e69845f0",
+        "timestamp": 1795600687102
+      }
+    ],
+    "23.6 Write widget tests for the Raise_Control": [
+      {
+        "executionId": "fc5252d3-9e9a-418b-bb40-4d91caf60295",
+        "chatSessionId": "sess_0e02a13e-18af-433a-b97c-2a64e69845f0",
+        "timestamp": 1795600395254
+      },
+      {
+        "executionId": "fc5252d3-9e9a-418b-bb40-4d91caf60295",
+        "chatSessionId": "sess_0e02a13e-18af-433a-b97c-2a64e69845f0",
+        "timestamp": 1795600686022
+      }
+    ],
+    "23.7 Write widget tests for the Living_Row": [
+      {
+        "executionId": "fc5252d3-9e9a-418b-bb40-4d91caf60295",
+        "chatSessionId": "sess_0e02a13e-18af-433a-b97c-2a64e69845f0",
+        "timestamp": 1795600692567
+      },
+      {
+        "executionId": "fc5252d3-9e9a-418b-bb40-4d91caf60295",
+        "chatSessionId": "sess_0e02a13e-18af-433a-b97c-2a64e69845f0",
+        "timestamp": 1795601347496
+      }
+    ],
+    "23.8 Write widget tests for the Repository_Link": [
+      {
+        "executionId": "fc5252d3-9e9a-418b-bb40-4d91caf60295",
+        "chatSessionId": "sess_0e02a13e-18af-433a-b97c-2a64e69845f0",
+        "timestamp": 1795600693418
+      },
+      {
+        "executionId": "fc5252d3-9e9a-418b-bb40-4d91caf60295",
+        "chatSessionId": "sess_0e02a13e-18af-433a-b97c-2a64e69845f0",
+        "timestamp": 1795601348325
+      }
+    ],
+    "23.9 Write widget tests for Lay_To_Rest": [
+      {
+        "executionId": "fc5252d3-9e9a-418b-bb40-4d91caf60295",
+        "chatSessionId": "sess_0e02a13e-18af-433a-b97c-2a64e69845f0",
+        "timestamp": 1795600694437
+      },
+      {
+        "executionId": "fc5252d3-9e9a-418b-bb40-4d91caf60295",
+        "chatSessionId": "sess_0e02a13e-18af-433a-b97c-2a64e69845f0",
+        "timestamp": 1795601349094
+      }
+    ],
+    "23.10 Write widget tests for the whole flow on the screen": [
+      {
+        "executionId": "fc5252d3-9e9a-418b-bb40-4d91caf60295",
+        "chatSessionId": "sess_0e02a13e-18af-433a-b97c-2a64e69845f0",
+        "timestamp": 1795600695216
+      },
+      {
+        "executionId": "fc5252d3-9e9a-418b-bb40-4d91caf60295",
+        "chatSessionId": "sess_0e02a13e-18af-433a-b97c-2a64e69845f0",
+        "timestamp": 1795601350201
+      }
+    ],
+    "23.11 Write widget tests for reduced motion and the announcement": [
+      {
+        "executionId": "fc5252d3-9e9a-418b-bb40-4d91caf60295",
+        "chatSessionId": "sess_0e02a13e-18af-433a-b97c-2a64e69845f0",
+        "timestamp": 1795600696097
+      },
+      {
+        "executionId": "fc5252d3-9e9a-418b-bb40-4d91caf60295",
+        "chatSessionId": "sess_0e02a13e-18af-433a-b97c-2a64e69845f0",
+        "timestamp": 1795601350924
+      }
+    ],
+    "23.12 Write layout tests": [
+      {
+        "executionId": "fc5252d3-9e9a-418b-bb40-4d91caf60295",
+        "chatSessionId": "sess_0e02a13e-18af-433a-b97c-2a64e69845f0",
+        "timestamp": 1795601354911
+      },
+      {
+        "executionId": "fc5252d3-9e9a-418b-bb40-4d91caf60295",
+        "chatSessionId": "sess_0e02a13e-18af-433a-b97c-2a64e69845f0",
+        "timestamp": 1795601718401
+      }
+    ],
+    "23.13 Write semantics and contrast tests": [
+      {
+        "executionId": "fc5252d3-9e9a-418b-bb40-4d91caf60295",
+        "chatSessionId": "sess_0e02a13e-18af-433a-b97c-2a64e69845f0",
+        "timestamp": 1795601355411
+      },
+      {
+        "executionId": "fc5252d3-9e9a-418b-bb40-4d91caf60295",
+        "chatSessionId": "sess_0e02a13e-18af-433a-b97c-2a64e69845f0",
+        "timestamp": 1795601717632
+      }
+    ],
+    "23. Widget tests": [
+      {
+        "executionId": "fc5252d3-9e9a-418b-bb40-4d91caf60295",
+        "chatSessionId": "sess_0e02a13e-18af-433a-b97c-2a64e69845f0",
+        "timestamp": 1795601718448
+      }
+    ],
+    "24.1 Write source-rule tests for the resurrection": [
+      {
+        "executionId": "fc5252d3-9e9a-418b-bb40-4d91caf60295",
+        "chatSessionId": "sess_0e02a13e-18af-433a-b97c-2a64e69845f0",
+        "timestamp": 1795601722542
+      },
+      {
+        "executionId": "fc5252d3-9e9a-418b-bb40-4d91caf60295",
+        "chatSessionId": "sess_0e02a13e-18af-433a-b97c-2a64e69845f0",
+        "timestamp": 1795601912599
+      }
+    ],
+    "24.2 Write the copy-rule tests": [
+      {
+        "executionId": "fc5252d3-9e9a-418b-bb40-4d91caf60295",
+        "chatSessionId": "sess_0e02a13e-18af-433a-b97c-2a64e69845f0",
+        "timestamp": 1795601723197
+      },
+      {
+        "executionId": "fc5252d3-9e9a-418b-bb40-4d91caf60295",
+        "chatSessionId": "sess_0e02a13e-18af-433a-b97c-2a64e69845f0",
+        "timestamp": 1795601912064
+      }
+    ],
+    "24. Source-rule and copy-rule tests": [
+      {
+        "executionId": "fc5252d3-9e9a-418b-bb40-4d91caf60295",
+        "chatSessionId": "sess_0e02a13e-18af-433a-b97c-2a64e69845f0",
+        "timestamp": 1795601912691
+      }
+    ],
+    "25. Final checkpoint - Verification": [
+      {
+        "executionId": "fc5252d3-9e9a-418b-bb40-4d91caf60295",
+        "chatSessionId": "sess_0e02a13e-18af-433a-b97c-2a64e69845f0",
+        "timestamp": 1795601917167
+      },
+      {
+        "executionId": "fc5252d3-9e9a-418b-bb40-4d91caf60295",
+        "chatSessionId": "sess_0e02a13e-18af-433a-b97c-2a64e69845f0",
+        "timestamp": 1795602262312
       }
     ]
   }
