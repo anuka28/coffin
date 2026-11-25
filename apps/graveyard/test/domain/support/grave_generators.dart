@@ -9,6 +9,7 @@ import 'package:graveyard/src/domain/grave.dart';
 import 'package:graveyard/src/domain/name_rules.dart';
 import 'package:graveyard/src/domain/repo_info.dart';
 import 'package:graveyard/src/domain/repo_ref.dart';
+import 'package:graveyard/src/domain/resurrection/play_timing.dart';
 import 'package:graveyard/src/domain/scene/keep_out_rect.dart';
 import 'package:graveyard/src/domain/seance/seance_facts.dart';
 
@@ -1512,17 +1513,16 @@ Generator<double> get anyStoneHeight => any.simple<double>(
 );
 
 /// The play length in milliseconds. Mirrors `PlayTiming.playDurationMs`
-/// (task 4.1); replace this constant by that one once it exists.
-const int _playDurationMs = 2800;
-
-/// Elapsed times from 0 to the play length inclusive, with 0, 1, 2799 and
 /// 2800 drawn about one time in four. Shrinks towards 0.
 Generator<int> get anyElapsedMs => any.simple<int>(
   generate: (math.Random random, int size) => random.nextInt(4) == 0
-      ? const <int>[0, 1, _playDurationMs - 1, _playDurationMs][random.nextInt(
-          4,
-        )]
-      : anyIntBetween(0, _playDurationMs + 1)(random, size).value,
+      ? const <int>[
+          0,
+          1,
+          PlayTiming.playDurationMs - 1,
+          PlayTiming.playDurationMs,
+        ][random.nextInt(4)]
+      : anyIntBetween(0, PlayTiming.playDurationMs + 1)(random, size).value,
   shrink: (int ms) sync* {
     if (ms > 0) {
       yield ms ~/ 2;
@@ -1539,8 +1539,8 @@ Generator<int> get anyWideElapsedMs => any.simple<int>(
           -500,
           -1,
           0,
-          _playDurationMs,
-          _playDurationMs + 1,
+          PlayTiming.playDurationMs,
+          PlayTiming.playDurationMs + 1,
           3300,
         ][random.nextInt(6)]
       : anyIntBetween(-500, 3301)(random, size).value,

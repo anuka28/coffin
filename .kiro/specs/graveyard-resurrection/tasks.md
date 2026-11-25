@@ -101,12 +101,12 @@ Rules for every task:
     - **Validates: Requirements 6.7, 6.8**
     - Create `test/domain/living_split_determinism_property_test.dart`: two calls with the same arguments return equal results, for lists with equal `risenOn` values and for an empty list.
 
-- [ ] 4. Play timing
-  - [ ] 4.1 Implement `PlayTiming`
+- [x] 4. Play timing
+  - [x] 4.1 Implement `PlayTiming`
     - Create `lib/src/domain/resurrection/play_timing.dart` with the constants of the design, all `int` milliseconds: `playDurationMs` 2800, `handBurstEndMs` 300, `handSinkEndMs` 600, `risingGhostStartMs` 600, `ghostRiseStartMs` 600, `epitaphFadeStartMs` 2140, `ghostRiseEndMs` equal to `epitaphFadeStartMs`, `epitaphFadeMs` 400. Doc-comment each constant with its reason.
     - _Requirements: 7.2, 7.9, 7.10, 7.11, 7.13, 16.1_
 
-  - [ ] 4.2 Write unit tests for `PlayTiming`
+  - [x] 4.2 Write unit tests for `PlayTiming`
     - Create `test/domain/resurrection/play_timing_test.dart`: `playDurationMs` is at least 2600 and at most 3000; the milestones are strictly ordered (burst end, sink end, rise start, rise end, play end); `risingGhostStartMs + 2200` (the rising reaction length, written as a literal in this Domain test) is at most `playDurationMs`; `epitaphFadeMs` is between 300 and 600; `epitaphFadeStartMs + epitaphFadeMs` is at most `playDurationMs`; `ghostRiseEndMs` equals `epitaphFadeStartMs`; the rise window starts when the Hand has sunk back.
     - _Requirements: 7.2, 7.9, 7.10, 7.11, 7.13, 17.1_
 
