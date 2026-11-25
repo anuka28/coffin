@@ -313,3 +313,8 @@ A few lines per day: what I asked Kiro, what worked, what didn't, what I learned
 - My take: Crew is good at parallel, well-fenced jobs (docs alongside code) and tells the truth about what it didn't check. Visual work still needs a human looking at the screen between rounds.
 - Also noticed: the Nightly Build Watch job last ran 8 days ago ("job is not running"). It needs Crew open and its commands approved, so it isn't truly unattended.
 - Verified myself: Graveyard 1,614 tests, analyze clean, only the two READMEs and Graveyard UI/test files changed, /tmp clean.
+
+## Day 20 · Nov 25, 2026 (four days early) — on my phone
+- Opened the live site on my phone and went through both apps: landing page, Hauntagotchi (habits, Wisp's reactions, saved after closing the tab) and Graveyard (bury by hand, import `flutter/flutter`, séance, raise, saved after closing the tab), sideways and with the back button. Everything worked.
+- One thing I noticed: the keyboard started in lowercase when typing a habit or a project name. Small vibe-mode fix: the two name fields now start with a capital letter. The GitHub import field deliberately stays lowercase, because repo names like `flutter/flutter` are lowercase. Tests pin all three (Hauntagotchi 608, Graveyard 1,616).
+- After deploying, my phone still showed lowercase: it was the browser cache (the site's files are cached for 10 minutes, plus Flutter's own offline cache). A private tab loaded the new version straight away, and the fix worked.
