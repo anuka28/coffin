@@ -57,27 +57,27 @@ Rules for every task:
     - **Validates: Requirements 2.10, 2.12**
     - Create `test/domain/raise_rules_fields_property_test.dart` over `anyGraveWithRisen` and any Today: `id`, `name`, `dateOfDeath`, `source` and `repo` are equal after `raise` and after `layToRest`.
 
-- [ ] 2. Risen key in the codec
-  - [ ] 2.1 Read and write the risen key in `GraveCodec`
+- [x] 2. Risen key in the codec
+  - [x] 2.1 Read and write the risen key in `GraveCodec`
     - Edit `lib/src/data/grave_codec.dart`: `encode` writes `'risen': risenOn.toIso()` as the last key only when `risenOn != null`, so a Grave that is not Risen encodes to exactly the map written before this feature. `decode` runs every existing check first and unchanged, then reads `json['risen']`: absent gives not Risen; a non-string value or a string that `CalendarDate.tryParse` rejects throws `FormatException` and no other error type; a valid date sets `risenOn` on the decoded `Grave.manual` or `Grave.github`. Unknown keys stay ignored.
     - The codec holds no vocabulary of the play (no "playing" and no "ResurrectionPlay").
     - _Requirements: 3.1, 3.2, 3.4, 3.5, 3.6, 3.7_
 
-  - [ ] 2.2 Write unit tests for the risen key
+  - [x] 2.2 Write unit tests for the risen key
     - Create `test/data/grave_codec_risen_test.dart` (a new file; no existing codec or storage test file is edited): the exact encoded map of a Risen manual Grave and a Risen GitHub Grave (the `risen` key is last, formatted `YYYY-MM-DD`); the exact encoded map of a Grave that is not Risen (no `risen` key, equal to the pre-feature map); a Legacy_Record decodes as not Risen; each kind of malformed value throws `FormatException` (a number, a boolean, a list, a map, `2024-13-01`, `2024-02-30`, `24-01-01`, an empty string, a string with a time part); a record that is invalid for an unrelated reason still fails for that reason first; unknown keys stay ignored.
     - _Requirements: 3.1, 3.2, 3.4, 3.5, 3.7, 3.8, 17.5_
 
-  - [ ] 2.3 Write property test for the codec round trip
+  - [x] 2.3 Write property test for the codec round trip
     - **Property 5: Codec round trip, with and without Risen_On**
     - **Validates: Requirements 3.3**
     - Create `test/data/grave_codec_risen_round_trip_property_test.dart` over `anyGraveWithRisen`.
 
-  - [ ] 2.4 Write property test for legacy records
+  - [x] 2.4 Write property test for legacy records
     - **Property 6: Legacy records decode as not risen**
     - **Validates: Requirements 3.4**
     - Create `test/data/grave_codec_legacy_property_test.dart`: encode a generated Grave with `risenOn` null (or remove the `risen` key from a Risen encoding) and check `decode(map).risenOn` is null.
 
-  - [ ] 2.5 Write property test for malformed risen values
+  - [x] 2.5 Write property test for malformed risen values
     - **Property 7: A malformed risen value is rejected with FormatException**
     - **Validates: Requirements 3.5, 3.6**
     - Create `test/data/grave_codec_risen_malformed_property_test.dart`: replace the `risen` value of a valid encoding with a generated malformed value (wrong type chosen by `anyIntBetween`, wrong format, month 13, day 30 of February) and check that decoding throws `FormatException` and nothing else.

@@ -32,7 +32,23 @@ final class GraveCodec implements RecordCodec<Grave> {
           'archived': repo.archived,
           'stars': repo.stars,
         },
+      if (value.risenOn != null) 'risen': value.risenOn!.toIso(),
     };
+  }
+
+  static const Object _absent = Object();
+
+  static CalendarDate? _decodeRisen(Object? raw) {
+    if (identical(raw, _absent)) {
+      return null;
+    }
+    final CalendarDate? parsed = raw is String
+        ? CalendarDate.tryParse(raw)
+        : null;
+    if (parsed == null) {
+      throw const FormatException('Grave risen date is not a real date.');
+    }
+    return parsed;
   }
 
   @override
@@ -58,11 +74,20 @@ final class GraveCodec implements RecordCodec<Grave> {
       throw const FormatException('Grave date is missing or not a real date.');
     }
     final Object? source = json['source'];
-    if (source == GraveSource.manual.name) {
-      return Grave.manual(id: rawId, name: name, dateOfDeath: died);
-    }
-    if (source != GraveSource.github.name) {
+    if (source != GraveSource.manual.name &&
+        source != GraveSource.github.name) {
       throw const FormatException('Grave source is unknown.');
+    }
+    final CalendarDate? risenOn = _decodeRisen(
+      json.containsKey('risen') ? json['risen'] : _absent,
+    );
+    if (source == GraveSource.manual.name) {
+      return Grave.manual(
+        id: rawId,
+        name: name,
+        dateOfDeath: died,
+        risenOn: risenOn,
+      );
     }
     final Object? rawRepo = json['repo'];
     final Map<Object?, Object?> repo = rawRepo is Map ? rawRepo : const {};
@@ -75,6 +100,7 @@ final class GraveCodec implements RecordCodec<Grave> {
       id: rawId,
       name: name,
       dateOfDeath: died,
+      risenOn: risenOn,
       repo: RepoInfo(
         fullName: fullName is String && fullName.isNotEmpty ? fullName : name,
         htmlUrl: htmlUrl is String ? htmlUrl : null,

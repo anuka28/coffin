@@ -11,6 +11,14 @@
     "1.7 Write property test for the kept fields": {
       "status": "passed",
       "lastRunTimestamp": 1795578363942
+    },
+    "2.4 Write property test for legacy records": {
+      "status": "passed",
+      "lastRunTimestamp": 1795579217119
+    },
+    "2.5 Write property test for malformed risen values": {
+      "status": "passed",
+      "lastRunTimestamp": 1795579383905
     }
   },
   "executionHistory": {
@@ -113,6 +121,73 @@
         "executionId": "ae1b0935-ccb1-4200-add6-2abe071c1df7",
         "chatSessionId": "sess_ab5f3537-ee73-406a-8daa-315a6edd4620",
         "timestamp": 1795578372070
+      }
+    ],
+    "2.1 Read and write the risen key in `GraveCodec`": [
+      {
+        "executionId": "223c4d2b-8a2b-443d-9bf0-068c6d4eab8e",
+        "chatSessionId": "sess_e91c4e9b-4ff1-425b-bfcd-262224fea9a9",
+        "timestamp": 1795578651440
+      },
+      {
+        "executionId": "223c4d2b-8a2b-443d-9bf0-068c6d4eab8e",
+        "chatSessionId": "sess_e91c4e9b-4ff1-425b-bfcd-262224fea9a9",
+        "timestamp": 1795578816152
+      }
+    ],
+    "2.2 Write unit tests for the risen key": [
+      {
+        "executionId": "87763bca-4b31-4c3f-852e-40b6c7be9ba1",
+        "chatSessionId": "sess_3a34668e-cff4-42ae-a507-f2e860fa7597",
+        "timestamp": 1795578869413
+      },
+      {
+        "executionId": "87763bca-4b31-4c3f-852e-40b6c7be9ba1",
+        "chatSessionId": "sess_3a34668e-cff4-42ae-a507-f2e860fa7597",
+        "timestamp": 1795578967923
+      }
+    ],
+    "2.3 Write property test for the codec round trip": [
+      {
+        "executionId": "f485b0ed-f0da-415c-849c-e3da843c00a4",
+        "chatSessionId": "sess_bcd551f8-ef27-4b19-bffa-9569e8b502bc",
+        "timestamp": 1795579047281
+      },
+      {
+        "executionId": "f485b0ed-f0da-415c-849c-e3da843c00a4",
+        "chatSessionId": "sess_bcd551f8-ef27-4b19-bffa-9569e8b502bc",
+        "timestamp": 1795579140273
+      }
+    ],
+    "2.4 Write property test for legacy records": [
+      {
+        "executionId": "c263488f-d688-4aaf-bab6-9fb76b069267",
+        "chatSessionId": "sess_8486a4ca-9055-419e-8cbc-6a54393334fb",
+        "timestamp": 1795579170399
+      },
+      {
+        "executionId": "c263488f-d688-4aaf-bab6-9fb76b069267",
+        "chatSessionId": "sess_8486a4ca-9055-419e-8cbc-6a54393334fb",
+        "timestamp": 1795579260203
+      }
+    ],
+    "2.5 Write property test for malformed risen values": [
+      {
+        "executionId": "8f789aa8-aa09-403c-9c00-10a2cd8c47ec",
+        "chatSessionId": "sess_63e34574-6942-4d26-876a-6c00e77cd288",
+        "timestamp": 1795579277701
+      },
+      {
+        "executionId": "8f789aa8-aa09-403c-9c00-10a2cd8c47ec",
+        "chatSessionId": "sess_63e34574-6942-4d26-876a-6c00e77cd288",
+        "timestamp": 1795579394019
+      }
+    ],
+    "2. Risen key in the codec": [
+      {
+        "executionId": "8f789aa8-aa09-403c-9c00-10a2cd8c47ec",
+        "chatSessionId": "sess_63e34574-6942-4d26-876a-6c00e77cd288",
+        "timestamp": 1795579394067
       }
     ]
   }
