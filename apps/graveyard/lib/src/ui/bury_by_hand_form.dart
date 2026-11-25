@@ -112,6 +112,7 @@ class _BuryByHandFormState extends State<BuryByHandForm> {
           key: const ValueKey<String>('bury-name'),
           controller: _name,
           focusNode: _nameFocus,
+          textCapitalization: TextCapitalization.sentences,
           textInputAction: TextInputAction.done,
           onSubmitted: (_) => _submit(),
           decoration: InputDecoration(

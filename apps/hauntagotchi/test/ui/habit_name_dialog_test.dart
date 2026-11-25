@@ -101,4 +101,12 @@ void main() {
     expect(find.bySemanticsLabel('Cancel'), findsOneWidget);
     expect(find.bySemanticsLabel('Add'), findsOneWidget);
   });
+
+  testWidgets('the name field capitalizes sentences', (tester) async {
+    await open(tester, (_) => null, <bool>[]);
+    expect(
+      tester.widget<TextField>(find.byType(TextField)).textCapitalization,
+      TextCapitalization.sentences,
+    );
+  });
 }

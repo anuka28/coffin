@@ -99,6 +99,7 @@ class _HabitNameDialogState extends State<HabitNameDialog> {
         child: TextField(
           controller: _controller,
           autofocus: true,
+          textCapitalization: TextCapitalization.sentences,
           textInputAction: TextInputAction.done,
           decoration: InputDecoration(
             labelText: 'Habit name',

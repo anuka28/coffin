@@ -219,4 +219,13 @@ void main() {
     await tester.pump();
     expectTapTarget(tester, find.byKey(_retry));
   });
+
+  testWidgets('the import field does not capitalize', (tester) async {
+    final ControllerHarness harness = _harness();
+    await _open(tester, harness);
+    expect(
+      tester.widget<TextField>(find.byKey(_field)).textCapitalization,
+      TextCapitalization.none,
+    );
+  });
 }

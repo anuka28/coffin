@@ -168,4 +168,14 @@ void main() {
     expectTapTarget(tester, find.byKey(_date));
     expectTapTarget(tester, find.byKey(_submit));
   });
+
+  testWidgets('the name field capitalizes sentences', (tester) async {
+    final ControllerHarness harness = _harness();
+    await pumpSheetHost(tester, harness);
+    await openSheet(tester);
+    expect(
+      tester.widget<TextField>(find.byKey(_name)).textCapitalization,
+      TextCapitalization.sentences,
+    );
+  });
 }
