@@ -22,7 +22,7 @@ void main() {
     Glados3(
       anyDayCount,
       anyDayCount,
-      anyGraveId,
+      anyMixedGraveId,
       ExploreConfig(numRuns: numRuns),
     ).test('tilt is within 3 degrees and level * 3 degrees, fade is within '
         '[0, 0.25] and never decreases with the day count', (

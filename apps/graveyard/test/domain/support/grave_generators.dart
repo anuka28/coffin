@@ -949,17 +949,6 @@ Generator<int> get anyAvailableWidth => any.simple<int>(
   },
 );
 
-/// Text scales from 1.0 to 2.0 in steps of 0.05. Shrinks towards 1.0.
-Generator<double> get anyTextScale => any.simple<double>(
-  generate: (math.Random random, int size) => (20 + random.nextInt(21)) / 20,
-  shrink: (double s) sync* {
-    final int step = (s * 20).round() - 20;
-    if (step > 0) {
-      yield (20 + step ~/ 2) / 20;
-    }
-  },
-);
-
 /// Column counts from 1 to 4. Shrinks towards 1.
 Generator<int> get anyColumnCount => anyIntBetween(1, 5);
 
@@ -1032,7 +1021,7 @@ final List<String> _oddGraveIds = List<String>.unmodifiable(<String>[
 
 /// Grave ids: `g1` to `g99`, plus now and then a non-ASCII id, an id of one
 /// space or an id of 200 characters. Shrinks towards `g1`.
-Generator<String> get anyGraveId => any.simple<String>(
+Generator<String> get anyMixedGraveId => any.simple<String>(
   generate: (math.Random random, int size) => random.nextInt(5) == 0
       ? _oddGraveIds[random.nextInt(_oddGraveIds.length)]
       : 'g${1 + random.nextInt(99)}',
@@ -1294,7 +1283,7 @@ final class CrackInput {
 const int _crackArchRise = 140;
 
 /// Crack inputs: stone width 240 to 300, stone height 260 to 900, a day count
-/// from [anyDayCount], a grave id from [anyGraveId], and the keep-out list as
+/// from [anyDayCount], a grave id from [anyMixedGraveId], and the keep-out list as
 /// the tombstone builds it: the content box `(20, 0, width - 20, height - 20)`
 /// and an epitaph rectangle inside the arch (top 56 to 80, 20 to 44 high,
 /// 40 to 120 wide, centered, bottom at most 140). Shrinks towards the
@@ -1304,7 +1293,7 @@ Generator<CrackInput> get anyCrackInput => any.simple<CrackInput>(
     final int width = 240 + random.nextInt(61);
     final int height = 260 + random.nextInt(641);
     final int dayCount = anyDayCount(random, size).value;
-    final String graveId = anyGraveId(random, size).value;
+    final String graveId = anyMixedGraveId(random, size).value;
     final int top = 56 + random.nextInt(25);
     final int bottom = math.min(top + 20 + random.nextInt(25), _crackArchRise);
     final int epitaphWidth = 40 + random.nextInt(81);
@@ -1476,6 +1465,178 @@ Generator<Grave> get anyGraveWithSource => any.simple<Grave>(
               dateOfDeath: g.dateOfDeath,
               repo: g.repo!,
             );
+    }
+  },
+);
+
+/// Edge text scales: the smallest, the largest and a common middle value.
+const List<double> _edgeTextScales = <double>[1.0, 1.5, 2.0];
+
+/// Text scales from 1.00 to 2.00 in steps of 0.01 (an integer from 100 to
+/// 200 divided by 100), with 1.0, 1.5 and 2.0 drawn about one time in four.
+/// Shrinks towards 1.0.
+Generator<double> get anyTextScale => any.simple<double>(
+  generate: (math.Random random, int size) => random.nextInt(4) == 0
+      ? _edgeTextScales[random.nextInt(_edgeTextScales.length)]
+      : anyIntBetween(100, 201)(random, size).value / 100,
+  shrink: (double s) sync* {
+    final int hundredths = (s * 100).round();
+    if (hundredths > 100) {
+      yield (100 + (hundredths - 100) ~/ 2) / 100;
+    }
+  },
+);
+
+/// Stone widths from 120 to 400 logical pixels as whole numbers. Shrinks
+/// towards 120.
+Generator<double> get anyStoneWidth => any.simple<double>(
+  generate: (math.Random random, int size) =>
+      anyIntBetween(120, 401)(random, size).value.toDouble(),
+  shrink: (double w) sync* {
+    if (w > 120) {
+      yield 120 + ((w - 120) ~/ 2).toDouble();
+    }
+  },
+);
+
+/// Stone heights from 160 to 480 logical pixels as whole numbers. Shrinks
+/// towards 160.
+Generator<double> get anyStoneHeight => any.simple<double>(
+  generate: (math.Random random, int size) =>
+      anyIntBetween(160, 481)(random, size).value.toDouble(),
+  shrink: (double h) sync* {
+    if (h > 160) {
+      yield 160 + ((h - 160) ~/ 2).toDouble();
+    }
+  },
+);
+
+/// The play length in milliseconds. Mirrors `PlayTiming.playDurationMs`
+/// (task 4.1); replace this constant by that one once it exists.
+const int _playDurationMs = 2800;
+
+/// Elapsed times from 0 to the play length inclusive, with 0, 1, 2799 and
+/// 2800 drawn about one time in four. Shrinks towards 0.
+Generator<int> get anyElapsedMs => any.simple<int>(
+  generate: (math.Random random, int size) => random.nextInt(4) == 0
+      ? const <int>[0, 1, _playDurationMs - 1, _playDurationMs][random.nextInt(
+          4,
+        )]
+      : anyIntBetween(0, _playDurationMs + 1)(random, size).value,
+  shrink: (int ms) sync* {
+    if (ms > 0) {
+      yield ms ~/ 2;
+    }
+  },
+);
+
+/// Elapsed times from -500 to 3300 inclusive, so values before the start and
+/// after the end appear. The edges -500, -1, 0, 2800, 2801 and 3300 are drawn
+/// about one time in four. Shrinks towards 0.
+Generator<int> get anyWideElapsedMs => any.simple<int>(
+  generate: (math.Random random, int size) => random.nextInt(4) == 0
+      ? const <int>[
+          -500,
+          -1,
+          0,
+          _playDurationMs,
+          _playDurationMs + 1,
+          3300,
+        ][random.nextInt(6)]
+      : anyIntBetween(-500, 3301)(random, size).value,
+  shrink: (int ms) sync* {
+    if (ms > 0) {
+      yield ms ~/ 2;
+    } else if (ms < 0) {
+      yield ms ~/ 2;
+    }
+  },
+);
+
+/// Risen dates: null about one time in three, otherwise a date from
+/// [anyCalendarDate]. Shrinks towards null.
+Generator<CalendarDate?> get anyRisenOn => any.simple<CalendarDate?>(
+  generate: (math.Random random, int size) =>
+      random.nextInt(3) == 0 ? null : anyCalendarDate(random, size).value,
+  shrink: (CalendarDate? d) sync* {
+    if (d != null) {
+      yield null;
+    }
+  },
+);
+
+/// Graves from [anyGrave], GitHub and manual, with `risenOn` from
+/// [anyRisenOn]. Shrinks towards a Grave that is not Risen.
+Generator<Grave> get anyGraveWithRisen => any.simple<Grave>(
+  generate: (math.Random random, int size) => anyGrave(
+    random,
+    size,
+  ).value.copyWithRisenOn(anyRisenOn(random, size).value),
+  shrink: (Grave g) sync* {
+    if (g.risenOn != null) {
+      yield g.copyWithRisenOn(null);
+    }
+  },
+);
+
+/// Lists of 0 to 12 Graves with distinct ids. About one Grave in three takes
+/// the list's shared `risenOn` value (which may be null), so equal values
+/// are common. Shrinks by dropping Graves.
+Generator<List<Grave>> get anyRisenGraveList => any.simple<List<Grave>>(
+  generate: (math.Random random, int size) {
+    final int length = random.nextInt(13);
+    final CalendarDate? shared = anyRisenOn(random, size).value;
+    final Map<String, Grave> byId = <String, Grave>{};
+    for (int i = 0; i < length; i++) {
+      Grave g = anyGraveWithRisen(random, size).value;
+      if (random.nextInt(3) == 0) {
+        g = g.copyWithRisenOn(shared);
+      }
+      byId.putIfAbsent(g.id, () => g);
+    }
+    return byId.values.toList();
+  },
+  shrink: (List<Grave> list) sync* {
+    if (list.isNotEmpty) {
+      yield list.sublist(0, list.length ~/ 2);
+      yield list.sublist(1);
+    }
+  },
+);
+
+/// A Grave list and a set of ids marked as playing.
+typedef PlayingCase = ({List<Grave> graves, Set<String> playing});
+
+/// A Grave list from [anyRisenGraveList] and a set of playing ids: a random
+/// subset of the list's ids plus up to two ids that are not in the list.
+/// Shrinks towards an empty playing set.
+Generator<PlayingCase> get anyPlayingSet => any.simple<PlayingCase>(
+  generate: (math.Random random, int size) {
+    final List<Grave> graves = anyRisenGraveList(random, size).value;
+    final Set<String> playing = <String>{
+      for (final Grave g in graves)
+        if (random.nextBool()) g.id,
+      for (int i = 0, n = random.nextInt(3); i < n; i++) 'missing$i',
+    };
+    return (graves: graves, playing: playing);
+  },
+  shrink: (PlayingCase c) sync* {
+    if (c.playing.isNotEmpty) {
+      yield (graves: c.graves, playing: <String>{});
+    }
+  },
+);
+
+/// Grave ids of 1 to 24 characters, each a code point from 0x30 to 0x7A
+/// (digits, letters and a few punctuation marks), built with
+/// [anyIntBetween]. Shrinks by dropping characters.
+Generator<String> get anyGraveId => any.simple<String>(
+  generate: (math.Random random, int size) => String.fromCharCodes(
+    anyListBetween<int>(1, 25, anyIntBetween(0x30, 0x7B))(random, size).value,
+  ),
+  shrink: (String id) sync* {
+    if (id.length > 1) {
+      yield id.substring(0, id.length ~/ 2);
     }
   },
 );

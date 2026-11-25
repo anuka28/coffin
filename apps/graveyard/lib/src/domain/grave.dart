@@ -10,6 +10,7 @@ final class Grave {
     required this.dateOfDeath,
     required this.source,
     required this.repo,
+    this.risenOn,
   });
 
   /// Creates a grave the user typed by hand.
@@ -17,12 +18,14 @@ final class Grave {
     required String id,
     required String name,
     required CalendarDate dateOfDeath,
+    CalendarDate? risenOn,
   }) : this._(
          id: id,
          name: name,
          dateOfDeath: dateOfDeath,
          source: GraveSource.manual,
          repo: null,
+         risenOn: risenOn,
        );
 
   /// Creates a grave imported from GitHub, carrying its [repo] facts.
@@ -31,12 +34,14 @@ final class Grave {
     required String name,
     required CalendarDate dateOfDeath,
     required RepoInfo repo,
+    CalendarDate? risenOn,
   }) : this._(
          id: id,
          name: name,
          dateOfDeath: dateOfDeath,
          source: GraveSource.github,
          repo: repo,
+         risenOn: risenOn,
        );
 
   /// The unique id, also the storage key.
@@ -54,6 +59,19 @@ final class Grave {
   /// Repository facts; non-null exactly when [source] is github.
   final RepoInfo? repo;
 
+  /// The day the project was raised from the dead; null when not Risen.
+  final CalendarDate? risenOn;
+
+  /// Returns a copy of this grave with [risenOn] replaced (null clears it).
+  Grave copyWithRisenOn(CalendarDate? risenOn) => Grave._(
+    id: id,
+    name: name,
+    dateOfDeath: dateOfDeath,
+    source: source,
+    repo: repo,
+    risenOn: risenOn,
+  );
+
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
@@ -62,11 +80,13 @@ final class Grave {
           other.name == name &&
           other.dateOfDeath == dateOfDeath &&
           other.source == source &&
-          other.repo == repo;
+          other.repo == repo &&
+          other.risenOn == risenOn;
 
   @override
-  int get hashCode => Object.hash(id, name, dateOfDeath, source, repo);
+  int get hashCode => Object.hash(id, name, dateOfDeath, source, repo, risenOn);
 
   @override
-  String toString() => 'Grave($id, $name, ${dateOfDeath.toIso()})';
+  String toString() =>
+      'Grave($id, $name, ${dateOfDeath.toIso()}, risenOn: ${risenOn?.toIso()})';
 }

@@ -13,7 +13,7 @@ void main() {
     Glados3(
       anyDayCount,
       anyDayCount,
-      anyGraveId,
+      anyMixedGraveId,
       ExploreConfig(numRuns: numRuns),
     ).test('level is in [0, 1] and non-decreasing in the day count', (
       int a,

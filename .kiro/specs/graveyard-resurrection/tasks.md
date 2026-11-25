@@ -21,38 +21,38 @@ Rules for every task:
 
 ## Tasks
 
-- [ ] 1. Risen-state rules (`RaiseRules` and `Grave.risenOn`)
-  - [ ] 1.1 Add `risenOn` to `Grave` and implement `RaiseRules`
+- [x] 1. Risen-state rules (`RaiseRules` and `Grave.risenOn`)
+  - [x] 1.1 Add `risenOn` to `Grave` and implement `RaiseRules`
     - Edit `lib/src/domain/grave.dart`: add the optional field `CalendarDate? risenOn` (null means not Risen), an optional `risenOn` parameter (default null) on the private constructor, `Grave.manual` and `Grave.github` so every existing call site compiles unchanged, the method `copyWithRisenOn(CalendarDate? risenOn)`, and `risenOn` in `==`, `hashCode` and `toString`. No `Duration` and no `DateTime`.
     - Create `lib/src/domain/raise_rules.dart` with `RaiseRules.raise(Grave, CalendarDate today)` (returns the same Grave when it is already Risen, else a copy with `risenOn` set to `today`) and `RaiseRules.layToRest(Grave)` (returns the same Grave when it is not Risen, else a copy with `risenOn` cleared). Both are total and never throw. `raise_rules.dart` imports only `grave.dart` and `calendar_date.dart`.
     - Every existing Domain and data test must still pass unchanged.
     - _Requirements: 2.1, 2.2, 2.3, 2.4, 2.5, 2.6, 2.10, 2.11, 2.12, 16.1, 16.2_
 
-  - [ ] 1.2 Extend the test generators for this feature
+  - [x] 1.2 Extend the test generators for this feature
     - Add to `test/domain/support/grave_generators.dart` (web-safe only, all integers below 2^53): `anyRisenOn` (null, or a valid `CalendarDate` from the existing date generator), `anyGraveWithRisen` (any existing Grave generator with `risenOn` drawn from `anyRisenOn`, for GitHub and manual Graves), `anyGraveList` of 0 to 12 Graves with unique ids and a fixed share of equal `risenOn` values, `anyPlayingSet` (a set of ids drawn from a generated Grave list plus up to two ids that are not in the list), `anyGraveId` (a non-empty id string built from `anyIntBetween` code points in a safe ASCII range, without any string generator), `anyStoneWidth` (`anyIntBetween(120, 400)` as double), `anyStoneHeight` (`anyIntBetween(160, 480)` as double), `anyTextScale` (`anyIntBetween(100, 200) / 100`) and `anyElapsedMs` helpers (`anyIntBetween(0, PlayTiming.playDurationMs)` and a wide variant `anyIntBetween(-500, 3300)`), with the fixed edge values folded in.
     - Add no `dart:io` import. Extend `test/domain/support/grave_generators_test.dart` only if a new generator needs a range check, in a new test group.
     - _Requirements: 17.2, 17.4_
 
-  - [ ] 1.3 Write unit tests for `RaiseRules` and the `Grave` field
+  - [x] 1.3 Write unit tests for `RaiseRules` and the `Grave` field
     - Create `test/domain/raise_rules_test.dart`: raising a fresh Grave sets `risenOn` to Today; raising an already Risen Grave keeps its first date even with a different Today; laying a not Risen Grave to rest returns an equal Grave; laying a Risen Grave to rest clears `risenOn`; `id`, `name`, `dateOfDeath`, `source` and `repo` stay equal for GitHub and manual Graves; `risenOn` takes part in `==` and `hashCode` (two Graves that differ only in `risenOn` are not equal); a Grave built without `risenOn` is not Risen; the day count of the dead-for rules and the weathering input do not change after a Raise; no call throws for the extreme dates `0001-01-01` and `9999-12-31`.
     - _Requirements: 2.2, 2.3, 2.4, 2.5, 2.7, 2.8, 2.9, 2.10, 2.11, 2.12, 17.1_
 
-  - [ ] 1.4 Write property test for raise then Lay_To_Rest
+  - [x] 1.4 Write property test for raise then Lay_To_Rest
     - **Property 1: Raise then Lay_To_Rest returns the original Grave**
     - **Validates: Requirements 2.7**
     - Create `test/domain/raise_rules_undo_property_test.dart` over not Risen Graves and any Today.
 
-  - [ ] 1.5 Write property test for raising twice
+  - [x] 1.5 Write property test for raising twice
     - **Property 2: Raising twice equals raising once**
     - **Validates: Requirements 2.8**
     - Create `test/domain/raise_rules_idempotent_raise_property_test.dart` over `anyGraveWithRisen` and two different values of Today (the second Today never replaces the first date).
 
-  - [ ] 1.6 Write property test for Lay_To_Rest idempotence
+  - [x] 1.6 Write property test for Lay_To_Rest idempotence
     - **Property 3: Lay_To_Rest is idempotent**
     - **Validates: Requirements 2.9**
     - Create `test/domain/raise_rules_idempotent_rest_property_test.dart` over `anyGraveWithRisen`.
 
-  - [ ] 1.7 Write property test for the kept fields
+  - [x] 1.7 Write property test for the kept fields
     - **Property 4: Raise and Lay_To_Rest keep every other field**
     - **Validates: Requirements 2.10, 2.12**
     - Create `test/domain/raise_rules_fields_property_test.dart` over `anyGraveWithRisen` and any Today: `id`, `name`, `dateOfDeath`, `source` and `repo` are equal after `raise` and after `layToRest`.

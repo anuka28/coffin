@@ -40,7 +40,7 @@ void main() {
   group('Property 16: Weathered contrast stays above the minimum', () {
     Glados3(
       anyDayCount,
-      anyGraveId,
+      anyMixedGraveId,
       anyThemeTokens,
       ExploreConfig(numRuns: numRuns),
     ).test('stone after the fade and each text token keep a ratio >= 3.0', (

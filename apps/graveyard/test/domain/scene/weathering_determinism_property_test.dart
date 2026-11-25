@@ -13,7 +13,7 @@ void main() {
   group('Property 15: Weathering is deterministic', () {
     Glados2(
       anyDayCount,
-      anyGraveId,
+      anyMixedGraveId,
       ExploreConfig(numRuns: numRuns),
     ).test('two calls with the same arguments return equal results', (
       int dayCount,
