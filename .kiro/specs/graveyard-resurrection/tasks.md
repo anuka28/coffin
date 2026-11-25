@@ -110,16 +110,16 @@ Rules for every task:
     - Create `test/domain/resurrection/play_timing_test.dart`: `playDurationMs` is at least 2600 and at most 3000; the milestones are strictly ordered (burst end, sink end, rise start, rise end, play end); `risingGhostStartMs + 2200` (the rising reaction length, written as a literal in this Domain test) is at most `playDurationMs`; `epitaphFadeMs` is between 300 and 600; `epitaphFadeStartMs + epitaphFadeMs` is at most `playDurationMs`; `ghostRiseEndMs` equals `epitaphFadeStartMs`; the rise window starts when the Hand has sunk back.
     - _Requirements: 7.2, 7.9, 7.10, 7.11, 7.13, 17.1_
 
-- [ ] 5. Hand height
-  - [ ] 5.1 Implement `HandHeight`
+- [x] 5. Hand height
+  - [x] 5.1 Implement `HandHeight`
     - Create `lib/src/domain/resurrection/hand_height.dart` with `HandHeight.at(int elapsedMs)` as in the design: 0 for negative input and from `handSinkEndMs` on; the burst uses `RiseProgress.at` rescaled onto its own 0 to 600 ms domain; the sink is `1 - RiseProgress.at(...)` over the sink phase. It reuses `RiseProgress` and does not copy its formula.
     - _Requirements: 7.5, 7.6, 7.7, 16.1, 16.6_
 
-  - [ ] 5.2 Write unit tests for `HandHeight`
+  - [x] 5.2 Write unit tests for `HandHeight`
     - Create `test/domain/resurrection/hand_height_test.dart`: `at(0)` is 0; `at(300)` is 1 (the peak); `at(600)` is 0; every value from `playDurationMs` on, and a very large input, is 0; a negative input is 0; the midpoint of the burst is 0.5; the midpoint of the sink is 0.5; the burst uses the same curve values as `RiseProgress`.
     - _Requirements: 7.5, 7.6, 17.1_
 
-  - [ ] 5.3 Write property test for the Hand_Height range and phases
+  - [x] 5.3 Write property test for the Hand_Height range and phases
     - **Property 10: Hand_Height stays in range and is monotonic per phase**
     - **Validates: Requirements 7.7, 7.8**
     - Create `test/domain/resurrection/hand_height_property_test.dart` over `anyIntBetween(-100000, 100000)` for the range, and two ordered values inside the burst phase and inside the sink phase for the monotonic claims.
