@@ -231,7 +231,7 @@ void main() {
       'dark': CoffinTheme.dark(),
       'daylight': CoffinTheme.light(),
     }.entries) {
-      testWidgets('painter color is the background token: ${entry.key}', (
+      testWidgets('painter color is the muted token: ${entry.key}', (
         tester,
       ) async {
         await _pump(tester, _grave(3650), theme: entry.value);
@@ -239,8 +239,8 @@ void main() {
             ? CoffinColorTokens.night
             : CoffinColorTokens.daylight;
         final color = _painter(tester).color;
-        expect(color.withValues(alpha: 1), tokens.background);
-        expect(color.a, closeTo(0.7, 0.01));
+        expect(color.withValues(alpha: 1), tokens.muted);
+        expect(color.a, closeTo(0.5, 0.01));
       });
     }
   });

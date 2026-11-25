@@ -298,3 +298,18 @@ A few lines per day: what I asked Kiro, what worked, what didn't, what I learned
 - Kiro ran tasks 9–25 with several sub-agents in parallel, and once used `kirocrew-worker` for an ad-hoc fix. Each agent checked only its own files, so I ran everything myself at the end. Useful notes for the Kiro Crew day.
 - Watched it in Chrome: hand, clods, rising ghost, "RISEN", then the stone moves up to the living row.
 - Verified myself: Graveyard **1,614** tests (718 also in Chrome), analyze clean, coffin_core, Hauntagotchi, tool and the lockfile untouched; deploy workflow green.
+
+## Day 19 · Nov 25, 2026 (three days early) — Kiro Crew, two agents at once
+- **Kiro Crew experiment:** two chat sessions on the coffin repo, started together, each told the other exists and given files it may not touch.
+  - **Agent A (docs)** replaced the default Flutter READMEs of Hauntagotchi and Graveyard with real ones: pitch, features from the specs, live URL, how to run and test, what each app takes from coffin_core, and which specs built it. 1.74 credits, 1.5 minutes. I checked every class it names against the code; all are really used.
+  - **Agent B (polish)** took the two Graveyard touch-ups I listed on Nov 24. 4.88 + 3.34 credits over three rounds.
+  - They never collided: A touched only the two READMEs, B only Graveyard's UI and tests.
+- **What Crew could not do: see.** Every round, agent B reported green tests and admitted it hadn't looked in a browser. I looked each time:
+  - Round 1, "stones stand on the ground": each stone got its own ground strip. In Chrome it was a hard-edged dark box under the row, with sky between it and the real ground.
+  - Round 2: a soft ground mound instead. Invisible, because the ground color is almost the sky color. The cracks, drawn in the stone's own dark color, were also still invisible; switching them to the lighter muted color fixed that.
+  - Round 3: a contact shadow under each stone. Also invisible on a night sky. I stopped there and had it removed.
+  - The real cause is layout: the ground band is fixed to the bottom of the screen while the stones scroll, so nothing drawn under a stone can make it stand on that ground. Moved to the Day 21 design pass as a layout change.
+  - Kept: visible cracks on old graves (muted color at 50%, slightly thicker). The one test that pinned the old crack color was updated on purpose, and agent B said exactly what changed.
+- My take: Crew is good at parallel, well-fenced jobs (docs alongside code) and tells the truth about what it didn't check. Visual work still needs a human looking at the screen between rounds.
+- Also noticed: the Nightly Build Watch job last ran 8 days ago ("job is not running"). It needs Crew open and its commands approved, so it isn't truly unattended.
+- Verified myself: Graveyard 1,614 tests, analyze clean, only the two READMEs and Graveyard UI/test files changed, /tmp clean.

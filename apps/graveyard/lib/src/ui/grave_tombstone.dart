@@ -82,6 +82,13 @@ class GraveTombstone extends StatefulWidget {
   /// How far below its resting place a stone starts its Rise.
   static const double riseDistance = 24;
 
+  /// Alpha of the cracks, drawn in the muted color.
+  static const double crackAlpha = 0.5;
+
+  /// Stroke width of the cracks, a little above the generator's base width so
+  /// old stones show them more clearly.
+  static const double crackStrokeWidth = CrackGenerator.strokeWidth + 0.5;
+
   @override
   State<GraveTombstone> createState() => _GraveTombstoneState();
 }
@@ -281,8 +288,10 @@ class _GraveTombstoneState extends State<GraveTombstone> {
                               ),
                             ],
                           ),
-                          color: tokens.background.withValues(alpha: 0.7),
-                          strokeWidth: CrackGenerator.strokeWidth,
+                          color: tokens.muted.withValues(
+                            alpha: GraveTombstone.crackAlpha,
+                          ),
+                          strokeWidth: GraveTombstone.crackStrokeWidth,
                         ),
                       ),
                     );
