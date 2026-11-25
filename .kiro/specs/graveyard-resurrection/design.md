@@ -84,8 +84,8 @@ apps/graveyard/lib/src/
 │   ├── raise_rules.dart                 # new: Grave.raise / Grave.layToRest (pure, static)
 │   ├── resurrection/                    # new: everything specific to the play's math
 │   │   ├── hand_height.dart             # HandHeight: pure fn of elapsed ms -> 0..1
-│   │   ├── hand_geometry.dart           # HandGeometry: Stone_Area size + elapsed ms -> HandShape (all Hand points)
-│   │   ├── hand_shape.dart              # HandShape: the Hand's outline points + visible flag (value type)
+│   │   ├── hand_geometry.dart           # HandGeometry: Stone_Area size + elapsed ms -> HandShape (the Hand's bones)
+│   │   ├── hand_shape.dart              # HandShape: the Hand's bones (polylines of joints) + visible flag (value type)
 │   │   ├── stone_point.dart             # StonePoint: x/y in stone coordinates (value type, no dart:ui)
 │   │   ├── epitaph_footprint.dart       # EpitaphFootprint: stone width + text scale -> epitaph rect (pure, calls ArchFit)
 │   │   ├── rising_ghost_box.dart        # RisingGhostBox: Stone_Area size + text scale + elapsed ms -> GhostBox
@@ -359,43 +359,48 @@ final class StonePoint {
   final double y;
 }
 
-/// The Hand at one instant: the vertices of its outline, in drawing order.
+/// The Hand at one instant: its bones, each a polyline of joints.
 final class HandShape {
-  const HandShape({required this.points, required this.visible});
-  /// Wrist corners, palm corners and the five fingertips. Empty when not [visible].
-  final List<StonePoint> points;
+  const HandShape({required this.bones, required this.visible});
+  /// The bones; every vertex of a polyline is a joint. Empty when not [visible].
+  final List<List<StonePoint>> bones;
   /// False while [HandHeight.at] is 0 (nothing to draw).
   final bool visible;
 }
 
-/// Pure function from the Stone_Area size and elapsed milliseconds to the Hand's points.
+/// Pure function from the Stone_Area size and elapsed milliseconds to the Hand's bones.
 abstract final class HandGeometry {
   /// Largest share of the stone height the Hand reaches above the ground line.
   static const double maxReachFraction = 0.35;
   /// Half the Hand's width as a share of the stone width.
   static const double halfWidthFraction = 0.15;
 
-  /// Every returned point lies in `[0, width] x [0, height]` for every
-  /// positive [width]/[height] and every [elapsedMs] (Requirement 9.3).
+  /// Every point of every bone lies in `[0, width] x [0, height]` for every
+  /// positive [width]/[height] and every [elapsedMs] (Requirement 9.3). When
+  /// visible there are 7 bones: two forearm bones (ground line to wrist),
+  /// four fingers (index, middle, ring, little) and the thumb. Each finger is
+  /// a polyline of 4 points: wrist, knuckle, middle joint, tip.
   static HandShape at({
     required double width,
     required double height,
     required int elapsedMs,
   }) {
+    // Invisible empty shape for a non-finite or non-positive size, or h <= 0.
     final double h = HandHeight.at(elapsedMs);
-    if (h <= 0) return const HandShape(points: <StonePoint>[], visible: false);
     final double cx = width / 2;
     final double half = width * halfWidthFraction;
     final double reach = height * maxReachFraction * h; // extent above the ground line
-    final double palmTopY = height - reach * 0.6;
-    final double tipY = height - reach;
-    // wrist (2), palm top corners (2), five fingertips spread across the palm width.
-    return HandShape(visible: true, points: <StonePoint>[
-      StonePoint(cx - half * 0.4, height), StonePoint(cx + half * 0.4, height),
-      StonePoint(cx + half, palmTopY), StonePoint(cx - half, palmTopY),
-      for (int i = 0; i < 5; i++)
-        StonePoint(cx - half + (2 * half) * i / 4, tipY),
-    ]);
+    // pt(dx, rise) = StonePoint(cx + half * dx, height - reach * rise), with
+    // |dx| <= 1.3 and 0 <= rise <= 1, so every point is inside the stone by
+    // construction. The wrist is at rise 0.4.
+    //  - forearms: (cx -/+ 0.3 half, height) -> pt(-/+ 0.25, 0.4)
+    //  - fingers, each [wrist, knuckle, joint, tip], fanned out, tips curled
+    //    back toward the center (claw). Tip rise: middle 1.0 (the highest
+    //    point), ring 0.95, index 0.94, little 0.82, so lengths order
+    //    middle > ring > index > little.
+    //  - thumb: starts low on the left of the palm (rise 0.3) and angles
+    //    outward to its tip at pt(-1.3, 0.6), below every other fingertip.
+    return HandShape(visible: true, bones: <List<StonePoint>>[/* 7 bones */]);
   }
 }
 
@@ -576,7 +581,7 @@ The three advance and line-height numbers are upper bounds, and the values writt
 
 The box is inside the Stone_Area at every time because `top` lies between `endTop > 0` and `startTop`, `startTop + boxH = height`, and `left = (width - boxW) / 2 >= 0`. The box is always horizontally centered.
 
-`ResurrectionPlay` rebuilds, on every tick of its play controller, a `Positioned` from `RisingGhostBox.at(...)` for the current elapsed ms (`SizedBox(width: box.width, height: box.height)` at `left`/`top`, shown only while `box.visible`) and lays the `GhostLoader` out inside it, so the ghost's box rises from the base of the stone to its place below the epitaph. `HandPainter` builds its `Path` by connecting the `HandShape.points` with curves and strokes it with a soft glow. `ResurrectionPlay` receives the text scale as `textScale`, which `GraveTombstone` computes as `MediaQuery.textScalerOf(context).scale(ArchEpitaph.baseFontSize) / ArchEpitaph.baseFontSize` (1.0 to 2.0 for the linear scalers the app supports). A painter that draws only a `HandShape` cannot move the Hand outside the stone, and the property tests below pin the pure functions that decide where it is.
+`ResurrectionPlay` rebuilds, on every tick of its play controller, a `Positioned` from `RisingGhostBox.at(...)` for the current elapsed ms (`SizedBox(width: box.width, height: box.height)` at `left`/`top`, shown only while `box.visible`) and lays the `GhostLoader` out inside it, so the ghost's box rises from the base of the stone to its place below the epitaph. `HandPainter` strokes each bone of `HandShape.bones` as a polyline with round caps (with a soft glow) and draws a small dot at each joint (every polyline vertex); it has no geometry logic. `ResurrectionPlay` receives the text scale as `textScale`, which `GraveTombstone` computes as `MediaQuery.textScalerOf(context).scale(ArchEpitaph.baseFontSize) / ArchEpitaph.baseFontSize` (1.0 to 2.0 for the linear scalers the app supports). A painter that draws only a `HandShape` cannot move the Hand outside the stone, and the property tests below pin the pure functions that decide where it is.
 
 ### Domain — splitting the graveyard
 
@@ -1015,7 +1020,7 @@ For all Clods, for all elapsed milliseconds strictly before the Clod's `launchMs
 
 ### Property 15: The Hand stays inside the Stone_Area
 
-For all Stone_Area widths from 120 to 400 and heights from 160 to 480 logical pixels, and for all elapsed milliseconds from 0 to `PlayTiming.playDurationMs`, every point of the `HandShape` returned by the pure function `HandGeometry.at` lies within `[0, width] x [0, height]`. (The test targets the pure function, never `HandPainter`.)
+For all Stone_Area widths from 120 to 400 and heights from 160 to 480 logical pixels, and for all elapsed milliseconds from 0 to `PlayTiming.playDurationMs`, every point of every bone of the `HandShape` returned by the pure function `HandGeometry.at` lies within `[0, width] x [0, height]`. (The test targets the pure function, never `HandPainter`.)
 
 **Validates: Requirements 7.7, 9.3, 9.4**
 
@@ -1056,7 +1061,7 @@ For all Stone_Area widths from 120 to 400 and heights from 160 to 480 logical pi
 - `living_split_test.dart`: a concrete list with some Risen, some playing, some neither; the ordering example (two Risen Graves with different `risenOn`, and a tie on `risenOn` broken by name).
 - `resurrection/hand_height_test.dart`: `at(0) == 0`; the peak near `handBurstEndMs`; `at(handSinkEndMs) == 0`; a value past `playDurationMs` is still 0; a negative input is clamped.
 - `resurrection/clod_path_generator_test.dart`: two known Grave ids produce two different, but each internally stable, lists; the count is always 4 to 7 across a sample of ids.
-- `resurrection/hand_geometry_test.dart`: no points and `visible == false` at 0 ms and from `handSinkEndMs` on; at `handBurstEndMs` the five fingertips share one y and the wrist points sit on the ground line.
+- `resurrection/hand_geometry_test.dart`: no bones and `visible == false` at 0 ms and from `handSinkEndMs` on; at `handBurstEndMs` there are 7 bones, the middle fingertip is the highest point of the shape, the thumb tip is lower than every other fingertip, the two forearm bones start on the ground line (`y == height`) and end at the wrist, finger lengths order middle > ring > index > little, the Hand is centered on the stone, a non-finite or non-positive size gives the invisible empty shape, and shapes have value equality including bones.
 - `resurrection/epitaph_footprint_test.dart`: for a 120 by 160 stone at text scale 1.0 the union rectangle is left 18, top 22.16, right 102, bottom 55.48 (to two decimals, with the provisional metrics; the calibrated numbers replace them); at text scale 2.0 the bottom is 99.03; the rectangle never leaves `[0, stoneWidth]` horizontally; unusable input returns the zero rectangle.
 - `resurrection/rising_ghost_box_test.dart`: `visible` is false before `risingGhostStartMs` and true from there to `playDurationMs`; the box is centered; at 600 ms (and before) its bottom edge rests on the stone's base; at 2140 ms (and after, up to 2800 ms) its top is exactly the epitaph bottom plus 8; at the midpoint of the window (1370 ms) its top is halfway between the two (the `RiseProgress` curve is 0.5 at its midpoint); for a 120 by 160 stone at scale 1.0 the box is 60 by 72, the top is 88 at 600 ms, 75.74 at 1370 ms and 63.48 at 2140 ms; for 120 by 160 at scale 2.0 the box is 37.48 by 44.97 with start top 115.03 and end top 107.03; the extreme case (a 120 by 100 stone at scale 2.0, outside the property range) returns the zero-area hidden box on the bottom edge; a NaN or negative input returns the all-zero hidden box; the margin test: over a grid of widths 120 to 400 step 20, heights 160 to 480 step 40 and scales 1.0 to 2.0 step 0.25, `height` of the box is at least 16 (the calibration guard for the metrics model).
 - `ui/epitaph_footprint_cover_test.dart` (widget package test, uses `ArchEpitaph.rectFor`): the constants, cover and equality tests described under "Can the epitaph rectangle come from domain code only?" above.

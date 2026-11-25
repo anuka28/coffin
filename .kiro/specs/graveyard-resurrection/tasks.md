@@ -124,19 +124,19 @@ Rules for every task:
     - **Validates: Requirements 7.7, 7.8**
     - Create `test/domain/resurrection/hand_height_property_test.dart` over `anyIntBetween(-100000, 100000)` for the range, and two ordered values inside the burst phase and inside the sink phase for the monotonic claims.
 
-- [ ] 6. Hand geometry
-  - [ ] 6.1 Implement `StonePoint`, `HandShape` and `HandGeometry`
-    - Create `lib/src/domain/resurrection/stone_point.dart`, `hand_shape.dart` and `hand_geometry.dart` as in the design: `HandGeometry.at({width, height, elapsedMs})` returns an invisible empty `HandShape` while `HandHeight.at` is 0 or the size is not usable, else the two wrist points on the ground line, the two palm corners and five fingertips, all inside `[0, width] x [0, height]`. Value types with value equality. No `dart:ui`.
+- [x] 6. Hand geometry
+  - [x] 6.1 Implement `StonePoint`, `HandShape` and `HandGeometry`
+    - Create `lib/src/domain/resurrection/stone_point.dart`, `hand_shape.dart` and `hand_geometry.dart` as in the design: `HandGeometry.at({width, height, elapsedMs})` returns an invisible empty `HandShape` while `HandHeight.at` is 0 or the size is not usable, else 7 bones (two forearm bones from the ground line to the wrist, four fingers and the thumb, each finger a 4-point polyline wrist, knuckle, middle joint, tip), all points inside `[0, width] x [0, height]`. Value types with value equality. No `dart:ui`.
     - _Requirements: 9.3, 9.4, 16.1, 16.2_
 
-  - [ ] 6.2 Write unit tests for `HandGeometry`
-    - Create `test/domain/resurrection/hand_geometry_test.dart`: no points and `visible` false at 0 ms and from `handSinkEndMs` on; at `handBurstEndMs` the five fingertips share one y and the wrist points sit on the ground line (`y == height`); the points are centered on the stone; a non-finite or non-positive size returns the invisible empty shape; value equality of the shapes.
+  - [x] 6.2 Write unit tests for `HandGeometry`
+    - Create `test/domain/resurrection/hand_geometry_test.dart`: no bones and `visible` false at 0 ms and from `handSinkEndMs` on; at `handBurstEndMs` there are 7 bones, the middle fingertip is the highest point, the thumb tip is lower than every other fingertip, the forearm bones start on the ground line (`y == height`) and end at the wrist, finger lengths order middle > ring > index > little; the Hand is centered on the stone; a non-finite or non-positive size returns the invisible empty shape; value equality of the shapes.
     - _Requirements: 9.3, 9.4, 17.1_
 
-  - [ ] 6.3 Write property test for the Hand inside the stone
+  - [x] 6.3 Write property test for the Hand inside the stone
     - **Property 15: The Hand stays inside the Stone_Area**
     - **Validates: Requirements 7.7, 9.3, 9.4**
-    - Create `test/domain/resurrection/hand_geometry_property_test.dart` over `anyStoneWidth`, `anyStoneHeight` and `anyElapsedMs`: every point of `HandGeometry.at` lies in `[0, width] x [0, height]`. The test targets the pure function, never `HandPainter`.
+    - Create `test/domain/resurrection/hand_geometry_property_test.dart` over `anyStoneWidth`, `anyStoneHeight` and `anyElapsedMs`: every point of every bone of `HandGeometry.at` lies in `[0, width] x [0, height]`. The test targets the pure function, never `HandPainter`.
 
 - [ ] 7. Clods
   - [ ] 7.1 Implement `Clod`, `ClodFrame`, `ClodPathGenerator` and `ClodPath`
@@ -246,7 +246,7 @@ Rules for every task:
 
 - [ ] 14. Painters
   - [ ] 14.1 Implement `HandPainter` and `ClodsPainter`
-    - Create `lib/src/ui/hand_painter.dart` and `lib/src/ui/clods_painter.dart`. `HandPainter` takes a `HandShape` and the colors, converts the `StonePoint` list to a `Path` (curves through the points) and draws it with a soft glow (no hard shadow); it holds no geometry logic. `ClodsPainter` takes the list of `Clod`, the elapsed milliseconds and the colors, calls `ClodPath.at` for each Clod with the Stone_Area size it is given and draws one circle per visible frame (at most 7). Both clip the canvas to the Stone_Area (`clipRect(Offset.zero & size)`) before any drawing call. Colors come from the `CoffinColorTokens` the caller passes in, with no hard-coded color. `shouldRepaint` compares the inputs.
+    - Create `lib/src/ui/hand_painter.dart` and `lib/src/ui/clods_painter.dart`. `HandPainter` takes a `HandShape` and the colors, strokes each bone of the `HandShape` as a polyline with round caps and draws a small dot at each joint (every polyline vertex), with a soft glow (no hard shadow); it holds no geometry logic. `ClodsPainter` takes the list of `Clod`, the elapsed milliseconds and the colors, calls `ClodPath.at` for each Clod with the Stone_Area size it is given and draws one circle per visible frame (at most 7). Both clip the canvas to the Stone_Area (`clipRect(Offset.zero & size)`) before any drawing call. Colors come from the `CoffinColorTokens` the caller passes in, with no hard-coded color. `shouldRepaint` compares the inputs.
     - _Requirements: 7.4, 8.10, 9.1, 9.2, 9.3, 13.5, 13.7_
 
 - [ ] 15. Resurrection play
