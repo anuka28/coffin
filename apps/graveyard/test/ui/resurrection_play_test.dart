@@ -190,10 +190,7 @@ void main() {
       expect(risen, 1);
       await tester.pump(const Duration(milliseconds: 659));
       expect(ends, 0);
-      // The controller completes on the first frame after 2800 ms (its
-      // simulation is done only past the duration), so allow one frame.
       await tester.pump(const Duration(milliseconds: 1));
-      await tester.pump(const Duration(milliseconds: 16));
       expect(ends, 1);
       await tester.pump(const Duration(seconds: 3));
       expect(ends, 1);
@@ -227,7 +224,6 @@ void main() {
       await tester.pump(const Duration(milliseconds: 1299));
       expect(ends, 0);
       await tester.pump(const Duration(milliseconds: 1));
-      await tester.pump(const Duration(milliseconds: 16));
       expect(ends, 1);
     });
 

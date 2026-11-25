@@ -37,6 +37,7 @@ class GraveyardScene extends StatefulWidget {
     required this.onDelete,
     required this.seanceAi,
     this.header,
+    this.noRows,
     this.playingIds = const <String>{},
     this.onPlayEnd,
     this.onRaise,
@@ -61,6 +62,10 @@ class GraveyardScene extends StatefulWidget {
   /// Optional content shown at the top of the scrolling content, above the
   /// rows. It scrolls with the graves while the sky, ground and fog stay put.
   final Widget? header;
+
+  /// Shown below the Living_Row in place of the rows, when no grave is left
+  /// in the rows but the Living_Row is not empty.
+  final Widget? noRows;
 
   /// Ids of the graves whose Resurrection_Play runs now. A risen grave stays
   /// in the rows until its id leaves this set.
@@ -298,7 +303,12 @@ class _GraveyardSceneState extends State<GraveyardScene>
                               clipboard: widget.clipboard,
                             ),
                           ),
-                        _rows(width, rows),
+                        if (rows.isEmpty &&
+                            living.isNotEmpty &&
+                            widget.noRows != null)
+                          widget.noRows!
+                        else
+                          _rows(width, rows),
                       ],
                     ),
                   ),

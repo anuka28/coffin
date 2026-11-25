@@ -699,8 +699,8 @@ A "double-activation" guard (Requirement 1.7: activating `Raise_Control` twice r
 
 ```dart
 /// Plays the Hand, the Clods, the Rising_Ghost and the epitaph fade once,
-/// then calls [onEnd]. Owns every controller and timer of the play; disposes
-/// them all in [dispose], however the widget leaves the tree (normal end,
+/// then calls [onEnd]. Owns every controller of the play and the generation guard of
+/// the reduced-motion wait; disposes the controllers in [dispose], however the widget leaves the tree (normal end,
 /// delete during the play, or reduced motion kicking in mid-play).
 class ResurrectionPlay extends StatefulWidget {
   const ResurrectionPlay({
@@ -715,55 +715,58 @@ class ResurrectionPlay extends StatefulWidget {
 ```
 
 **Ownership.** `ResurrectionPlay`'s `State` is the single owner of:
-- one `AnimationController` (`_tickController`, `vsync: this`, `duration: PlayTiming.playDurationMs` = 2800 ms, started once in `initState`). It is the clock of the whole play: its elapsed milliseconds feed `HandGeometry.at`, `ClodPath.at` and `RisingGhostBox.at` through one `AnimatedBuilder`, so the Hand, the Clods and the rising ghost box are all drawn from the same elapsed time. It runs for the full Play_Duration and stops itself when it completes at 2800 ms (no loop continues after that, Requirement 7.13); its completion is the end-of-play signal that calls `onEnd`. (An earlier version of this design stopped the ticker at 600 ms because only the Hand and the Clods moved; the ghost box now moves until 2140 ms, so the ticker must run to the end.)
-- the `GhostLoader`'s `reactionKey` (an `int` held in `State`, `0` until the ticker passes `PlayTiming.risingGhostStartMs` (600 ms), when a ticker listener increments it once so the `rising` reaction starts exactly when the ghost box starts to rise, and ends at 2800 ms with the play. This reuses `GhostLoader` exactly as `coffin_core` ships it, with `MoodReaction.liftAt(rising, ...)` adding its 10 px bump inside the moving box; `GhostLoader.onReactionEnd` is not used as the end signal, the ticker's completion is. While the box is not `visible` (before 600 ms) the `GhostLoader` is not built),
-- one epitaph fade `AnimationController` (`_epitaphFade`, 400 ms, started at `epitaphFadeStartMs` by a `Timer` — see Reduced_Motion wiring below), and
-- the `Timer`s described in the Reduced_Motion section.
-
-All four are created in `initState` and disposed in `dispose`, which Flutter guarantees runs exactly once per `State`, covering every teardown path named by the requirements:
-- **End of play**: `_tickController` completes at `playDurationMs` (2800 ms), which is also when the 2200 ms reaction that started at 600 ms ends; the status listener calls `widget.onEnd()` and the parent (`GraveTombstone`) removes the id from the `Playing_Set` via `GraveyardScreen._onPlayEnd`, which causes `ResurrectionPlay` to unmount; `dispose()` then runs and tears down `_tickController`/`_epitaphFade`/any pending `Timer`.
-- **Delete during a play**: the delete flow is `GraveyardScreen._delete` → `controller.deleteGrave(id)` and, in the same `setState`, `_playing.remove(id)`; `GraveTombstone` (keyed by Grave id, per the existing `KeyedSubtree` in `GraveyardScene`) is removed from the tree by Flutter's own reconciliation because its Grave is gone from `graveyardRows`; `ResurrectionPlay.dispose()` runs as part of that removal, cancelling every `Timer` and disposing every controller before `onEnd` would otherwise have fired — `onEnd` is guarded with a `mounted`/`_ended` check so it is never called after the widget is already gone (Requirement 7.15, 10.7).
-- **Reduced_Motion switching on mid-play**: `didChangeDependencies` re-reads `MediaQuery.disableAnimationsOf(context)` every rebuild (the same pattern `MotionLoop`/`GraveyardScene`'s `_reduced` getter already use); on the **first** transition from false to true during an active play, `ResurrectionPlay` stops `_tickController` and `_epitaphFade` at their current values, snaps the Hand/Clods to invisible and the epitaph to "RISEN" at full opacity, cancels any pending `Timer`, and starts (or keeps) a single `Timer` for the remaining time until `playDurationMs` (see next section) so the play still ends, still exactly once, at the same total `Play_Duration` (Requirement 12.8).
-
+- one `AnimationController` (`_tickController`, nullable, `vsync: this`, `duration: PlayTiming.playDurationMs` = 2800 ms, created and started by `_startAnimated` on the animated path). It is the one clock of the whole play: its elapsed milliseconds (`value * playDurationMs`) feed `HandGeometry.at`, `ClodPath.at` and `RisingGhostBox.at` through one `AnimatedBuilder`, so the Hand, the Clods and the rising ghost box are all drawn from the same elapsed time. It runs for the full Play_Duration (no loop continues after that, Requirement 7.13). Its tick listener (`_onTick`) is also what ends the play: when elapsed reaches `PlayTiming.playDurationMs` it calls the guarded `_end()`. There is no status or completed listener. (An earlier version of this design stopped the ticker at 600 ms because only the Hand and the Clods moved; the ghost box now moves until 2140 ms, so the ticker must run to the end.)
+- the `GhostLoader`'s `reactionKey` (an `int` held in `State`, `0` until the tick listener sees elapsed pass `PlayTiming.risingGhostStartMs` (600 ms), when it sets the key to `1` once so the `rising` reaction starts exactly when the ghost box starts to rise, and ends at 2800 ms with the play. This reuses `GhostLoader` exactly as `coffin_core` ships it, with `MoodReaction.liftAt(rising, ...)` adding its 10 px bump inside the moving box; `GhostLoader.onReactionEnd` is not used as the end signal, the tick listener is. While the box is not `visible` (before 600 ms) the `GhostLoader` is not built),
+- one epitaph fade `AnimationController` (`_epitaphFade`, nullable, 400 ms). The tick listener starts it with `forward()` when elapsed reaches `PlayTiming.epitaphFadeStartMs`, at the same moment it calls `onEpitaphRisen` (guarded by `_epitaphAnnounced`). No `Timer` is involved, and
+- `_waitGeneration`, an `int` that guards the reduced-motion `Future.delayed` wait (see the Reduced_Motion section).
+The two controllers exist only on the animated path. `dispose` runs exactly once per `State`, bumps `_waitGeneration` and disposes both controllers with null checks, covering every teardown path named by the requirements:
+- **End of play**: the tick listener sees elapsed reach `playDurationMs` (2800 ms), which is also when the 2200 ms reaction that started at 600 ms ends, and calls `_end()`. `_end()` returns if `_ended` is set or the widget is unmounted, sets `_ended`, stops both controllers first, then calls `widget.onEnd()` exactly once. The parent (`GraveTombstone`) removes the id from the `Playing_Set` via `GraveyardScreen._onPlayEnd`, which causes `ResurrectionPlay` to unmount; `dispose()` then runs and disposes `_tickController`/`_epitaphFade`.
+- **Delete during a play**: the delete flow is `GraveyardScreen._delete` → `controller.deleteGrave(id)` and, in the same `setState`, `_playing.remove(id)`; `GraveTombstone` (keyed by Grave id, per the existing `KeyedSubtree` in `GraveyardScene`) is removed from the tree by Flutter's own reconciliation because its Grave is gone from `graveyardRows`; `ResurrectionPlay.dispose()` runs as part of that removal, bumping `_waitGeneration` (so a pending delayed wait is ignored when it fires) and disposing every controller before `onEnd` would otherwise have fired. `_end()` is guarded with `_ended` and `mounted` so `onEnd` is never called after the widget is already gone (Requirement 7.15, 10.7).
+- **Reduced_Motion switching on mid-play**: `didChangeDependencies` re-reads `MediaQuery.disableAnimationsOf(context)` every rebuild (the same pattern `MotionLoop`/`GraveyardScene`'s `_reduced` getter already use); on the **first** transition from false to true during an active play, `_switchToReduced` computes the remaining time (`playDurationMs` minus the elapsed time read from the tick controller, never below 0), disposes and nulls `_tickController` and `_epitaphFade`, so the Hand/Clods are no longer painted and the ghost shows its rest pose, and calls `_startReduced(remaining)`. That announces the epitaph at once (`onEpitaphRisen` is called only once overall, guarded by `_epitaphAnnounced`), bumps `_waitGeneration` and starts a new `Future.delayed` for the remaining time, so the play still ends, still exactly once, at the same total `Play_Duration` (Requirement 12.8).
 ### UI — Reduced_Motion: waiting out Play_Duration with no ticking controller
-
-While `MediaQuery.disableAnimationsOf(context)` is true (checked once, in `initState`/`didChangeDependencies`, same pattern as `TombstoneCard`/`MotionLoop`), `ResurrectionPlay` creates **no** `AnimationController` at all for the Hand/Clods/epitaph-fade — only a plain Dart `Timer`:
-
+The wait is a `Future.delayed` with a generation guard, not a `Timer` and not a ticking controller.
+While `MediaQuery.disableAnimationsOf(context)` is true (read in `didChangeDependencies`, same pattern as `TombstoneCard`/`MotionLoop`), `ResurrectionPlay` creates **no** `AnimationController` at all for the Hand/Clods/epitaph-fade. `onEpitaphRisen` is called at once, and the remaining time is waited out with a delayed future:
 ```dart
-class _ResurrectionPlayState extends State<ResurrectionPlay> with TickerProviderStateMixin {
-  Timer? _reducedTimer; // owned here; the only timer of the reduced-motion path
-  bool _ended = false;
+int _waitGeneration = 0;
 
-  void _startReduced() {
-    widget.onEpitaphRisen(); // RISEN shown at once (Requirement 12.2)
-    _reducedTimer = Timer(const Duration(milliseconds: PlayTiming.playDurationMs), _end);
-  }
+void _startReduced(int remainingMs) {
+  _announceEpitaph(); // RISEN shown at once (Requirement 12.2)
+  final int generation = ++_waitGeneration;
+  Future<void>.delayed(
+    Duration(milliseconds: remainingMs < 0 ? 0 : remainingMs),
+  ).then((_) {
+    if (generation != _waitGeneration || !mounted || _ended) return;
+    _end();
+  });
+}
 
-  void _end() {
-    if (_ended || !mounted) return;
-    _ended = true;
-    widget.onEnd();
-  }
+void _end() {
+  if (_ended || !mounted) return;
+  _ended = true;
+  _tickController?.stop();
+  _epitaphFade?.stop();
+  widget.onEnd();
+}
 
-  @override
-  void dispose() {
-    _reducedTimer?.cancel();
-    _tickController?.dispose();
-    _epitaphFade?.dispose();
-    super.dispose();
-  }
+@override
+void dispose() {
+  _waitGeneration++; // any pending delayed wait becomes stale
+  _tickController?.dispose();
+  _epitaphFade?.dispose();
+  super.dispose();
 }
 ```
+A callback is ignored when its generation is stale (a mid-play switch or `dispose` bumped `_waitGeneration`), when the widget is unmounted, or when the play has already ended. On first build under Reduced_Motion the wait is `PlayTiming.playDurationMs`; after a mid-play switch it is the remaining time.
 
-This satisfies Requirement 12.1 ("create no animation controller that ticks") literally: under Reduced_Motion, `_tickController` and `_epitaphFade` are never constructed (nullable fields, built lazily only on the animated path), and the sole mechanism holding the Tombstone in the graveyard for `Play_Duration` (Requirement 12.3) is one cancellable `Timer`, owned and disposed by the same `State` that owns everything else, matching the "same owner" rule already used for the animated path's controllers.
+This satisfies Requirement 12.1 ("create no animation controller that ticks") literally: under Reduced_Motion, `_tickController` and `_epitaphFade` are never constructed (nullable fields, built only on the animated path), and the sole mechanism holding the Tombstone in the graveyard for `Play_Duration` (Requirement 12.3) is one delayed future, made harmless after teardown by the generation guard in the same `State` that owns everything else.
 
-**How tests control the wait.** `Timer` is a real-clock primitive, but `flutter_test`'s `WidgetTester.pump(Duration)` and `tester.pumpAndSettle()` already advance Flutter's `FakeAsync`-backed test zone that every `flutter_test` test runs inside by default (`TestWidgetsFlutterBinding` installs a fake clock for `Timer`/`Future.delayed` under `tester.runAsync`-free tests), so a widget test never performs a real-time wait: `await tester.pump(const Duration(milliseconds: PlayTiming.playDurationMs))` advances a `Timer(Duration(milliseconds: 2800), ...)` deterministically and synchronously within the test. No injected scheduler/clock is introduced for this specific wait, because:
+**Why a delayed future and not a `Timer`.** The project's source-rule test (`test/source_rules/domain_sources_test.dart`, the `'Timer appears only in http_github_client.dart'` check) forbids `Timer` anywhere under `lib` except `http_github_client.dart`. A `Future.delayed` cannot be cancelled, so the generation guard replaces cancellation.
 
-- the existing codebase's own precedent (`http_github_client.dart` is the one file allowed to use `Timer`, per `test/source_rules/domain_sources_test.dart`'s `'Timer appears only in http_github_client.dart'` check) establishes that `Timer` outside the Domain is already the project's accepted mechanism for a bounded real-time-shaped wait, driven in tests by `tester.pump`;
-- `ResurrectionPlay` lives in `lib/src/ui`, not `lib/src/domain`, so the Domain's "no `Duration`" and "Timer only in `http_github_client.dart`" rules (which are scoped to `lib/src/domain` and to the GitHub HTTP path respectively, per `domain_sources_test.dart`) do not apply to it, and this design's new source-rule test (`resurrection_sources_test.dart`, see Testing Strategy) instead only asserts that `ResurrectionPlay`'s `Timer` is cancelled in every `dispose()` path and that no Domain file introduces one.
+**How tests control the wait.** `flutter_test` runs widget tests in a `FakeAsync` zone, so `Future.delayed` never waits in real time: `await tester.pump(const Duration(milliseconds: PlayTiming.playDurationMs))` fires the delayed future deterministically within the test. No injected scheduler/clock is introduced for this wait, because:
+- `tester.pump` already drives it, as it drives every other timing-dependent widget test in this codebase;
+- the new source-rule test (`resurrection_sources_test.dart`, see Testing Strategy) checks that `ResurrectionPlay` uses no `Timer` and that no Domain file introduces one.
 
-Requirement 17.8 ("a widget test... ends within the Play_Duration with a fake clock and no real delay") is satisfied the same way every other timing-dependent widget test in this codebase already is satisfied (e.g. `seance_sheet_test.dart`'s `tester.pump(const Duration(seconds: 4))` past `verdictWaitLimit`): `tester.pump(Duration(milliseconds: ...))` rather than a real `await Future.delayed`. No test in this feature calls `Future.delayed` or `Timer` directly with a real duration outside a `tester.pump`-driven zone.
-
+Requirement 17.8 ("a widget test... ends within the Play_Duration with a fake clock and no real delay") is satisfied the same way every other timing-dependent widget test in this codebase already is satisfied (e.g. `seance_sheet_test.dart`'s `tester.pump(const Duration(seconds: 4))` past `verdictWaitLimit`): `tester.pump(Duration(milliseconds: ...))` rather than a real-time wait. No test in this feature waits in real time outside a `tester.pump`-driven zone.
 ### UI — the clipboard seam
 
 ```dart
@@ -928,7 +931,7 @@ Grave decode(JsonMap json) {
 ### Transient, in-memory state (not persisted)
 
 - `Playing_Set` (`Set<String>`), owned by `GraveyardScreen`, never reaches `GraveListController` or `GraveCodec` (Requirement 10.2).
-- `ResurrectionPlay`'s own controllers/timer/animation progress: owned per-widget, torn down on every exit path, never serialized.
+- `ResurrectionPlay`'s own controllers, the delayed wait and animation progress: owned per-widget, torn down on every exit path, never serialized.
 
 ## Correctness Properties
 
@@ -1050,9 +1053,9 @@ For all Stone_Area widths from 120 to 400 and heights from 160 to 480 logical pi
 - `RaiseRules.raise`/`layToRest` never throw for any `Grave`/`CalendarDate` — both are total, branch-free beyond the idempotence check (Requirement 2.11).
 - `GraveCodec.decode` throws exactly `FormatException` for a malformed `risen` value, matching every other field's error handling; the risen check runs after every pre-existing check, so a record invalid for an unrelated reason (bad id, bad name, bad date, unknown source) still fails for that original reason first (Requirement 3.5, 3.7).
 - `GraveListController.raise`/`layToRest`/`replaceGrave` are no-ops (return `false`/return normally) when the id is no longer in the list, so a Raise or a Lay_To_Rest racing a delete never throws (Requirement 1.8, 4.9).
-- `ResurrectionPlay.dispose()` is written to run cleanly regardless of which phase the play was in (animated or reduced, any elapsed time): every controller/timer field is nullable-checked (`?.dispose()`, `?.cancel()`) so a teardown before a controller was ever created (e.g. disposed within the same frame it was built, in a pathological rebuild) throws nothing (Requirement 7.15, 10.7).
+- `ResurrectionPlay.dispose()` is written to run cleanly regardless of which phase the play was in (animated or reduced, any elapsed time): the controllers are nullable-checked (`?.dispose()`) and `_waitGeneration` is bumped so a pending delayed wait is ignored so a teardown before a controller was ever created (e.g. disposed within the same frame it was built, in a pathological rebuild) throws nothing (Requirement 7.15, 10.7).
 - `RepositoryLink._copy` wraps every call to `GraveyardClipboard.copy` in `try`/`catch`, converting any thrown object into the `linkCopyFailed` message with no exception escaping the widget tree and no change to the `Living_Entry`'s own state (Requirement 5.13).
-- `GhostLoader`'s own reduced-motion handling (already shipped in `coffin_core`, unmodified) calls `onReactionEnd` once via `_callEndAfterFrame` when `mood` is a reaction and `MediaQuery.disableAnimations` is true at the moment the reaction would have started; `ResurrectionPlay` does not rely on this path (it takes the `Timer`-based reduced path instead, see above) but must not *also* react to a stray `onReactionEnd` call from `GhostLoader` under Reduced_Motion, so `onReactionEnd` is wired only on the animated branch (the `GhostLoader` is built with `mood: null` — i.e. not built as a reaction ghost at all, just its final static pose drawn directly by `HandPainter`'s sibling, or more simply: under Reduced_Motion, `ResurrectionPlay` builds a `GhostLoader(mood: GhostMood.rising, reactionKey: 0)` with no `onReactionEnd` callback at all, relying on `MediaQuery.disableAnimationsOf` inside `GhostLoader` itself to show the rest pose with no ticking, exactly mirroring Requirement 12.1's "no moving Rising_Ghost").
+- `GhostLoader`'s own reduced-motion handling (already shipped in `coffin_core`, unmodified) calls `onReactionEnd` once via `_callEndAfterFrame` when `mood` is a reaction and `MediaQuery.disableAnimations` is true at the moment the reaction would have started; `ResurrectionPlay` does not rely on this path (it takes the delayed-future reduced path instead, see above) but must not *also* react to a stray `onReactionEnd` call from `GhostLoader` under Reduced_Motion, so `onReactionEnd` is wired only on the animated branch (the `GhostLoader` is built with `mood: null` — i.e. not built as a reaction ghost at all, just its final static pose drawn directly by `HandPainter`'s sibling, or more simply: under Reduced_Motion, `ResurrectionPlay` builds a `GhostLoader(mood: GhostMood.rising, reactionKey: 0)` with no `onReactionEnd` callback at all, relying on `MediaQuery.disableAnimationsOf` inside `GhostLoader` itself to show the rest pose with no ticking, exactly mirroring Requirement 12.1's "no moving Rising_Ghost").
 
 ## Testing Strategy
 
@@ -1083,12 +1086,12 @@ covering every property in Correctness Properties above (Property 15 lives in `r
 - `lay_to_rest_test.dart`: confirm clears `risenOn`, saves, and moves the Grave back with no play and the epitaph "R.I.P."; cancel leaves the Grave unchanged and Risen; Escape and tap-outside act as cancel; focus returns to the `Lay_To_Rest_Control`; a Grave deleted before confirm closes the dialog with no exception; a second `RestDialog` cannot open while one is open.
 - `repository_link_test.dart`: a successful copy shows "Link copied"; a `ThrowingGraveyardClipboard` shows "That link would not copy. Try once more.", throws no exception (checked via `tester.takeException()` after the tap), and leaves the `Living_Entry`'s text/controls unchanged.
 - `living_row_test.dart`: "Every grave here has risen." shown and `EmptyGraveyardPanel` hidden when `graveyardRows` is empty and `livingRow` is not; the Living_Row itself hidden with no heading/placeholder when `livingRow` is empty; ordering by most-recent `risenOn` first.
-- `resurrection_dispose_test.dart`: deleting a Grave mid-play disposes its `ResurrectionPlay` controllers/timer (no `tester.takeException()` after settling, and no further animation ticks recorded for that id).
+- `resurrection_dispose_test.dart`: deleting a Grave mid-play disposes its `ResurrectionPlay` controllers and ignores its delayed wait (no `tester.takeException()` after settling, and no further animation ticks recorded for that id).
 - `resurrection_reduced_motion_test.dart`: with `disableAnimations: true`, a Raise shows "RISEN" and the final ghost pose at once with `tester.hasRunningAnimations` false immediately after the triggering pump; exactly one `Risen_Announcement` semantics update per Raise (checked via the semantics tree's live-region node text, not duplicated by the later move to the Living_Row); switching `disableAnimations` from false to true mid-play finishes the play at the same total elapsed time with no second announcement.
 - `layout_test.dart` (extended): the Raise_Control, Living_Row, Rest_Dialog and a running Resurrection_Play render with no overflow at widths 320/360/768/1280 and text scales 1.0/1.5, in both `CoffinTheme.dark()` and a daylight theme.
 - `semantics_test.dart` (extended or new `resurrection_semantics_test.dart`): exact-match semantic labels for Requirements 1.3, 4.2, 5.7, 12.4/12.7, 13.1/13.3; a `WcagContrast.ratio` check for the Hand/Clods/Ghost colors against the stone/ground in both themes (Requirement 13.5), and for Living_Row text/icons (Requirement 13.4).
 
-**Source-rule test** (`apps/graveyard/test/source_rules/resurrection_sources_test.dart`, following the existing `domain_sources_test.dart`/`scene_sources_test.dart` pattern): every new file under `lib/src/domain/` and `lib/src/domain/resurrection/` imports no `package:flutter`, `dart:ui`, `dart:io`, `dart:html`, `package:coffin_core`, `package:http` or `package:hive_ce`, and contains no `DateTime.now()`; no file under `lib/` writes `Playing_Set`/play-progress data through `GraveStorage`/`GraveCodec` (a static scan of `grave_codec.dart`'s source for "playing"/"Playing_Set"/"ResurrectionPlay" vocabulary, mirroring `seance_sources_test.dart`'s codec-vocabulary check); the app's `pubspec.yaml` is byte-identical to its state before this feature except for no change at all (asserted by re-reading the file and checking it still lists exactly `flutter`, `coffin_core`, `http` and the unchanged dev deps); `ResurrectionPlay`'s `dispose()` method text contains cancellation/disposal calls for every controller/timer field declared in the class (a lightweight structural check, not a behavioral one — the behavioral guarantee is the widget tests above).
+**Source-rule test** (`apps/graveyard/test/source_rules/resurrection_sources_test.dart`, following the existing `domain_sources_test.dart`/`scene_sources_test.dart` pattern): every new file under `lib/src/domain/` and `lib/src/domain/resurrection/` imports no `package:flutter`, `dart:ui`, `dart:io`, `dart:html`, `package:coffin_core`, `package:http` or `package:hive_ce`, and contains no `DateTime.now()`; no file under `lib/` writes `Playing_Set`/play-progress data through `GraveStorage`/`GraveCodec` (a static scan of `grave_codec.dart`'s source for "playing"/"Playing_Set"/"ResurrectionPlay" vocabulary, mirroring `seance_sources_test.dart`'s codec-vocabulary check); the app's `pubspec.yaml` is byte-identical to its state before this feature except for no change at all (asserted by re-reading the file and checking it still lists exactly `flutter`, `coffin_core`, `http` and the unchanged dev deps); `ResurrectionPlay`'s `dispose()` method text disposes every controller field declared in the class and bumps `_waitGeneration`; no file under `lib/` contains a `Timer` outside `http_github_client.dart` (a lightweight structural check, not a behavioral one — the behavioral guarantee is the widget tests above).
 
 **Copy test** (`apps/graveyard/test/ui/graveyard_copy_test.dart`, extended): every new Resurrection_Copy constant checked against Requirement 14: Allowed_Characters only, no emoji, no time-of-day word, none of "failed"/"invalid"/"your fault", no exception text or status code; the Rest_Dialog body is checked to mention the graveyard and not "delete"; `GraveyardCopy.epitaph` is asserted to still equal `'R.I.P.'` unchanged (Requirement 14.8).
 

@@ -102,9 +102,6 @@ class _ResurrectionPlayState extends State<ResurrectionPlay>
       duration: const Duration(milliseconds: PlayTiming.epitaphFadeMs),
     );
     tick.addListener(_onTick);
-    tick.addStatusListener((AnimationStatus status) {
-      if (status == AnimationStatus.completed) _end();
-    });
     tick.forward();
   }
 
@@ -123,6 +120,7 @@ class _ResurrectionPlayState extends State<ResurrectionPlay>
       _announceEpitaph();
       _epitaphFade?.forward();
     }
+    if (elapsed >= PlayTiming.playDurationMs) _end();
   }
 
   void _announceEpitaph() {
@@ -131,6 +129,8 @@ class _ResurrectionPlayState extends State<ResurrectionPlay>
     widget.onEpitaphRisen();
   }
 
+  // The wait is a delayed future with a generation guard, not a ticking
+  // controller or a timer object.
   void _startReduced(int remainingMs) {
     _announceEpitaph();
     final int generation = ++_waitGeneration;
@@ -154,6 +154,8 @@ class _ResurrectionPlayState extends State<ResurrectionPlay>
   void _end() {
     if (_ended || !mounted) return;
     _ended = true;
+    _tickController?.stop();
+    _epitaphFade?.stop();
     widget.onEnd();
   }
 

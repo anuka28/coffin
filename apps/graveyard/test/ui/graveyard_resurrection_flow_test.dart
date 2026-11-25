@@ -333,6 +333,10 @@ void main() {
     await _show(tester, h);
     expect(find.byType(LivingRow), findsOneWidget);
     expect(find.text(GraveyardCopy.allRisen), findsOneWidget);
+    expect(
+      tester.getTopLeft(find.text(GraveyardCopy.allRisen)).dy,
+      greaterThanOrEqualTo(tester.getBottomLeft(find.byType(LivingRow)).dy),
+    );
     expect(find.byType(EmptyGraveyardPanel), findsNothing);
     await _finish(tester);
   });

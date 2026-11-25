@@ -211,17 +211,6 @@ class _GraveyardScreenState extends State<GraveyardScreen>
             onImport: () => _openSheet(AddMode.importFromGitHub),
           ),
         );
-      } else if (noRows) {
-        children.add(
-          Padding(
-            padding: const EdgeInsets.only(bottom: 12),
-            child: Text(
-              GraveyardCopy.allRisen,
-              textAlign: TextAlign.center,
-              style: text.bodyLarge,
-            ),
-          ),
-        );
       }
       children.add(
         RisenAnnouncement(announcement: _announceKey, name: _announceName),
@@ -246,6 +235,14 @@ class _GraveyardScreenState extends State<GraveyardScreen>
       onRaise: _raise,
       onLayToRest: _layToRest,
       clipboard: widget.clipboard,
+      noRows: Padding(
+        padding: EdgeInsets.fromLTRB(side, 12, side, 0),
+        child: Text(
+          GraveyardCopy.allRisen,
+          textAlign: TextAlign.center,
+          style: text.bodyLarge,
+        ),
+      ),
       header: SafeArea(
         bottom: false,
         child: Padding(
