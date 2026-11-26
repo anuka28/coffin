@@ -265,6 +265,143 @@
         "chatSessionId": "sess_e848ce9d-2e8f-42ca-8acd-eb79fe1e4d82",
         "timestamp": 1795671902098
       }
+    ],
+    "6.1 Write the ground placement tests": [
+      {
+        "executionId": "f6947e30-e18d-4806-81d0-50d18c26b7e0",
+        "chatSessionId": "sess_bc31f697-da51-46bd-bce9-dba33099a792",
+        "timestamp": 1795672442568
+      },
+      {
+        "executionId": "f6947e30-e18d-4806-81d0-50d18c26b7e0",
+        "chatSessionId": "sess_bc31f697-da51-46bd-bce9-dba33099a792",
+        "timestamp": 1795672632115
+      }
+    ],
+    "6.2 Write the test that the Horizon equals the Stone_Box bottom": [
+      {
+        "executionId": "8bf8ef45-549d-41b3-aabf-008f37101c9d",
+        "chatSessionId": "sess_180bfa77-a8ff-4375-b918-b9856feb0176",
+        "timestamp": 1795672667425
+      },
+      {
+        "executionId": "8bf8ef45-549d-41b3-aabf-008f37101c9d",
+        "chatSessionId": "sess_180bfa77-a8ff-4375-b918-b9856feb0176",
+        "timestamp": 1795672851665
+      }
+    ],
+    "6.3 Write the ground state tests": [
+      {
+        "executionId": "52d6eb52-2f71-448b-8c81-610bb96ed2f7",
+        "chatSessionId": "sess_98aa70d4-99e3-4a62-9fad-bc350f524869",
+        "timestamp": 1795672891690
+      },
+      {
+        "executionId": "52d6eb52-2f71-448b-8c81-610bb96ed2f7",
+        "chatSessionId": "sess_98aa70d4-99e3-4a62-9fad-bc350f524869",
+        "timestamp": 1795673168144
+      }
+    ],
+    "6.4 Write the post-frame measurement tests": [
+      {
+        "executionId": "836bee49-bb9a-409c-942b-806624c74d0c",
+        "chatSessionId": "sess_ce3b71c2-5cc9-4032-8cc6-db40a561ca5e",
+        "timestamp": 1795673201327
+      },
+      {
+        "executionId": "836bee49-bb9a-409c-942b-806624c74d0c",
+        "chatSessionId": "sess_ce3b71c2-5cc9-4032-8cc6-db40a561ca5e",
+        "timestamp": 1795673393841
+      },
+      {
+        "executionId": "6e69328b-4d94-486b-9663-ca67e5fb5b29",
+        "chatSessionId": "sess_ce3b71c2-5cc9-4032-8cc6-db40a561ca5e",
+        "timestamp": 1795673433723
+      },
+      {
+        "executionId": "6e69328b-4d94-486b-9663-ca67e5fb5b29",
+        "chatSessionId": "sess_ce3b71c2-5cc9-4032-8cc6-db40a561ca5e",
+        "timestamp": 1795673555938
+      }
+    ],
+    "6.5 Write the bottom alignment tests": [
+      {
+        "executionId": "6e69328b-4d94-486b-9663-ca67e5fb5b29",
+        "chatSessionId": "sess_ce3b71c2-5cc9-4032-8cc6-db40a561ca5e",
+        "timestamp": 1795673560453
+      },
+      {
+        "executionId": "6e69328b-4d94-486b-9663-ca67e5fb5b29",
+        "chatSessionId": "sess_ce3b71c2-5cc9-4032-8cc6-db40a561ca5e",
+        "timestamp": 1795673829010
+      }
+    ],
+    "6.6 Write the séance sheet size and slot tests": [
+      {
+        "executionId": "6e69328b-4d94-486b-9663-ca67e5fb5b29",
+        "chatSessionId": "sess_ce3b71c2-5cc9-4032-8cc6-db40a561ca5e",
+        "timestamp": 1795673560657
+      },
+      {
+        "executionId": "6e69328b-4d94-486b-9663-ca67e5fb5b29",
+        "chatSessionId": "sess_ce3b71c2-5cc9-4032-8cc6-db40a561ca5e",
+        "timestamp": 1795673829534
+      }
+    ],
+    "6.7 Write the Verdict_Block tests": [
+      {
+        "executionId": "6e69328b-4d94-486b-9663-ca67e5fb5b29",
+        "chatSessionId": "sess_ce3b71c2-5cc9-4032-8cc6-db40a561ca5e",
+        "timestamp": 1795673560719
+      },
+      {
+        "executionId": "6e69328b-4d94-486b-9663-ca67e5fb5b29",
+        "chatSessionId": "sess_ce3b71c2-5cc9-4032-8cc6-db40a561ca5e",
+        "timestamp": 1795673830306
+      }
+    ],
+    "6.8 Write the contrast tests for the ground controls": [
+      {
+        "executionId": "6e69328b-4d94-486b-9663-ca67e5fb5b29",
+        "chatSessionId": "sess_ce3b71c2-5cc9-4032-8cc6-db40a561ca5e",
+        "timestamp": 1795673561542
+      },
+      {
+        "executionId": "6e69328b-4d94-486b-9663-ca67e5fb5b29",
+        "chatSessionId": "sess_ce3b71c2-5cc9-4032-8cc6-db40a561ca5e",
+        "timestamp": 1795673830853
+      }
+    ],
+    "6.9 Write the test that the Horizon does not move while the first stone rises": [
+      {
+        "executionId": "6e69328b-4d94-486b-9663-ca67e5fb5b29",
+        "chatSessionId": "sess_ce3b71c2-5cc9-4032-8cc6-db40a561ca5e",
+        "timestamp": 1795673561855
+      },
+      {
+        "executionId": "6e69328b-4d94-486b-9663-ca67e5fb5b29",
+        "chatSessionId": "sess_ce3b71c2-5cc9-4032-8cc6-db40a561ca5e",
+        "timestamp": 1795673831660
+      }
+    ],
+    "6. Widget tests for the polish": [
+      {
+        "executionId": "6e69328b-4d94-486b-9663-ca67e5fb5b29",
+        "chatSessionId": "sess_ce3b71c2-5cc9-4032-8cc6-db40a561ca5e",
+        "timestamp": 1795673831699
+      }
+    ],
+    "7. Final checkpoint - Verification": [
+      {
+        "executionId": "6e69328b-4d94-486b-9663-ca67e5fb5b29",
+        "chatSessionId": "sess_ce3b71c2-5cc9-4032-8cc6-db40a561ca5e",
+        "timestamp": 1795673834909
+      },
+      {
+        "executionId": "6e69328b-4d94-486b-9663-ca67e5fb5b29",
+        "chatSessionId": "sess_ce3b71c2-5cc9-4032-8cc6-db40a561ca5e",
+        "timestamp": 1795674145772
+      }
     ]
   }
 }

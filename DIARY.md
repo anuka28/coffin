@@ -318,3 +318,20 @@ A few lines per day: what I asked Kiro, what worked, what didn't, what I learned
 - Opened the live site on my phone and went through both apps: landing page, Hauntagotchi (habits, Wisp's reactions, saved after closing the tab) and Graveyard (bury by hand, import `flutter/flutter`, séance, raise, saved after closing the tab), sideways and with the back button. Everything worked.
 - One thing I noticed: the keyboard started in lowercase when typing a habit or a project name. Small vibe-mode fix: the two name fields now start with a capital letter. The GitHub import field deliberately stays lowercase, because repo names like `flutter/flutter` are lowercase. Tests pin all three (Hauntagotchi 608, Graveyard 1,616).
 - After deploying, my phone still showed lowercase: it was the browser cache (the site's files are cached for 10 minutes, plus Flutter's own offline cache). A private tab loaded the new version straight away, and the fix worked.
+
+## Day 21 · Nov 26, 2026 (four days early) — the stones stand on the ground
+- **Fifteenth spec: `graveyard-polish`.** Two things I'd seen on Nov 24 and that Crew's agent couldn't fix by drawing under each stone:
+  - **The ground now follows the stones.** It used to be a band fixed to the bottom of the screen while the stones scrolled in another layer, so they always floated. The ground now lives inside the scrolling content: its horizon sits exactly at the measured base of the first row, the field fills everything below (including the bottom padding, so no sky shows at the end of a long graveyard), and stones in each row are bottom-aligned so every stone stands on the same line. Empty and all-risen graveyards keep the old band.
+  - **The séance sheet sizes to its content** instead of covering the whole screen, with space reserved for the verdict so nothing jumps when it arrives. The verdict gets a purple accent bar and SemiBold weight, lined up exactly with the step numbers.
+- Design catches during review:
+  - Kiro's first design assumed the Séance/Delete buttons were one fixed 48 px row; they wrap onto two lines, which would have put the ground 96–128 px too low. The horizon is now measured from the stone itself.
+  - It first planned to "add back" the rise animation's offset when measuring; I had the key moved to the widget just outside the rise transform instead (a transform moves painting, not layout), so no correction math is needed. A test proves the horizon doesn't move while a stone rises.
+  - Swapping `Align(topCenter)` for `Center` would only have centred the content in a still full-height sheet; Kiro caught that itself.
+  - `VerdictSlotHeight` had an unused `width` parameter; removed.
+- Test honesty:
+  - Two re-measure tests could not fail (the base happened not to move). I asked for a case where it really moves: raising a grave opens the "Back among the living" row and pushes the stones down 228 px; the test checks the horizon follows and comes back.
+  - Kiro hadn't proved the bottom-alignment tests would catch a regression, so I flipped the row back to top-aligned for a moment: the tests failed, and passed again once restored.
+  - One existing test had only passed because the full-height sheet swallowed a stray tap; it now closes the first sheet before opening a second (a deliberate, recorded exception). The three row-layout tests changed on purpose from "tops aligned" to "bases aligned".
+- Process notes: Kiro used `git stash` and `git checkout` while debugging; nothing was lost, but I banned both for the rest of the spec. It also left a design backup and edit scripts in `/tmp` again; removed.
+- Looked at it in Chrome: four old graves standing on the ground with visible cracks; the séance sheet half-height with the verdict under its purple bar.
+- Verified myself: Graveyard **1,894** tests (737 in Chrome), analyze clean, coffin_core/Hauntagotchi/tool/lockfile untouched.
