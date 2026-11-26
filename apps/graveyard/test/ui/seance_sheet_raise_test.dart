@@ -241,6 +241,11 @@ void main() {
         .toList();
     await _open(tester, <Grave>[], withRaise: false);
     final List<String> without = texts();
+    // The sheet is as tall as its content, so close it before opening the
+    // next one; a tap on "open" would otherwise land on the modal barrier.
+    await tester.tap(find.byKey(const ValueKey<String>('seance-close')));
+    await tester.pump();
+    await tester.pump(const Duration(milliseconds: 600));
     await _open(tester, <Grave>[]);
     expect(texts(), without);
     expect(without, contains('Boo.'));

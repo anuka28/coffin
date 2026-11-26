@@ -123,6 +123,148 @@
         "chatSessionId": "sess_23736159-0dff-47df-b1f5-e32a7a7c192f",
         "timestamp": 1795666024584
       }
+    ],
+    "4.1 Add `stoneKey` to `GraveTombstone`": [
+      {
+        "executionId": "29d2bd93-201d-40ba-a0f6-6a38b8be18cc",
+        "chatSessionId": "sess_075b72c2-d05d-4214-8261-2425e5a71de2",
+        "timestamp": 1795666197616
+      },
+      {
+        "executionId": "29d2bd93-201d-40ba-a0f6-6a38b8be18cc",
+        "chatSessionId": "sess_075b72c2-d05d-4214-8261-2425e5a71de2",
+        "timestamp": 1795666286417
+      },
+      {
+        "executionId": "29d2bd93-201d-40ba-a0f6-6a38b8be18cc",
+        "chatSessionId": "sess_075b72c2-d05d-4214-8261-2425e5a71de2",
+        "timestamp": 1795666296249
+      },
+      {
+        "executionId": "29d2bd93-201d-40ba-a0f6-6a38b8be18cc",
+        "chatSessionId": "sess_075b72c2-d05d-4214-8261-2425e5a71de2",
+        "timestamp": 1795666388908
+      }
+    ],
+    "4.2 Place the Ground_Field in the scroll content and keep the Ground_Band for empty states": [
+      {
+        "executionId": "b5906729-30d5-4731-8d6f-29245fe07ed7",
+        "chatSessionId": "sess_e140025a-d80d-470b-932d-7cdded4dca48",
+        "timestamp": 1795666419232
+      },
+      {
+        "executionId": "b5906729-30d5-4731-8d6f-29245fe07ed7",
+        "chatSessionId": "sess_e140025a-d80d-470b-932d-7cdded4dca48",
+        "timestamp": 1795668099904
+      }
+    ],
+    "4.3 Measure the First_Row_Base after layout": [
+      {
+        "executionId": "9cc52155-7b8d-4e80-9e31-4e7016a0bb2b",
+        "chatSessionId": "sess_9abf581e-cc9e-4fad-acef-01b42c202dea",
+        "timestamp": 1795668218164
+      },
+      {
+        "executionId": "9cc52155-7b8d-4e80-9e31-4e7016a0bb2b",
+        "chatSessionId": "sess_9abf581e-cc9e-4fad-acef-01b42c202dea",
+        "timestamp": 1795668957582
+      },
+      {
+        "executionId": "ec1eda29-bab8-4b50-b6d7-5952c86be38f",
+        "chatSessionId": "sess_9abf581e-cc9e-4fad-acef-01b42c202dea",
+        "timestamp": 1795669057293
+      },
+      {
+        "executionId": "ec1eda29-bab8-4b50-b6d7-5952c86be38f",
+        "chatSessionId": "sess_9abf581e-cc9e-4fad-acef-01b42c202dea",
+        "timestamp": 1795669156625
+      }
+    ],
+    "4.4 Bottom-align the Stones in every row and update the three layout tests": [
+      {
+        "executionId": "ec1eda29-bab8-4b50-b6d7-5952c86be38f",
+        "chatSessionId": "sess_9abf581e-cc9e-4fad-acef-01b42c202dea",
+        "timestamp": 1795669160705
+      },
+      {
+        "executionId": "ec1eda29-bab8-4b50-b6d7-5952c86be38f",
+        "chatSessionId": "sess_9abf581e-cc9e-4fad-acef-01b42c202dea",
+        "timestamp": 1795669252442
+      }
+    ],
+    "4.5 Update the class comment of `GraveyardScene` and the doc comment of `GroundPainter`": [
+      {
+        "executionId": "ec1eda29-bab8-4b50-b6d7-5952c86be38f",
+        "chatSessionId": "sess_9abf581e-cc9e-4fad-acef-01b42c202dea",
+        "timestamp": 1795669255723
+      },
+      {
+        "executionId": "ec1eda29-bab8-4b50-b6d7-5952c86be38f",
+        "chatSessionId": "sess_9abf581e-cc9e-4fad-acef-01b42c202dea",
+        "timestamp": 1795669385379
+      }
+    ],
+    "4. Scene: ground in the scrolling content": [
+      {
+        "executionId": "ec1eda29-bab8-4b50-b6d7-5952c86be38f",
+        "chatSessionId": "sess_9abf581e-cc9e-4fad-acef-01b42c202dea",
+        "timestamp": 1795669385424
+      }
+    ],
+    "5.1 Size the sheet surface to its content": [
+      {
+        "executionId": "370fbd8c-c4e4-40cd-8c0f-c18bcce34d0e",
+        "chatSessionId": "sess_ad076821-b591-47d1-803d-2c87d41a5f18",
+        "timestamp": 1795669417776
+      },
+      {
+        "executionId": "370fbd8c-c4e4-40cd-8c0f-c18bcce34d0e",
+        "chatSessionId": "sess_ad076821-b591-47d1-803d-2c87d41a5f18",
+        "timestamp": 1795670838943
+      }
+    ],
+    "5.2 Reserve the Verdict_Slot": [
+      {
+        "executionId": "4124cbc5-1d02-42b7-b691-1b53fa5064f3",
+        "chatSessionId": "sess_f0c6f5dd-0c69-4e26-8a79-130a59c60709",
+        "timestamp": 1795670984171
+      },
+      {
+        "executionId": "4124cbc5-1d02-42b7-b691-1b53fa5064f3",
+        "chatSessionId": "sess_f0c6f5dd-0c69-4e26-8a79-130a59c60709",
+        "timestamp": 1795671073909
+      }
+    ],
+    "5.3 Build the accent-bar Verdict_Block": [
+      {
+        "executionId": "8e29f222-8739-44d9-9210-be631c7e73df",
+        "chatSessionId": "sess_e848ce9d-2e8f-42ca-8acd-eb79fe1e4d82",
+        "timestamp": 1795671133401
+      },
+      {
+        "executionId": "8e29f222-8739-44d9-9210-be631c7e73df",
+        "chatSessionId": "sess_e848ce9d-2e8f-42ca-8acd-eb79fe1e4d82",
+        "timestamp": 1795671614791
+      }
+    ],
+    "5.4 Align the Verdict_Block with the steps": [
+      {
+        "executionId": "b641448f-78ea-44a7-a7ef-685cb0270708",
+        "chatSessionId": "sess_e848ce9d-2e8f-42ca-8acd-eb79fe1e4d82",
+        "timestamp": 1795671665515
+      },
+      {
+        "executionId": "b641448f-78ea-44a7-a7ef-685cb0270708",
+        "chatSessionId": "sess_e848ce9d-2e8f-42ca-8acd-eb79fe1e4d82",
+        "timestamp": 1795671902043
+      }
+    ],
+    "5. Séance sheet": [
+      {
+        "executionId": "b641448f-78ea-44a7-a7ef-685cb0270708",
+        "chatSessionId": "sess_e848ce9d-2e8f-42ca-8acd-eb79fe1e4d82",
+        "timestamp": 1795671902098
+      }
     ]
   }
 }

@@ -47,6 +47,7 @@ class GraveTombstone extends StatefulWidget {
     this.playing = false,
     this.onPlayEnd,
     this.onRaise,
+    this.stoneKey,
   });
 
   /// The grave to show.
@@ -75,6 +76,13 @@ class GraveTombstone extends StatefulWidget {
   /// The sheet offers the Raise control only while the grave is not risen and
   /// not [playing].
   final ValueChanged<Grave>? onRaise;
+
+  /// Key attached to the layout box of the stone, for hosts that measure the
+  /// base of the stone.
+  ///
+  /// The keyed box lies outside the Rise translate and contains neither the
+  /// Séance control nor the Delete button.
+  final GlobalKey? stoneKey;
 
   /// Widest a stone gets, equal to the width of `TombstoneCard`.
   static const double maxStoneWidth = 300;
@@ -340,6 +348,7 @@ class _GraveTombstoneState extends State<GraveTombstone> {
         children: <Widget>[
           Center(
             child: ConstrainedBox(
+              key: widget.stoneKey,
               constraints: const BoxConstraints(
                 maxWidth: GraveTombstone.maxStoneWidth,
               ),

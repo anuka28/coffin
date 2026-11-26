@@ -3,11 +3,14 @@ import 'dart:math' as math;
 import 'package:coffin_core/coffin_core.dart';
 import 'package:flutter/material.dart';
 
-/// Paints the ground strip: the theme `background` color with a soft top edge that
+/// Paints the ground: the theme `background` color with a soft top edge that
 /// fades into the sky.
 ///
-/// The painter fills the box it is given. The host sizes and places it at the
-/// bottom of the scene. Hosts wrap it in `ExcludeSemantics` and `IgnorePointer`.
+/// The painter fills the box it is given. In the Empty_State and the
+/// All_Risen_State the host places it as a static band at the bottom of the
+/// scene. Otherwise the host places it inside the scrolling content, sized
+/// so its soft top edge (`maxSoftEdge`) reaches the First_Row_Base. Hosts
+/// wrap it in `ExcludeSemantics` and `IgnorePointer`.
 class GroundPainter extends CustomPainter {
   /// Creates a ground painter that takes its color from [tokens].
   const GroundPainter({required this.tokens});

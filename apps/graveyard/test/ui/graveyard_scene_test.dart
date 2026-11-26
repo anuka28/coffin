@@ -422,11 +422,11 @@ void main() {
       await tester.pumpWidget(
         _host(List<Grave>.generate(8, (i) => _grave('g$i'))),
       );
-      final tops = <double>[
+      final bottoms = <double>[
         for (var i = 0; i < 8; i++)
-          tester.getTopLeft(find.byType(GraveTombstone).at(i)).dy,
+          tester.getBottomLeft(find.byType(GraveTombstone).at(i)).dy,
       ];
-      return tops.where((dy) => (dy - tops.first).abs() < 1).length;
+      return bottoms.where((dy) => (dy - bottoms.first).abs() < 1).length;
     }
 
     testWidgets('360 px shows one column', (tester) async {

@@ -65,47 +65,49 @@ Rules for every task:
   - Ensure all tests pass, ask the user if questions arise.
   - _Requirements: 11.1, 11.2, 11.7_
 
-- [ ] 4. Scene: ground in the scrolling content
-  - [ ] 4.1 Add `stoneKey` to `GraveTombstone`
+- [x] 4. Scene: ground in the scrolling content
+  - [x] 4.1 Add `stoneKey` to `GraveTombstone`
     - Edit `lib/src/ui/grave_tombstone.dart`: add the optional constructor parameter `GlobalKey? stoneKey`, doc-commented as the key attached to the layout box of the stone for hosts that measure the base of the stone. Apply it as the `key` of the `ConstrainedBox(maxWidth: GraveTombstone.maxStoneWidth)` that is the child of the `Center` and the parent of `Transform.translate`, so the keyed box lies outside the Rise translate and contains neither the Séance control nor the Delete button. The existing `super.key` is not reused. No change to layout, tilt, rise or controls, and every existing call compiles unchanged because the parameter is optional.
     - _Requirements: 1.8, 11.4, 13.4_
 
-  - [ ] 4.2 Place the Ground_Field in the scroll content and keep the Ground_Band for empty states
+  - [x] 4.2 Place the Ground_Field in the scroll content and keep the Ground_Band for empty states
     - Edit `lib/src/ui/graveyard_scene.dart`. When the rows are non-empty, replace the single child of the `SingleChildScrollView` with an inner `Stack` whose first layer is the Ground_Field and whose second layer is the existing `Column`, un-modified otherwise. The Ground_Field is one `CustomPaint(painter: GroundPainter(tokens: ...))` wrapped in `IgnorePointer` and `ExcludeSemantics`, full width, with `top = stoneBase - GroundPainter.maxSoftEdge` and `height = GroundHeight.of(groundTop:, contentBottom:, viewportHeight:)`. While `_stoneBase` is null (first frame) the Ground_Field is in the tree with height 0 and paints nothing. The ground has no implicit animation, no `AnimatedContainer` and no fade.
     - When the rows are empty (Empty_State and All_Risen_State), keep today's `Positioned` Ground_Band with left 0, right 0, bottom 0 and a height of 34% of the Scene_Box height, outside the `SingleChildScrollView`, wrapped in `IgnorePointer` and `ExcludeSemantics`. Exactly one of Ground_Field and Ground_Band is in the tree, chosen by the same `rows.isEmpty` check that already decides the `noRows` widget, with no `Visibility`. Keep exactly one `SingleChildScrollView` between the Fog_Layer and the Living_Row. Leave the Night_Sky, the Fog_Layer, the Living_Row, the header and the `noRows` widget at their current place. `GroundPainter`'s constructor, `maxSoftEdge` and `shouldRepaint` stay unchanged.
     - _Requirements: 1.1, 1.3, 1.5, 2.2, 2.3, 2.4, 2.5, 2.6, 2.7, 3.1, 4.1, 4.2, 4.3, 4.4, 4.5, 4.6, 5.1, 5.2, 5.3, 5.4, 5.5, 5.6_
 
-  - [ ] 4.3 Measure the First_Row_Base after layout
+  - [x] 4.3 Measure the First_Row_Base after layout
     - Edit `lib/src/ui/graveyard_scene.dart`: add to `_GraveyardSceneState` the fields `GlobalKey _stoneKey`, `GlobalKey _contentKey`, `double? _stoneBase`, `double? _contentHeight`, `bool _needsMeasure = true`, `Size? _lastViewport` and `TextScaler? _lastScaler`. Pass `_stoneKey` through `_rows` and `_tombstone` to the first `GraveTombstone` of the first row only (also in the rising branch), and give the rows `Column` the `_contentKey`.
     - Add `_measureGround()`, scheduled with one `addPostFrameCallback` only while `_needsMeasure` is set (cleared when scheduled). It reads the keyed Stone_Box render box and the content render box and computes the base as `stone.localToGlobal(Offset(stone.size.width / 2, stone.size.height), ancestor: content).dy`. The keyed `ConstrainedBox` sits above `Transform.translate`, so this value is the resting base at every Rise_Progress: there is no `(1 - progress) * riseDistance` correction and no `RiseProgress` term. It calls `setState` only when a value is new or differs by more than 0.5 px. It never derives the base from the row height or the control-block height.
     - Set `_needsMeasure` on: first build, a change of the viewport size (compared with `_lastViewport` in the outer `LayoutBuilder`), a change of the text scaler (compared with `_lastScaler`), a change of the rows list including `Grave` equality (in `didUpdateWidget`, so add, import, delete, raise and reorder all trigger it), and the end of a rise. A scroll, a rise tick and a repaint do not trigger a measurement. The measurement must not throw when the keys are absent (for example the last grave was deleted).
     - _Requirements: 1.2, 1.3, 1.4, 1.6, 1.7, 1.8, 2.1, 3.2, 3.3, 3.4_
 
-  - [ ] 4.4 Bottom-align the Stones in every row and update the three layout tests
+  - [x] 4.4 Bottom-align the Stones in every row and update the three layout tests
     - Edit `lib/src/ui/graveyard_scene.dart`: change `crossAxisAlignment` of the `Row` built by `_rows` from `CrossAxisAlignment.start` to `CrossAxisAlignment.end`. `SceneLayout`, the column counts (one column below 720 logical pixels, two to four from 720), the cell widths, the Rise animation and the tilt stay unchanged. Edit nothing in `scene_layout.dart`.
     - In the same task, edit `test/ui/graveyard_scene_test.dart`, group `layout`, only the local helper `columns`: read `tester.getBottomLeft(find.byType(GraveTombstone).at(i)).dy` instead of `getTopLeft`, name the list `bottoms`, and compare the bases within 1 px. Keep the 8 graves and the three test names `360 px shows one column`, `768 px shows 2 to 4 columns` and `1280 px shows 2 to 4 columns` with their expected column counts. No other line of that file changes.
     - Confirm that the three updated tests, every other test of that file, and `test/ui/ground_painter_test.dart`, `test/ui/resurrection_layout_test.dart`, `test/ui/layout_test.dart` and `test/ui/seance_sheet_*_test.dart` pass, so the task ends with no failing test.
     - _Requirements: 1.7, 11.4, 11.5, 13.1, 13.2, 13.3, 13.4, 13.5_
 
-  - [ ] 4.5 Update the class comment of `GraveyardScene` and the doc comment of `GroundPainter`
+  - [x] 4.5 Update the class comment of `GraveyardScene` and the doc comment of `GroundPainter`
     - Edit the class doc comment in `lib/src/ui/graveyard_scene.dart`: remove the statements that the ground is a strip at the bottom of the scene and that "the ground never scrolls", and state that the ground scrolls with the rows as the Ground_Field, and that the Ground_Band stays a static band in the Empty_State and the All_Risen_State. Edit only the doc comment of `GroundPainter` in `lib/src/ui/ground_painter.dart`, using the wording of the design, with no code change.
     - _Requirements: 11.6, 5.5_
 
-- [ ] 5. Séance sheet
-  - [ ] 5.1 Size the sheet surface to its content
+- [x] 5. Séance sheet
+  - [x] 5.1 Size the sheet surface to its content
     - Edit `lib/src/ui/seance_sheet.dart`: change the content `Align(alignment: Alignment.topCenter, ...)` to `Align(alignment: Alignment.topCenter, heightFactor: 1, ...)` inside the existing `SafeArea` and the `viewInsets.bottom` `Padding`, keeping the `ConstrainedBox(maxWidth: 560)` and the `SingleChildScrollView`. Keep `isScrollControlled: true` and `useSafeArea: true` in `showSeanceSheet`. Short content gives a sheet as tall as its content with a scroll extent of 0. Tall content (text scale 2.0, short screen) fills the offered height and scrolls to every part. The close button stays at the top of the content, aligned with the top of the title.
     - _Requirements: 7.1, 7.2, 7.3, 7.4, 7.5, 7.6, 7.7_
+    - Execution note (approved by the user): the content-sized sheet broke `a reply moves neither the score nor the steps` (the sheet shrank 80 px when the verdict replaced the loader), so the Verdict_Slot of task 5.2 was built in this task. It also broke `the control leaves score, band, steps and verdict unchanged` in `seance_sheet_raise_test.dart`; that test now closes the first sheet before opening the second (see Requirement 11.4).
 
-  - [ ] 5.2 Reserve the Verdict_Slot
+  - [x] 5.2 Reserve the Verdict_Slot
     - Edit `lib/src/ui/seance_sheet.dart`: replace the bare pending `Center(child: GhostLoader(...))` and the settled `Text` of `_verdictArea` with one Verdict_Slot, a `ConstrainedBox(constraints: BoxConstraints(minHeight: reserved))` holding the `GhostLoader` (centered) while pending and the verdict after that. `reserved` is `VerdictSlotHeight.of(lineHeight:, minHeight:, maxCodeUnits: verdictMaxLength, charsPerLine:)`, where `charsPerLine` and `lineHeight` are measured once per `(width, text scale)` pair with `TextPainter` for the verdict style, and `minHeight` is at least the rendered `GhostLoader` height. The same `reserved` value is used for the pending, ready and fallback states. The height is recomputed when the text scale or the width changes. A verdict longer than the slot grows the slot, because the constraint is a minimum and not a fixed height. The verdict stays at the top of the slot.
     - Do not change the tests `a reply moves neither the score nor the steps` and `the safe line after a failure moves nothing`; the title, the score card and the steps must not move when the verdict arrives.
     - _Requirements: 8.1, 8.2, 8.3, 8.4, 8.5, 10.3_
+    - Execution note: implemented during task 5.1 (`_verdictArea`, `_reservedSlotHeight`, `_measureVerdictLine` in `seance_sheet.dart`). The loader minimum is the rendered `GhostLoader` height, read after layout. `charsPerLine` is the content width divided by the average character width of a sample, times 0.8 for whole-word wrapping. The reservation is capped at the scroll viewport height, so the verdict stays reachable at the end of the scroll on short screens; content that tall already fills the sheet, which keeps the upper content still. Verify and close this task.
 
-  - [ ] 5.3 Build the accent-bar Verdict_Block
+  - [x] 5.3 Build the accent-bar Verdict_Block
     - Edit `lib/src/ui/seance_sheet.dart`: render the settled verdict (generated or `GraveyardCopy.safeVerdictLine`, same style for both) as one Verdict_Block: a vertical accent bar of 3 logical pixels in `CoffinColorTokens.primary` at the left edge, with the height of the verdict text, followed by one `Text` in `CoffinColorTokens.text` whose font size is larger than the step text, start-aligned and wrapping inside the block width. The bar is a `DecoratedBox` or `Container` with the `primary` color, never `raised`. The block adds no `Icon`, no extra `Text` and no `DecoratedBox` with the `raised` color, so the sheet keeps one `Icon`, ten `Text` widgets in the ready state and one raised `DecoratedBox` (the score card). Keep the semantics: one container node with the verdict as label, `liveRegion` true and the child semantics excluded. Keep the existing 450 ms reveal, and show the block at once under Reduced_Motion. Keep the order of the sheet: title, score card, steps, verdict.
     - _Requirements: 9.1, 9.2, 9.3, 9.4, 9.5, 9.6, 9.7, 9.8, 9.9, 10.4_
 
-  - [ ] 5.4 Align the Verdict_Block with the steps
+  - [x] 5.4 Align the Verdict_Block with the steps
     - Edit `lib/src/ui/seance_sheet.dart`: place the Verdict_Block so its left edge (the left edge of the accent bar) is at the left edge of the step number column of the steps, and its right edge is at the right edge of the steps, within 0.5 logical pixels, at each Test_Width and each Test_Scale. The `GhostLoader` stays centered in the Verdict_Slot. If the 32 logical pixel number column and the bar need a shared inset constant, define it once in `seance_sheet.dart` and use it for both.
     - _Requirements: 10.1, 10.2, 10.3_
 

@@ -80,6 +80,44 @@ void main() {
     expect(deleted, 1);
   });
 
+  testWidgets('stoneKey marks the stone box, outside the rise translate', (
+    tester,
+  ) async {
+    final key = GlobalKey();
+    Future<void> pumpRise(double riseProgress) => tester.pumpWidget(
+      MaterialApp(
+        theme: CoffinTheme.dark(),
+        home: Scaffold(
+          body: SingleChildScrollView(
+            child: GraveTombstone(
+              grave: _github(CalendarDate(2023, 1, 3)),
+              today: _today,
+              onDelete: () {},
+              seanceAi: buildSeanceAi(),
+              riseProgress: riseProgress,
+              stoneKey: key,
+            ),
+          ),
+        ),
+      ),
+    );
+
+    await pumpRise(0);
+    expect(find.byKey(key), findsOneWidget);
+    final risen0 = tester.getRect(find.byKey(key));
+    final wrap0 = tester.getRect(find.byType(Wrap));
+    expect(risen0.bottom, lessThanOrEqualTo(wrap0.top));
+    expect(risen0.width, lessThanOrEqualTo(GraveTombstone.maxStoneWidth));
+
+    await pumpRise(1);
+    final risen1 = tester.getRect(find.byKey(key));
+    expect(risen1, risen0);
+    expect(
+      risen1.bottom,
+      lessThanOrEqualTo(tester.getRect(find.byType(Wrap)).top),
+    );
+  });
+
   for (final entry in <String, ThemeData Function()>{
     'dark': CoffinTheme.dark,
     'daylight': CoffinTheme.light,
