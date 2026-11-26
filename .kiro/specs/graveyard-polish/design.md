@@ -233,11 +233,12 @@ No new data model or domain entity is introduced for the ground. The only pure v
 /// Computes the height to reserve for the Verdict_Slot of a séance sheet.
 abstract final class VerdictSlotHeight {
   /// The height, in logical pixels, that fits [maxCodeUnits] UTF-16 code
-  /// units of verdict text wrapped at [width] in a text style whose line
-  /// height is [lineHeight] logical pixels, and is at least [minHeight]
-  /// (the height of the `GhostLoader`).
+  /// units of verdict text in a text style whose line height is
+  /// [lineHeight] logical pixels, and is at least [minHeight] (the height of
+  /// the `GhostLoader`). The caller computes [charsPerLine] from the
+  /// available width (measured with `TextPainter` in `seance_sheet.dart`),
+  /// so no width is passed.
   static double of({
-    required double width,
     required double lineHeight,
     required double minHeight,
     required int maxCodeUnits,

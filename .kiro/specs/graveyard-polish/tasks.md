@@ -21,40 +21,40 @@ Rules for every task:
 
 ## Tasks
 
-- [ ] 1. Ground height (domain)
-  - [ ] 1.1 Implement `GroundHeight`
+- [x] 1. Ground height (domain)
+  - [x] 1.1 Implement `GroundHeight`
     - Create `lib/src/domain/scene/ground_height.dart` with `abstract final class GroundHeight` and `static double of({required double groundTop, required double contentBottom, required double viewportHeight})` returning `max(0, contentBottom - groundTop, viewportHeight - groundTop)`. It never returns a negative value, also when `groundTop` lies below both bottoms. Doc-comment the class and `of`. Import only `dart:math`.
     - _Requirements: 2.2, 2.3, 2.4, 3.1, 12.11_
 
-  - [ ] 1.2 Write unit tests for `GroundHeight`
+  - [x] 1.2 Write unit tests for `GroundHeight`
     - Create `test/domain/scene/ground_height_test.dart`: a short scene where the viewport term wins; a tall scene where the content term wins; both terms equal; `groundTop` below both bottoms returns 0; `groundTop` of 0; `contentBottom` smaller than `groundTop` returns the viewport term or 0, never a negative number.
     - _Requirements: 2.2, 2.3, 2.4, 3.1_
 
-  - [ ] 1.3 Write property test for the ground reaching the viewport bottom
+  - [x] 1.3 Write property test for the ground reaching the viewport bottom
     - **Property 1: Ground fills at least to the viewport bottom**
     - **Validates: Requirements 2.2, 2.4**
     - Create `test/domain/scene/ground_height_property_test.dart` with a `RunCounter`-style run-count assertion. Over `groundTop` in `[0, viewportHeight]` and `contentBottom >= groundTop`, check `groundTop + of(...) >= viewportHeight`.
 
-  - [ ] 1.4 Write property test for the ground reaching the content bottom
+  - [x] 1.4 Write property test for the ground reaching the content bottom
     - **Property 3: Ground height never shrinks the content area**
     - **Validates: Requirements 2.3, 3.1**
     - Add this test to `test/domain/scene/ground_height_property_test.dart` with its own run-count assertion. Over any `groundTop`, `contentBottom >= groundTop` and `viewportHeight >= 0`, check `of(...) >= contentBottom - groundTop` and `of(...) >= 0`.
 
-- [ ] 2. Verdict slot height (domain)
-  - [ ] 2.1 Implement `VerdictSlotHeight`
+- [x] 2. Verdict slot height (domain)
+  - [x] 2.1 Implement `VerdictSlotHeight`
     - Create `lib/src/domain/seance/verdict_slot_height.dart` with `abstract final class VerdictSlotHeight` and `static double of({required double width, required double lineHeight, required double minHeight, required int maxCodeUnits, required double charsPerLine})`. It computes `lines = ceil(maxCodeUnits / charsPerLine)` and returns `max(minHeight, lines * lineHeight)`. Unusable input (non-finite, `charsPerLine <= 0`, negative `maxCodeUnits`) returns `minHeight` and never throws. Doc-comment the class and `of`. Import only `dart:math`.
     - _Requirements: 8.1, 8.4, 8.5, 12.11_
 
-  - [ ] 2.2 Write unit tests for `VerdictSlotHeight`
+  - [x] 2.2 Write unit tests for `VerdictSlotHeight`
     - Create `test/domain/seance/verdict_slot_height_test.dart`: `maxCodeUnits` 140 at a representative `charsPerLine` and `lineHeight` gives the pinned number of lines times the line height; the result is never below `minHeight` (a short text with a tall `minHeight`); a narrower `width` (smaller `charsPerLine`) gives a taller slot; a larger `lineHeight` (text scale) gives a taller slot; `maxCodeUnits` of 0 returns `minHeight`; unusable input returns `minHeight` and throws nothing.
     - _Requirements: 8.1, 8.4, 8.5_
 
-  - [ ] 2.3 Write property test for the verdict slot height
+  - [x] 2.3 Write property test for the verdict slot height
     - **Property 2: Verdict slot height is monotone and bounded below**
     - **Validates: Requirements 8.1, 8.5**
     - Create `test/domain/seance/verdict_slot_height_property_test.dart` with a run-count assertion. Over `maxCodeUnits >= 0`, `charsPerLine > 0`, `lineHeight > 0` and `minHeight >= 0`, check `of(...) >= minHeight`, and check that a larger `maxCodeUnits` with the other inputs fixed never gives a smaller result.
 
-- [ ] 3. Checkpoint - Domain complete
+- [x] 3. Checkpoint - Domain complete
   - Run each command in order, with the working directory shown.
   - In `/Users/ranmanlabs/Documents/Kiroween/coffin/apps/graveyard`: `dart format --output=none --set-exit-if-changed .` (must exit 0).
   - In `/Users/ranmanlabs/Documents/Kiroween/coffin/apps/graveyard`: `flutter analyze` (zero issues).
@@ -97,7 +97,7 @@ Rules for every task:
     - _Requirements: 7.1, 7.2, 7.3, 7.4, 7.5, 7.6, 7.7_
 
   - [ ] 5.2 Reserve the Verdict_Slot
-    - Edit `lib/src/ui/seance_sheet.dart`: replace the bare pending `Center(child: GhostLoader(...))` and the settled `Text` of `_verdictArea` with one Verdict_Slot, a `ConstrainedBox(constraints: BoxConstraints(minHeight: reserved))` holding the `GhostLoader` (centered) while pending and the verdict after that. `reserved` is `VerdictSlotHeight.of(width:, lineHeight:, minHeight:, maxCodeUnits: verdictMaxLength, charsPerLine:)`, where `charsPerLine` and `lineHeight` are measured once per `(width, text scale)` pair with `TextPainter` for the verdict style, and `minHeight` is at least the rendered `GhostLoader` height. The same `reserved` value is used for the pending, ready and fallback states. The height is recomputed when the text scale or the width changes. A verdict longer than the slot grows the slot, because the constraint is a minimum and not a fixed height. The verdict stays at the top of the slot.
+    - Edit `lib/src/ui/seance_sheet.dart`: replace the bare pending `Center(child: GhostLoader(...))` and the settled `Text` of `_verdictArea` with one Verdict_Slot, a `ConstrainedBox(constraints: BoxConstraints(minHeight: reserved))` holding the `GhostLoader` (centered) while pending and the verdict after that. `reserved` is `VerdictSlotHeight.of(lineHeight:, minHeight:, maxCodeUnits: verdictMaxLength, charsPerLine:)`, where `charsPerLine` and `lineHeight` are measured once per `(width, text scale)` pair with `TextPainter` for the verdict style, and `minHeight` is at least the rendered `GhostLoader` height. The same `reserved` value is used for the pending, ready and fallback states. The height is recomputed when the text scale or the width changes. A verdict longer than the slot grows the slot, because the constraint is a minimum and not a fixed height. The verdict stays at the top of the slot.
     - Do not change the tests `a reply moves neither the score nor the steps` and `the safe line after a failure moves nothing`; the title, the score card and the steps must not move when the verdict arrives.
     - _Requirements: 8.1, 8.2, 8.3, 8.4, 8.5, 10.3_
 
